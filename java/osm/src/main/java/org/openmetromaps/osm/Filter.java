@@ -20,40 +20,29 @@ package org.openmetromaps.osm;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.Files;
-import com.slimjars.dist.gnu.trove.set.TLongSet;
-import com.slimjars.dist.gnu.trove.set.hash.TLongHashSet;
 
-import de.topobyte.adt.graph.Graph;
 import de.topobyte.melon.io.StreamUtil;
 import de.topobyte.osm4j.core.access.OsmIterator;
 import de.topobyte.osm4j.core.access.OsmIteratorInput;
 import de.topobyte.osm4j.core.access.OsmOutputStream;
-import de.topobyte.osm4j.core.dataset.InMemoryListDataSet;
-import de.topobyte.osm4j.core.dataset.ListDataSetLoader;
 import de.topobyte.osm4j.core.model.iface.EntityType;
 import de.topobyte.osm4j.core.model.iface.OsmNode;
 import de.topobyte.osm4j.core.model.iface.OsmRelation;
-import de.topobyte.osm4j.core.model.iface.OsmRelationMember;
 import de.topobyte.osm4j.core.model.iface.OsmWay;
-import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 import de.topobyte.osm4j.core.util.NodeIterator;
 import de.topobyte.osm4j.core.util.RelationIterator;
 import de.topobyte.osm4j.core.util.WayIterator;
-import de.topobyte.osm4j.extra.relations.RelationGraph;
 import de.topobyte.osm4j.utils.FileFormat;
 import de.topobyte.osm4j.utils.OsmFile;
 import de.topobyte.osm4j.utils.OsmFileInput;
 import de.topobyte.osm4j.utils.OsmIoUtils;
 import de.topobyte.osm4j.utils.OsmOutputConfig;
-import de.topobyte.osm4j.utils.merge.sorted.SortedMerge;
 import de.topobyte.osm4j.utils.split.EntitySplitter;
 
 /**
@@ -77,7 +66,6 @@ public abstract class Filter
 	private FileFormat formatIntermediate;
 
 	private OsmOutputConfig outputConfigIntermediate;
-	private OsmOutputConfig outputConfigTarget;
 
 	public Filter(OsmFile input, OsmFile output, boolean useMetadata)
 	{
@@ -88,8 +76,6 @@ public abstract class Filter
 		formatIntermediate = FileFormat.TBO;
 
 		outputConfigIntermediate = new OsmOutputConfig(formatIntermediate,
-				useMetadata);
-		outputConfigTarget = new OsmOutputConfig(output.getFileFormat(),
 				useMetadata);
 	}
 
@@ -120,16 +106,6 @@ public abstract class Filter
 		OsmFile fileRelationsFiltered = new OsmFile(
 				dir.resolve("relations-filtered.tbo"), formatIntermediate);
 
-		// The ways references by relations
-		OsmFile fileRelationWays = new OsmFile(dir.resolve("relation-ways.tbo"),
-				formatIntermediate);
-		// The nodes from ways, relations, and relation ways
-		OsmFile fileAdditionalNodes = new OsmFile(
-				dir.resolve("additional-nodes.tbo"), formatIntermediate);
-
-		OsmFileInput inputFilteredRelations = new OsmFileInput(
-				fileRelationsFiltered);
-
 		logger.info("Splitting to separate files...");
 
 		OsmIteratorInput iterator = new OsmFileInput(input).createIterator(true,
@@ -140,81 +116,18 @@ public abstract class Filter
 		splitter.execute();
 		iterator.close();
 
-		logger.info("Building relation graph...");
-		RelationGraph relationGraph = new RelationGraph(true, false);
-		OsmIteratorInput relationIterator = new OsmFileInput(fileRelations)
-				.createIterator(false, false);
-		relationGraph.build(relationIterator.getIterator());
-		relationIterator.close();
-
 		logger.info("Filtering...");
 
 		filter(fileNodes, fileNodesFiltered, EntityType.Node);
 		filter(fileWays, fileWaysFiltered, EntityType.Way);
 		filter(fileRelations, fileRelationsFiltered, EntityType.Relation);
 
-		logger.info("Selecting additional relations...");
+		logger.info("Collecting references...");
 
-		InMemoryListDataSet relations = ListDataSetLoader.read(
-				inputFilteredRelations.createIterator(true, useMetadata), true,
-				true, true);
-
-		TLongSet all = new TLongHashSet();
-		Graph<Long> graph = relationGraph.getGraph();
-		TLongSet simple = relationGraph.getIdsSimpleRelations();
-		for (OsmRelation relation : relations.getRelations()) {
-			if (simple.contains(relation.getId())) {
-				all.add(relation.getId());
-			} else {
-				all.addAll(graph.getReachable(relation.getId()));
-			}
-		}
-
-		logger.info("Original number of relations: "
-				+ relations.getRelations().size());
-		logger.info("Final number of relations: " + all.size());
-
-		logger.info("Extracting extended relation set...");
-		filter(fileRelations, fileRelationsFiltered, EntityType.Relation, all);
-
-		logger.info("Collecting relation member ids...");
-		TLongSet nodeIds = new TLongHashSet();
-		TLongSet wayIds = new TLongHashSet();
-
-		collectMemberIds(inputFilteredRelations, nodeIds, wayIds);
-
-		logger.info("Extracting relation ways...");
-		filter(fileWays, fileRelationWays, EntityType.Way, wayIds);
-
-		logger.info("Extracting way nodes...");
-		collectWayNodeIds(new OsmFileInput(fileWaysFiltered), nodeIds);
-		collectWayNodeIds(new OsmFileInput(fileRelationWays), nodeIds);
-
-		logger.info("Extracting additional nodes...");
-		filter(fileNodes, fileAdditionalNodes, EntityType.Node, nodeIds);
-
-		logger.info("Merging...");
-
-		List<OsmFile> files = new ArrayList<>();
-		files.add(fileNodesFiltered);
-		files.add(fileAdditionalNodes);
-		files.add(fileWaysFiltered);
-		files.add(fileRelationWays);
-		files.add(fileRelationsFiltered);
-
-		List<OsmIterator> iterators = new ArrayList<>();
-		for (OsmFile file : files) {
-			OsmIteratorInput input = new OsmFileInput(file).createIterator(true,
-					useMetadata);
-			iterators.add(input.getIterator());
-		}
-
-		OutputStream os = StreamUtil.bufferedOutputStream(output.getPath());
-		OsmOutputStream output = OsmIoUtils.setupOsmOutput(os,
-				outputConfigTarget);
-
-		SortedMerge merge = new SortedMerge(output, iterators);
-		merge.run();
+		Collector collector = new Collector(fileNodes, fileWays, fileRelations,
+				fileNodesFiltered, fileWaysFiltered, fileRelationsFiltered,
+				output, useMetadata);
+		collector.execute(dir);
 
 		logger.info("Deleting intermediate files...");
 		FileUtils.deleteDirectory(dir.toFile());
@@ -236,29 +149,6 @@ public abstract class Filter
 			filterWays(iterator.getIterator(), output);
 		} else if (type == EntityType.Relation) {
 			filterRelations(iterator.getIterator(), output);
-		}
-
-		output.complete();
-		os.close();
-		iterator.close();
-	}
-
-	private void filter(OsmFile fileInput, OsmFile fileOutput, EntityType type,
-			TLongSet ids) throws IOException
-	{
-		OsmIteratorInput iterator = new OsmFileInput(fileInput)
-				.createIterator(true, useMetadata);
-
-		OutputStream os = StreamUtil.bufferedOutputStream(fileOutput.getPath());
-		OsmOutputStream output = OsmIoUtils.setupOsmOutput(os,
-				outputConfigIntermediate);
-
-		if (type == EntityType.Node) {
-			filterNodes(iterator.getIterator(), output, ids);
-		} else if (type == EntityType.Way) {
-			filterWays(iterator.getIterator(), output, ids);
-		} else if (type == EntityType.Relation) {
-			filterRelations(iterator.getIterator(), output, ids);
 		}
 
 		output.complete();
@@ -294,64 +184,6 @@ public abstract class Filter
 				output.write(relation);
 			}
 		}
-	}
-
-	private void filterNodes(OsmIterator iterator, OsmOutputStream output,
-			TLongSet ids) throws IOException
-	{
-		for (OsmNode node : new NodeIterator(iterator)) {
-			if (ids.contains(node.getId())) {
-				output.write(node);
-			}
-		}
-	}
-
-	private void filterWays(OsmIterator iterator, OsmOutputStream output,
-			TLongSet ids) throws IOException
-	{
-		for (OsmWay way : new WayIterator(iterator)) {
-			if (ids.contains(way.getId())) {
-				output.write(way);
-			}
-		}
-	}
-
-	private void filterRelations(OsmIterator iterator, OsmOutputStream output,
-			TLongSet ids) throws IOException
-	{
-		for (OsmRelation relation : new RelationIterator(iterator)) {
-			if (ids.contains(relation.getId())) {
-				output.write(relation);
-			}
-		}
-	}
-
-	private void collectMemberIds(OsmFileInput input, TLongSet nodeIds,
-			TLongSet wayIds) throws IOException
-	{
-		OsmIteratorInput iterator = input.createIterator(false, false);
-		for (OsmRelation relation : new RelationIterator(
-				iterator.getIterator())) {
-			for (OsmRelationMember member : OsmModelUtil
-					.membersAsList(relation)) {
-				if (member.getType() == EntityType.Node) {
-					nodeIds.add(member.getId());
-				} else if (member.getType() == EntityType.Way) {
-					wayIds.add(member.getId());
-				}
-			}
-		}
-		iterator.close();
-	}
-
-	private void collectWayNodeIds(OsmFileInput input, TLongSet nodeIds)
-			throws IOException
-	{
-		OsmIteratorInput iterator = input.createIterator(false, false);
-		for (OsmWay way : new WayIterator(iterator.getIterator())) {
-			nodeIds.addAll(OsmModelUtil.nodesAsList(way));
-		}
-		iterator.close();
 	}
 
 }

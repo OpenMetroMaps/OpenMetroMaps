@@ -63,6 +63,10 @@ public class FilterRelevantData
 
 		System.out.println("Input: " + pathInput);
 		System.out.println("Output: " + pathOutput);
+
+		org.openmetromaps.osm.FilterRelevantData filter = new org.openmetromaps.osm.FilterRelevantData(
+				pathInput, pathOutput);
+		filter.execute();
 	}
 
 }

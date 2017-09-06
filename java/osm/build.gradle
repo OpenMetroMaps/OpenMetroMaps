@@ -4,4 +4,5 @@ if (project.hasProperty("topobyte")) {
 }
 
 dependencies {
+    compile 'de.topobyte:osm4j-utils:0.1.0'
 }

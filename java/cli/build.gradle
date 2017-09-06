@@ -1,0 +1,18 @@
+dependencies {
+    compile project(':openmetromaps-model')
+    compile project(':openmetromaps-osm')
+}
+
+task copyJars(type: Copy) {
+    into "$buildDir/lib-run"
+    from jar
+}
+
+task copyDeps(type: Copy) {
+    into "$buildDir/lib-run"
+    from configurations.runtime
+}
+
+task createRuntime(dependsOn: [copyJars, copyDeps]) {
+    description 'Setup the execution environment for the main scripts'
+}

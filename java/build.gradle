@@ -1,0 +1,65 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = 2.3
+}
+
+allprojects {
+    group = pGroup
+    version = pVersion
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+
+    repositories {
+        maven {
+            url 'http://mvn.topobyte.de'
+        }
+        mavenCentral()
+    }
+}
+
+configure([project(':openmetromaps-model'),
+        project(':openmetromaps-osm')]) {
+
+    apply plugin: 'maven'
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives sourcesJar
+    }
+
+    def global = new File('info.pom');
+    def local = new File(project.projectDir, 'info.pom');
+
+    def pomInfo = new XmlSlurper().parse(global);
+    if (local.exists()) {
+        def pomInfoL = new XmlSlurper().parse(local);
+        pomInfo.name = pomInfoL.name
+    }
+
+    afterEvaluate { project ->
+        uploadArchives {
+            repositories {
+                mavenDeployer {
+                    pom.project {
+                        name pomInfo.name
+                        description pomInfo.description
+                        url pomInfo.url
+                        licenses {
+                            license {
+                                name pomInfo.licenseName
+                                url pomInfo.licenseUrl
+                                distribution pomInfo.licenseDistribution
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

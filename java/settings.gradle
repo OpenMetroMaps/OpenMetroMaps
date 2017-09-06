@@ -1,0 +1,4 @@
+include 'model', 'osm', 'cli'
+project(':model').name = 'openmetromaps-model'
+project(':osm').name = 'openmetromaps-osm'
+project(':cli').name = 'openmetromaps-cli'

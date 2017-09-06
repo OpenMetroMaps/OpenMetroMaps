@@ -17,6 +17,7 @@
 
 package org.openmetromaps.cli;
 
+import org.openmetromaps.cli.osm.FilterRegion;
 import org.openmetromaps.cli.osm.FilterRelevantData;
 
 import de.topobyte.utilities.apache.commons.cli.commands.ArgumentParser;
@@ -38,6 +39,8 @@ public class OpenMetroMapsCli
 			DelegateExeOptions options = new DelegateExeOptions();
 			options.addCommand("osm-filter", FilterRelevantData.OPTIONS_FACTORY,
 					FilterRelevantData.class);
+			options.addCommand("osm-extract", FilterRegion.OPTIONS_FACTORY,
+					FilterRegion.class);
 			return options;
 		}
 

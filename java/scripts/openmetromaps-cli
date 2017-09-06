@@ -1,0 +1,7 @@
+#!/bin/bash
+
+DIR=$(dirname $0)
+CMD="$DIR/openmetromaps-cli.sh"
+CLASS="org.openmetromaps.cli.OpenMetroMapsCli"
+
+exec "$CMD" "$CLASS" "$@"

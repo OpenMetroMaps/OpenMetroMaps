@@ -24,6 +24,8 @@ import java.nio.file.Paths;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
+import de.topobyte.osm4j.utils.FileFormat;
+import de.topobyte.osm4j.utils.OsmFile;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
@@ -60,12 +62,14 @@ public class FilterRelevantData
 		String argOutput = line.getOptionValue(OPTION_OUTPUT);
 		Path pathInput = Paths.get(argInput);
 		Path pathOutput = Paths.get(argOutput);
+		OsmFile fileInput = new OsmFile(pathInput, FileFormat.TBO);
+		OsmFile fileOutput = new OsmFile(pathOutput, FileFormat.TBO);
 
 		System.out.println("Input: " + pathInput);
 		System.out.println("Output: " + pathOutput);
 
 		org.openmetromaps.osm.FilterRelevantData filter = new org.openmetromaps.osm.FilterRelevantData(
-				pathInput, pathOutput);
+				fileInput, fileOutput, false);
 		filter.execute();
 	}
 

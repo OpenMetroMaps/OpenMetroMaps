@@ -5,6 +5,7 @@ if (project.hasProperty("topobyte")) {
 
 dependencies {
     compile 'de.topobyte:osm4j-utils:0.1.0'
+    compile 'de.topobyte:osm4j-extra:0.1.0'
 
     testRuntime 'org.slf4j:slf4j-log4j12:1.6.1'
     testRuntime 'log4j:log4j:1.2.16'

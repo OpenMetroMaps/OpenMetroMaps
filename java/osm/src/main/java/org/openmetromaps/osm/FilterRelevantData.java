@@ -17,7 +17,6 @@
 
 package org.openmetromaps.osm;
 
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
@@ -27,13 +26,15 @@ import de.topobyte.osm4j.core.model.iface.OsmNode;
 import de.topobyte.osm4j.core.model.iface.OsmRelation;
 import de.topobyte.osm4j.core.model.iface.OsmWay;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
+import de.topobyte.osm4j.utils.OsmFile;
 
 public class FilterRelevantData extends Filter
 {
 
-	public FilterRelevantData(Path input, Path output)
+	public FilterRelevantData(OsmFile input, OsmFile output,
+			boolean useMetadata)
 	{
-		super(input, output);
+		super(input, output, useMetadata);
 	}
 
 	private Set<String> interstingRouteTypes = new HashSet<>();

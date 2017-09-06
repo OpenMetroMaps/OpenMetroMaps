@@ -71,7 +71,7 @@ public class FilterRegion
 		Path pathInput = Paths.get(argInput);
 		Path pathOutput = Paths.get(argOutput);
 		Path pathBoundary = Paths.get(argBoundary);
-		OsmFile fileInput = new OsmFile(pathInput, FileFormat.TBO);
+		OsmFile fileInput = new OsmFile(pathInput, FileFormat.PBF);
 		OsmFile fileOutput = new OsmFile(pathOutput, FileFormat.TBO);
 
 		System.out.println("Input: " + pathInput);

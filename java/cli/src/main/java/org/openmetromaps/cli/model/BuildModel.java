@@ -20,6 +20,7 @@ package org.openmetromaps.cli.model;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -68,8 +69,16 @@ public class BuildModel
 		System.out.println("Input: " + pathInput);
 		System.out.println("Output: " + pathOutput);
 
+		List<String> prefixes = new ArrayList<>();
+		prefixes.add("S ");
+		prefixes.add("U ");
+		prefixes.add("S+U ");
+		prefixes.add("U-Bhf ");
+
+		ArrayList<Fix> fixes = new ArrayList<>();
+
 		org.openmetromaps.model.BuildModel task = new org.openmetromaps.model.BuildModel(
-				fileInput, new ArrayList<Fix>());
+				fileInput, prefixes, fixes);
 		task.run(true);
 	}
 

@@ -54,14 +54,16 @@ public class BuildModel
 	final static Logger logger = LoggerFactory.getLogger(BuildModel.class);
 
 	private OsmFile fileInput;
+	private List<String> prefixes;
 	private List<Fix> fixes = new ArrayList<>();
 
 	protected Map<String, OsmNode> stationMap;
 	protected List<DraftLine> lines;
 
-	public BuildModel(OsmFile fileInput, List<Fix> fixes)
+	public BuildModel(OsmFile fileInput, List<String> prefixes, List<Fix> fixes)
 	{
 		this.fileInput = fileInput;
+		this.prefixes = prefixes;
 		this.fixes = fixes;
 	}
 
@@ -91,7 +93,7 @@ public class BuildModel
 			if (stationName == null) {
 				continue;
 			}
-			stationName = stripPrefix(stationName);
+			stationName = stripPrefix(stationName, prefixes);
 			if (!stationMap.containsKey(stationName)) {
 				stationMap.put(stationName, node);
 			}
@@ -159,7 +161,7 @@ public class BuildModel
 					continue;
 				}
 
-				sName = stripPrefix(sName);
+				sName = stripPrefix(sName, prefixes);
 
 				logger.info(sName);
 				DraftStation station = new DraftStation(sName, node);
@@ -251,16 +253,13 @@ public class BuildModel
 		}
 	}
 
-	public static String stripPrefix(String sName)
+	public String stripPrefix(String sName, List<String> prefixes)
 	{
-		if (sName.startsWith("S ")) {
-			sName = sName.substring(2);
-		} else if (sName.startsWith("U ")) {
-			sName = sName.substring(2);
-		} else if (sName.startsWith("S+U ")) {
-			sName = sName.substring(4);
-		} else if (sName.startsWith("U-Bhf ")) {
-			sName = sName.substring(6);
+		for (String prefix : prefixes) {
+			if (sName.startsWith(prefix)) {
+				sName = sName.substring(prefix.length());
+				break;
+			}
 		}
 		return sName;
 	}

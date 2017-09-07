@@ -17,12 +17,21 @@
 
 package org.openmetromaps.model.inspector;
 
+import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Map;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import org.openmetromaps.model.DraftLine;
 
@@ -38,7 +47,7 @@ public class LinePanel extends JPanel
 	private JLabel labelName = new JLabel("Name:");
 	private JLabel displayName = new JLabel();
 	private JLabel labelSource = new JLabel("Source:");
-	private JLabel displaySource = new JLabel();
+	private JButton displaySource = new JButton();
 	private JLabel labelNumStations = new JLabel("# Stations:");
 	private JLabel displayNumStations = new JLabel();
 
@@ -51,6 +60,12 @@ public class LinePanel extends JPanel
 	private void init()
 	{
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
+
+		displaySource.setBorderPainted(false);
+		displaySource.setOpaque(false);
+		displaySource.setBackground(Color.WHITE);
+		displaySource.setHorizontalAlignment(SwingConstants.LEFT);
+		displaySource.setBorder(null);
 
 		c.fill(GridBagConstraints.HORIZONTAL).weight(1, 0);
 		c.gridX(1);
@@ -77,7 +92,7 @@ public class LinePanel extends JPanel
 
 	public void setLine(DraftLine line)
 	{
-		OsmRelation source = line.getSource();
+		final OsmRelation source = line.getSource();
 		Map<String, String> tags = OsmModelUtil.getTagsAsMap(source);
 		String name = tags.get("ref");
 
@@ -85,6 +100,28 @@ public class LinePanel extends JPanel
 		displaySource.setText(String.format("Relation %d", source.getId()));
 		displayNumStations
 				.setText(String.format("%d", line.getStations().size()));
+
+		displaySource.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				openRelationInBrowser(source);
+			}
+
+		});
+	}
+
+	protected void openRelationInBrowser(OsmRelation source)
+	{
+		try {
+			URI uri = new URI(
+					String.format("http://www.openstreetmap.org/relation/%d",
+							source.getId()));
+			Desktop.getDesktop().browse(uri);
+		} catch (IOException | URISyntaxException e1) {
+			// ignore
+		}
 	}
 
 }

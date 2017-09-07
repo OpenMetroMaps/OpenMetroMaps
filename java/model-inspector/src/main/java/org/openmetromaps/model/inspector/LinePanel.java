@@ -21,8 +21,6 @@ import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -30,7 +28,9 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
 import org.openmetromaps.model.DraftLine;
@@ -101,15 +101,21 @@ public class LinePanel extends JPanel
 
 		displaySource.setVisible(true);
 
-		displaySource.addActionListener(new ActionListener() {
+		displaySource
+				.addActionListener(x -> showContextMenu(displaySource, source));
+	}
 
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				openRelationInBrowser(source);
-			}
+	protected void showContextMenu(JButton button, final OsmRelation source)
+	{
+		JPopupMenu menu = new JPopupMenu();
 
-		});
+		JMenuItem itemOpenInBrowser = new JMenuItem();
+		itemOpenInBrowser.setText("Open in browser");
+		itemOpenInBrowser.addActionListener(x -> openRelationInBrowser(source));
+
+		menu.add(itemOpenInBrowser);
+
+		menu.show(button, 0, button.getHeight());
 	}
 
 	protected void openRelationInBrowser(OsmRelation source)

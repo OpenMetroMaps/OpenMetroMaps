@@ -17,9 +17,18 @@
 
 package org.openmetromaps.model.inspector;
 
-import javax.swing.JFrame;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import org.openmetromaps.model.DraftLine;
 import org.openmetromaps.model.DraftModel;
+
+import de.topobyte.awt.util.GridBagConstraintsEditor;
 
 public class ModelInspector
 {
@@ -31,6 +40,8 @@ public class ModelInspector
 	public ModelInspector(DraftModel model)
 	{
 		this.model = model;
+		System.out.println(model);
+		System.out.println(model.getLines());
 	}
 
 	public void show()
@@ -38,7 +49,25 @@ public class ModelInspector
 		frame = new JFrame("Model Inspector");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
+
+		build();
+
 		frame.setVisible(true);
+	}
+
+	private void build()
+	{
+		JPanel panel = new JPanel(new GridBagLayout());
+		frame.setContentPane(panel);
+
+		LinesListModel linesModel = new LinesListModel(model);
+		JList<DraftLine> listLines = new JList<>(linesModel);
+		JScrollPane jspLines = new JScrollPane(listLines);
+		listLines.setCellRenderer(new LinesCellRenderer());
+
+		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
+		c.weight(1, 1).fill(GridBagConstraints.BOTH);
+		panel.add(jspLines, c.getConstraints());
 	}
 
 }

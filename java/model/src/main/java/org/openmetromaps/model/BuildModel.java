@@ -29,6 +29,8 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
 import com.slimjars.dist.gnu.trove.iterator.TLongObjectIterator;
 
 import de.topobyte.geomath.WGS84;
@@ -168,12 +170,33 @@ public class BuildModel
 		logger.info("# Bugs (not found): " + nBugsNotFound);
 		logger.info("# Bugs (no name): " + nBugsNoName);
 
+		Multiset<String> nameCounts = HashMultiset.create();
+		for (DraftLine line : lines) {
+			Map<String, String> tags = OsmModelUtil
+					.getTagsAsMap(line.getSource());
+			String ref = tags.get("ref");
+			nameCounts.add(ref);
+		}
+
 		logger.info(String.format("Found %d lines", lines.size()));
+
+		logger.info("Line names:");
 		for (DraftLine line : lines) {
 			Map<String, String> tags = OsmModelUtil
 					.getTagsAsMap(line.getSource());
 			String ref = tags.get("ref");
 			logger.info("line: " + ref);
+		}
+
+		logger.info("Lines with != 2 occurrences:");
+		List<String> names = new ArrayList<>(nameCounts.elementSet());
+		Collections.sort(names);
+		for (String name : names) {
+			int count = nameCounts.count(name);
+			if (count == 2) {
+				continue;
+			}
+			logger.info(String.format("%s: %d", name, count));
 		}
 	}
 

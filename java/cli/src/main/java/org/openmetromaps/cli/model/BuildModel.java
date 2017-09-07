@@ -86,9 +86,9 @@ public class BuildModel
 
 		ArrayList<Fix> fixes = new ArrayList<>();
 
-		org.openmetromaps.model.BuildModel task = new org.openmetromaps.model.BuildModel(
+		org.openmetromaps.model.BuildModel modelBuilder = new org.openmetromaps.model.BuildModel(
 				fileInput, prefixes, fixes);
-		task.run(true);
+		modelBuilder.run(true);
 	}
 
 }

@@ -18,6 +18,7 @@
 package org.openmetromaps.cli;
 
 import org.openmetromaps.cli.model.BuildModel;
+import org.openmetromaps.cli.model.ModelInspector;
 import org.openmetromaps.cli.osm.FilterRegion;
 import org.openmetromaps.cli.osm.FilterRelevantData;
 
@@ -44,6 +45,8 @@ public class OpenMetroMapsCli
 					FilterRegion.class);
 			options.addCommand("build-model", BuildModel.OPTIONS_FACTORY,
 					BuildModel.class);
+			options.addCommand("inspect-model", ModelInspector.OPTIONS_FACTORY,
+					ModelInspector.class);
 			return options;
 		}
 

@@ -47,6 +47,8 @@ public class LinePanel extends JPanel
 	private JLabel labelNumStations = new JLabel("# Stations:");
 	private JLabel displayNumStations = new JLabel();
 
+	private DraftLine line;
+
 	public LinePanel()
 	{
 		super(new GridBagLayout());
@@ -82,10 +84,14 @@ public class LinePanel extends JPanel
 		c.gridY(3);
 		c.fill(GridBagConstraints.BOTH).weight(1, 1);
 		add(new JPanel(), c.getConstraints());
+
+		displaySource.addActionListener(x -> showContextMenu(displaySource));
 	}
 
 	public void setLine(DraftLine line)
 	{
+		this.line = line;
+
 		final OsmRelation source = line.getSource();
 		Map<String, String> tags = OsmModelUtil.getTagsAsMap(source);
 		String name = tags.get("ref");
@@ -96,14 +102,12 @@ public class LinePanel extends JPanel
 				.setText(String.format("%d", line.getStations().size()));
 
 		displaySource.setVisible(true);
-
-		displaySource
-				.addActionListener(x -> showContextMenu(displaySource, source));
 	}
 
-	protected void showContextMenu(JButton button, final OsmRelation source)
+	protected void showContextMenu(JButton button)
 	{
 		JPopupMenu menu = new JPopupMenu();
+		OsmRelation source = line.getSource();
 
 		JMenuItem itemOpenInBrowser = new JMenuItem();
 		itemOpenInBrowser.setText("Open in browser");

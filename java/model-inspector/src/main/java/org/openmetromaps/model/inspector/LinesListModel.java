@@ -18,6 +18,7 @@
 package org.openmetromaps.model.inspector;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class LinesListModel extends AbstractListModel<DraftLine>
 	public LinesListModel(DraftModel model)
 	{
 		lines = new ArrayList<>(model.getLines());
-		lines.sort(new Comparator<DraftLine>() {
+		Collections.sort(lines, new Comparator<DraftLine>() {
 
 			@Override
 			public int compare(DraftLine o1, DraftLine o2)

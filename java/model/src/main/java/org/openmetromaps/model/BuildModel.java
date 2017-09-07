@@ -20,7 +20,6 @@ package org.openmetromaps.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +56,7 @@ public class BuildModel
 	private List<String> prefixes;
 	private List<Fix> fixes;
 
-	protected Map<String, OsmNode> stationMap;
-	protected List<DraftLine> lines;
+	private DraftModel model = new DraftModel();
 
 	public BuildModel(OsmFile fileInput, List<String> prefixes, List<Fix> fixes)
 	{
@@ -67,8 +65,16 @@ public class BuildModel
 		this.fixes = fixes;
 	}
 
+	public DraftModel getModel()
+	{
+		return model;
+	}
+
 	public void run(boolean applyFixes) throws Exception
 	{
+		List<DraftLine> lines = model.getLines();
+		Map<String, OsmNode> stationMap = model.getStationMap();
+
 		OsmIteratorInput iterator = new OsmFileInput(fileInput)
 				.createIterator(true, false);
 		InMemoryMapDataSet dataSet = MapDataSetLoader.read(iterator, true, true,
@@ -76,7 +82,6 @@ public class BuildModel
 
 		List<OsmRelation> relationsList = new ArrayList<>();
 
-		stationMap = new HashMap<>();
 		TLongObjectIterator<OsmNode> nIter = dataSet.getNodes().iterator();
 		while (nIter.hasNext()) {
 			nIter.advance();
@@ -211,9 +216,9 @@ public class BuildModel
 			if (count != 2) {
 				continue;
 			}
-			List<DraftLine> lines = new ArrayList<>(nameToLines.get(name));
-			DraftLine line1 = lines.get(0);
-			DraftLine line2 = lines.get(1);
+			List<DraftLine> list = new ArrayList<>(nameToLines.get(name));
+			DraftLine line1 = list.get(0);
+			DraftLine line2 = list.get(1);
 			compare(name, line1, line2);
 		}
 	}

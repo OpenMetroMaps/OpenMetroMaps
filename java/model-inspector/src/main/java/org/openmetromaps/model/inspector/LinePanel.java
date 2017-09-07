@@ -17,13 +17,9 @@
 
 package org.openmetromaps.model.inspector;
 
-import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -120,14 +116,8 @@ public class LinePanel extends JPanel
 
 	protected void openRelationInBrowser(OsmRelation source)
 	{
-		try {
-			URI uri = new URI(
-					String.format("http://www.openstreetmap.org/relation/%d",
-							source.getId()));
-			Desktop.getDesktop().browse(uri);
-		} catch (IOException | URISyntaxException e1) {
-			// ignore
-		}
+		Util.browse(String.format("http://www.openstreetmap.org/relation/%d",
+				source.getId()));
 	}
 
 }

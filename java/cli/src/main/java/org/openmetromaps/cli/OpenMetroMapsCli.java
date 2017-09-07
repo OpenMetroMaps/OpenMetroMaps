@@ -17,6 +17,7 @@
 
 package org.openmetromaps.cli;
 
+import org.openmetromaps.cli.model.BuildModel;
 import org.openmetromaps.cli.osm.FilterRegion;
 import org.openmetromaps.cli.osm.FilterRelevantData;
 
@@ -41,6 +42,8 @@ public class OpenMetroMapsCli
 					FilterRelevantData.class);
 			options.addCommand("osm-extract", FilterRegion.OPTIONS_FACTORY,
 					FilterRegion.class);
+			options.addCommand("build-model", BuildModel.OPTIONS_FACTORY,
+					BuildModel.class);
 			return options;
 		}
 

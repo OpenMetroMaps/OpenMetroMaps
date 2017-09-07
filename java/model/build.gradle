@@ -4,6 +4,9 @@ if (project.hasProperty("topobyte")) {
 }
 
 dependencies {
+    compile 'de.topobyte:osm4j-utils:0.1.1'
+    compile 'de.topobyte:geomath:0.0.2'
+
     testRuntime 'org.slf4j:slf4j-log4j12:1.6.1'
     testRuntime 'log4j:log4j:1.2.16'
 }

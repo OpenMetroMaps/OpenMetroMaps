@@ -55,7 +55,7 @@ public class BuildModel
 
 	private OsmFile fileInput;
 	private List<String> prefixes;
-	private List<Fix> fixes = new ArrayList<>();
+	private List<Fix> fixes;
 
 	protected Map<String, OsmNode> stationMap;
 	protected List<DraftLine> lines;

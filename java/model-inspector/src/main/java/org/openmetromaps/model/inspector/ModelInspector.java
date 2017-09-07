@@ -40,8 +40,6 @@ public class ModelInspector
 	public ModelInspector(DraftModel model)
 	{
 		this.model = model;
-		System.out.println(model);
-		System.out.println(model.getLines());
 	}
 
 	public void show()

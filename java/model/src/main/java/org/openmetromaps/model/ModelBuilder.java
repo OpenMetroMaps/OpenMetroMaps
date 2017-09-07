@@ -58,7 +58,8 @@ public class ModelBuilder
 
 	private DraftModel model = new DraftModel();
 
-	public ModelBuilder(OsmFile fileInput, List<String> prefixes, List<Fix> fixes)
+	public ModelBuilder(OsmFile fileInput, List<String> prefixes,
+			List<Fix> fixes)
 	{
 		this.fileInput = fileInput;
 		this.prefixes = prefixes;
@@ -113,8 +114,6 @@ public class ModelBuilder
 
 		int nBugsNotFound = 0;
 		int nBugsNoName = 0;
-
-		lines = new ArrayList<>();
 
 		for (OsmRelation relation : relationsList) {
 			Map<String, String> rTags = OsmModelUtil.getTagsAsMap(relation);

@@ -17,6 +17,7 @@
 
 package org.openmetromaps.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class DraftModel
 {
 
 	private Map<String, OsmNode> stationMap = new HashMap<>();
-	private List<DraftLine> lines;
+	private List<DraftLine> lines = new ArrayList<>();
 
 	public Map<String, OsmNode> getStationMap()
 	{

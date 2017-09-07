@@ -17,33 +17,52 @@
 
 package org.openmetromaps.model.inspector;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import javax.swing.AbstractListModel;
 
 import org.openmetromaps.model.DraftLine;
 import org.openmetromaps.model.DraftModel;
+
+import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 
 public class LinesListModel extends AbstractListModel<DraftLine>
 {
 
 	private static final long serialVersionUID = 1L;
 
-	private DraftModel model;
+	private List<DraftLine> lines;
 
 	public LinesListModel(DraftModel model)
 	{
-		this.model = model;
+		lines = new ArrayList<>(model.getLines());
+		lines.sort(new Comparator<DraftLine>() {
+
+			@Override
+			public int compare(DraftLine o1, DraftLine o2)
+			{
+				String name1 = OsmModelUtil.getTagsAsMap(o1.getSource())
+						.get("ref");
+				String name2 = OsmModelUtil.getTagsAsMap(o2.getSource())
+						.get("ref");
+				return name1.compareTo(name2);
+			}
+
+		});
 	}
 
 	@Override
 	public int getSize()
 	{
-		return model.getLines().size();
+		return lines.size();
 	}
 
 	@Override
 	public DraftLine getElementAt(int index)
 	{
-		return model.getLines().get(index);
+		return lines.get(index);
 	}
 
 }

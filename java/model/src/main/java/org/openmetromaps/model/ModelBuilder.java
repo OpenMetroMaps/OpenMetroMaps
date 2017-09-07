@@ -47,10 +47,10 @@ import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 import de.topobyte.osm4j.utils.OsmFile;
 import de.topobyte.osm4j.utils.OsmFileInput;
 
-public class BuildModel
+public class ModelBuilder
 {
 
-	final static Logger logger = LoggerFactory.getLogger(BuildModel.class);
+	final static Logger logger = LoggerFactory.getLogger(ModelBuilder.class);
 
 	private OsmFile fileInput;
 	private List<String> prefixes;
@@ -58,7 +58,7 @@ public class BuildModel
 
 	private DraftModel model = new DraftModel();
 
-	public BuildModel(OsmFile fileInput, List<String> prefixes, List<Fix> fixes)
+	public ModelBuilder(OsmFile fileInput, List<String> prefixes, List<Fix> fixes)
 	{
 		this.fileInput = fileInput;
 		this.prefixes = prefixes;

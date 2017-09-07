@@ -17,10 +17,10 @@
 
 package org.openmetromaps.model.inspector;
 
-import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -61,11 +61,9 @@ public class LinePanel extends JPanel
 	{
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
 
-		displaySource.setBorderPainted(false);
-		displaySource.setOpaque(false);
-		displaySource.setBackground(Color.WHITE);
 		displaySource.setHorizontalAlignment(SwingConstants.LEFT);
-		displaySource.setBorder(null);
+		displaySource.setMargin(new Insets(0, 0, 0, 0));
+		displaySource.setVisible(false);
 
 		c.fill(GridBagConstraints.HORIZONTAL).weight(1, 0);
 		c.gridX(1);
@@ -100,6 +98,8 @@ public class LinePanel extends JPanel
 		displaySource.setText(String.format("Relation %d", source.getId()));
 		displayNumStations
 				.setText(String.format("%d", line.getStations().size()));
+
+		displaySource.setVisible(true);
 
 		displaySource.addActionListener(new ActionListener() {
 

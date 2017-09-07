@@ -20,14 +20,17 @@ package org.openmetromaps.model.inspector;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
 
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -86,6 +89,11 @@ public class ModelInspector
 		panel.add(linePanel, c.getConstraints());
 		linePanel.setPreferredSize(new Dimension(250, 0));
 
+		setupListActions();
+	}
+
+	private void setupListActions()
+	{
 		listLines.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -108,6 +116,21 @@ public class ModelInspector
 				if (!e.getValueIsAdjusting()) {
 					selectionChanged();
 				}
+			}
+
+		});
+
+		String actionEnter = "Enter";
+		listLines.getInputMap().put(KeyStroke.getKeyStroke("ENTER"),
+				actionEnter);
+		listLines.getActionMap().put(actionEnter, new AbstractAction() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				activated(listLines.getSelectedIndex());
 			}
 
 		});

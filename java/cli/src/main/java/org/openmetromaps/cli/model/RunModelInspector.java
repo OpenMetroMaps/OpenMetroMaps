@@ -15,34 +15,32 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.cli.osm;
+package org.openmetromaps.cli.model;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
+import org.openmetromaps.cli.osm.OsmOptions;
+import org.openmetromaps.model.BuildModel;
+import org.openmetromaps.model.DraftModel;
+import org.openmetromaps.model.Fix;
+import org.openmetromaps.model.inspector.ModelInspector;
 
 import de.topobyte.osm4j.utils.OsmFile;
-import de.topobyte.osm4j.utils.OsmOutputConfig;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
 
-public class FilterRegion
+public class RunModelInspector
 {
 
 	private static final String OPTION_INPUT = "input";
-	private static final String OPTION_OUTPUT = "output";
-	private static final String OPTION_BOUNDARY = "boundary";
 
 	public static ExeOptionsFactory OPTIONS_FACTORY = new ExeOptionsFactory() {
 
@@ -50,11 +48,9 @@ public class FilterRegion
 		public ExeOptions createOptions()
 		{
 			Options options = new Options();
-			OsmOptions.addInputOutputOptions(options);
+			OsmOptions.addInputOptions(options);
 			// @formatter:off
 			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "a source OSM data file");
-			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "a target OSM data file");
-			OptionHelper.addL(options, OPTION_BOUNDARY, true, true, "file", "a boundary geometry file");
 			// @formatter:on
 			return new CommonsCliExeOptions(options, "[options]");
 		}
@@ -62,44 +58,38 @@ public class FilterRegion
 	};
 
 	public static void main(String name, CommonsCliArguments arguments)
-			throws IOException, ParseException
+			throws Exception
 	{
 		CommandLine line = arguments.getLine();
 
 		OsmOptions.Input input = null;
-		OsmOptions.Output output = null;
 		try {
 			input = OsmOptions.parseInput(line);
-			output = OsmOptions.parseOutput(line);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
 
-		boolean useMetadata = false;
-
 		String argInput = line.getOptionValue(OPTION_INPUT);
-		String argOutput = line.getOptionValue(OPTION_OUTPUT);
-		String argBoundary = line.getOptionValue(OPTION_BOUNDARY);
 		Path pathInput = Paths.get(argInput);
-		Path pathOutput = Paths.get(argOutput);
-		Path pathBoundary = Paths.get(argBoundary);
 		OsmFile fileInput = new OsmFile(pathInput, input.format);
-		OsmFile fileOutput = new OsmFile(pathOutput, output.format);
-
-		OsmOutputConfig outputConfig = new OsmOutputConfig(output.format,
-				output.pbfConfig, output.tboConfig, useMetadata);
 
 		System.out.println("Input: " + pathInput);
-		System.out.println("Output: " + pathOutput);
-		System.out.println("Boundary: " + pathBoundary);
 
-		Geometry region = new WKTReader()
-				.read(new FileReader(pathBoundary.toFile()));
+		List<String> prefixes = new ArrayList<>();
+		prefixes.add("S ");
+		prefixes.add("U ");
+		prefixes.add("S+U ");
+		prefixes.add("U-Bhf ");
 
-		org.openmetromaps.osm.FilterRegion filter = new org.openmetromaps.osm.FilterRegion(
-				fileInput, fileOutput, region, outputConfig);
-		filter.execute();
+		ArrayList<Fix> fixes = new ArrayList<>();
+
+		BuildModel modelBuilder = new BuildModel(fileInput, prefixes, fixes);
+		modelBuilder.run(true);
+
+		DraftModel model = modelBuilder.getModel();
+		ModelInspector modelInspector = new ModelInspector(model);
+		modelInspector.show();
 	}
 
 }

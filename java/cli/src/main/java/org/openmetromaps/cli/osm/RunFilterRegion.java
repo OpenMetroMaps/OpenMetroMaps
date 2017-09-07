@@ -17,12 +17,18 @@
 
 package org.openmetromaps.cli.osm;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.openmetromaps.osm.FilterRegion;
+
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.io.ParseException;
+import com.vividsolutions.jts.io.WKTReader;
 
 import de.topobyte.osm4j.utils.OsmFile;
 import de.topobyte.osm4j.utils.OsmOutputConfig;
@@ -32,11 +38,12 @@ import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOp
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
 
-public class FilterRelevantData
+public class RunFilterRegion
 {
 
 	private static final String OPTION_INPUT = "input";
 	private static final String OPTION_OUTPUT = "output";
+	private static final String OPTION_BOUNDARY = "boundary";
 
 	public static ExeOptionsFactory OPTIONS_FACTORY = new ExeOptionsFactory() {
 
@@ -48,6 +55,7 @@ public class FilterRelevantData
 			// @formatter:off
 			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "a source OSM data file");
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "a target OSM data file");
+			OptionHelper.addL(options, OPTION_BOUNDARY, true, true, "file", "a boundary geometry file");
 			// @formatter:on
 			return new CommonsCliExeOptions(options, "[options]");
 		}
@@ -55,7 +63,7 @@ public class FilterRelevantData
 	};
 
 	public static void main(String name, CommonsCliArguments arguments)
-			throws IOException
+			throws IOException, ParseException
 	{
 		CommandLine line = arguments.getLine();
 
@@ -73,8 +81,10 @@ public class FilterRelevantData
 
 		String argInput = line.getOptionValue(OPTION_INPUT);
 		String argOutput = line.getOptionValue(OPTION_OUTPUT);
+		String argBoundary = line.getOptionValue(OPTION_BOUNDARY);
 		Path pathInput = Paths.get(argInput);
 		Path pathOutput = Paths.get(argOutput);
+		Path pathBoundary = Paths.get(argBoundary);
 		OsmFile fileInput = new OsmFile(pathInput, input.format);
 		OsmFile fileOutput = new OsmFile(pathOutput, output.format);
 
@@ -83,9 +93,13 @@ public class FilterRelevantData
 
 		System.out.println("Input: " + pathInput);
 		System.out.println("Output: " + pathOutput);
+		System.out.println("Boundary: " + pathBoundary);
 
-		org.openmetromaps.osm.FilterRelevantData filter = new org.openmetromaps.osm.FilterRelevantData(
-				fileInput, fileOutput, outputConfig);
+		Geometry region = new WKTReader()
+				.read(new FileReader(pathBoundary.toFile()));
+
+		FilterRegion filter = new FilterRegion(fileInput, fileOutput, region,
+				outputConfig);
 		filter.execute();
 	}
 

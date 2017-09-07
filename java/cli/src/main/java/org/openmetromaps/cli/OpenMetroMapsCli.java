@@ -17,10 +17,10 @@
 
 package org.openmetromaps.cli;
 
-import org.openmetromaps.cli.model.BuildModel;
-import org.openmetromaps.cli.model.ModelInspector;
-import org.openmetromaps.cli.osm.FilterRegion;
-import org.openmetromaps.cli.osm.FilterRelevantData;
+import org.openmetromaps.cli.model.RunModelBuilder;
+import org.openmetromaps.cli.model.RunModelInspector;
+import org.openmetromaps.cli.osm.RunFilterRegion;
+import org.openmetromaps.cli.osm.RunFilterRelevantData;
 
 import de.topobyte.utilities.apache.commons.cli.commands.ArgumentParser;
 import de.topobyte.utilities.apache.commons.cli.commands.ExeRunner;
@@ -39,14 +39,14 @@ public class OpenMetroMapsCli
 		public ExeOptions createOptions()
 		{
 			DelegateExeOptions options = new DelegateExeOptions();
-			options.addCommand("osm-filter", FilterRelevantData.OPTIONS_FACTORY,
-					FilterRelevantData.class);
-			options.addCommand("osm-extract", FilterRegion.OPTIONS_FACTORY,
-					FilterRegion.class);
-			options.addCommand("build-model", BuildModel.OPTIONS_FACTORY,
-					BuildModel.class);
-			options.addCommand("inspect-model", ModelInspector.OPTIONS_FACTORY,
-					ModelInspector.class);
+			options.addCommand("osm-filter", RunFilterRelevantData.OPTIONS_FACTORY,
+					RunFilterRelevantData.class);
+			options.addCommand("osm-extract", RunFilterRegion.OPTIONS_FACTORY,
+					RunFilterRegion.class);
+			options.addCommand("build-model", RunModelBuilder.OPTIONS_FACTORY,
+					RunModelBuilder.class);
+			options.addCommand("inspect-model", RunModelInspector.OPTIONS_FACTORY,
+					RunModelInspector.class);
 			return options;
 		}
 

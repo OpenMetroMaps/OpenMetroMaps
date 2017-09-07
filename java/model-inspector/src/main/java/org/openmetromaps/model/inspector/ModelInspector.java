@@ -19,6 +19,9 @@ package org.openmetromaps.model.inspector;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -27,8 +30,10 @@ import javax.swing.JScrollPane;
 
 import org.openmetromaps.model.DraftLine;
 import org.openmetromaps.model.DraftModel;
+import org.openmetromaps.model.DraftStation;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
+import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 
 public class ModelInspector
 {
@@ -36,6 +41,8 @@ public class ModelInspector
 	private DraftModel model;
 
 	private JFrame frame;
+
+	private LinesListModel linesModel;
 
 	public ModelInspector(DraftModel model)
 	{
@@ -58,7 +65,7 @@ public class ModelInspector
 		JPanel panel = new JPanel(new GridBagLayout());
 		frame.setContentPane(panel);
 
-		LinesListModel linesModel = new LinesListModel(model);
+		linesModel = new LinesListModel(model);
 		JList<DraftLine> listLines = new JList<>(linesModel);
 		JScrollPane jspLines = new JScrollPane(listLines);
 		listLines.setCellRenderer(new LinesCellRenderer());
@@ -66,6 +73,33 @@ public class ModelInspector
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
 		c.weight(1, 1).fill(GridBagConstraints.BOTH);
 		panel.add(jspLines, c.getConstraints());
+
+		listLines.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				JList<?> list = (JList<?>) e.getSource();
+				if (e.getClickCount() == 2) {
+					int index = list.locationToIndex(e.getPoint());
+					activated(index);
+				}
+			}
+
+		});
+	}
+
+	protected void activated(int index)
+	{
+		DraftLine line = linesModel.getElementAt(index);
+		Map<String, String> tags = OsmModelUtil.getTagsAsMap(line.getSource());
+		String name = tags.get("ref");
+		System.out.println(String.format(
+				"Line: %s, Source: http://www.openstreetmap.org/relation/%d",
+				name, line.getSource().getId()));
+		for (DraftStation station : line.getStations()) {
+			System.out.println(station.getName());
+		}
 	}
 
 }

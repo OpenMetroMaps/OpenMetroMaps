@@ -17,6 +17,7 @@
 
 package org.openmetromaps.model.inspector;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
@@ -27,6 +28,8 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.openmetromaps.model.DraftLine;
 import org.openmetromaps.model.DraftModel;
@@ -43,6 +46,9 @@ public class ModelInspector
 	private JFrame frame;
 
 	private LinesListModel linesModel;
+
+	private JList<DraftLine> listLines;
+	private LinePanel linePanel;
 
 	public ModelInspector(DraftModel model)
 	{
@@ -66,13 +72,19 @@ public class ModelInspector
 		frame.setContentPane(panel);
 
 		linesModel = new LinesListModel(model);
-		JList<DraftLine> listLines = new JList<>(linesModel);
+		listLines = new JList<>(linesModel);
 		JScrollPane jspLines = new JScrollPane(listLines);
 		listLines.setCellRenderer(new LinesCellRenderer());
+
+		linePanel = new LinePanel();
 
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
 		c.weight(1, 1).fill(GridBagConstraints.BOTH);
 		panel.add(jspLines, c.getConstraints());
+
+		c.weight(0, 1);
+		panel.add(linePanel, c.getConstraints());
+		linePanel.setPreferredSize(new Dimension(250, 0));
 
 		listLines.addMouseListener(new MouseAdapter() {
 
@@ -87,6 +99,27 @@ public class ModelInspector
 			}
 
 		});
+
+		listLines.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if (!e.getValueIsAdjusting()) {
+					selectionChanged();
+				}
+			}
+
+		});
+	}
+
+	protected void selectionChanged()
+	{
+		DraftLine line = listLines.getSelectedValue();
+		if (line == null) {
+			return;
+		}
+		linePanel.setLine(line);
 	}
 
 	protected void activated(int index)

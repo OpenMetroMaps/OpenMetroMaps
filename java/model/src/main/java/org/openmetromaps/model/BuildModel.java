@@ -167,6 +167,14 @@ public class BuildModel
 
 		logger.info("# Bugs (not found): " + nBugsNotFound);
 		logger.info("# Bugs (no name): " + nBugsNoName);
+
+		logger.info(String.format("Found %d lines", lines.size()));
+		for (DraftLine line : lines) {
+			Map<String, String> tags = OsmModelUtil
+					.getTagsAsMap(line.getSource());
+			String ref = tags.get("ref");
+			logger.info("line: " + ref);
+		}
 	}
 
 	public static String stripPrefix(String sName)

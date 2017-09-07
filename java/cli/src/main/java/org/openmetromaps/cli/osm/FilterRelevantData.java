@@ -24,8 +24,8 @@ import java.nio.file.Paths;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
-import de.topobyte.osm4j.utils.FileFormat;
 import de.topobyte.osm4j.utils.OsmFile;
+import de.topobyte.osm4j.utils.OsmOutputConfig;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
@@ -44,6 +44,7 @@ public class FilterRelevantData
 		public ExeOptions createOptions()
 		{
 			Options options = new Options();
+			OsmOptions.addInputOutputOptions(options);
 			// @formatter:off
 			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "a source OSM data file");
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "a target OSM data file");
@@ -58,18 +59,33 @@ public class FilterRelevantData
 	{
 		CommandLine line = arguments.getLine();
 
+		OsmOptions.Input input = null;
+		OsmOptions.Output output = null;
+		try {
+			input = OsmOptions.parseInput(line);
+			output = OsmOptions.parseOutput(line);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+
+		boolean useMetadata = false;
+
 		String argInput = line.getOptionValue(OPTION_INPUT);
 		String argOutput = line.getOptionValue(OPTION_OUTPUT);
 		Path pathInput = Paths.get(argInput);
 		Path pathOutput = Paths.get(argOutput);
-		OsmFile fileInput = new OsmFile(pathInput, FileFormat.TBO);
-		OsmFile fileOutput = new OsmFile(pathOutput, FileFormat.TBO);
+		OsmFile fileInput = new OsmFile(pathInput, input.format);
+		OsmFile fileOutput = new OsmFile(pathOutput, output.format);
+
+		OsmOutputConfig outputConfig = new OsmOutputConfig(output.format,
+				output.pbfConfig, output.tboConfig, useMetadata);
 
 		System.out.println("Input: " + pathInput);
 		System.out.println("Output: " + pathOutput);
 
 		org.openmetromaps.osm.FilterRelevantData filter = new org.openmetromaps.osm.FilterRelevantData(
-				fileInput, fileOutput, false);
+				fileInput, fileOutput, outputConfig);
 		filter.execute();
 	}
 

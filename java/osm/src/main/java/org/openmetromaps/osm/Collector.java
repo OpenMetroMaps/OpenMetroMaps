@@ -67,16 +67,17 @@ public class Collector
 	private OsmFile fileRelationsFiltered;
 
 	private OsmFile output;
-	private boolean useMetadata;
 
 	private FileFormat formatIntermediate;
 
+	private boolean useMetadata;
 	private OsmOutputConfig outputConfigIntermediate;
 	private OsmOutputConfig outputConfigTarget;
 
 	public Collector(OsmFile fileNodes, OsmFile fileWays, OsmFile fileRelations,
 			OsmFile fileNodesFiltered, OsmFile fileWaysFiltered,
-			OsmFile fileRelationsFiltered, OsmFile output, boolean useMetadata)
+			OsmFile fileRelationsFiltered, OsmFile output,
+			OsmOutputConfig outputConfig)
 	{
 		this.fileNodes = fileNodes;
 		this.fileWays = fileWays;
@@ -87,13 +88,12 @@ public class Collector
 		this.fileRelationsFiltered = fileRelationsFiltered;
 
 		this.output = output;
-		this.useMetadata = useMetadata;
+		this.outputConfigTarget = outputConfig;
+		useMetadata = outputConfig.isWriteMetadata();
 
 		formatIntermediate = FileFormat.TBO;
 
 		outputConfigIntermediate = new OsmOutputConfig(formatIntermediate,
-				useMetadata);
-		outputConfigTarget = new OsmOutputConfig(output.getFileFormat(),
 				useMetadata);
 	}
 

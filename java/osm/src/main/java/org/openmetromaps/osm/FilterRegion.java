@@ -47,19 +47,21 @@ public class FilterRegion
 	private OsmFile input;
 	private OsmFile output;
 	private Geometry region;
-	private boolean useMetadata;
 
 	private FileFormat formatIntermediate;
 
+	private boolean useMetadata;
+	private OsmOutputConfig outputConfigTarget;
 	private OsmOutputConfig outputConfigIntermediate;
 
 	public FilterRegion(OsmFile input, OsmFile output, Geometry region,
-			boolean useMetadata)
+			OsmOutputConfig outputConfig)
 	{
 		this.input = input;
 		this.output = output;
 		this.region = region;
-		this.useMetadata = useMetadata;
+		this.outputConfigTarget = outputConfig;
+		useMetadata = outputConfig.isWriteMetadata();
 
 		formatIntermediate = FileFormat.TBO;
 
@@ -132,7 +134,7 @@ public class FilterRegion
 
 		Collector collector = new Collector(fileNodes, fileWays, fileRelations,
 				fileNodesFiltered, fileWaysFiltered, fileRelationsFiltered,
-				output, useMetadata);
+				output, outputConfigTarget);
 		collector.execute(dir);
 
 		logger.info("Deleting intermediate files...");

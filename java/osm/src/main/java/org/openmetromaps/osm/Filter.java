@@ -61,17 +61,19 @@ public abstract class Filter
 
 	private OsmFile input;
 	private OsmFile output;
-	private boolean useMetadata;
 
 	private FileFormat formatIntermediate;
 
+	private boolean useMetadata;
 	private OsmOutputConfig outputConfigIntermediate;
+	private OsmOutputConfig outputConfigTarget;
 
-	public Filter(OsmFile input, OsmFile output, boolean useMetadata)
+	public Filter(OsmFile input, OsmFile output, OsmOutputConfig outputConfig)
 	{
 		this.input = input;
 		this.output = output;
-		this.useMetadata = useMetadata;
+		this.outputConfigTarget = outputConfig;
+		useMetadata = outputConfig.isWriteMetadata();
 
 		formatIntermediate = FileFormat.TBO;
 
@@ -126,7 +128,7 @@ public abstract class Filter
 
 		Collector collector = new Collector(fileNodes, fileWays, fileRelations,
 				fileNodesFiltered, fileWaysFiltered, fileRelationsFiltered,
-				output, useMetadata);
+				output, outputConfigTarget);
 		collector.execute(dir);
 
 		logger.info("Deleting intermediate files...");

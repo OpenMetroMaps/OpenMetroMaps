@@ -29,8 +29,8 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
-import de.topobyte.osm4j.utils.FileFormat;
 import de.topobyte.osm4j.utils.OsmFile;
+import de.topobyte.osm4j.utils.OsmOutputConfig;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
@@ -50,6 +50,7 @@ public class FilterRegion
 		public ExeOptions createOptions()
 		{
 			Options options = new Options();
+			OsmOptions.addInputOutputOptions(options);
 			// @formatter:off
 			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "a source OSM data file");
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "a target OSM data file");
@@ -65,14 +66,29 @@ public class FilterRegion
 	{
 		CommandLine line = arguments.getLine();
 
+		OsmOptions.Input input = null;
+		OsmOptions.Output output = null;
+		try {
+			input = OsmOptions.parseInput(line);
+			output = OsmOptions.parseOutput(line);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+
+		boolean useMetadata = false;
+
 		String argInput = line.getOptionValue(OPTION_INPUT);
 		String argOutput = line.getOptionValue(OPTION_OUTPUT);
 		String argBoundary = line.getOptionValue(OPTION_BOUNDARY);
 		Path pathInput = Paths.get(argInput);
 		Path pathOutput = Paths.get(argOutput);
 		Path pathBoundary = Paths.get(argBoundary);
-		OsmFile fileInput = new OsmFile(pathInput, FileFormat.PBF);
-		OsmFile fileOutput = new OsmFile(pathOutput, FileFormat.TBO);
+		OsmFile fileInput = new OsmFile(pathInput, input.format);
+		OsmFile fileOutput = new OsmFile(pathOutput, output.format);
+
+		OsmOutputConfig outputConfig = new OsmOutputConfig(output.format,
+				output.pbfConfig, output.tboConfig, useMetadata);
 
 		System.out.println("Input: " + pathInput);
 		System.out.println("Output: " + pathOutput);
@@ -82,7 +98,7 @@ public class FilterRegion
 				.read(new FileReader(pathBoundary.toFile()));
 
 		org.openmetromaps.osm.FilterRegion filter = new org.openmetromaps.osm.FilterRegion(
-				fileInput, fileOutput, region, false);
+				fileInput, fileOutput, region, outputConfig);
 		filter.execute();
 	}
 

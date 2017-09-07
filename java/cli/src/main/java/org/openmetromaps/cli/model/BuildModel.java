@@ -24,9 +24,9 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.openmetromaps.cli.osm.OsmOptions;
 import org.openmetromaps.model.Fix;
 
-import de.topobyte.osm4j.utils.FileFormat;
 import de.topobyte.osm4j.utils.OsmFile;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
@@ -46,6 +46,7 @@ public class BuildModel
 		public ExeOptions createOptions()
 		{
 			Options options = new Options();
+			OsmOptions.addInputOptions(options);
 			// @formatter:off
 			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "a source OSM data file");
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "a target model text file");
@@ -60,11 +61,19 @@ public class BuildModel
 	{
 		CommandLine line = arguments.getLine();
 
+		OsmOptions.Input input = null;
+		try {
+			input = OsmOptions.parseInput(line);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+
 		String argInput = line.getOptionValue(OPTION_INPUT);
 		String argOutput = line.getOptionValue(OPTION_OUTPUT);
 		Path pathInput = Paths.get(argInput);
 		Path pathOutput = Paths.get(argOutput);
-		OsmFile fileInput = new OsmFile(pathInput, FileFormat.TBO);
+		OsmFile fileInput = new OsmFile(pathInput, input.format);
 
 		System.out.println("Input: " + pathInput);
 		System.out.println("Output: " + pathOutput);

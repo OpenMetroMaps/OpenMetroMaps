@@ -1,5 +1,6 @@
 dependencies {
     compile project(':openmetromaps-model')
+    compile project(':openmetromaps-model-inspector')
     compile project(':openmetromaps-osm')
 
     compile 'de.topobyte:commons-cli-helper:0.0.6'

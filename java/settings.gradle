@@ -1,4 +1,5 @@
-include 'model', 'osm', 'cli'
+include 'model', 'model-inspector', 'osm', 'cli'
 project(':model').name = 'openmetromaps-model'
+project(':model-inspector').name = 'openmetromaps-model-inspector'
 project(':osm').name = 'openmetromaps-osm'
 project(':cli').name = 'openmetromaps-cli'

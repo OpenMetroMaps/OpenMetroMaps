@@ -64,6 +64,11 @@ public class ModelInspector
 		this.model = model;
 	}
 
+	public DraftModel getModel()
+	{
+		return model;
+	}
+
 	public void show()
 	{
 		frame = new JFrame("Model Inspector");
@@ -97,7 +102,7 @@ public class ModelInspector
 		menuBar.add(menuHelp);
 
 		menuFile.add(new ExitAction());
-		menuAnalyze.add(new AnalyzeStopsAction());
+		menuAnalyze.add(new AnalyzeStopsAction(this));
 		menuHelp.add(new AboutAction(frame));
 		menuHelp.add(new LicenseAction(frame));
 	}

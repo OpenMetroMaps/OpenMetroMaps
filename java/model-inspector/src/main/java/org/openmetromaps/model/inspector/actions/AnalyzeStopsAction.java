@@ -19,6 +19,9 @@ package org.openmetromaps.model.inspector.actions;
 
 import java.awt.event.ActionEvent;
 
+import org.openmetromaps.model.StopsAnalyzer;
+import org.openmetromaps.model.inspector.ModelInspector;
+
 import de.topobyte.swing.util.action.SimpleAction;
 
 public class AnalyzeStopsAction extends SimpleAction
@@ -26,17 +29,21 @@ public class AnalyzeStopsAction extends SimpleAction
 
 	private static final long serialVersionUID = 1L;
 
-	public AnalyzeStopsAction()
+	private ModelInspector modelInpector;
+
+	public AnalyzeStopsAction(ModelInspector modelInpector)
 	{
 		super("Analyze Stops",
 				"Analyze the roles of public transport relations");
+		this.modelInpector = modelInpector;
 		setIcon("res/images/24/system-run.png");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO: perform analysis and show results
+		StopsAnalyzer analyzer = new StopsAnalyzer(modelInpector.getModel());
+		analyzer.analyze();
 	}
 
 }

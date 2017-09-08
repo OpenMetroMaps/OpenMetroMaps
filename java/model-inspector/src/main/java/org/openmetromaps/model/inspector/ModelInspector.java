@@ -42,6 +42,7 @@ import org.openmetromaps.model.DraftStation;
 import org.openmetromaps.model.inspector.actions.AboutAction;
 import org.openmetromaps.model.inspector.actions.AnalyzeStopsAction;
 import org.openmetromaps.model.inspector.actions.ExitAction;
+import org.openmetromaps.model.inspector.actions.LicenseAction;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
@@ -98,6 +99,7 @@ public class ModelInspector
 		menuFile.add(new ExitAction());
 		menuAnalyze.add(new AnalyzeStopsAction());
 		menuHelp.add(new AboutAction());
+		menuHelp.add(new LicenseAction());
 	}
 
 	private void setupContent()

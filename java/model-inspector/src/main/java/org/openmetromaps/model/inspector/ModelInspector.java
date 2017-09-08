@@ -20,6 +20,7 @@ package org.openmetromaps.model.inspector;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -67,6 +68,11 @@ public class ModelInspector
 	public DraftModel getModel()
 	{
 		return model;
+	}
+
+	public Window getFrame()
+	{
+		return frame;
 	}
 
 	public void show()

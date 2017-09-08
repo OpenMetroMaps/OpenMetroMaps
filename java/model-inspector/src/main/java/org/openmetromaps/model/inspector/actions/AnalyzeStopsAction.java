@@ -18,9 +18,12 @@
 package org.openmetromaps.model.inspector.actions;
 
 import java.awt.event.ActionEvent;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import org.openmetromaps.model.StopsAnalyzer;
 import org.openmetromaps.model.inspector.ModelInspector;
+import org.openmetromaps.model.inspector.TextDialog;
 
 import de.topobyte.swing.util.action.SimpleAction;
 
@@ -43,7 +46,15 @@ public class AnalyzeStopsAction extends SimpleAction
 	public void actionPerformed(ActionEvent e)
 	{
 		StopsAnalyzer analyzer = new StopsAnalyzer(modelInpector.getModel());
-		analyzer.analyze();
+		StringWriter buf = new StringWriter();
+		analyzer.analyze(new PrintWriter(buf));
+
+		String output = buf.toString();
+		TextDialog dialog = new TextDialog(modelInpector.getFrame(),
+				"Stops Analyis", output);
+		dialog.setSize(400, 300);
+		dialog.setLocationRelativeTo(dialog.getOwner());
+		dialog.setVisible(true);
 	}
 
 }

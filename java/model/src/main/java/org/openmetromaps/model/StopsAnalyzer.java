@@ -17,6 +17,7 @@
 
 package org.openmetromaps.model;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +40,7 @@ public class StopsAnalyzer
 		this.model = model;
 	}
 
-	public void analyze()
+	public void analyze(PrintWriter output)
 	{
 		Multiset<String> nodeRoles = HashMultiset.create();
 
@@ -58,7 +59,7 @@ public class StopsAnalyzer
 		List<String> roles = new ArrayList<>(nodeRoles.elementSet());
 		Collections.sort(roles);
 		for (String role : roles) {
-			System.out.println(
+			output.println(
 					String.format("%s: %d", role, nodeRoles.count(role)));
 		}
 	}

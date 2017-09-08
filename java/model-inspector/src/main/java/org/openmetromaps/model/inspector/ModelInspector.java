@@ -28,6 +28,8 @@ import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
@@ -37,6 +39,9 @@ import javax.swing.event.ListSelectionListener;
 import org.openmetromaps.model.DraftLine;
 import org.openmetromaps.model.DraftModel;
 import org.openmetromaps.model.DraftStation;
+import org.openmetromaps.model.inspector.actions.AboutAction;
+import org.openmetromaps.model.inspector.actions.AnalyzeStopsAction;
+import org.openmetromaps.model.inspector.actions.ExitAction;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
@@ -71,6 +76,32 @@ public class ModelInspector
 
 	private void build()
 	{
+		setupMenu();
+		setupContent();
+		setupListActions();
+	}
+
+	private void setupMenu()
+	{
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+
+		JMenu menuFile = new JMenu("File");
+		menuBar.add(menuFile);
+
+		JMenu menuAnalyze = new JMenu("Analyze");
+		menuBar.add(menuAnalyze);
+
+		JMenu menuHelp = new JMenu("Help");
+		menuBar.add(menuHelp);
+
+		menuFile.add(new ExitAction());
+		menuAnalyze.add(new AnalyzeStopsAction());
+		menuHelp.add(new AboutAction());
+	}
+
+	private void setupContent()
+	{
 		JPanel panel = new JPanel(new GridBagLayout());
 		frame.setContentPane(panel);
 
@@ -88,8 +119,6 @@ public class ModelInspector
 		c.weight(0, 1);
 		panel.add(linePanel, c.getConstraints());
 		linePanel.setPreferredSize(new Dimension(250, 0));
-
-		setupListActions();
 	}
 
 	private void setupListActions()

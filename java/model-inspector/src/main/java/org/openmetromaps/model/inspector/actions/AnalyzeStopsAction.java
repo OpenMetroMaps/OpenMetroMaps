@@ -19,7 +19,6 @@ package org.openmetromaps.model.inspector.actions;
 
 import java.awt.event.ActionEvent;
 
-import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.action.SimpleAction;
 
 public class AnalyzeStopsAction extends SimpleAction
@@ -31,7 +30,7 @@ public class AnalyzeStopsAction extends SimpleAction
 	{
 		super("Analyze Stops",
 				"Analyze the roles of public transport relations");
-		setIcon(new EmptyIcon(24));
+		setIcon("res/images/24/system-run.png");
 	}
 
 	@Override

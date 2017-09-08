@@ -136,6 +136,7 @@ public class LinePanel extends JPanel
 		Window window = SwingUtilities.windowForComponent(this);
 		ElementXmlDialog dialog = new ElementXmlDialog(window, source);
 		dialog.setSize(600, 400);
+		dialog.setLocationRelativeTo(window);
 		dialog.setVisible(true);
 	}
 

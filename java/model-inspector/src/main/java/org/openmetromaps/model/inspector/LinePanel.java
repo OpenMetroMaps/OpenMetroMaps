@@ -21,7 +21,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Window;
-import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -40,7 +39,7 @@ import org.openmetromaps.model.DraftLine;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.osm4j.core.model.iface.OsmRelation;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
-import de.topobyte.osm4j.xml.output.OsmXmlOutputStream;
+import de.topobyte.osm4j.xml.output.OsmXmlSerializer;
 
 public class LinePanel extends JPanel
 {
@@ -138,15 +137,12 @@ public class LinePanel extends JPanel
 
 	private void showRawData(OsmRelation source)
 	{
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		OsmXmlOutputStream os = new OsmXmlOutputStream(baos, true);
-		os.write(source);
-		os.complete();
-		String text = new String(baos.toByteArray());
+		OsmXmlSerializer osmSerializer = new OsmXmlSerializer(true);
+		String xml = osmSerializer.write(source);
 
 		Window window = SwingUtilities.windowForComponent(this);
 		JDialog dialog = new JDialog(window, "Relation " + source.getId());
-		JTextArea textField = new JTextArea(text);
+		JTextArea textField = new JTextArea(xml);
 		JScrollPane jsp = new JScrollPane(textField);
 		dialog.setContentPane(jsp);
 		dialog.setSize(600, 400);

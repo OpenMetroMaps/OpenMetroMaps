@@ -41,6 +41,7 @@ import org.openmetromaps.model.DraftLine;
 import org.openmetromaps.model.DraftModel;
 import org.openmetromaps.model.DraftStation;
 import org.openmetromaps.model.inspector.actions.AboutAction;
+import org.openmetromaps.model.inspector.actions.AnalyzeLinesAction;
 import org.openmetromaps.model.inspector.actions.AnalyzeStopsAction;
 import org.openmetromaps.model.inspector.actions.ExitAction;
 import org.openmetromaps.model.inspector.actions.LicenseAction;
@@ -108,7 +109,10 @@ public class ModelInspector
 		menuBar.add(menuHelp);
 
 		menuFile.add(new ExitAction());
+
 		menuAnalyze.add(new AnalyzeStopsAction(this));
+		menuAnalyze.add(new AnalyzeLinesAction(this));
+
 		menuHelp.add(new AboutAction(frame));
 		menuHelp.add(new LicenseAction(frame));
 	}

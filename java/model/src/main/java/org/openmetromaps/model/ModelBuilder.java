@@ -17,6 +17,7 @@
 
 package org.openmetromaps.model;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -28,10 +29,6 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multiset;
 import com.slimjars.dist.gnu.trove.iterator.TLongObjectIterator;
 
 import de.topobyte.geomath.WGS84;
@@ -178,83 +175,10 @@ public class ModelBuilder
 		logger.info("# Bugs (not found): " + nBugsNotFound);
 		logger.info("# Bugs (no name): " + nBugsNoName);
 
-		Multiset<String> nameCounts = HashMultiset.create();
-		Multimap<String, DraftLine> nameToLines = HashMultimap.create();
-		for (DraftLine line : lines) {
-			Map<String, String> tags = OsmModelUtil
-					.getTagsAsMap(line.getSource());
-			String ref = tags.get("ref");
-			nameCounts.add(ref);
-			nameToLines.put(ref, line);
-		}
-
-		logger.info(String.format("Found %d lines", lines.size()));
-
-		logger.info("Line names:");
-		for (DraftLine line : lines) {
-			Map<String, String> tags = OsmModelUtil
-					.getTagsAsMap(line.getSource());
-			String ref = tags.get("ref");
-			logger.info("line: " + ref);
-		}
-
-		logger.info("Lines with != 2 occurrences:");
-		List<String> names = new ArrayList<>(nameCounts.elementSet());
-		Collections.sort(names);
-		for (String name : names) {
-			int count = nameCounts.count(name);
-			if (count == 2) {
-				continue;
-			}
-			logger.info(String.format("%s: %d", name, count));
-		}
-
-		logger.info("Comparing lines with 2 occurrences...");
-		for (String name : names) {
-			int count = nameCounts.count(name);
-			if (count != 2) {
-				continue;
-			}
-			List<DraftLine> list = new ArrayList<>(nameToLines.get(name));
-			DraftLine line1 = list.get(0);
-			DraftLine line2 = list.get(1);
-			compare(name, line1, line2);
-		}
-	}
-
-	private void compare(String name, DraftLine line1, DraftLine line2)
-	{
-		List<DraftStation> stations1 = line1.getStations();
-		List<DraftStation> stations2 = line2.getStations();
-		if (stations1.size() != stations2.size()) {
-			logger.info(String.format("Line: %s, %d vs. %d", name,
-					stations1.size(), stations2.size()));
-			return;
-		}
-		int n = stations1.size();
-		int different = 0;
-		for (int i = 0; i < n; i++) {
-			DraftStation station1 = stations1.get(i);
-			DraftStation station2 = stations2.get(n - i - 1);
-			if (!station1.getName().equals(station2.getName())) {
-				different += 1;
-			}
-		}
-		if (different == 0) {
-			logger.info(
-					String.format("Line: %s, %d stations, all clear", name, n));
-		} else {
-			logger.info(String.format("Line: %s, %d stations, %d different",
-					name, n, different));
-			for (int i = 0; i < n; i++) {
-				DraftStation station1 = stations1.get(i);
-				DraftStation station2 = stations2.get(n - i - 1);
-				if (!station1.getName().equals(station2.getName())) {
-					logger.info(String.format("%s - %s", station1.getName(),
-							station2.getName()));
-				}
-			}
-		}
+		LinesAnalyzer linesAnalyzer = new LinesAnalyzer(model);
+		PrintWriter writer = new PrintWriter(System.out);
+		linesAnalyzer.analyze(writer);
+		writer.flush();
 	}
 
 	public String stripPrefix(String sName, List<String> prefixes)

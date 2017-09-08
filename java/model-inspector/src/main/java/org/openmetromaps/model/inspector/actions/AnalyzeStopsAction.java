@@ -24,6 +24,7 @@ import java.io.StringWriter;
 import org.openmetromaps.model.StopsAnalyzer;
 import org.openmetromaps.model.inspector.ModelInspector;
 import org.openmetromaps.model.inspector.TextDialog;
+import org.openmetromaps.model.inspector.Util;
 
 import de.topobyte.swing.util.action.SimpleAction;
 
@@ -52,9 +53,7 @@ public class AnalyzeStopsAction extends SimpleAction
 		String output = buf.toString();
 		TextDialog dialog = new TextDialog(modelInpector.getFrame(),
 				"Stops Analyis", output);
-		dialog.setSize(400, 300);
-		dialog.setLocationRelativeTo(dialog.getOwner());
-		dialog.setVisible(true);
+		Util.showRelativeToOwner(dialog, 400, 300);
 	}
 
 }

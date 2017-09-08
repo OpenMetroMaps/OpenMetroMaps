@@ -22,6 +22,8 @@ import java.awt.Window;
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
 
+import org.openmetromaps.model.inspector.Util;
+
 public class AboutDialog extends JDialog
 {
 
@@ -64,9 +66,7 @@ public class AboutDialog extends JDialog
 	public static void showDialog(Window owner, Page page)
 	{
 		AboutDialog dialog = new AboutDialog(owner, page);
-		dialog.setSize(400, 400);
-		dialog.setLocationRelativeTo(owner);
-		dialog.setVisible(true);
+		Util.showRelativeToOwner(dialog, 400, 400);
 	}
 
 }

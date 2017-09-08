@@ -23,6 +23,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
+import javax.swing.JDialog;
+
 import de.topobyte.system.utils.SystemProperties;
 
 public class Util
@@ -47,6 +49,14 @@ public class Util
 				// ignore
 			}
 		}
+	}
+
+	public static void showRelativeToOwner(JDialog dialog, int width,
+			int height)
+	{
+		dialog.setSize(width, height);
+		dialog.setLocationRelativeTo(dialog.getOwner());
+		dialog.setVisible(true);
 	}
 
 }

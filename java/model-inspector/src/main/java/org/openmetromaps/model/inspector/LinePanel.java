@@ -24,13 +24,10 @@ import java.awt.Window;
 import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -39,7 +36,6 @@ import org.openmetromaps.model.DraftLine;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.osm4j.core.model.iface.OsmRelation;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
-import de.topobyte.osm4j.xml.output.OsmXmlSerializer;
 
 public class LinePanel extends JPanel
 {
@@ -137,14 +133,8 @@ public class LinePanel extends JPanel
 
 	private void showRawData(OsmRelation source)
 	{
-		OsmXmlSerializer osmSerializer = new OsmXmlSerializer(true);
-		String xml = osmSerializer.write(source);
-
 		Window window = SwingUtilities.windowForComponent(this);
-		JDialog dialog = new JDialog(window, "Relation " + source.getId());
-		JTextArea textField = new JTextArea(xml);
-		JScrollPane jsp = new JScrollPane(textField);
-		dialog.setContentPane(jsp);
+		ElementXmlDialog dialog = new ElementXmlDialog(window, source);
 		dialog.setSize(600, 400);
 		dialog.setVisible(true);
 	}

@@ -19,6 +19,10 @@ package org.openmetromaps.model.inspector.actions;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JFrame;
+
+import org.openmetromaps.model.inspector.about.AboutDialog;
+
 import de.topobyte.swing.util.action.SimpleAction;
 
 public class LicenseAction extends SimpleAction
@@ -26,15 +30,18 @@ public class LicenseAction extends SimpleAction
 
 	private static final long serialVersionUID = 1L;
 
-	public LicenseAction()
+	private JFrame frame;
+
+	public LicenseAction(JFrame frame)
 	{
 		super("License", "Show license information about this software");
+		this.frame = frame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO: show a dialog
+		AboutDialog.showDialog(frame, AboutDialog.Page.LGPL);
 	}
 
 }

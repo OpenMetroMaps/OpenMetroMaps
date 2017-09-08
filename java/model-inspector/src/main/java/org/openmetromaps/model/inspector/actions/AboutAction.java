@@ -19,6 +19,10 @@ package org.openmetromaps.model.inspector.actions;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JFrame;
+
+import org.openmetromaps.model.inspector.about.AboutDialog;
+
 import de.topobyte.swing.util.action.SimpleAction;
 
 public class AboutAction extends SimpleAction
@@ -26,15 +30,18 @@ public class AboutAction extends SimpleAction
 
 	private static final long serialVersionUID = 1L;
 
-	public AboutAction()
+	private JFrame frame;
+
+	public AboutAction(JFrame frame)
 	{
 		super("About", "Show information about this software");
+		this.frame = frame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO: show a dialog
+		AboutDialog.showDialog(frame, AboutDialog.Page.ABOUT);
 	}
 
 }

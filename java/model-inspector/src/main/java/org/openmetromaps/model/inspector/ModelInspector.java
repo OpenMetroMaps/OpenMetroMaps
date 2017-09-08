@@ -98,8 +98,8 @@ public class ModelInspector
 
 		menuFile.add(new ExitAction());
 		menuAnalyze.add(new AnalyzeStopsAction());
-		menuHelp.add(new AboutAction());
-		menuHelp.add(new LicenseAction());
+		menuHelp.add(new AboutAction(frame));
+		menuHelp.add(new LicenseAction(frame));
 	}
 
 	private void setupContent()

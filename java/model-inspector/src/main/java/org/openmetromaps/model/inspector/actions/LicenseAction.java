@@ -36,6 +36,7 @@ public class LicenseAction extends SimpleAction
 	{
 		super("License", "Show license information about this software");
 		this.frame = frame;
+		setIcon("res/images/24/help-about.png");
 	}
 
 	@Override

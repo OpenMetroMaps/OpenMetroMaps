@@ -29,6 +29,7 @@ public class ExitAction extends SimpleAction
 	public ExitAction()
 	{
 		super("Exit", "Quit the application");
+		setIcon("res/images/24/gtk-quit.png");
 	}
 
 	@Override

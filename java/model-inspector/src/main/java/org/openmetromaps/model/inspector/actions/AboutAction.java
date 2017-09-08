@@ -36,6 +36,7 @@ public class AboutAction extends SimpleAction
 	{
 		super("About", "Show information about this software");
 		this.frame = frame;
+		setIcon("res/images/24/help-about.png");
 	}
 
 	@Override

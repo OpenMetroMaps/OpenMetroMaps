@@ -17,7 +17,6 @@
 
 package org.openmetromaps.model;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,6 +31,8 @@ import org.slf4j.LoggerFactory;
 import com.slimjars.dist.gnu.trove.iterator.TLongObjectIterator;
 
 import de.topobyte.geomath.WGS84;
+import de.topobyte.lineprinter.sfl4j.LogLevel;
+import de.topobyte.lineprinter.sfl4j.LoggerPrinter;
 import de.topobyte.osm4j.core.access.OsmIteratorInput;
 import de.topobyte.osm4j.core.dataset.InMemoryMapDataSet;
 import de.topobyte.osm4j.core.dataset.MapDataSetLoader;
@@ -176,9 +177,7 @@ public class ModelBuilder
 		logger.info("# Bugs (no name): " + nBugsNoName);
 
 		LinesAnalyzer linesAnalyzer = new LinesAnalyzer(model);
-		PrintWriter writer = new PrintWriter(System.out);
-		linesAnalyzer.analyze(writer);
-		writer.flush();
+		linesAnalyzer.analyze(new LoggerPrinter(logger, LogLevel.INFO));
 	}
 
 	public String stripPrefix(String sName, List<String> prefixes)

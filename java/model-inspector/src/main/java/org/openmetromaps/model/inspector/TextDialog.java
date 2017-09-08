@@ -18,10 +18,13 @@
 package org.openmetromaps.model.inspector;
 
 import java.awt.Window;
+import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import com.google.common.base.Joiner;
 
 public class TextDialog extends JDialog
 {
@@ -36,6 +39,11 @@ public class TextDialog extends JDialog
 		JTextArea textField = new JTextArea(text);
 		JScrollPane jsp = new JScrollPane(textField);
 		setContentPane(jsp);
+	}
+
+	public TextDialog(Window window, String title, List<String> lines)
+	{
+		this(window, title, Joiner.on("\n").join(lines));
 	}
 
 }

@@ -18,14 +18,13 @@
 package org.openmetromaps.model.inspector.actions;
 
 import java.awt.event.ActionEvent;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import org.openmetromaps.model.LinesAnalyzer;
 import org.openmetromaps.model.inspector.ModelInspector;
 import org.openmetromaps.model.inspector.TextDialog;
 import org.openmetromaps.model.inspector.Util;
 
+import de.topobyte.lineprinter.LineBufferPrinter;
 import de.topobyte.swing.util.action.SimpleAction;
 
 public class AnalyzeLinesAction extends SimpleAction
@@ -46,12 +45,11 @@ public class AnalyzeLinesAction extends SimpleAction
 	public void actionPerformed(ActionEvent e)
 	{
 		LinesAnalyzer analyzer = new LinesAnalyzer(modelInpector.getModel());
-		StringWriter buf = new StringWriter();
-		analyzer.analyze(new PrintWriter(buf));
+		LineBufferPrinter buffer = new LineBufferPrinter();
+		analyzer.analyze(buffer);
 
-		String output = buf.toString();
 		TextDialog dialog = new TextDialog(modelInpector.getFrame(),
-				"Line Analyis", output);
+				"Line Analyis", buffer.getLines());
 		Util.showRelativeToOwner(dialog, 400, 300);
 	}
 

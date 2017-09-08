@@ -17,7 +17,6 @@
 
 package org.openmetromaps.model;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,20 +27,21 @@ import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multiset;
 
+import de.topobyte.lineprinter.LinePrinter;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 
 public class LinesAnalyzer
 {
 
 	private DraftModel model;
-	private PrintWriter output;
+	private LinePrinter output;
 
 	public LinesAnalyzer(DraftModel model)
 	{
 		this.model = model;
 	}
 
-	public void analyze(PrintWriter output)
+	public void analyze(LinePrinter output)
 	{
 		this.output = output;
 

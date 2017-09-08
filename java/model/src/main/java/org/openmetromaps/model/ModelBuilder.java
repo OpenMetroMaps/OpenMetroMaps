@@ -134,7 +134,10 @@ public class ModelBuilder
 					continue;
 				}
 				String role = member.getRole();
-				if (!role.equals("stop")) {
+				boolean isStop = role.equals("stop");
+				isStop |= role.equals("stop_entry_only");
+				isStop |= role.equals("stop_exit_only");
+				if (!isStop) {
 					continue;
 				}
 				OsmNode node = dataSet.getNodes().get(member.getId());

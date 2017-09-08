@@ -21,6 +21,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Window;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -32,6 +34,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import org.openmetromaps.model.DraftLine;
+import org.openmetromaps.model.DraftStation;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.osm4j.core.model.iface.OsmRelation;
@@ -119,8 +122,13 @@ public class LinePanel extends JPanel
 		itemShowXml.setText("Show raw data");
 		itemShowXml.addActionListener(x -> showRawData(source));
 
+		JMenuItem itemShowStops = new JMenuItem();
+		itemShowStops.setText("Show stations");
+		itemShowStops.addActionListener(x -> showStations());
+
 		menu.add(itemOpenInBrowser);
 		menu.add(itemShowXml);
+		menu.add(itemShowStops);
 
 		menu.show(button, 0, button.getHeight());
 	}
@@ -136,6 +144,21 @@ public class LinePanel extends JPanel
 		Window window = SwingUtilities.windowForComponent(this);
 		ElementXmlDialog dialog = new ElementXmlDialog(window, source);
 		Util.showRelativeToOwner(dialog, 600, 400);
+	}
+
+	private void showStations()
+	{
+		List<String> output = new ArrayList<>();
+		for (DraftStation station : line.getStations()) {
+			output.add(station.getName());
+		}
+
+		Map<String, String> tags = OsmModelUtil.getTagsAsMap(line.getSource());
+		String name = tags.get("ref");
+
+		Window window = SwingUtilities.windowForComponent(this);
+		TextDialog dialog = new TextDialog(window, "Line " + name, output);
+		Util.showRelativeToOwner(dialog, 500, 400);
 	}
 
 }

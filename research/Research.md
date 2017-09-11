@@ -15,13 +15,24 @@
 * [VBB Liniennetze](http://www.vbb.de/de/article/fahrplan/liniennetze/liniennetze/897.html)
 * [Liniennetz Regionalverkehr](http://images.vbb.de/assets/downloads/file/799103.pdf)
 * [Liniennetz S+U](http://images.vbb.de/assets/downloads/file/1373695.pdf)
-
-BVG also has an interactive map on their homepage. See
-[this link](https://www.bvg.de/de/Fahrinfo/Liniennetz),
-which expands to
-[this](https://fahrinfo.bvg.de/Fahrinfo/bin/query.bin/dn?ujm=1&MapLayer=NETWORK).
-
-Jug Cerovic made a [map for Berlin](http://www.inat.fr/metro/berlin/).
+* BVG also has an interactive map on their homepage. See
+  [this link](https://www.bvg.de/de/Fahrinfo/Liniennetz),
+  which expands to
+  [this](https://fahrinfo.bvg.de/Fahrinfo/bin/query.bin/dn?ujm=1&MapLayer=NETWORK).
+* Jug Cerovic made a [map for Berlin](http://www.inat.fr/metro/berlin/).
+* Robert Schwandl has his own maps for Berlin on UrbanRail.net:
+  [S+U](http://www.urbanrail.net/eu/de/b/berlin.htm),
+  [Tram](http://www.urbanrail.net/eu/de/b/tram/berlin-tram.htm).
+  According to the [FAQ](http://www.urbanrail.net/about.htm) he makes the maps using Paint Shop Pro 5.
+* Ralf Reineke collects historical transit maps for Berlin on
+  [one of his webistes](http://hauptstrasse83f.de/liniennetz/alte-netzspinnen/).
+* Gordon Charles has several own works on
+  [his homepage](http://www.berlinfahrplan.de/), including a
+  [minute map](http://www.berlinfahrplan.de/minnetz.htm)
+  and [bus network maps](http://www.berlinfahrplan.de/busnetz.htm).
+* Mike Straschewski has
+  [his own interactive map](http://www.stadtschnellbahn-berlin.de/strecken/index.php)
+  for the S-Bahn system.
 
 ## Other projects
 

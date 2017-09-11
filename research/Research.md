@@ -15,3 +15,8 @@
 * [VBB Liniennetze](http://www.vbb.de/de/article/fahrplan/liniennetze/liniennetze/897.html)
 * [Liniennetz Regionalverkehr](http://images.vbb.de/assets/downloads/file/799103.pdf)
 * [Liniennetz S+U](http://images.vbb.de/assets/downloads/file/1373695.pdf)
+
+BVG also has an interactive map on their homepage. See
+[this link](https://www.bvg.de/de/Fahrinfo/Liniennetz),
+which expands to
+[this](https://fahrinfo.bvg.de/Fahrinfo/bin/query.bin/dn?ujm=1&MapLayer=NETWORK).

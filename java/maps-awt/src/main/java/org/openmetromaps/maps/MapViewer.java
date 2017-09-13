@@ -21,12 +21,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Window;
 
+import javax.swing.Action;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import org.openmetromaps.maps.actions.ExitAction;
+import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.model.ModelData;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
@@ -39,6 +42,8 @@ public class MapViewer
 	private ViewConfig viewConfig;
 
 	private JFrame frame;
+
+	private ScrollableAdvancedPanel map;
 
 	public MapViewer(ModelData model)
 	{
@@ -57,6 +62,11 @@ public class MapViewer
 		return frame;
 	}
 
+	public ScrollableAdvancedPanel getMap()
+	{
+		return map;
+	}
+
 	public void show()
 	{
 		frame = new JFrame("Map Viewer");
@@ -70,8 +80,8 @@ public class MapViewer
 
 	private void build()
 	{
-		setupMenu();
 		setupContent();
+		setupMenu();
 	}
 
 	private void setupMenu()
@@ -82,7 +92,17 @@ public class MapViewer
 		JMenu menuFile = new JMenu("File");
 		menuBar.add(menuFile);
 
+		JMenu menuView = new JMenu("View");
+		menuBar.add(menuView);
+
 		menuFile.add(new ExitAction());
+
+		addCheckbox(menuView, new ShowLabelsAction(this));
+	}
+
+	private void addCheckbox(JMenu menu, Action action)
+	{
+		menu.add(new JCheckBoxMenuItem(action));
 	}
 
 	private void setupContent()
@@ -90,7 +110,7 @@ public class MapViewer
 		JPanel panel = new JPanel(new GridBagLayout());
 		frame.setContentPane(panel);
 
-		ScrollableAdvancedPanel map = new ScrollableAdvancedPanel(model,
+		map = new ScrollableAdvancedPanel(model,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
 				viewConfig.getStartPosition(), 10, 15, viewConfig.getBbox());
 

@@ -76,6 +76,8 @@ public class PlanRenderer implements ZoomChangedListener
 	private static final boolean DEBUG_RANKS = false;
 	private static final boolean DEBUG_TANGENTS = false;
 
+	private boolean isRenderLabels = true;
+
 	private SegmentMode segmentMode;
 
 	private float scale;
@@ -141,6 +143,16 @@ public class PlanRenderer implements ZoomChangedListener
 
 		mapWindow.addZoomListener(this);
 		zoomChanged();
+	}
+
+	public boolean isRenderLabels()
+	{
+		return isRenderLabels;
+	}
+
+	public void setRenderLabels(boolean isRenderLabels)
+	{
+		this.isRenderLabels = isRenderLabels;
 	}
 
 	@Override
@@ -270,6 +282,21 @@ public class PlanRenderer implements ZoomChangedListener
 		}
 
 		tm.start(LOG_LABELS);
+		if (isRenderLabels) {
+			renderLabels(g, envelope, nNodes, fontSize, piOutline, piText);
+		}
+		tm.stop(LOG_LABELS);
+
+		tm.log(LOG_SEGMENTS, "Time for segments: %d");
+		tm.log(LOG_STATIONS, "Time for stations: %d");
+		tm.log(LOG_LABELS, "Time for labels: %d");
+		logger.info(
+				String.format("Time for curve drawing: %d", durationCurves));
+	}
+
+	private void renderLabels(Painter g, Envelope envelope, int nNodes,
+			int fontSize, IPaintInfo piOutline, IPaintInfo piText)
+	{
 		RectangleIntersectionTester tester = new RTreeIntersectionTester();
 		for (int i = 0; i < nNodes; i++) {
 			Node node = lineNetwork.nodes.get(i);
@@ -307,13 +334,6 @@ public class PlanRenderer implements ZoomChangedListener
 				tester.add(r, false);
 			}
 		}
-		tm.stop(LOG_LABELS);
-
-		tm.log(LOG_SEGMENTS, "Time for segments: %d");
-		tm.log(LOG_STATIONS, "Time for stations: %d");
-		tm.log(LOG_LABELS, "Time for labels: %d");
-		logger.info(
-				String.format("Time for curve drawing: %d", durationCurves));
 	}
 
 	private void drawSingleLineEdge(Painter g, NetworkLine line, Edge edge,
@@ -340,7 +360,7 @@ public class PlanRenderer implements ZoomChangedListener
 			Edge edge, double ax, double ay, double bx, double by)
 	{
 		IPaintInfo paint = lineToPaintForLines[line.line.getId()];
-		;
+
 		g.setPaintInfo(paint);
 
 		g.drawLine(ax, ay, bx, by);

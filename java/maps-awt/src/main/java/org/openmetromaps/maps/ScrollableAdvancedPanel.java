@@ -89,4 +89,9 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 		renderer.paint(painter);
 	}
 
+	public PlanRenderer getPlanRenderer()
+	{
+		return renderer;
+	}
+
 }

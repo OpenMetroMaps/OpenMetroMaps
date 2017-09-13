@@ -28,11 +28,15 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
+import org.openmetromaps.maps.PlanRenderer.SegmentMode;
+import org.openmetromaps.maps.PlanRenderer.StationMode;
+import org.openmetromaps.maps.actions.EnumActions;
 import org.openmetromaps.maps.actions.ExitAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.model.ModelData;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
+import de.topobyte.swing.util.EmptyIcon;
 
 public class MapViewer
 {
@@ -98,6 +102,20 @@ public class MapViewer
 		menuFile.add(new ExitAction());
 
 		addCheckbox(menuView, new ShowLabelsAction(this));
+		JMenu stationMode = submenu("Station mode");
+		JMenu segmentMode = submenu("Segment mode");
+		menuView.add(stationMode);
+		menuView.add(segmentMode);
+
+		EnumActions.add(stationMode, StationMode.class);
+		EnumActions.add(segmentMode, SegmentMode.class);
+	}
+
+	private JMenu submenu(String string)
+	{
+		JMenu menu = new JMenu(string);
+		menu.setIcon(new EmptyIcon(24));
+		return menu;
 	}
 
 	private void addCheckbox(JMenu menu, Action action)

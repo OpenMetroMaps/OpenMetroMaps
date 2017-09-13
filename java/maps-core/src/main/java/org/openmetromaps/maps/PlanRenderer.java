@@ -78,6 +78,7 @@ public class PlanRenderer implements ZoomChangedListener
 
 	private boolean isRenderLabels = true;
 
+	private StationMode stationMode;
 	private SegmentMode segmentMode;
 
 	private float scale;
@@ -112,6 +113,7 @@ public class PlanRenderer implements ZoomChangedListener
 		this.ltp = ltp;
 
 		this.segmentMode = segmentMode;
+		this.stationMode = stationMode;
 		this.scale = scale;
 		this.pf = pf;
 
@@ -130,16 +132,7 @@ public class PlanRenderer implements ZoomChangedListener
 			lineToPaintForLines[line.line.getId()] = paint;
 		}
 
-		switch (stationMode) {
-		case SIMPLE:
-			stationDrawer = new StationDrawerSimple(pf, lineNetwork, colors,
-					scale, ltp, spreadFactor);
-			break;
-		case CONVEX:
-			stationDrawer = new StationDrawerConvex(pf, lineNetwork, colors,
-					scale, ltp, spreadFactor);
-			break;
-		}
+		setupStationDrawer();
 
 		mapWindow.addZoomListener(this);
 		zoomChanged();
@@ -155,6 +148,18 @@ public class PlanRenderer implements ZoomChangedListener
 		this.isRenderLabels = isRenderLabels;
 	}
 
+	public StationMode getStationMode()
+	{
+		return stationMode;
+	}
+
+	public void setStationMode(StationMode stationMode)
+	{
+		this.stationMode = stationMode;
+		setupStationDrawer();
+		zoomChanged();
+	}
+
 	public SegmentMode getSegmentMode()
 	{
 		return segmentMode;
@@ -163,6 +168,20 @@ public class PlanRenderer implements ZoomChangedListener
 	public void setSegmentMode(SegmentMode segmentMode)
 	{
 		this.segmentMode = segmentMode;
+	}
+
+	private void setupStationDrawer()
+	{
+		switch (stationMode) {
+		case SIMPLE:
+			stationDrawer = new StationDrawerSimple(pf, lineNetwork, colors,
+					scale, ltp, spreadFactor);
+			break;
+		case CONVEX:
+			stationDrawer = new StationDrawerConvex(pf, lineNetwork, colors,
+					scale, ltp, spreadFactor);
+			break;
+		}
 	}
 
 	@Override

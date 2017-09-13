@@ -118,7 +118,8 @@ public class MapViewer
 
 	private void setStationMode(StationMode mode)
 	{
-		// TODO: really set station mode
+		map.getPlanRenderer().setStationMode(mode);
+		map.repaint();
 	}
 
 	private void setSegmentMode(SegmentMode mode)

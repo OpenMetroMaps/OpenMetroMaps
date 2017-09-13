@@ -23,7 +23,6 @@ import java.awt.RenderingHints;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.openmetromaps.maps.model.ModelData;
@@ -32,6 +31,7 @@ import org.openmetromaps.maps.painting.core.GenericPaintFactory;
 import org.openmetromaps.maps.painting.core.Painter;
 
 import de.topobyte.adt.geo.BBox;
+import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.jeography.core.viewbounds.BboxViewBounds;
 
 public class ScrollableAdvancedPanel extends BaseMapWindowPanel
@@ -42,11 +42,10 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 	private PlanRenderer renderer;
 
 	public ScrollableAdvancedPanel(ModelData data, StationMode stationMode,
-			SegmentMode segmentMode, double startLon, double startLat,
-			int minZoom, int maxZoom, BBox boundsBox)
+			SegmentMode segmentMode, Coordinate startPosition, int minZoom,
+			int maxZoom, BBox boundsBox)
 	{
-		super(startLon, startLat, minZoom, maxZoom,
-				new BboxViewBounds(boundsBox));
+		super(startPosition, minZoom, maxZoom, new BboxViewBounds(boundsBox));
 
 		renderer = new PlanRenderer(data, stationMode, segmentMode, mapWindow,
 				this, 1, new GenericPaintFactory());

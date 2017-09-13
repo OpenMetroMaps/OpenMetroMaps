@@ -20,7 +20,6 @@ package org.openmetromaps.maps;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.openmetromaps.maps.ScrollableSimplePanel;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
@@ -37,9 +36,10 @@ public class TestScrollableSimplePanel extends JPanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		ModelData data = modelConverter.convert(xmlModel);
 
+		ViewConfig viewConfig = ModelUtil.viewConfig(data);
+
 		ScrollableSimplePanel panel = new ScrollableSimplePanel(data,
-				Constants.START_LON, Constants.START_LAT, 10, 15,
-				Constants.BBOX);
+				Constants.START_POSITION, 10, 15, viewConfig.getBbox());
 
 		JFrame frame = new JFrame("SimplePanel");
 

@@ -26,7 +26,6 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.Line2D;
 import java.util.List;
 
-import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
@@ -44,11 +43,10 @@ public class ScrollableSimplePanel extends BaseMapWindowPanel
 
 	private ModelData data;
 
-	public ScrollableSimplePanel(ModelData data, double startLon,
-			double startLat, int minZoom, int maxZoom, BBox boundsBox)
+	public ScrollableSimplePanel(ModelData data, Coordinate startPosition,
+			int minZoom, int maxZoom, BBox boundsBox)
 	{
-		super(startLon, startLat, minZoom, maxZoom,
-				new BboxViewBounds(boundsBox));
+		super(startPosition, minZoom, maxZoom, new BboxViewBounds(boundsBox));
 		this.data = data;
 	}
 

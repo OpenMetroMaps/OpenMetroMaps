@@ -21,25 +21,15 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JFrame;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.openmetromaps.maps.PlanRenderer;
-import org.openmetromaps.maps.ScrollableAdvancedPanel;
+import org.openmetromaps.maps.MapViewer;
 import org.openmetromaps.maps.model.ModelData;
-import org.openmetromaps.maps.model.Station;
-import org.openmetromaps.maps.model.Stop;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
 
-import de.topobyte.adt.geo.BBox;
-import de.topobyte.adt.geo.BBoxHelper;
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
@@ -80,28 +70,8 @@ public class RunViewer
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		ModelData data = modelConverter.convert(xmlModel);
 
-		List<Coordinate> coords = new ArrayList<>();
-		for (Station station : data.stations) {
-			for (Stop stop : station.getStops()) {
-				coords.add(stop.getLocation());
-			}
-		}
-		BBox bbox = BBoxHelper.minimumBoundingBox(null, coords);
-
-		double startLon = (bbox.getLon1() + bbox.getLon2()) / 2.0;
-		double startLat = (bbox.getLat1() + bbox.getLat2()) / 2.0;
-
-		ScrollableAdvancedPanel panel = new ScrollableAdvancedPanel(data,
-				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				startLon, startLat, 10, 15, bbox);
-
-		final JFrame frame = new JFrame("AdvancedPanel");
-
-		frame.add(panel);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1000, 800);
-		frame.setVisible(true);
+		MapViewer mapViewer = new MapViewer(data);
+		mapViewer.show();
 	}
 
 }

@@ -17,14 +17,18 @@
 
 package org.openmetromaps.maps;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
 import org.openmetromaps.maps.painting.core.ColorCode;
 
+import de.topobyte.adt.geo.BBox;
+import de.topobyte.adt.geo.BBoxHelper;
 import de.topobyte.adt.geo.Coordinate;
 
 public class ModelUtil
@@ -101,6 +105,23 @@ public class ModelUtil
 	{
 		String sColor = line.getColor();
 		return new ColorCode(Integer.decode(sColor));
+	}
+
+	public static ViewConfig viewConfig(ModelData model)
+	{
+		List<Coordinate> coords = new ArrayList<>();
+		for (Station station : model.stations) {
+			for (Stop stop : station.getStops()) {
+				coords.add(stop.getLocation());
+			}
+		}
+		BBox bbox = BBoxHelper.minimumBoundingBox(null, coords);
+
+		double startLon = (bbox.getLon1() + bbox.getLon2()) / 2.0;
+		double startLat = (bbox.getLat1() + bbox.getLat2()) / 2.0;
+		Coordinate startPosition = new Coordinate(startLon, startLat);
+
+		return new ViewConfig(bbox, startPosition);
 	}
 
 }

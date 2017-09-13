@@ -17,13 +17,12 @@
 
 package org.openmetromaps.maps;
 
-import de.topobyte.adt.geo.BBox;
+import de.topobyte.adt.geo.Coordinate;
 
 public class Constants
 {
 
-	public static final double START_LON = 13.389;
-	public static final double START_LAT = 52.516;
-	public static final BBox BBOX = new BBox(13.060, 52.761, 13.917, 52.292);
+	public static final Coordinate START_POSITION = new Coordinate(13.389,
+			52.516);
 
 }

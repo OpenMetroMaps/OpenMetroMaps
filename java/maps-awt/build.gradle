@@ -2,6 +2,8 @@ dependencies {
     compile project(':openmetromaps-maps-core')
 
     compile 'de.topobyte:lightweight-geometry-awt:1.0.0'
+    compile 'de.topobyte:swing-utils:0.0.10'
+    compile 'de.topobyte:awt-utils:0.0.3'
 
     testCompile project(':openmetromaps-test-data')
 }

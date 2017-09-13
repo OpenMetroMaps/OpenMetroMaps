@@ -20,8 +20,6 @@ package org.openmetromaps.maps;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.openmetromaps.maps.PlanRenderer;
-import org.openmetromaps.maps.ScrollableAdvancedPanel;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
@@ -38,10 +36,11 @@ public class TestScrollableAdvancedPanel extends JPanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		ModelData data = modelConverter.convert(xmlModel);
 
+		ViewConfig viewConfig = ModelUtil.viewConfig(data);
+
 		ScrollableAdvancedPanel panel = new ScrollableAdvancedPanel(data,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				Constants.START_LON, Constants.START_LAT, 10, 15,
-				Constants.BBOX);
+				Constants.START_POSITION, 10, 15, viewConfig.getBbox());
 
 		final JFrame frame = new JFrame("AdvancedPanel");
 

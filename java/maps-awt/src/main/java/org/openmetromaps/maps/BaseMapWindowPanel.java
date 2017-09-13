@@ -27,8 +27,6 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
-import org.openmetromaps.maps.LocationToPoint;
-
 import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.jeography.core.mapwindow.SteplessMapWindow;
 import de.topobyte.jeography.core.viewbounds.ViewBounds;
@@ -42,10 +40,11 @@ public class BaseMapWindowPanel extends JPanel implements ComponentListener,
 
 	protected SteplessMapWindow mapWindow;
 
-	public BaseMapWindowPanel(double lon, double lat, int minZoom, int maxZoom,
+	public BaseMapWindowPanel(Coordinate position, int minZoom, int maxZoom,
 			ViewBounds bounds)
 	{
-		mapWindow = new SteplessMapWindow(1, 1, 12, lon, lat);
+		mapWindow = new SteplessMapWindow(1, 1, 12, position.getLongitude(),
+				position.getLatitude());
 		mapWindow.setMinZoom(minZoom);
 		mapWindow.setMaxZoom(maxZoom);
 		if (bounds != null) {

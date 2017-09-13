@@ -17,34 +17,39 @@
 
 package org.openmetromaps.maps;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import de.topobyte.adt.geo.BBox;
+import de.topobyte.adt.geo.Coordinate;
 
-import org.openmetromaps.maps.model.ModelData;
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelConverter;
-
-public class TestSimplePanel extends JPanel
+public class ViewConfig
 {
 
-	private static final long serialVersionUID = 1L;
+	private BBox bbox;
+	private Coordinate startPosition;
 
-	public static void main(String[] args) throws Exception
+	public ViewConfig(BBox bbox, Coordinate startPosition)
 	{
-		XmlModel xmlModel = TestData.berlinXml();
+		this.bbox = bbox;
+		this.startPosition = startPosition;
+	}
 
-		XmlModelConverter modelConverter = new XmlModelConverter();
-		ModelData data = modelConverter.convert(xmlModel);
+	public BBox getBbox()
+	{
+		return bbox;
+	}
 
-		SimplePanel panel = new SimplePanel(data);
+	public void setBbox(BBox bbox)
+	{
+		this.bbox = bbox;
+	}
 
-		JFrame frame = new JFrame("SimplePanel");
+	public Coordinate getStartPosition()
+	{
+		return startPosition;
+	}
 
-		frame.add(panel);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1000, 800);
-		frame.setVisible(true);
+	public void setStartPosition(Coordinate startPosition)
+	{
+		this.startPosition = startPosition;
 	}
 
 }

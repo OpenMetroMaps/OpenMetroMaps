@@ -17,14 +17,13 @@
 
 package org.openmetromaps.maps;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
-public class TestSimplePanel extends JPanel
+public class TestMapViewer extends JPanel
 {
 
 	private static final long serialVersionUID = 1L;
@@ -36,15 +35,8 @@ public class TestSimplePanel extends JPanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		ModelData data = modelConverter.convert(xmlModel);
 
-		SimplePanel panel = new SimplePanel(data);
-
-		JFrame frame = new JFrame("SimplePanel");
-
-		frame.add(panel);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1000, 800);
-		frame.setVisible(true);
+		MapViewer mapViewer = new MapViewer(data);
+		mapViewer.show();
 	}
 
 }

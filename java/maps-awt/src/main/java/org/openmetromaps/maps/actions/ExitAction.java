@@ -15,36 +15,27 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps;
+package org.openmetromaps.maps.actions;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
 
-import org.openmetromaps.maps.model.ModelData;
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelConverter;
+import de.topobyte.swing.util.action.SimpleAction;
 
-public class TestSimplePanel extends JPanel
+public class ExitAction extends SimpleAction
 {
 
 	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args) throws Exception
+	public ExitAction()
 	{
-		XmlModel xmlModel = TestData.berlinXml();
+		super("Exit", "Quit the application");
+		setIcon("res/images/24/gtk-quit.png");
+	}
 
-		XmlModelConverter modelConverter = new XmlModelConverter();
-		ModelData data = modelConverter.convert(xmlModel);
-
-		SimplePanel panel = new SimplePanel(data);
-
-		JFrame frame = new JFrame("SimplePanel");
-
-		frame.add(panel);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1000, 800);
-		frame.setVisible(true);
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		System.exit(0);
 	}
 
 }

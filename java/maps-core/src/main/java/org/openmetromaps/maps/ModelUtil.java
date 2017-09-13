@@ -117,9 +117,13 @@ public class ModelUtil
 		}
 		BBox bbox = BBoxHelper.minimumBoundingBox(null, coords);
 
-		double startLon = (bbox.getLon1() + bbox.getLon2()) / 2.0;
-		double startLat = (bbox.getLat1() + bbox.getLat2()) / 2.0;
-		Coordinate startPosition = new Coordinate(startLon, startLat);
+		coords.sort(new CoordinateComparatorLongitude());
+		double medianLon = coords.get(coords.size() / 2).getLongitude();
+
+		coords.sort(new CoordinateComparatorLatitude());
+		double medianLat = coords.get(coords.size() / 2).getLatitude();
+
+		Coordinate startPosition = new Coordinate(medianLon, medianLat);
 
 		return new ViewConfig(bbox, startPosition);
 	}

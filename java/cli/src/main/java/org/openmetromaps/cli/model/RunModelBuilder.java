@@ -87,7 +87,8 @@ public class RunModelBuilder
 
 		ArrayList<Fix> fixes = new ArrayList<>();
 
-		ModelBuilder modelBuilder = new ModelBuilder(fileInput, prefixes, fixes);
+		ModelBuilder modelBuilder = new ModelBuilder(fileInput, prefixes,
+				fixes);
 		modelBuilder.run(true);
 	}
 

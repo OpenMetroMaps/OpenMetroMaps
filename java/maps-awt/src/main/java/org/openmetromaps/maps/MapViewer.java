@@ -20,6 +20,7 @@ package org.openmetromaps.maps;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Window;
+import java.beans.PropertyChangeSupport;
 
 import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
@@ -30,13 +31,13 @@ import javax.swing.JPanel;
 
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
-import org.openmetromaps.maps.actions.EnumActions;
 import org.openmetromaps.maps.actions.ExitAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.model.ModelData;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.swing.util.EmptyIcon;
+import de.topobyte.swing.util.action.enums.EnumActions;
 
 public class MapViewer
 {
@@ -107,8 +108,23 @@ public class MapViewer
 		menuView.add(stationMode);
 		menuView.add(segmentMode);
 
-		EnumActions.add(stationMode, StationMode.class);
-		EnumActions.add(segmentMode, SegmentMode.class);
+		PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+
+		EnumActions.add(stationMode, StationMode.class, changeSupport,
+				"station-mode", StationMode.CONVEX, x -> setStationMode(x));
+		EnumActions.add(segmentMode, SegmentMode.class, changeSupport,
+				"segment-mode", SegmentMode.CURVE, x -> setSegmentMode(x));
+	}
+
+	private void setStationMode(StationMode mode)
+	{
+		// TODO: really set station mode
+	}
+
+	private void setSegmentMode(SegmentMode mode)
+	{
+		map.getPlanRenderer().setSegmentMode(mode);
+		map.repaint();
 	}
 
 	private JMenu submenu(String string)

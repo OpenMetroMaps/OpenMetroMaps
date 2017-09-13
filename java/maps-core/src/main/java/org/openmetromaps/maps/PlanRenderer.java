@@ -155,6 +155,16 @@ public class PlanRenderer implements ZoomChangedListener
 		this.isRenderLabels = isRenderLabels;
 	}
 
+	public SegmentMode getSegmentMode()
+	{
+		return segmentMode;
+	}
+
+	public void setSegmentMode(SegmentMode segmentMode)
+	{
+		this.segmentMode = segmentMode;
+	}
+
 	@Override
 	public void zoomChanged()
 	{

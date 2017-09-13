@@ -15,19 +15,33 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.actions;
+package de.topobyte.swing.util.action.enums;
 
+import java.beans.PropertyChangeSupport;
+import java.util.function.Consumer;
+
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EnumActions
 {
 
-	public static <T extends Enum<T>> void add(JMenu menu, Class<T> c)
+	final static Logger logger = LoggerFactory.getLogger(EnumActions.class);
+
+	public static <T extends Enum<T>> void add(JMenu menu, Class<T> c,
+			PropertyChangeSupport changeSupport, String propertyName, T value,
+			Consumer<T> changeAction)
 	{
 		T[] contants = c.getEnumConstants();
+		EnumValueHolder<T> valueHolder = new EnumValueHolder<>(changeSupport,
+				propertyName, changeAction, value);
 		for (T constant : contants) {
-			menu.add(new JMenuItem(constant.toString()));
+			EnumAction<T> action = new EnumAction<>(changeSupport, propertyName,
+					valueHolder, constant);
+			menu.add(new JCheckBoxMenuItem(action));
 		}
 	}
 

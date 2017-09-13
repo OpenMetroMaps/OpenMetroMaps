@@ -25,9 +25,9 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.cli.osm.OsmOptions;
-import org.openmetromaps.model.ModelBuilder;
 import org.openmetromaps.model.DraftModel;
 import org.openmetromaps.model.Fix;
+import org.openmetromaps.model.ModelBuilder;
 import org.openmetromaps.model.inspector.ModelInspector;
 
 import de.topobyte.osm4j.utils.OsmFile;

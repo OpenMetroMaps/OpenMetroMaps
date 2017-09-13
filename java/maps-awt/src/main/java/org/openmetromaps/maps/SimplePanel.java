@@ -29,7 +29,6 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;

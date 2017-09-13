@@ -17,7 +17,7 @@
 
 package org.openmetromaps.cli;
 
-import org.openmetromaps.cli.maps.RunViewer;
+import org.openmetromaps.cli.maps.RunMapViewer;
 import org.openmetromaps.cli.model.RunModelBuilder;
 import org.openmetromaps.cli.model.RunModelInspector;
 import org.openmetromaps.cli.osm.RunFilterRegion;
@@ -49,8 +49,8 @@ public class OpenMetroMapsCli
 					RunModelBuilder.class);
 			options.addCommand("inspect-model",
 					RunModelInspector.OPTIONS_FACTORY, RunModelInspector.class);
-			options.addCommand("viewer", RunViewer.OPTIONS_FACTORY,
-					RunViewer.class);
+			options.addCommand("map-viewer", RunMapViewer.OPTIONS_FACTORY,
+					RunMapViewer.class);
 			return options;
 		}
 

@@ -36,7 +36,7 @@ import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOp
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
 
-public class RunViewer
+public class RunMapViewer
 {
 
 	private static final String OPTION_INPUT = "input";

@@ -23,6 +23,9 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Line2D;
@@ -126,6 +129,11 @@ public class AwtPainter implements Painter
 	@Override
 	public void outlineString(String string, float x, float y)
 	{
+		outlineShapes(string, x, y);
+	}
+
+	private void outlineSimple(String string, float x, float y)
+	{
 		g.drawString(string, x - 1, y - 1);
 		g.drawString(string, x - 1, y + 1);
 		g.drawString(string, x + 1, y - 1);
@@ -134,6 +142,21 @@ public class AwtPainter implements Painter
 		g.drawString(string, x - 2, y + 2);
 		g.drawString(string, x + 2, y - 2);
 		g.drawString(string, x + 2, y + 2);
+	}
+
+	private void outlineShapes(String string, float x, float y)
+	{
+		AffineTransform backup = g.getTransform();
+
+		FontRenderContext frc = g.getFontRenderContext();
+		Font f = g.getFont();
+
+		TextLayout layout = new TextLayout(string, f, frc);
+		Shape outline = layout.getOutline(null);
+		g.translate(x, y);
+		g.draw(outline);
+
+		g.setTransform(backup);
 	}
 
 	@Override

@@ -33,14 +33,14 @@ public class EnumActions
 
 	public static <T extends Enum<T>> void add(JMenu menu, Class<T> c,
 			PropertyChangeSupport changeSupport, String propertyName, T value,
-			Consumer<T> changeAction)
+			Consumer<T> changeAction, EnumAppearance<T> appearance)
 	{
 		T[] contants = c.getEnumConstants();
 		EnumValueHolder<T> valueHolder = new EnumValueHolder<>(changeSupport,
 				propertyName, changeAction, value);
 		for (T constant : contants) {
 			EnumAction<T> action = new EnumAction<>(changeSupport, propertyName,
-					valueHolder, constant);
+					valueHolder, appearance, constant);
 			menu.add(new JCheckBoxMenuItem(action));
 		}
 	}

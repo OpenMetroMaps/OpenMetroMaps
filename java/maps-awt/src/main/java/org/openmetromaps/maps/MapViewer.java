@@ -37,6 +37,7 @@ import org.openmetromaps.maps.model.ModelData;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.swing.util.EmptyIcon;
+import de.topobyte.swing.util.action.enums.DefaultAppearance;
 import de.topobyte.swing.util.action.enums.EnumActions;
 
 public class MapViewer
@@ -111,9 +112,11 @@ public class MapViewer
 		PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
 		EnumActions.add(stationMode, StationMode.class, changeSupport,
-				"station-mode", StationMode.CONVEX, x -> setStationMode(x));
+				"station-mode", StationMode.CONVEX, x -> setStationMode(x),
+				new DefaultAppearance<>());
 		EnumActions.add(segmentMode, SegmentMode.class, changeSupport,
-				"segment-mode", SegmentMode.CURVE, x -> setSegmentMode(x));
+				"segment-mode", SegmentMode.CURVE, x -> setSegmentMode(x),
+				new DefaultAppearance<>());
 	}
 
 	private void setStationMode(StationMode mode)

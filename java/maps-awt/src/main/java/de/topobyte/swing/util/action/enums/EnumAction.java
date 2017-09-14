@@ -40,11 +40,13 @@ public class EnumAction<T extends Enum<T>> extends SimpleAction
 	private T value;
 
 	public EnumAction(PropertyChangeSupport changeSupport, String propertyName,
-			EnumValueHolder<T> valueHolder, T value)
+			EnumValueHolder<T> valueHolder, EnumAppearance<T> appearance,
+			T value)
 	{
 		this.valueHolder = valueHolder;
 		this.value = value;
-		setName(value.toString());
+		setName(appearance.getName(value));
+		setIcon(appearance.getIcon(value));
 
 		changeSupport.addPropertyChangeListener(propertyName,
 				new PropertyChangeListener() {

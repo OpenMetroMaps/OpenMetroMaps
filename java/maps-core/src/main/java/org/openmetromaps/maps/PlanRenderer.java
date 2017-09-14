@@ -73,8 +73,8 @@ public class PlanRenderer implements ZoomChangedListener
 		CURVE
 	}
 
-	private static final boolean DEBUG_RANKS = false;
-	private static final boolean DEBUG_TANGENTS = false;
+	private boolean debugRanks = false;
+	private boolean debugTangents = false;
 
 	private boolean isRenderLabels = true;
 
@@ -146,6 +146,26 @@ public class PlanRenderer implements ZoomChangedListener
 	public void setRenderLabels(boolean isRenderLabels)
 	{
 		this.isRenderLabels = isRenderLabels;
+	}
+
+	public boolean isDebugRanks()
+	{
+		return debugRanks;
+	}
+
+	public void setDebugRanks(boolean debugRanks)
+	{
+		this.debugRanks = debugRanks;
+	}
+
+	public boolean isDebugTangents()
+	{
+		return debugTangents;
+	}
+
+	public void setDebugTangents(boolean debugTangents)
+	{
+		this.debugTangents = debugTangents;
 	}
 
 	public StationMode getStationMode()
@@ -295,7 +315,7 @@ public class PlanRenderer implements ZoomChangedListener
 		IPaintInfo piText = pf.create(Colors.BLACK, 1 * scale);
 		piText.setFontSize(fontSize);
 
-		if (DEBUG_RANKS) {
+		if (debugRanks) {
 			for (int i = 0; i < nNodes; i++) {
 				Node node = lineNetwork.nodes.get(i);
 				Point p = ltp.getPoint(node.location);
@@ -498,7 +518,7 @@ public class PlanRenderer implements ZoomChangedListener
 			long tb = System.currentTimeMillis();
 			durationCurves += tb - ta;
 
-			if (DEBUG_TANGENTS) {
+			if (debugTangents) {
 				g.draw(new LineSegment(spline.getP1(), spline.getC1()));
 				g.draw(new LineSegment(spline.getC2(), spline.getP2()));
 			}

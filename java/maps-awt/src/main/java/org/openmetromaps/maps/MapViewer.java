@@ -31,6 +31,8 @@ import javax.swing.JPanel;
 
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
+import org.openmetromaps.maps.actions.DebugRanksAction;
+import org.openmetromaps.maps.actions.DebugTangentsAction;
 import org.openmetromaps.maps.actions.ExitAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.model.ModelData;
@@ -108,6 +110,8 @@ public class MapViewer
 		JMenu segmentMode = submenu("Segment mode");
 		menuView.add(stationMode);
 		menuView.add(segmentMode);
+		addCheckbox(menuView, new DebugTangentsAction(this));
+		addCheckbox(menuView, new DebugRanksAction(this));
 
 		PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 

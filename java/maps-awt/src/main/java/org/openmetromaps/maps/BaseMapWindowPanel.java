@@ -40,6 +40,7 @@ public class BaseMapWindowPanel extends JPanel implements ComponentListener,
 	private static final long serialVersionUID = 1L;
 
 	protected SteplessMapWindow mapWindow;
+	protected double zoomStep = 0.1;
 
 	public BaseMapWindowPanel(Coordinate position, int minZoom, int maxZoom,
 			ViewBounds bounds)
@@ -134,15 +135,15 @@ public class BaseMapWindowPanel extends JPanel implements ComponentListener,
 		if (e.getClickCount() == 2) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
 				if (!control) {
-					zoomFixed(e.getPoint(), true, 0.1);
+					zoomFixed(e.getPoint(), true, zoomStep);
 				} else {
-					mapWindow.zoomInToPosition(e.getX(), e.getY(), 0.1);
+					mapWindow.zoomInToPosition(e.getX(), e.getY(), zoomStep);
 				}
 			} else if (e.getButton() == MouseEvent.BUTTON3) {
 				if (!control) {
-					zoomFixed(e.getPoint(), false, 0.1);
+					zoomFixed(e.getPoint(), false, zoomStep);
 				} else {
-					mapWindow.zoomOutToPosition(e.getX(), e.getY(), 0.1);
+					mapWindow.zoomOutToPosition(e.getX(), e.getY(), zoomStep);
 				}
 			}
 			repaint();
@@ -203,9 +204,9 @@ public class BaseMapWindowPanel extends JPanel implements ComponentListener,
 	{
 		int rotation = e.getWheelRotation();
 		if (rotation < 0) {
-			zoomFixed(e.getPoint(), true, 0.1);
+			zoomFixed(e.getPoint(), true, zoomStep);
 		} else {
-			zoomFixed(e.getPoint(), false, 0.1);
+			zoomFixed(e.getPoint(), false, zoomStep);
 		}
 		repaint();
 	}

@@ -125,10 +125,10 @@ public class BaseMapWindowPanel extends JPanel implements ComponentListener,
 		this.grabFocus();
 		if (e.getClickCount() == 2) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
-				mapWindow.zoomInToPosition(e.getPoint().x, e.getPoint().y, 0.1);
+				zoomFixed(e.getPoint(), true, 0.1);
+				mapWindow.zoomInToPosition(e.getX(), e.getY(), 0.1);
 			} else if (e.getButton() == MouseEvent.BUTTON3) {
-				mapWindow.zoomOutToPosition(e.getPoint().x, e.getPoint().y,
-						0.1);
+				zoomFixed(e.getPoint(), false, 0.1);
 			}
 			repaint();
 		}
@@ -188,11 +188,31 @@ public class BaseMapWindowPanel extends JPanel implements ComponentListener,
 	{
 		int rotation = e.getWheelRotation();
 		if (rotation < 0) {
-			mapWindow.zoomIn(0.1);
+			zoomFixed(e.getPoint(), true, 0.1);
 		} else {
-			mapWindow.zoomOut(0.1);
+			zoomFixed(e.getPoint(), false, 0.1);
 		}
 		repaint();
+	}
+
+	private void zoomFixed(java.awt.Point point, boolean in, double zoomStep)
+	{
+		// (lon, lat) that we want to keep fixed at the screen point (x, y)
+		double flon = mapWindow.getPositionLon(point.x);
+		double flat = mapWindow.getPositionLat(point.y);
+
+		if (in) {
+			mapWindow.zoomIn(zoomStep);
+		} else {
+			mapWindow.zoomOut(zoomStep);
+		}
+
+		// (x, y) of the (lon, lat) after applying the zoom change
+		double fx = mapWindow.getX(flon);
+		double fy = mapWindow.getY(flat);
+		// shift the map to keep the (lon, lat) fixed
+		mapWindow.move((int) Math.round(fx - point.x),
+				(int) Math.round(fy - point.y));
 	}
 
 }

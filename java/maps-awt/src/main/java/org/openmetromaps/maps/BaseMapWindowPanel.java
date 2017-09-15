@@ -19,6 +19,7 @@ package org.openmetromaps.maps;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -123,12 +124,26 @@ public class BaseMapWindowPanel extends JPanel implements ComponentListener,
 	public void mouseClicked(MouseEvent e)
 	{
 		this.grabFocus();
+
+		boolean control = false;
+		int modifiers = e.getModifiersEx();
+		if ((modifiers & InputEvent.CTRL_DOWN_MASK) != 0) {
+			control = true;
+		}
+
 		if (e.getClickCount() == 2) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
-				zoomFixed(e.getPoint(), true, 0.1);
-				mapWindow.zoomInToPosition(e.getX(), e.getY(), 0.1);
+				if (!control) {
+					zoomFixed(e.getPoint(), true, 0.1);
+				} else {
+					mapWindow.zoomInToPosition(e.getX(), e.getY(), 0.1);
+				}
 			} else if (e.getButton() == MouseEvent.BUTTON3) {
-				zoomFixed(e.getPoint(), false, 0.1);
+				if (!control) {
+					zoomFixed(e.getPoint(), false, 0.1);
+				} else {
+					mapWindow.zoomOutToPosition(e.getX(), e.getY(), 0.1);
+				}
 			}
 			repaint();
 		}

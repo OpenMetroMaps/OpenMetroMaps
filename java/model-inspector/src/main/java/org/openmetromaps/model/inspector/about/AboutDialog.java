@@ -22,6 +22,8 @@ import java.awt.Window;
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
 
+import org.openmetromaps.swing.AboutPanel;
+import org.openmetromaps.swing.LicensePanel;
 import org.openmetromaps.swing.Util;
 
 public class AboutDialog extends JDialog
@@ -43,9 +45,9 @@ public class AboutDialog extends JDialog
 	{
 		super(owner, "OpenMetroMaps Model Inspector");
 
-		aboutPanel = new AboutPanel();
-		lgplPanel = new LicensePanel("lgpl.html");
-		gplPanel = new LicensePanel("gpl.html");
+		aboutPanel = new AboutPanel("res/about.html");
+		lgplPanel = new LicensePanel("res/lgpl.html");
+		gplPanel = new LicensePanel("res/gpl.html");
 
 		JTabbedPane tabs = new JTabbedPane();
 		tabs.add("About", aboutPanel);

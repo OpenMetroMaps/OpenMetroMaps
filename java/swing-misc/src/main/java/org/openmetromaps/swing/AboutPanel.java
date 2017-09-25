@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model.inspector.about;
+package org.openmetromaps.swing;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -37,7 +37,7 @@ public class AboutPanel extends JPanel
 
 	static final long serialVersionUID = 1L;
 
-	public AboutPanel()
+	public AboutPanel(String filename)
 	{
 		setLayout(new GridBagLayout());
 
@@ -56,7 +56,6 @@ public class AboutPanel extends JPanel
 		HTMLEditorKit kit = new HTMLEditorKit();
 		pane.setEditorKit(kit);
 
-		String filename = "res/about.html";
 		URL url = Thread.currentThread().getContextClassLoader()
 				.getResource(filename);
 		try {

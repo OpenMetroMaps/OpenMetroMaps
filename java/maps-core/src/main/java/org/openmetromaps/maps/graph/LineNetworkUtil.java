@@ -17,7 +17,13 @@
 
 package org.openmetromaps.maps.graph;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.openmetromaps.maps.ModelUtil;
+import org.openmetromaps.maps.model.Station;
+
+import de.topobyte.adt.geo.Coordinate;
 
 public class LineNetworkUtil
 {
@@ -56,6 +62,37 @@ public class LineNetworkUtil
 		}
 
 		return found.n1 != start ? found.n1 : found.n2;
+	}
+
+	public static void calculateNeighborLocations(Edge edge)
+	{
+		List<NetworkLine> lines = edge.lines;
+		if (lines.size() == 1) {
+			// Optimize anything here?
+		} else {
+			List<Station> prevs = new ArrayList<>();
+			List<Station> nexts = new ArrayList<>();
+			for (NetworkLine line : lines) {
+				NeighborInfo neighbors = line.getNeighbors(edge);
+
+				Node prev = neighbors.prev;
+				Node next = neighbors.next;
+
+				if (prev != null) {
+					prevs.add(prev.station);
+				}
+				if (next != null) {
+					nexts.add(next.station);
+				}
+			}
+
+			Coordinate lp = prevs.size() == 0 ? null
+					: ModelUtil.meanOfStations(prevs);
+			Coordinate ln = nexts.size() == 0 ? null
+					: ModelUtil.meanOfStations(nexts);
+			edge.setPrev(lp);
+			edge.setNext(ln);
+		}
 	}
 
 }

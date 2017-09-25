@@ -34,8 +34,6 @@ import org.openmetromaps.maps.model.Stop;
 import com.slimjars.dist.gnu.trove.set.TIntSet;
 import com.slimjars.dist.gnu.trove.set.hash.TIntHashSet;
 
-import de.topobyte.adt.geo.Coordinate;
-
 public class LineNetworkBuilder
 {
 
@@ -83,33 +81,7 @@ public class LineNetworkBuilder
 
 		for (int i = 0; i < nEdges; i++) {
 			Edge edge = graph.edges.get(i);
-			List<NetworkLine> lines = edge.lines;
-			if (lines.size() == 1) {
-				// Optimize anything here?
-			} else {
-				List<Station> prevs = new ArrayList<>();
-				List<Station> nexts = new ArrayList<>();
-				for (NetworkLine line : lines) {
-					NeighborInfo neighbors = line.getNeighbors(edge);
-
-					Node prev = neighbors.prev;
-					Node next = neighbors.next;
-
-					if (prev != null) {
-						prevs.add(prev.station);
-					}
-					if (next != null) {
-						nexts.add(next.station);
-					}
-				}
-
-				Coordinate lp = prevs.size() == 0 ? null
-						: ModelUtil.meanOfStations(prevs);
-				Coordinate ln = nexts.size() == 0 ? null
-						: ModelUtil.meanOfStations(nexts);
-				edge.setPrev(lp);
-				edge.setNext(ln);
-			}
+			LineNetworkUtil.calculateNeighborLocations(edge);
 		}
 
 		final int nNodes = graph.nodes.size();

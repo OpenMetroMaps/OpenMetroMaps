@@ -20,6 +20,8 @@ package org.openmetromaps.maps;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Window;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.Action;
@@ -54,6 +56,7 @@ public class MapViewer
 	private JFrame frame;
 
 	private ScrollableAdvancedPanel map;
+	private StatusBar statusBar;
 
 	public MapViewer(ModelData model)
 	{
@@ -77,6 +80,11 @@ public class MapViewer
 		return map;
 	}
 
+	public StatusBar getStatusBar()
+	{
+		return statusBar;
+	}
+
 	public void show()
 	{
 		frame = new JFrame("Map Viewer");
@@ -92,6 +100,17 @@ public class MapViewer
 	{
 		setupContent();
 		setupMenu();
+
+		map.addMouseMotionListener(new MouseAdapter() {
+
+			@Override
+			public void mouseMoved(MouseEvent e)
+			{
+				statusBar.setText(
+						String.format("Location: %d,%d", e.getX(), e.getY()));
+			}
+
+		});
 	}
 
 	private void setupMenu()
@@ -164,9 +183,14 @@ public class MapViewer
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
 				viewConfig.getStartPosition(), 10, 15, viewConfig.getBbox());
 
+		statusBar = new StatusBar();
+
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
 		c.weight(1, 1).fill(GridBagConstraints.BOTH);
 		panel.add(map, c.getConstraints());
+		c.weight(1, 0).fill(GridBagConstraints.HORIZONTAL);
+		c.gridPos(0, 1);
+		panel.add(statusBar, c.getConstraints());
 	}
 
 }

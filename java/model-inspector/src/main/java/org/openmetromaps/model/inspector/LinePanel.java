@@ -35,6 +35,7 @@ import javax.swing.SwingUtilities;
 
 import org.openmetromaps.model.DraftLine;
 import org.openmetromaps.model.DraftStation;
+import org.openmetromaps.swing.Util;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.osm4j.core.model.iface.OsmRelation;

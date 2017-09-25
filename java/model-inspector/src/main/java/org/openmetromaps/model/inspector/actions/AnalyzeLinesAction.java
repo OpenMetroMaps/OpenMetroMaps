@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 import org.openmetromaps.model.LinesAnalyzer;
 import org.openmetromaps.model.inspector.ModelInspector;
 import org.openmetromaps.model.inspector.TextDialog;
-import org.openmetromaps.model.inspector.Util;
+import org.openmetromaps.swing.Util;
 
 import de.topobyte.lineprinter.LineBufferPrinter;
 import de.topobyte.swing.util.action.SimpleAction;

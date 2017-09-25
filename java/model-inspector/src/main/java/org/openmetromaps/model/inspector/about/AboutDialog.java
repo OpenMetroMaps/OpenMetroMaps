@@ -22,7 +22,7 @@ import java.awt.Window;
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
 
-import org.openmetromaps.model.inspector.Util;
+import org.openmetromaps.swing.Util;
 
 public class AboutDialog extends JDialog
 {

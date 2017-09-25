@@ -118,6 +118,11 @@ public class BaseMapWindowPanel extends JPanel implements ComponentListener,
 		return mapWindow.getY(lat);
 	}
 
+	public SteplessMapWindow getMapWindow()
+	{
+		return mapWindow;
+	}
+
 	private java.awt.Point pointPress;
 	private boolean mousePressed = false;
 

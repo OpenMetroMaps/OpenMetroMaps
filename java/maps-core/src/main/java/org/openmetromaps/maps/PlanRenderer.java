@@ -138,6 +138,11 @@ public class PlanRenderer implements ZoomChangedListener
 		zoomChanged();
 	}
 
+	public LineNetwork getLineNetwork()
+	{
+		return lineNetwork;
+	}
+
 	public boolean isRenderLabels()
 	{
 		return isRenderLabels;

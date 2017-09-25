@@ -39,9 +39,13 @@ import org.openmetromaps.maps.actions.DebugTangentsAction;
 import org.openmetromaps.maps.actions.ExitAction;
 import org.openmetromaps.maps.actions.LicenseAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.ModelData;
 
+import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
+import de.topobyte.geomath.WGS84;
 import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.action.enums.DefaultAppearance;
 import de.topobyte.swing.util.action.enums.EnumActions;
@@ -106,8 +110,7 @@ public class MapViewer
 			@Override
 			public void mouseMoved(MouseEvent e)
 			{
-				statusBar.setText(
-						String.format("Location: %d,%d", e.getX(), e.getY()));
+				updateStatusBar(e.getX(), e.getY());
 			}
 
 		});
@@ -191,6 +194,32 @@ public class MapViewer
 		c.weight(1, 0).fill(GridBagConstraints.HORIZONTAL);
 		c.gridPos(0, 1);
 		panel.add(statusBar, c.getConstraints());
+	}
+
+	protected void updateStatusBar(int x, int y)
+	{
+		double lon = map.getMapWindow().getPositionLon(x);
+		double lat = map.getMapWindow().getPositionLat(y);
+
+		LineNetwork lineNetwork = map.getPlanRenderer().getLineNetwork();
+
+		double bestDistance = Double.MAX_VALUE;
+		Node best = null;
+
+		// TODO: use an index to speed this up
+		for (Node node : lineNetwork.nodes) {
+			Coordinate location = node.location;
+			double d = WGS84.haversineDistance(location.getLongitude(),
+					location.getLatitude(), lon, lat);
+			if (d < bestDistance) {
+				bestDistance = d;
+				best = node;
+			}
+		}
+
+		statusBar.setText(String.format(
+				"Location: %d,%d, Coordinates: %.6f,%.6f, Station: %s", x, y,
+				lon, lat, best.station.getName()));
 	}
 
 }

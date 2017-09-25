@@ -39,6 +39,7 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 
 	private static final long serialVersionUID = 1L;
 
+	private ModelData data;
 	private PlanRenderer renderer;
 
 	public ScrollableAdvancedPanel(ModelData data, StationMode stationMode,
@@ -46,6 +47,8 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 			int maxZoom, BBox boundsBox)
 	{
 		super(startPosition, minZoom, maxZoom, new BboxViewBounds(boundsBox));
+
+		this.data = data;
 
 		renderer = new PlanRenderer(data, stationMode, segmentMode, mapWindow,
 				this, 1, new GenericPaintFactory());
@@ -75,6 +78,16 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 		setFocusable(true);
 	}
 
+	public ModelData getData()
+	{
+		return data;
+	}
+
+	public PlanRenderer getPlanRenderer()
+	{
+		return renderer;
+	}
+
 	@Override
 	protected void paintComponent(Graphics graphics)
 	{
@@ -87,11 +100,6 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 		Painter painter = new AwtPainter(g);
 
 		renderer.paint(painter);
-	}
-
-	public PlanRenderer getPlanRenderer()
-	{
-		return renderer;
 	}
 
 }

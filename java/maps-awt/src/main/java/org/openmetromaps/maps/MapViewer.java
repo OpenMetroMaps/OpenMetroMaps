@@ -217,9 +217,21 @@ public class MapViewer
 			}
 		}
 
+		double sx = map.getMapWindow().longitudeToX(best.location.lon);
+		double sy = map.getMapWindow().latitudeToY(best.location.lat);
+
+		double dx = Math.abs(sx - x);
+		double dy = Math.abs(sy - y);
+		double d = Math.sqrt(dx * dx + dy * dy);
+
+		String stationName = "none";
+		if (d < 5) {
+			stationName = best.station.getName();
+		}
+
 		statusBar.setText(String.format(
 				"Location: %d,%d, Coordinates: %.6f,%.6f, Station: %s", x, y,
-				lon, lat, best.station.getName()));
+				lon, lat, stationName));
 	}
 
 }

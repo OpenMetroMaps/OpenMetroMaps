@@ -19,17 +19,13 @@ package org.openmetromaps.maps;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 
 import javax.swing.JComponent;
 
 import de.topobyte.jeography.core.mapwindow.SteplessMapWindow;
 
-public class BaseMouseEventProcessor
-		implements MouseListener, MouseMotionListener, MouseWheelListener
+public class BaseMouseEventProcessor implements MouseProcessor
 {
 
 	private JComponent c;

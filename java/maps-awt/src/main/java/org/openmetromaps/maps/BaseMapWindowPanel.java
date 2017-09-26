@@ -35,6 +35,8 @@ public class BaseMapWindowPanel extends JPanel
 
 	protected SteplessMapWindow mapWindow;
 
+	private MouseProcessor mouseProcessor = null;
+
 	public BaseMapWindowPanel(Coordinate position, int minZoom, int maxZoom,
 			ViewBounds bounds)
 	{
@@ -46,12 +48,24 @@ public class BaseMapWindowPanel extends JPanel
 			mapWindow.setViewBounds(bounds);
 		}
 
-		BaseMouseEventProcessor mep = new BaseMouseEventProcessor(this, mapWindow);
+		BaseMouseEventProcessor mep = new BaseMouseEventProcessor(this,
+				mapWindow);
+		setMouseProcessor(mep);
 
 		addComponentListener(this);
-		addMouseListener(mep);
-		addMouseMotionListener(mep);
-		addMouseWheelListener(mep);
+	}
+
+	public void setMouseProcessor(MouseProcessor mouseProcessor)
+	{
+		if (this.mouseProcessor != null) {
+			removeMouseListener(this.mouseProcessor);
+			removeMouseMotionListener(this.mouseProcessor);
+			removeMouseWheelListener(this.mouseProcessor);
+		}
+		this.mouseProcessor = mouseProcessor;
+		addMouseListener(mouseProcessor);
+		addMouseMotionListener(mouseProcessor);
+		addMouseWheelListener(mouseProcessor);
 	}
 
 	@Override

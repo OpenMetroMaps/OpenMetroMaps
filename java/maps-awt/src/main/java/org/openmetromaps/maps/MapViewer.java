@@ -20,7 +20,6 @@ package org.openmetromaps.maps;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Window;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeSupport;
 
@@ -105,15 +104,17 @@ public class MapViewer
 		setupContent();
 		setupMenu();
 
-		map.addMouseMotionListener(new MouseAdapter() {
+		map.setMouseProcessor(
+				new BaseMouseEventProcessor(map, map.getMapWindow()) {
 
-			@Override
-			public void mouseMoved(MouseEvent e)
-			{
-				updateStatusBar(e.getX(), e.getY());
-			}
+					@Override
+					public void mouseMoved(MouseEvent e)
+					{
+						super.mouseMoved(e);
+						updateStatusBar(e.getX(), e.getY());
+					}
 
-		});
+				});
 	}
 
 	private void setupMenu()

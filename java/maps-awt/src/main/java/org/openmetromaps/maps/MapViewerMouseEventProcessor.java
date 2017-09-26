@@ -18,11 +18,17 @@
 package org.openmetromaps.maps;
 
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.openmetromaps.maps.graph.Edge;
+import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.swing.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import de.topobyte.adt.geo.Coordinate;
 
 public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 {
@@ -38,7 +44,6 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 		this.mapViewer = mapViewer;
 	}
 
-	private java.awt.Point lastPoint;
 	private boolean draggingNode = false;
 	private Node dragNode = null;
 
@@ -54,7 +59,6 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 			if (node == null) {
 				return;
 			}
-			lastPoint = e.getPoint();
 			draggingNode = true;
 			dragNode = node;
 		}
@@ -86,13 +90,30 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 
 		if (draggingNode) {
 			java.awt.Point currentPoint = e.getPoint();
-			int dx = lastPoint.x - currentPoint.x;
-			int dy = lastPoint.y - currentPoint.y;
-			lastPoint = currentPoint;
-			// down right movement is negative for both
-			logger.info(String.format("Move %s: %d,%d",
-					dragNode.station.getName(), dx, dy));
-			// TODO: implement coordinate update
+
+			double lon = mapWindow.getPositionLon(currentPoint.x);
+			double lat = mapWindow.getPositionLat(currentPoint.y);
+			dragNode.location = new Coordinate(lon, lat);
+
+			// Update all edges connected to neighbor nodes in the network graph
+			List<Node> neighbors = new ArrayList<>();
+			for (Edge edge : dragNode.edges) {
+				if (edge.n1 != dragNode) {
+					neighbors.add(edge.n1);
+				}
+				if (edge.n2 != dragNode) {
+					neighbors.add(edge.n2);
+				}
+			}
+			for (Node node : neighbors) {
+				for (Edge edge : node.edges) {
+					logger.info(String.format("Updating edge: %s - %s",
+							edge.n1.station.getName(),
+							edge.n2.station.getName()));
+					LineNetworkUtil.calculateNeighborLocations(edge);
+				}
+			}
+
 			c.repaint();
 		}
 	}

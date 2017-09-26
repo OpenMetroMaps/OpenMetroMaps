@@ -97,19 +97,20 @@ public class StationDrawerConvex extends AbstractStationDrawer
 	public void drawStation(Painter g, Node node, Path path)
 	{
 		List<Stop> stops = node.station.getStops();
+		Coordinate location = node.location;
+
 		if (stops.size() == 1) {
 			Stop stop = stops.get(0);
 			IPaintInfo paint = lineToPaintForStations[stop.getLine().getId()];
 			g.setPaintInfo(paint);
-			double px = ltp.getX(stop.getLocation().lon);
-			double py = ltp.getY(stop.getLocation().lat);
+			double px = ltp.getX(location.lon);
+			double py = ltp.getY(location.lat);
 			g.drawCircle(px, py, circleRadius);
 			return;
 		}
 
 		List<Edge> edges = node.edges;
 
-		Coordinate location = node.location;
 		double px = ltp.getX(location.lon);
 		double py = ltp.getY(location.lat);
 

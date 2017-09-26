@@ -19,12 +19,6 @@ package org.openmetromaps.maps;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
@@ -33,14 +27,13 @@ import de.topobyte.jeography.core.mapwindow.SteplessMapWindow;
 import de.topobyte.jeography.core.viewbounds.ViewBounds;
 import de.topobyte.lightgeom.lina.Point;
 
-public class BaseMapWindowPanel extends JPanel implements ComponentListener,
-		MouseListener, MouseMotionListener, MouseWheelListener, LocationToPoint
+public class BaseMapWindowPanel extends JPanel
+		implements ComponentListener, LocationToPoint
 {
 
 	private static final long serialVersionUID = 1L;
 
 	protected SteplessMapWindow mapWindow;
-	protected double zoomStep = 0.1;
 
 	public BaseMapWindowPanel(Coordinate position, int minZoom, int maxZoom,
 			ViewBounds bounds)
@@ -53,10 +46,12 @@ public class BaseMapWindowPanel extends JPanel implements ComponentListener,
 			mapWindow.setViewBounds(bounds);
 		}
 
+		BaseMouseEventProcessor mep = new BaseMouseEventProcessor(this, mapWindow);
+
 		addComponentListener(this);
-		addMouseListener(this);
-		addMouseMotionListener(this);
-		addMouseWheelListener(this);
+		addMouseListener(mep);
+		addMouseMotionListener(mep);
+		addMouseWheelListener(mep);
 	}
 
 	@Override
@@ -121,119 +116,6 @@ public class BaseMapWindowPanel extends JPanel implements ComponentListener,
 	public SteplessMapWindow getMapWindow()
 	{
 		return mapWindow;
-	}
-
-	private java.awt.Point pointPress;
-	private boolean mousePressed = false;
-
-	@Override
-	public void mouseClicked(MouseEvent e)
-	{
-		this.grabFocus();
-
-		boolean control = false;
-		int modifiers = e.getModifiersEx();
-		if ((modifiers & InputEvent.CTRL_DOWN_MASK) != 0) {
-			control = true;
-		}
-
-		if (e.getClickCount() == 2) {
-			if (e.getButton() == MouseEvent.BUTTON1) {
-				if (!control) {
-					zoomFixed(e.getPoint(), true, zoomStep);
-				} else {
-					mapWindow.zoomInToPosition(e.getX(), e.getY(), zoomStep);
-				}
-			} else if (e.getButton() == MouseEvent.BUTTON3) {
-				if (!control) {
-					zoomFixed(e.getPoint(), false, zoomStep);
-				} else {
-					mapWindow.zoomOutToPosition(e.getX(), e.getY(), zoomStep);
-				}
-			}
-			repaint();
-		}
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e)
-	{
-		// do nothing here
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e)
-	{
-		// do nothing here
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e)
-	{
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			pointPress = e.getPoint();
-			mousePressed = true;
-		}
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e)
-	{
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			mousePressed = false;
-		}
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e)
-	{
-		if (mousePressed) {
-			java.awt.Point currentPoint = e.getPoint();
-			int dx = pointPress.x - currentPoint.x;
-			int dy = pointPress.y - currentPoint.y;
-			pointPress = currentPoint;
-			// down right movement is negative for both
-			mapWindow.move(dx, dy);
-			repaint();
-		}
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e)
-	{
-		// do nothing here
-	}
-
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent e)
-	{
-		int rotation = e.getWheelRotation();
-		if (rotation < 0) {
-			zoomFixed(e.getPoint(), true, zoomStep);
-		} else {
-			zoomFixed(e.getPoint(), false, zoomStep);
-		}
-		repaint();
-	}
-
-	private void zoomFixed(java.awt.Point point, boolean in, double zoomStep)
-	{
-		// (lon, lat) that we want to keep fixed at the screen point (x, y)
-		double flon = mapWindow.getPositionLon(point.x);
-		double flat = mapWindow.getPositionLat(point.y);
-
-		if (in) {
-			mapWindow.zoomIn(zoomStep);
-		} else {
-			mapWindow.zoomOut(zoomStep);
-		}
-
-		// (x, y) of the (lon, lat) after applying the zoom change
-		double fx = mapWindow.getX(flon);
-		double fy = mapWindow.getY(flat);
-		// shift the map to keep the (lon, lat) fixed
-		mapWindow.move((int) Math.round(fx - point.x),
-				(int) Math.round(fy - point.y));
 	}
 
 }

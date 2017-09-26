@@ -19,10 +19,16 @@ package org.openmetromaps.maps;
 
 import java.awt.event.MouseEvent;
 
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.swing.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 {
+
+	final static Logger logger = LoggerFactory
+			.getLogger(MapViewerMouseEventProcessor.class);
 
 	private MapViewer mapViewer;
 
@@ -30,6 +36,37 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 	{
 		super(mapViewer.getMap(), mapViewer.getMap().getMapWindow());
 		this.mapViewer = mapViewer;
+	}
+
+	private java.awt.Point lastPoint;
+	private boolean draggingNode = false;
+	private Node dragNode = null;
+
+	@Override
+	public void mousePressed(MouseEvent e)
+	{
+		super.mousePressed(e);
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			if (!Util.isControlPressed(e)) {
+				return;
+			}
+			Node node = mapViewer.mouseNode(e.getX(), e.getY());
+			if (node == null) {
+				return;
+			}
+			lastPoint = e.getPoint();
+			draggingNode = true;
+			dragNode = node;
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e)
+	{
+		super.mouseReleased(e);
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			draggingNode = false;
+		}
 	}
 
 	@Override
@@ -42,10 +79,21 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
-		boolean control = Util.isControlPressed(e);
-
-		if (!control) {
+		if (!draggingNode) {
 			super.mouseDragged(e);
+			return;
+		}
+
+		if (draggingNode) {
+			java.awt.Point currentPoint = e.getPoint();
+			int dx = lastPoint.x - currentPoint.x;
+			int dy = lastPoint.y - currentPoint.y;
+			lastPoint = currentPoint;
+			// down right movement is negative for both
+			logger.info(String.format("Move %s: %d,%d",
+					dragNode.station.getName(), dx, dy));
+			// TODO: implement coordinate update
+			c.repaint();
 		}
 	}
 

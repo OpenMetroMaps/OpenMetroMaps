@@ -29,8 +29,8 @@ import de.topobyte.jeography.core.mapwindow.SteplessMapWindow;
 public class BaseMouseEventProcessor implements MouseProcessor
 {
 
-	private JComponent c;
-	private SteplessMapWindow mapWindow;
+	protected JComponent c;
+	protected SteplessMapWindow mapWindow;
 	protected double zoomStep = 0.1;
 
 	public BaseMouseEventProcessor(JComponent c, SteplessMapWindow mapWindow)

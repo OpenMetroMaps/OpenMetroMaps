@@ -41,6 +41,7 @@ import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.swing.Util;
 
 import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
@@ -112,6 +113,16 @@ public class MapViewer
 					{
 						super.mouseMoved(e);
 						updateStatusBar(e.getX(), e.getY());
+					}
+
+					@Override
+					public void mouseDragged(MouseEvent e)
+					{
+						boolean control = Util.isControlPressed(e);
+
+						if (!control) {
+							super.mouseDragged(e);
+						}
 					}
 
 				});

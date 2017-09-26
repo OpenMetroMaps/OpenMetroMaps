@@ -17,11 +17,12 @@
 
 package org.openmetromaps.maps;
 
-import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 import javax.swing.JComponent;
+
+import org.openmetromaps.swing.Util;
 
 import de.topobyte.jeography.core.mapwindow.SteplessMapWindow;
 
@@ -46,11 +47,7 @@ public class BaseMouseEventProcessor implements MouseProcessor
 	{
 		c.grabFocus();
 
-		boolean control = false;
-		int modifiers = e.getModifiersEx();
-		if ((modifiers & InputEvent.CTRL_DOWN_MASK) != 0) {
-			control = true;
-		}
+		boolean control = Util.isControlPressed(e);
 
 		if (e.getClickCount() == 2) {
 			if (e.getButton() == MouseEvent.BUTTON1) {

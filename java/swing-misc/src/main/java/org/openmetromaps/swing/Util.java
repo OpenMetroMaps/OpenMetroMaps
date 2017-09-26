@@ -18,6 +18,8 @@
 package org.openmetromaps.swing;
 
 import java.awt.Desktop;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -57,6 +59,42 @@ public class Util
 		dialog.setSize(width, height);
 		dialog.setLocationRelativeTo(dialog.getOwner());
 		dialog.setVisible(true);
+	}
+
+	public static boolean isControlPressed(MouseEvent e)
+	{
+		int modifiers = e.getModifiersEx();
+		if ((modifiers & InputEvent.CTRL_DOWN_MASK) != 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isShiftPressed(MouseEvent e)
+	{
+		int modifiers = e.getModifiersEx();
+		if ((modifiers & InputEvent.SHIFT_DOWN_MASK) != 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isAltPressed(MouseEvent e)
+	{
+		int modifiers = e.getModifiersEx();
+		if ((modifiers & InputEvent.ALT_DOWN_MASK) != 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isMetaPressed(MouseEvent e)
+	{
+		int modifiers = e.getModifiersEx();
+		if ((modifiers & InputEvent.META_DOWN_MASK) != 0) {
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -54,15 +54,43 @@ public class XmlModelReader
 	public XmlModel read(InputStream is)
 			throws ParserConfigurationException, SAXException, IOException
 	{
+		List<XmlStation> xmlStations = new ArrayList<>();
 		List<XmlLine> xmlLines = new ArrayList<>();
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.parse(is);
 
-		NodeList lineNodes = doc.getElementsByTagName("line");
-		for (int i = 0; i < lineNodes.getLength(); i++) {
-			Element eLine = (Element) lineNodes.item(i);
+		NodeList allStations = doc.getElementsByTagName("stations");
+		Element firstStations = (Element) allStations.item(0);
+		NodeList stationList = firstStations.getElementsByTagName("station");
+
+		for (int i = 0; i < stationList.getLength(); i++) {
+			Element eStation = (Element) stationList.item(i);
+
+			NamedNodeMap attributes = eStation.getAttributes();
+			String stationName = attributes.getNamedItem("name").getNodeValue();
+			String valLon = attributes.getNamedItem("lon").getNodeValue();
+			String valLat = attributes.getNamedItem("lat").getNodeValue();
+			double lon = Double.parseDouble(valLon);
+			double lat = Double.parseDouble(valLat);
+
+			XmlStation station = new XmlStation(stationName,
+					new Coordinate(lon, lat));
+			xmlStations.add(station);
+		}
+
+		Map<String, XmlStation> nameToStation = new HashMap<>();
+		for (XmlStation station : xmlStations) {
+			nameToStation.put(station.getName(), station);
+		}
+
+		NodeList allLines = doc.getElementsByTagName("lines");
+		Element firstLines = (Element) allLines.item(0);
+		NodeList lineList = firstLines.getElementsByTagName("line");
+
+		for (int i = 0; i < lineList.getLength(); i++) {
+			Element eLine = (Element) lineList.item(i);
 
 			NamedNodeMap attributes = eLine.getAttributes();
 			String lineName = attributes.getNamedItem("name").getNodeValue();
@@ -74,23 +102,20 @@ public class XmlModelReader
 
 			List<XmlStation> stops = new ArrayList<>();
 
-			NodeList stations = eLine.getElementsByTagName("station");
-			for (int k = 0; k < stations.getLength(); k++) {
-				Node station = stations.item(k);
+			NodeList stopList = eLine.getElementsByTagName("stop");
+			for (int k = 0; k < stopList.getLength(); k++) {
+				Node station = stopList.item(k);
 				attributes = station.getAttributes();
-				String stationName = attributes.getNamedItem("name")
+				String stationName = attributes.getNamedItem("station")
 						.getNodeValue();
-				String valLon = attributes.getNamedItem("lon").getNodeValue();
-				String valLat = attributes.getNamedItem("lat").getNodeValue();
-				double lon = Double.parseDouble(valLon);
-				double lat = Double.parseDouble(valLat);
-				stops.add(new XmlStation(stationName, new Coordinate(lon, lat)));
+				XmlStation xmlStation = nameToStation.get(stationName);
+				stops.add(xmlStation);
 			}
 
 			xmlLines.add(new XmlLine(lineName, color, isCircular, stops));
 		}
 
-		return new XmlModel(xmlLines);
+		return new XmlModel(xmlStations, xmlLines);
 	}
 
 }

@@ -22,11 +22,23 @@ import java.util.List;
 public class XmlModel
 {
 
+	private List<XmlStation> stations;
 	private List<XmlLine> lines;
 
-	public XmlModel(List<XmlLine> lines)
+	public XmlModel(List<XmlStation> stations, List<XmlLine> lines)
 	{
+		this.stations = stations;
 		this.lines = lines;
+	}
+
+	public List<XmlStation> getStations()
+	{
+		return stations;
+	}
+
+	public void setStations(List<XmlStation> stations)
+	{
+		this.stations = stations;
 	}
 
 	public List<XmlLine> getLines()

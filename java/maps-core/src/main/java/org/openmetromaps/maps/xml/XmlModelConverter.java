@@ -42,10 +42,18 @@ public class XmlModelConverter
 
 	public ModelData convert(XmlModel draftModel) throws Exception
 	{
+		List<XmlStation> xmlStations = draftModel.getStations();
 		List<XmlLine> xmlLines = draftModel.getLines();
 
 		Map<XmlLine, Line> draftToLine = new HashMap<>();
 		Map<String, Station> nameToStation = new HashMap<>();
+
+		for (XmlStation xmlStation : xmlStations) {
+			Station station = new Station(0, xmlStation.getName(),
+					new ArrayList<Stop>());
+			stationsList.add(station);
+			nameToStation.put(station.getName(), station);
+		}
 
 		int id = 0;
 		for (XmlLine xmlLine : xmlLines) {
@@ -66,11 +74,6 @@ public class XmlModelConverter
 				String stopName = xmlStop.getName();
 
 				Station station = nameToStation.get(stopName);
-				if (station == null) {
-					station = new Station(0, stopName, new ArrayList<Stop>());
-					stationsList.add(station);
-					nameToStation.put(stopName, station);
-				}
 
 				Stop stop = new Stop(xmlStop.getLocation(), station, line);
 				stops.add(stop);

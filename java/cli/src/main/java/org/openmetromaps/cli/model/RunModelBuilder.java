@@ -17,6 +17,8 @@
 
 package org.openmetromaps.cli.model;
 
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -25,6 +27,10 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.cli.osm.OsmOptions;
+import org.openmetromaps.maps.DraftModelConverter;
+import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.maps.xml.XmlModelWriter;
+import org.openmetromaps.model.DraftModel;
 import org.openmetromaps.model.Fix;
 import org.openmetromaps.model.ModelBuilder;
 
@@ -90,6 +96,14 @@ public class RunModelBuilder
 		ModelBuilder modelBuilder = new ModelBuilder(fileInput, prefixes,
 				fixes);
 		modelBuilder.run(true);
+
+		OutputStream os = Files.newOutputStream(pathOutput);
+
+		DraftModel draft = modelBuilder.getModel();
+		ModelData data = new DraftModelConverter().convert(draft);
+
+		new XmlModelWriter().write(os, data);
+		os.close();
 	}
 
 }

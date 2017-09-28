@@ -18,6 +18,8 @@
 package org.openmetromaps.maps.xml;
 
 import java.io.OutputStream;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -61,6 +63,26 @@ public class XmlModelWriter
 		doc.appendChild(eMain);
 		eMain.appendChild(eStations);
 		eMain.appendChild(eLines);
+
+		Collections.sort(data.stations, new Comparator<Station>() {
+
+			@Override
+			public int compare(Station o1, Station o2)
+			{
+				return o1.getName().compareTo(o2.getName());
+			}
+
+		});
+
+		Collections.sort(data.lines, new Comparator<Line>() {
+
+			@Override
+			public int compare(Line o1, Line o2)
+			{
+				return o1.getName().compareTo(o2.getName());
+			}
+
+		});
 
 		for (Station station : data.stations) {
 			Element eStation = doc.createElement("station");

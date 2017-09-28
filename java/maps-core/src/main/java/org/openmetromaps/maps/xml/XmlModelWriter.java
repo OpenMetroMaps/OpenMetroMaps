@@ -102,6 +102,8 @@ public class XmlModelWriter
 			eLines.appendChild(eLine);
 
 			eLine.setAttribute("name", line.getName());
+			eLine.setAttribute("color", line.getColor());
+			eLine.setAttribute("circular", "false");
 
 			for (Stop stop : line.getStops()) {
 				Element eStop = doc.createElement("stop");

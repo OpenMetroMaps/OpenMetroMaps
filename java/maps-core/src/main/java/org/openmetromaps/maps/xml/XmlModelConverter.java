@@ -62,7 +62,7 @@ public class XmlModelConverter
 			List<Stop> stops = new ArrayList<>();
 			line.setStops(stops);
 
-			for (XmlStop xmlStop : xmlLine.getStops()) {
+			for (XmlStation xmlStop : xmlLine.getStops()) {
 				String stopName = xmlStop.getName();
 
 				Station station = nameToStation.get(stopName);

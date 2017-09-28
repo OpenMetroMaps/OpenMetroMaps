@@ -25,10 +25,10 @@ public class XmlLine
 	private String name;
 	private String color;
 	private boolean circular;
-	private List<XmlStop> stops;
+	private List<XmlStation> stops;
 
 	public XmlLine(String name, String color, boolean circular,
-			List<XmlStop> stops)
+			List<XmlStation> stops)
 	{
 		this.name = name;
 		this.color = color;
@@ -66,12 +66,12 @@ public class XmlLine
 		this.circular = circular;
 	}
 
-	public List<XmlStop> getStops()
+	public List<XmlStation> getStops()
 	{
 		return stops;
 	}
 
-	public void setStops(List<XmlStop> stops)
+	public void setStops(List<XmlStation> stops)
 	{
 		this.stops = stops;
 	}

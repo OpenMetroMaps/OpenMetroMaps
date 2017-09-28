@@ -72,7 +72,7 @@ public class XmlModelReader
 
 			boolean isCircular = circular.equals("true");
 
-			List<XmlStop> stops = new ArrayList<>();
+			List<XmlStation> stops = new ArrayList<>();
 
 			NodeList stations = eLine.getElementsByTagName("station");
 			for (int k = 0; k < stations.getLength(); k++) {
@@ -84,7 +84,7 @@ public class XmlModelReader
 				String valLat = attributes.getNamedItem("lat").getNodeValue();
 				double lon = Double.parseDouble(valLon);
 				double lat = Double.parseDouble(valLat);
-				stops.add(new XmlStop(stationName, new Coordinate(lon, lat)));
+				stops.add(new XmlStation(stationName, new Coordinate(lon, lat)));
 			}
 
 			xmlLines.add(new XmlLine(lineName, color, isCircular, stops));

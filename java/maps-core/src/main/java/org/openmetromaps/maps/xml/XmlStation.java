@@ -19,13 +19,13 @@ package org.openmetromaps.maps.xml;
 
 import de.topobyte.adt.geo.Coordinate;
 
-public class XmlStop
+public class XmlStation
 {
 
 	private String name;
 	private Coordinate location;
 
-	public XmlStop(String name, Coordinate location)
+	public XmlStation(String name, Coordinate location)
 	{
 		this.name = name;
 		this.location = location;

@@ -56,7 +56,7 @@ public class SaveAsAction extends SimpleAction
 		// TODO: if file exists, ask user if we should overwrite it
 		Window frame = mapViewer.getFrame();
 		JFileChooser chooser = new JFileChooser();
-		int value = chooser.showOpenDialog(frame);
+		int value = chooser.showSaveDialog(frame);
 		if (value == JFileChooser.APPROVE_OPTION) {
 			File file = chooser.getSelectedFile();
 			logger.debug("attempting to save document to file: " + file);

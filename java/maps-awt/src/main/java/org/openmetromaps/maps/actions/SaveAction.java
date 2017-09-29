@@ -56,7 +56,7 @@ public class SaveAction extends SimpleAction
 		// TODO: don't show chooser, save to current file
 		Window frame = mapViewer.getFrame();
 		JFileChooser chooser = new JFileChooser();
-		int value = chooser.showOpenDialog(frame);
+		int value = chooser.showSaveDialog(frame);
 		if (value == JFileChooser.APPROVE_OPTION) {
 			File file = chooser.getSelectedFile();
 			logger.debug("attempting to save document to file: " + file);

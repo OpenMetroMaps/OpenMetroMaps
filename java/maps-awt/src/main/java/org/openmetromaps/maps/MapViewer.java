@@ -36,6 +36,9 @@ import org.openmetromaps.maps.actions.DebugRanksAction;
 import org.openmetromaps.maps.actions.DebugTangentsAction;
 import org.openmetromaps.maps.actions.ExitAction;
 import org.openmetromaps.maps.actions.LicenseAction;
+import org.openmetromaps.maps.actions.OpenAction;
+import org.openmetromaps.maps.actions.SaveAction;
+import org.openmetromaps.maps.actions.SaveAsAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
@@ -122,6 +125,9 @@ public class MapViewer
 		JMenu menuHelp = new JMenu("Help");
 		menuBar.add(menuHelp);
 
+		menuFile.add(new OpenAction());
+		menuFile.add(new SaveAction());
+		menuFile.add(new SaveAsAction());
 		menuFile.add(new ExitAction());
 
 		addCheckbox(menuView, new ShowLabelsAction(this));

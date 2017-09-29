@@ -18,25 +18,30 @@
 package org.openmetromaps.maps;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openmetromap.maps.xml.TestReadXmlModel;
+import org.openmetromaps.maps.xml.XmlLine;
 import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelReader;
+import org.openmetromaps.maps.xml.XmlStation;
 import org.xml.sax.SAXException;
 
-public class TestData
+public class PrintTestData
 {
 
-	public static XmlModel berlinXml()
+	public static void main(String[] args)
 			throws ParserConfigurationException, SAXException, IOException
 	{
-		InputStream input = TestReadXmlModel.class.getClassLoader()
-				.getResourceAsStream("berlin.xml");
-		XmlModel model = new XmlModelReader().read(input);
-		return model;
+		XmlModel model = TestData.berlinXml();
+		for (XmlStation station : model.getStations()) {
+			System.out.println(String.format("%s: %.6f,%.6f", station.getName(),
+					station.getLocation().getLongitude(),
+					station.getLocation().getLatitude()));
+		}
+		for (XmlLine line : model.getLines()) {
+			System.out.println(String.format("line %s, %d stops, color: %s",
+					line.getName(), line.getStops().size(), line.getColor()));
+		}
 	}
 
 }

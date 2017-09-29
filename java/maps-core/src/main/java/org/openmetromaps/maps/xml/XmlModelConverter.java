@@ -40,7 +40,7 @@ public class XmlModelConverter
 	protected Map<Station, Integer> stationToIndex = new HashMap<>();
 	protected Map<Stop, Integer> stopToIndex = new HashMap<>();
 
-	public ModelData convert(XmlModel draftModel) throws Exception
+	public ModelData convert(XmlModel draftModel)
 	{
 		List<XmlStation> xmlStations = draftModel.getStations();
 		List<XmlLine> xmlLines = draftModel.getLines();

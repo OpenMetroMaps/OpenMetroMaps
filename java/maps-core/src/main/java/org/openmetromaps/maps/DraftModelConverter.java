@@ -47,7 +47,7 @@ public class DraftModelConverter
 	protected Map<Station, Integer> stationToIndex = new HashMap<>();
 	protected Map<Stop, Integer> stopToIndex = new HashMap<>();
 
-	public ModelData convert(DraftModel draftModel) throws Exception
+	public ModelData convert(DraftModel draftModel)
 	{
 		List<DraftLine> draftLines = draftModel.getLines();
 

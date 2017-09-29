@@ -17,6 +17,7 @@
 
 package org.openmetromaps.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,7 +70,7 @@ public class ModelBuilder
 		return model;
 	}
 
-	public void run(boolean applyFixes) throws Exception
+	public void run(boolean applyFixes) throws IOException
 	{
 		List<DraftLine> lines = model.getLines();
 		Map<String, OsmNode> stationMap = model.getStationMap();

@@ -40,7 +40,7 @@ public class TestScrollableAdvancedPanel extends JPanel
 
 		ScrollableAdvancedPanel panel = new ScrollableAdvancedPanel(data,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				Constants.START_POSITION, 10, 15, viewConfig.getBbox());
+				viewConfig.getStartPosition(), 10, 15, viewConfig.getBbox());
 
 		final JFrame frame = new JFrame("AdvancedPanel");
 

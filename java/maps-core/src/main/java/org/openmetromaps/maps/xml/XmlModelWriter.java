@@ -31,7 +31,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
@@ -88,7 +87,7 @@ public class XmlModelWriter
 			Element eStation = doc.createElement("station");
 			eStations.appendChild(eStation);
 
-			Coordinate location = ModelUtil.mean(station.getStops());
+			Coordinate location = station.getLocation();
 
 			eStation.setAttribute("name", station.getName());
 			eStation.setAttribute("lon",

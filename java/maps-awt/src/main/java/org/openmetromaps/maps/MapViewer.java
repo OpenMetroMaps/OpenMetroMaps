@@ -139,8 +139,8 @@ public class MapViewer
 		menuBar.add(menuHelp);
 
 		menuFile.add(new OpenAction(this));
-		menuFile.add(new SaveAction());
-		menuFile.add(new SaveAsAction());
+		menuFile.add(new SaveAction(this));
+		menuFile.add(new SaveAsAction(this));
 		menuFile.add(new ExitAction());
 
 		addCheckbox(menuView, new ShowLabelsAction(this));

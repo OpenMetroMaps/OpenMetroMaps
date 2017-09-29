@@ -17,25 +17,60 @@
 
 package org.openmetromaps.maps.actions;
 
+import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.swing.JFileChooser;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.openmetromaps.maps.MapViewer;
+import org.openmetromaps.maps.xml.XmlModelWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.topobyte.swing.util.action.SimpleAction;
 
 public class SaveAction extends SimpleAction
 {
 
+	final static Logger logger = LoggerFactory.getLogger(SaveAction.class);
+
 	private static final long serialVersionUID = 1L;
 
-	public SaveAction()
+	private MapViewer mapViewer;
+
+	public SaveAction(MapViewer mapViewer)
 	{
 		super("Save", "Save the current file");
+		this.mapViewer = mapViewer;
 		setIcon("res/images/24/document-save.png");
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
+	public void actionPerformed(ActionEvent event)
 	{
-		// TODO: implement
+		// TODO: don't show chooser, save to current file
+		Window frame = mapViewer.getFrame();
+		JFileChooser chooser = new JFileChooser();
+		int value = chooser.showOpenDialog(frame);
+		if (value == JFileChooser.APPROVE_OPTION) {
+			File file = chooser.getSelectedFile();
+			logger.debug("attempting to save document to file: " + file);
+
+			try {
+				FileOutputStream os = new FileOutputStream(file);
+				new XmlModelWriter().write(os, mapViewer.getModel());
+				os.close();
+			} catch (ParserConfigurationException | TransformerException
+					| IOException e) {
+				logger.error("Error while saving file", e);
+				// TODO: display an error dialog
+			}
+		}
 	}
 
 }

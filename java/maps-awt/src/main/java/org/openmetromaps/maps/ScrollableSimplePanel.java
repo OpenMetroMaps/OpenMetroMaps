@@ -79,16 +79,18 @@ public class ScrollableSimplePanel extends BaseMapWindowPanel
 
 		for (Station station : data.stations) {
 			List<Stop> stops = station.getStops();
-			if (stops.size() > 1) {
+			if (stops.isEmpty()) {
+				continue;
+			} else if (stops.size() > 1) {
 				g.setColor(Color.WHITE);
-				Point p = getPoint(ModelUtil.mean(station.getStops()));
+				Point p = getPoint(station.getLocation());
 				Arc2D arc = new Arc2D.Double(p.x - s / 2, p.y - s / 2, s, s, 0,
 						360, Arc2D.CHORD);
 				g.fill(arc);
 			} else {
 				Stop stop = stops.iterator().next();
 				g.setColor(AwtUtil.getAwtColor(stop.getLine()));
-				Point p = getPoint(stop.getLocation());
+				Point p = getPoint(station.getLocation());
 				Arc2D arc = new Arc2D.Double(p.x - s / 2, p.y - s / 2, s, s, 0,
 						360, Arc2D.CHORD);
 				g.fill(arc);

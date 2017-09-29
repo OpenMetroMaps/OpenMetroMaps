@@ -24,7 +24,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Line2D;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -35,7 +34,6 @@ import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
 
 import de.topobyte.adt.geo.BBox;
-import de.topobyte.adt.geo.BBoxHelper;
 import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.lightgeom.lina.Point;
 
@@ -56,14 +54,8 @@ public class SimplePanel extends JPanel
 	{
 		this.data = data;
 
-		List<Coordinate> coords = new ArrayList<>();
-		for (Station station : data.stations) {
-			for (Stop stop : station.getStops()) {
-				Coordinate location = stop.getLocation();
-				coords.add(new Coordinate(location.lon, location.lat));
-			}
-		}
-		box = BBoxHelper.minimumBoundingBox(coords);
+		ViewConfig viewConfig = ModelUtil.viewConfig(data);
+		box = viewConfig.getBbox();
 
 		System.out.println(box);
 		box = new BBox(13.271827697753906, 52.55715099278439,
@@ -105,16 +97,18 @@ public class SimplePanel extends JPanel
 
 		for (Station station : data.stations) {
 			List<Stop> stops = station.getStops();
-			if (stops.size() > 1) {
+			if (stops.isEmpty()) {
+				continue;
+			} else if (stops.size() > 1) {
 				g.setColor(Color.WHITE);
-				Point p = getPoint(ModelUtil.mean(station.getStops()));
+				Point p = getPoint(station.getLocation());
 				Arc2D arc = new Arc2D.Double(p.x - s / 2, p.y - s / 2, s, s, 0,
 						360, Arc2D.CHORD);
 				g.fill(arc);
 			} else {
 				Stop stop = stops.iterator().next();
 				g.setColor(AwtUtil.getAwtColor(stop.getLine()));
-				Point p = getPoint(stop.getLocation());
+				Point p = getPoint(station.getLocation());
 				Arc2D arc = new Arc2D.Double(p.x - s / 2, p.y - s / 2, s, s, 0,
 						360, Arc2D.CHORD);
 				g.fill(arc);

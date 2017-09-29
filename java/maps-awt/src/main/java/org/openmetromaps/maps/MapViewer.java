@@ -65,6 +65,19 @@ public class MapViewer
 
 	public MapViewer(ModelData model)
 	{
+		init(model);
+	}
+
+	public void setModel(ModelData model)
+	{
+		init(model);
+		map.setData(model);
+		map.setViewConfig(viewConfig.getBbox(), viewConfig.getStartPosition(),
+				Constants.DEFAULT_ZOOM);
+	}
+
+	private void init(ModelData model)
+	{
 		this.model = model;
 
 		viewConfig = ModelUtil.viewConfig(model);
@@ -125,7 +138,7 @@ public class MapViewer
 		JMenu menuHelp = new JMenu("Help");
 		menuBar.add(menuHelp);
 
-		menuFile.add(new OpenAction());
+		menuFile.add(new OpenAction(this));
 		menuFile.add(new SaveAction());
 		menuFile.add(new SaveAsAction());
 		menuFile.add(new ExitAction());

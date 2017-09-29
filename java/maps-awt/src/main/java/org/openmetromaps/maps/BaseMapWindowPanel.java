@@ -40,8 +40,8 @@ public class BaseMapWindowPanel extends JPanel
 	public BaseMapWindowPanel(Coordinate position, int minZoom, int maxZoom,
 			ViewBounds bounds)
 	{
-		mapWindow = new SteplessMapWindow(1, 1, 12, position.getLongitude(),
-				position.getLatitude());
+		mapWindow = new SteplessMapWindow(1, 1, Constants.DEFAULT_ZOOM,
+				position.getLongitude(), position.getLatitude());
 		mapWindow.setMinZoom(minZoom);
 		mapWindow.setMaxZoom(maxZoom);
 		if (bounds != null) {

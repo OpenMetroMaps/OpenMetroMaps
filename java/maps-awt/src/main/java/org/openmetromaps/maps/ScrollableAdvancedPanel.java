@@ -42,6 +42,9 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 	private ModelData data;
 	private PlanRenderer renderer;
 
+	private StationMode stationMode;
+	private SegmentMode segmentMode;
+
 	public ScrollableAdvancedPanel(ModelData data, StationMode stationMode,
 			SegmentMode segmentMode, Coordinate startPosition, int minZoom,
 			int maxZoom, BBox boundsBox)
@@ -49,9 +52,10 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 		super(startPosition, minZoom, maxZoom, new BboxViewBounds(boundsBox));
 
 		this.data = data;
+		this.stationMode = stationMode;
+		this.segmentMode = segmentMode;
 
-		renderer = new PlanRenderer(data, stationMode, segmentMode, mapWindow,
-				this, 1, new GenericPaintFactory());
+		initRenderer();
 
 		final int scrollDistance = 16;
 
@@ -78,9 +82,30 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 		setFocusable(true);
 	}
 
+	private void initRenderer()
+	{
+		renderer = new PlanRenderer(data, stationMode, segmentMode, mapWindow,
+				this, 1, new GenericPaintFactory());
+	}
+
 	public ModelData getData()
 	{
 		return data;
+	}
+
+	public void setData(ModelData data)
+	{
+		this.data = data;
+		initRenderer();
+	}
+
+	public void setViewConfig(BBox boundsBox, Coordinate startPosition,
+			double zoomlevel)
+	{
+		mapWindow.setViewBounds(new BboxViewBounds(boundsBox));
+		mapWindow.gotoLonLat(startPosition.getLongitude(),
+				startPosition.getLatitude());
+		mapWindow.zoom(zoomlevel);
 	}
 
 	public PlanRenderer getPlanRenderer()

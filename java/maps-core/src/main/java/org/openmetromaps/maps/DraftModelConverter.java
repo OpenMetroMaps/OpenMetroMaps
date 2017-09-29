@@ -76,15 +76,16 @@ public class DraftModelConverter
 
 				Station station = nameToStation.get(stopName);
 				if (station == null) {
-					station = new Station(0, stopName, new ArrayList<Stop>());
+					OsmNode node = draftStation.getSource();
+					Coordinate location = new Coordinate(node.getLongitude(),
+							node.getLatitude());
+					station = new Station(0, stopName, location,
+							new ArrayList<Stop>());
 					stationsList.add(station);
 					nameToStation.put(stopName, station);
 				}
 
-				OsmNode node = draftStation.getSource();
-				Coordinate location = new Coordinate(node.getLongitude(),
-						node.getLatitude());
-				Stop stop = new Stop(location, station, line);
+				Stop stop = new Stop(station, line);
 				stops.add(stop);
 				station.getStops().add(stop);
 			}

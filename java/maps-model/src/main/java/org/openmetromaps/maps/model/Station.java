@@ -19,16 +19,20 @@ package org.openmetromaps.maps.model;
 
 import java.util.List;
 
+import de.topobyte.adt.geo.Coordinate;
+
 public class Station extends Entity
 {
 
 	private String name;
+	private Coordinate location;
 	private List<Stop> stops;
 
-	public Station(int id, String name, List<Stop> stops)
+	public Station(int id, String name, Coordinate location, List<Stop> stops)
 	{
 		super(id);
 		this.name = name;
+		this.location = location;
 		this.stops = stops;
 	}
 
@@ -40,6 +44,16 @@ public class Station extends Entity
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public Coordinate getLocation()
+	{
+		return location;
+	}
+
+	public void setLocation(Coordinate location)
+	{
+		this.location = location;
 	}
 
 	public List<Stop> getStops()

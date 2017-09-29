@@ -20,7 +20,6 @@ package org.openmetromaps.maps.graph;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.model.Station;
 
 import de.topobyte.adt.geo.Coordinate;
@@ -38,7 +37,7 @@ public class Node
 	public Node(Station station)
 	{
 		this.station = station;
-		location = ModelUtil.mean(station.getStops());
+		location = station.getLocation();
 	}
 
 	public void setIsLastStopOfALine(boolean isLastStop)

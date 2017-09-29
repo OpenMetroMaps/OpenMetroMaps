@@ -55,11 +55,10 @@ public class ModelUtil
 
 	public static Coordinate location(Stop stop)
 	{
-		List<Stop> stops = stop.getStation().getStops();
-		if (stops.size() == 1) {
+		if (stop.getLocation() != null) {
 			return stop.getLocation();
 		}
-		return ModelUtil.mean(stops);
+		return stop.getStation().getLocation();
 	}
 
 	public static Coordinate mean(List<Stop> stops)
@@ -111,8 +110,11 @@ public class ModelUtil
 	{
 		List<Coordinate> coords = new ArrayList<>();
 		for (Station station : model.stations) {
+			coords.add(station.getLocation());
 			for (Stop stop : station.getStops()) {
-				coords.add(stop.getLocation());
+				if (stop.getLocation() != null) {
+					coords.add(stop.getLocation());
+				}
 			}
 		}
 		BBox bbox = BBoxHelper.minimumBoundingBox(null, coords);

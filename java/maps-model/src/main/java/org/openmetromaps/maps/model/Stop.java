@@ -26,9 +26,8 @@ public class Stop
 	private Station station;
 	private Line line;
 
-	public Stop(Coordinate location, Station station, Line line)
+	public Stop(Station station, Line line)
 	{
-		this.location = location;
 		this.station = station;
 		this.line = line;
 	}

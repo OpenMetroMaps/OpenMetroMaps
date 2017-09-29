@@ -50,7 +50,7 @@ public class XmlModelConverter
 
 		for (XmlStation xmlStation : xmlStations) {
 			Station station = new Station(0, xmlStation.getName(),
-					new ArrayList<Stop>());
+					xmlStation.getLocation(), new ArrayList<Stop>());
 			stationsList.add(station);
 			nameToStation.put(station.getName(), station);
 		}
@@ -75,7 +75,7 @@ public class XmlModelConverter
 
 				Station station = nameToStation.get(stopName);
 
-				Stop stop = new Stop(xmlStop.getLocation(), station, line);
+				Stop stop = new Stop(station, line);
 				stops.add(stop);
 				station.getStops().add(stop);
 			}

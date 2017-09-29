@@ -57,11 +57,17 @@ public class SimplePanel extends JPanel
 		ViewConfig viewConfig = ModelUtil.viewConfig(data);
 		box = viewConfig.getBbox();
 
-		System.out.println(box);
-		box = new BBox(13.271827697753906, 52.55715099278439,
-				13.487091064453125, 52.460193408127836);
-		System.out.println(box);
+		initInternalValues();
+	}
 
+	public void setViewport(BBox box)
+	{
+		this.box = box;
+		initInternalValues();
+	}
+
+	private void initInternalValues()
+	{
 		mx = box.getLon1();
 		my = box.getLat2();
 		w = box.getLon2() - box.getLon1();

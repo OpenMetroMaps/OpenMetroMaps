@@ -24,6 +24,8 @@ import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
+import de.topobyte.adt.geo.BBox;
+
 public class TestSimplePanel extends JPanel
 {
 
@@ -37,6 +39,10 @@ public class TestSimplePanel extends JPanel
 		ModelData data = modelConverter.convert(xmlModel);
 
 		SimplePanel panel = new SimplePanel(data);
+
+		BBox box = new BBox(13.271827697753906, 52.55715099278439,
+				13.487091064453125, 52.460193408127836);
+		panel.setViewport(box);
 
 		JFrame frame = new JFrame("SimplePanel");
 

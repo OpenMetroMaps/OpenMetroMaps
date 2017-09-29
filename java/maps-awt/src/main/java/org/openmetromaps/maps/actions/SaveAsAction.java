@@ -47,7 +47,7 @@ public class SaveAsAction extends SimpleAction
 	{
 		super("Save As...", "Save to a different file");
 		this.mapViewer = mapViewer;
-		setIcon("res/images/24/document-save.png");
+		setIcon("res/images/24/document-save-as.png");
 	}
 
 	@Override

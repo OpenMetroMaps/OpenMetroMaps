@@ -65,7 +65,7 @@ public class RunMapViewer
 
 		InputStream input = Files.newInputStream(pathInput);
 
-		XmlModel xmlModel = new XmlModelReader().read(input);
+		XmlModel xmlModel = XmlModelReader.read(input);
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		ModelData data = modelConverter.convert(xmlModel);

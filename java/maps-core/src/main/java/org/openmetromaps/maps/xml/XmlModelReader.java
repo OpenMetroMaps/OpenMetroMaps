@@ -28,9 +28,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openmetromaps.maps.model.Line;
-import org.openmetromaps.maps.model.Station;
-import org.openmetromaps.maps.model.Stop;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -43,24 +40,39 @@ import de.topobyte.adt.geo.Coordinate;
 public class XmlModelReader
 {
 
-	protected List<Line> linesList = new ArrayList<>();
-	protected List<Station> stationsList = new ArrayList<>();
-	protected List<Stop> stopsList = new ArrayList<>();
-
-	protected Map<Line, Integer> lineToIndex = new HashMap<>();
-	protected Map<Station, Integer> stationToIndex = new HashMap<>();
-	protected Map<Stop, Integer> stopToIndex = new HashMap<>();
-
-	public XmlModel read(InputStream is)
+	public static XmlModel read(InputStream is)
 			throws ParserConfigurationException, SAXException, IOException
 	{
-		List<XmlStation> xmlStations = new ArrayList<>();
-		List<XmlLine> xmlLines = new ArrayList<>();
+		XmlModelReader reader = new XmlModelReader();
+		return reader.readModel(is);
+	}
+
+	private List<XmlStation> xmlStations = new ArrayList<>();
+	private List<XmlLine> xmlLines = new ArrayList<>();
+
+	private Map<String, XmlStation> nameToStation = new HashMap<>();
+
+	private XmlModelReader()
+	{
+		// private constructor
+	}
+
+	private XmlModel readModel(InputStream is)
+			throws ParserConfigurationException, SAXException, IOException
+	{
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.parse(is);
 
+		parseStations(doc);
+		parseLines(doc);
+
+		return new XmlModel(xmlStations, xmlLines);
+	}
+
+	private void parseStations(Document doc)
+	{
 		NodeList allStations = doc.getElementsByTagName("stations");
 		Element firstStations = (Element) allStations.item(0);
 		NodeList stationList = firstStations.getElementsByTagName("station");
@@ -80,11 +92,13 @@ public class XmlModelReader
 			xmlStations.add(station);
 		}
 
-		Map<String, XmlStation> nameToStation = new HashMap<>();
 		for (XmlStation station : xmlStations) {
 			nameToStation.put(station.getName(), station);
 		}
+	}
 
+	private void parseLines(Document doc)
+	{
 		NodeList allLines = doc.getElementsByTagName("lines");
 		Element firstLines = (Element) allLines.item(0);
 		NodeList lineList = firstLines.getElementsByTagName("line");
@@ -114,8 +128,6 @@ public class XmlModelReader
 
 			xmlLines.add(new XmlLine(lineName, color, isCircular, stops));
 		}
-
-		return new XmlModel(xmlStations, xmlLines);
 	}
 
 }

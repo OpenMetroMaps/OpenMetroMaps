@@ -35,7 +35,7 @@ public class TestReadXmlModel
 	{
 		InputStream input = TestReadXmlModel.class.getClassLoader()
 				.getResourceAsStream("berlin.xml");
-		XmlModel model = new XmlModelReader().read(input);
+		XmlModel model = XmlModelReader.read(input);
 		for (XmlLine line : model.getLines()) {
 			System.out.println(String.format("line %s, %d stops, color: %s",
 					line.getName(), line.getStops().size(), line.getColor()));

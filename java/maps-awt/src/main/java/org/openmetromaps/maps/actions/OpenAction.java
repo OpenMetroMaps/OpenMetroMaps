@@ -65,7 +65,7 @@ public class OpenAction extends SimpleAction
 
 			try {
 				FileInputStream is = new FileInputStream(file);
-				XmlModel xmlModel = new XmlModelReader().read(is);
+				XmlModel xmlModel = XmlModelReader.read(is);
 				is.close();
 
 				ModelData data = new XmlModelConverter().convert(xmlModel);

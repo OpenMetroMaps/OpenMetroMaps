@@ -35,7 +35,7 @@ public class TestData
 	{
 		InputStream input = TestReadXmlModel.class.getClassLoader()
 				.getResourceAsStream("berlin.xml");
-		XmlModel model = new XmlModelReader().read(input);
+		XmlModel model = XmlModelReader.read(input);
 		return model;
 	}
 

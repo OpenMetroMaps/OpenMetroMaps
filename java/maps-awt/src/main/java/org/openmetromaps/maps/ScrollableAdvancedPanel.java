@@ -25,6 +25,7 @@ import java.awt.event.KeyEvent;
 
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
+import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.painting.awt.AwtPainter;
 import org.openmetromaps.maps.painting.core.GenericPaintFactory;
@@ -40,18 +41,20 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 	private static final long serialVersionUID = 1L;
 
 	private ModelData data;
+	private LineNetwork lineNetwork;
 	private PlanRenderer renderer;
 
 	private StationMode stationMode;
 	private SegmentMode segmentMode;
 
-	public ScrollableAdvancedPanel(ModelData data, StationMode stationMode,
-			SegmentMode segmentMode, Coordinate startPosition, int minZoom,
-			int maxZoom, BBox boundsBox)
+	public ScrollableAdvancedPanel(ModelData data, LineNetwork lineNetwork,
+			StationMode stationMode, SegmentMode segmentMode,
+			Coordinate startPosition, int minZoom, int maxZoom, BBox boundsBox)
 	{
 		super(startPosition, minZoom, maxZoom, new BboxViewBounds(boundsBox));
 
 		this.data = data;
+		this.lineNetwork = lineNetwork;
 		this.stationMode = stationMode;
 		this.segmentMode = segmentMode;
 
@@ -84,8 +87,8 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 
 	private void initRenderer()
 	{
-		renderer = new PlanRenderer(data, stationMode, segmentMode, mapWindow,
-				this, 1, new GenericPaintFactory());
+		renderer = new PlanRenderer(lineNetwork, stationMode, segmentMode,
+				mapWindow, this, 1, new GenericPaintFactory());
 	}
 
 	public ModelData getData()

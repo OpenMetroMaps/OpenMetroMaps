@@ -102,7 +102,7 @@ public class RunModelBuilder
 		DraftModel draft = modelBuilder.getModel();
 		ModelData data = new DraftModelConverter().convert(draft);
 
-		new XmlModelWriter().write(os, data);
+		new XmlModelWriter().write(os, data, new ArrayList<>());
 		os.close();
 	}
 

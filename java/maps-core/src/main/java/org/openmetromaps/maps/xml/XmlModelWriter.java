@@ -18,8 +18,10 @@
 package org.openmetromaps.maps.xml;
 
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,6 +33,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
@@ -43,7 +48,7 @@ import de.topobyte.adt.geo.Coordinate;
 public class XmlModelWriter
 {
 
-	public void write(OutputStream os, ModelData data)
+	public void write(OutputStream os, ModelData data, List<MapView> views)
 			throws ParserConfigurationException, TransformerException
 	{
 		// Create document
@@ -109,6 +114,40 @@ public class XmlModelWriter
 				eLine.appendChild(eStop);
 
 				eStop.setAttribute("station", stop.getStation().getName());
+			}
+		}
+
+		for (MapView view : views) {
+			Element eView = doc.createElement("view");
+			eMain.appendChild(eView);
+
+			eView.setAttribute("name", view.getName());
+
+			LineNetwork lineNetwork = view.getLineNetwork();
+			List<Node> nodes = new ArrayList<>(lineNetwork.getNodes());
+			Collections.sort(nodes, new Comparator<Node>() {
+
+				@Override
+				public int compare(Node o1, Node o2)
+				{
+					return o1.station.getName().compareTo(o2.station.getName());
+				}
+
+			});
+
+			for (Node node : nodes) {
+				Station station = node.station;
+
+				Element eStation = doc.createElement("station");
+				eView.appendChild(eStation);
+
+				Coordinate location = station.getLocation();
+
+				eStation.setAttribute("name", station.getName());
+				eStation.setAttribute("lon",
+						String.format("%.6f", location.getLongitude()));
+				eStation.setAttribute("lat",
+						String.format("%.6f", location.getLatitude()));
 			}
 		}
 

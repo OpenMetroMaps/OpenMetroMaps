@@ -20,10 +20,13 @@ package org.openmetromaps.maps;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModelWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +40,10 @@ public class Storage
 	{
 		try {
 			FileOutputStream os = new FileOutputStream(file);
-			new XmlModelWriter().write(os, mapViewer.getModel());
+			ModelData data = mapViewer.getModel();
+			MapView view = mapViewer.getView();
+			List<MapView> views = Arrays.asList(view);
+			new XmlModelWriter().write(os, data, views);
 			os.close();
 		} catch (ParserConfigurationException | TransformerException
 				| IOException e) {

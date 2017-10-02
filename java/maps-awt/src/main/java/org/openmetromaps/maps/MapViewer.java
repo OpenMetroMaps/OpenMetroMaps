@@ -41,6 +41,7 @@ import org.openmetromaps.maps.actions.SaveAction;
 import org.openmetromaps.maps.actions.SaveAsAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.ModelData;
 
@@ -55,6 +56,7 @@ public class MapViewer
 {
 
 	private ModelData model;
+	private MapView view;
 
 	private ViewConfig viewConfig;
 
@@ -80,12 +82,20 @@ public class MapViewer
 	{
 		this.model = model;
 
+		LineNetworkBuilder builder = new LineNetworkBuilder(model);
+		view = new MapView("Test", builder.getGraph());
+
 		viewConfig = ModelUtil.viewConfig(model);
 	}
 
 	public ModelData getModel()
 	{
 		return model;
+	}
+
+	public MapView getView()
+	{
+		return view;
 	}
 
 	public Window getFrame()
@@ -193,7 +203,7 @@ public class MapViewer
 		JPanel panel = new JPanel(new GridBagLayout());
 		frame.setContentPane(panel);
 
-		map = new ScrollableAdvancedPanel(model,
+		map = new ScrollableAdvancedPanel(model, view.getLineNetwork(),
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
 				viewConfig.getStartPosition(), 10, 15, viewConfig.getBbox());
 

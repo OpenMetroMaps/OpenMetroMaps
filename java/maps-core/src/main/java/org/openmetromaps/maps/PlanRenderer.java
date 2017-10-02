@@ -25,11 +25,9 @@ import java.util.Map;
 
 import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.NeighborInfo;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
-import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.Colors;
@@ -105,10 +103,11 @@ public class PlanRenderer implements ZoomChangedListener
 
 	private StationDrawer stationDrawer;
 
-	public PlanRenderer(ModelData data, StationMode stationMode,
+	public PlanRenderer(LineNetwork lineNetwork, StationMode stationMode,
 			SegmentMode segmentMode, SteplessMapWindow mapWindow,
 			LocationToPoint ltp, float scale, PaintFactory pf)
 	{
+		this.lineNetwork = lineNetwork;
 		this.mapWindow = mapWindow;
 		this.ltp = ltp;
 
@@ -116,9 +115,6 @@ public class PlanRenderer implements ZoomChangedListener
 		this.stationMode = stationMode;
 		this.scale = scale;
 		this.pf = pf;
-
-		LineNetworkBuilder builder = new LineNetworkBuilder(data);
-		lineNetwork = builder.getGraph();
 
 		for (NetworkLine line : lineNetwork.getLines()) {
 			colors.put(line, ModelUtil.getColor(line.line));

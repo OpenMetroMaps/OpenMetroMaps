@@ -41,6 +41,7 @@ import org.openmetromaps.maps.actions.SaveAction;
 import org.openmetromaps.maps.actions.SaveAsAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.Node;
 
 import de.topobyte.adt.geo.Coordinate;
@@ -71,7 +72,7 @@ public class MapViewer
 	public void setModel(MapModel model)
 	{
 		init(model);
-		map.setData(model.getData());
+		map.setData(model.getData(), view.getLineNetwork());
 		map.setViewConfig(viewConfig.getBbox(), viewConfig.getStartPosition(),
 				Constants.DEFAULT_ZOOM);
 	}
@@ -80,9 +81,14 @@ public class MapViewer
 	{
 		this.model = model;
 
+		if (model.getViews().isEmpty()) {
+			LineNetworkBuilder builder = new LineNetworkBuilder(
+					model.getData());
+			LineNetwork lineNetwork = builder.getGraph();
+			model.getViews().add(new MapView("Test", lineNetwork));
+		}
+
 		view = model.getViews().get(0);
-		LineNetwork lineNetwork = view.getLineNetwork();
-		view = new MapView(view.getName(), lineNetwork);
 
 		viewConfig = ModelUtil.viewConfig(model.getData());
 	}

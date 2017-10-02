@@ -28,6 +28,7 @@ import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
@@ -123,6 +124,19 @@ public class XmlModelConverter
 					model.getData());
 			LineNetwork lineNetwork = builder.getGraph();
 			model.getViews().add(new MapView(xmlView.getName(), lineNetwork));
+
+			Map<String, XmlStation> nameToViewStation = new HashMap<>();
+			for (XmlStation station : xmlView.getStations()) {
+				nameToViewStation.put(station.getName(), station);
+			}
+
+			for (Node node : lineNetwork.getNodes()) {
+				XmlStation station = nameToViewStation
+						.get(node.station.getName());
+				if (station != null) {
+					node.location = station.getLocation();
+				}
+			}
 		}
 
 		return model;

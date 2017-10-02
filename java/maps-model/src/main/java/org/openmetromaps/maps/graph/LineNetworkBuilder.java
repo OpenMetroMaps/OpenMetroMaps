@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.openmetromaps.maps.StationUtil;
 import org.openmetromaps.maps.Segment;
+import org.openmetromaps.maps.StationUtil;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;

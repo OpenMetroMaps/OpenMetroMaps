@@ -18,7 +18,6 @@
 package org.openmetromaps.maps;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.openmetromaps.maps.model.Line;
@@ -33,72 +32,6 @@ import de.topobyte.adt.geo.Coordinate;
 
 public class ModelUtil
 {
-
-	public static boolean isLastStopOfALine(Station station)
-	{
-		List<Stop> stops = station.getStops();
-		final int nStops = stops.size();
-		for (int i = 0; i < nStops; i++) {
-			Stop stop = stops.get(i);
-			Line line = stop.getLine();
-			if (line.isCircular()) {
-				continue;
-			}
-			List<Stop> lineStops = line.getStops();
-			if (stop == lineStops.get(0)
-					|| stop == lineStops.get(lineStops.size() - 1)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static Coordinate location(Stop stop)
-	{
-		if (stop.getLocation() != null) {
-			return stop.getLocation();
-		}
-		return stop.getStation().getLocation();
-	}
-
-	public static Coordinate mean(List<Stop> stops)
-	{
-		double x = 0;
-		double y = 0;
-		int n = 0;
-		final int nStops = stops.size();
-		for (int i = 0; i < nStops; i++) {
-			Stop stop = stops.get(i);
-			x += stop.getLocation().lon;
-			y += stop.getLocation().lat;
-			n++;
-		}
-		if (n == 1) {
-			new Coordinate(x, y);
-		}
-		return new Coordinate(x / n, y / n);
-	}
-
-	public static Coordinate meanOfStations(Collection<Station> stations)
-	{
-		double x = 0;
-		double y = 0;
-		int n = 0;
-		for (Station station : stations) {
-			List<Stop> stops = station.getStops();
-			final int nStops = stops.size();
-			for (int i = 0; i < nStops; i++) {
-				Stop stop = stops.get(i);
-				x += stop.getLocation().lon;
-				y += stop.getLocation().lat;
-				n++;
-			}
-		}
-		if (n == 1) {
-			new Coordinate(x, y);
-		}
-		return new Coordinate(x / n, y / n);
-	}
 
 	public static ColorCode getColor(Line line)
 	{

@@ -7,7 +7,6 @@ dependencies {
     compile 'de.topobyte:jsi-rectangle-intersection-tester:0.0.1'
     compile 'de.topobyte:lightweight-geometry:1.0.0'
     compile 'de.topobyte:lightweight-geometry-convex-hull:1.0.0'
-    compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
 
     testCompile project(':openmetromaps-test-data')
 }

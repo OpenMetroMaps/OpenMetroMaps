@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.openmetromaps.maps.ModelUtil;
+import org.openmetromaps.maps.StationUtil;
 import org.openmetromaps.maps.Segment;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
@@ -87,7 +87,7 @@ public class LineNetworkBuilder
 		final int nNodes = graph.nodes.size();
 		for (int i = 0; i < nNodes; i++) {
 			Node node = graph.nodes.get(i);
-			boolean isLastStop = ModelUtil.isLastStopOfALine(node.station);
+			boolean isLastStop = StationUtil.isLastStopOfALine(node.station);
 			node.setIsLastStopOfALine(isLastStop);
 
 			int rank = isLastStop ? 1 : 0;

@@ -66,9 +66,9 @@ public class ScrollableSimplePanel extends BaseMapWindowPanel
 		for (Line line : data.lines) {
 			g.setColor(AwtUtil.getAwtColor(line));
 			List<Stop> stops = line.getStops();
-			Coordinate prev = ModelUtil.location(stops.get(0));
+			Coordinate prev = StationUtil.location(stops.get(0));
 			for (int i = 1; i < stops.size(); i++) {
-				Coordinate next = ModelUtil.location(stops.get(i));
+				Coordinate next = StationUtil.location(stops.get(i));
 				Point a = getPoint(prev);
 				Point b = getPoint(next);
 				Line2D l = new Line2D.Double(a.x, a.y, b.x, b.y);

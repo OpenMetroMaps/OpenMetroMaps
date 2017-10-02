@@ -24,8 +24,8 @@ import java.nio.file.Paths;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapViewer;
-import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
@@ -68,9 +68,9 @@ public class RunMapViewer
 		XmlModel xmlModel = XmlModelReader.read(input);
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
-		ModelData data = modelConverter.convert(xmlModel);
+		MapModel model = modelConverter.convert(xmlModel);
 
-		MapViewer mapViewer = new MapViewer(data);
+		MapViewer mapViewer = new MapViewer(model);
 		mapViewer.show();
 	}
 

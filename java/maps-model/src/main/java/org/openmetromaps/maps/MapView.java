@@ -17,25 +17,38 @@
 
 package org.openmetromaps.maps;
 
-import javax.swing.JPanel;
+import org.openmetromaps.maps.graph.LineNetwork;
 
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelConverter;
-
-public class TestMapViewer extends JPanel
+public class MapView
 {
 
-	private static final long serialVersionUID = 1L;
+	private String name;
+	private LineNetwork lineNetwork;
 
-	public static void main(String[] args) throws Exception
+	public MapView(String name, LineNetwork lineNetwork)
 	{
-		XmlModel xmlModel = TestData.berlinXml();
+		this.name = name;
+		this.lineNetwork = lineNetwork;
+	}
 
-		XmlModelConverter modelConverter = new XmlModelConverter();
-		MapModel model = modelConverter.convert(xmlModel);
+	public String getName()
+	{
+		return name;
+	}
 
-		MapViewer mapViewer = new MapViewer(model);
-		mapViewer.show();
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public LineNetwork getLineNetwork()
+	{
+		return lineNetwork;
+	}
+
+	public void setLineNetwork(LineNetwork lineNetwork)
+	{
+		this.lineNetwork = lineNetwork;
 	}
 
 }

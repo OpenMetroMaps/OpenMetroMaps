@@ -26,8 +26,8 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapViewer;
-import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
@@ -68,8 +68,8 @@ public class OpenAction extends SimpleAction
 				XmlModel xmlModel = XmlModelReader.read(is);
 				is.close();
 
-				ModelData data = new XmlModelConverter().convert(xmlModel);
-				mapViewer.setModel(data);
+				MapModel model = new XmlModelConverter().convert(xmlModel);
+				mapViewer.setModel(model);
 				mapViewer.getMap().repaint();
 			} catch (ParserConfigurationException | SAXException
 					| IOException e) {

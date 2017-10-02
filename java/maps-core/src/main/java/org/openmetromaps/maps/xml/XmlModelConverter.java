@@ -24,6 +24,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
@@ -40,7 +44,7 @@ public class XmlModelConverter
 	protected Map<Station, Integer> stationToIndex = new HashMap<>();
 	protected Map<Stop, Integer> stopToIndex = new HashMap<>();
 
-	public ModelData convert(XmlModel draftModel)
+	public MapModel convert(XmlModel draftModel)
 	{
 		List<XmlStation> xmlStations = draftModel.getStations();
 		List<XmlLine> xmlLines = draftModel.getLines();
@@ -109,7 +113,19 @@ public class XmlModelConverter
 			}
 		}
 
-		return new ModelData(linesList, stationsList);
+		ModelData data = new ModelData(linesList, stationsList);
+
+		MapModel model = new MapModel(data);
+
+		List<XmlView> xmlViews = draftModel.getXmlViews();
+		for (XmlView xmlView : xmlViews) {
+			LineNetworkBuilder builder = new LineNetworkBuilder(
+					model.getData());
+			LineNetwork lineNetwork = builder.getGraph();
+			model.getViews().add(new MapView(xmlView.getName(), lineNetwork));
+		}
+
+		return model;
 	}
 
 }

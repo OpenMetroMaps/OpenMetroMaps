@@ -22,7 +22,6 @@ import javax.swing.JPanel;
 
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
-import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
@@ -36,15 +35,21 @@ public class TestScrollableAdvancedPanel extends JPanel
 		XmlModel xmlModel = TestData.berlinXml();
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
-		ModelData data = modelConverter.convert(xmlModel);
+		MapModel model = modelConverter.convert(xmlModel);
 
-		LineNetworkBuilder builder = new LineNetworkBuilder(data);
-		LineNetwork lineNetwork = builder.getGraph();
+		if (model.getViews().isEmpty()) {
+			LineNetworkBuilder builder = new LineNetworkBuilder(
+					model.getData());
+			LineNetwork lineNetwork = builder.getGraph();
+			model.getViews().add(new MapView("Test", lineNetwork));
+		}
 
-		ViewConfig viewConfig = ModelUtil.viewConfig(data);
+		LineNetwork lineNetwork = model.getViews().get(0).getLineNetwork();
 
-		ScrollableAdvancedPanel panel = new ScrollableAdvancedPanel(data,
-				lineNetwork, PlanRenderer.StationMode.CONVEX,
+		ViewConfig viewConfig = ModelUtil.viewConfig(model.getData());
+
+		ScrollableAdvancedPanel panel = new ScrollableAdvancedPanel(
+				model.getData(), lineNetwork, PlanRenderer.StationMode.CONVEX,
 				PlanRenderer.SegmentMode.CURVE, viewConfig.getStartPosition(),
 				10, 15, viewConfig.getBbox());
 

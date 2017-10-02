@@ -41,9 +41,7 @@ import org.openmetromaps.maps.actions.SaveAction;
 import org.openmetromaps.maps.actions.SaveAsAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.Node;
-import org.openmetromaps.maps.model.ModelData;
 
 import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
@@ -55,7 +53,7 @@ import de.topobyte.swing.util.action.enums.EnumActions;
 public class MapViewer
 {
 
-	private ModelData model;
+	private MapModel model;
 	private MapView view;
 
 	private ViewConfig viewConfig;
@@ -65,30 +63,31 @@ public class MapViewer
 	private ScrollableAdvancedPanel map;
 	private StatusBar statusBar;
 
-	public MapViewer(ModelData model)
+	public MapViewer(MapModel model)
 	{
 		init(model);
 	}
 
-	public void setModel(ModelData model)
+	public void setModel(MapModel model)
 	{
 		init(model);
-		map.setData(model);
+		map.setData(model.getData());
 		map.setViewConfig(viewConfig.getBbox(), viewConfig.getStartPosition(),
 				Constants.DEFAULT_ZOOM);
 	}
 
-	private void init(ModelData model)
+	private void init(MapModel model)
 	{
 		this.model = model;
 
-		LineNetworkBuilder builder = new LineNetworkBuilder(model);
-		view = new MapView("Test", builder.getGraph());
+		view = model.getViews().get(0);
+		LineNetwork lineNetwork = view.getLineNetwork();
+		view = new MapView(view.getName(), lineNetwork);
 
-		viewConfig = ModelUtil.viewConfig(model);
+		viewConfig = ModelUtil.viewConfig(model.getData());
 	}
 
-	public ModelData getModel()
+	public MapModel getModel()
 	{
 		return model;
 	}
@@ -203,9 +202,10 @@ public class MapViewer
 		JPanel panel = new JPanel(new GridBagLayout());
 		frame.setContentPane(panel);
 
-		map = new ScrollableAdvancedPanel(model, view.getLineNetwork(),
-				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				viewConfig.getStartPosition(), 10, 15, viewConfig.getBbox());
+		map = new ScrollableAdvancedPanel(model.getData(),
+				view.getLineNetwork(), PlanRenderer.StationMode.CONVEX,
+				PlanRenderer.SegmentMode.CURVE, viewConfig.getStartPosition(),
+				10, 15, viewConfig.getBbox());
 
 		statusBar = new StatusBar();
 

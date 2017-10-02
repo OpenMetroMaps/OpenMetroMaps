@@ -20,7 +20,6 @@ package org.openmetromaps.maps;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
@@ -36,9 +35,9 @@ public class TestSimplePanel extends JPanel
 		XmlModel xmlModel = TestData.berlinXml();
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
-		ModelData data = modelConverter.convert(xmlModel);
+		MapModel model = modelConverter.convert(xmlModel);
 
-		SimplePanel panel = new SimplePanel(data);
+		SimplePanel panel = new SimplePanel(model.getData());
 
 		BBox box = new BBox(13.271827697753906, 52.55715099278439,
 				13.487091064453125, 52.460193408127836);

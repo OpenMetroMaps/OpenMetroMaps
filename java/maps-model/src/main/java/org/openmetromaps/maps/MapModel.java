@@ -17,25 +17,41 @@
 
 package org.openmetromaps.maps;
 
-import javax.swing.JPanel;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelConverter;
+import org.openmetromaps.maps.model.ModelData;
 
-public class TestMapViewer extends JPanel
+public class MapModel
 {
 
-	private static final long serialVersionUID = 1L;
+	private ModelData data;
+	private List<MapView> views;
 
-	public static void main(String[] args) throws Exception
+	public MapModel(ModelData data)
 	{
-		XmlModel xmlModel = TestData.berlinXml();
+		this.data = data;
+		views = new ArrayList<>();
+	}
 
-		XmlModelConverter modelConverter = new XmlModelConverter();
-		MapModel model = modelConverter.convert(xmlModel);
+	public ModelData getData()
+	{
+		return data;
+	}
 
-		MapViewer mapViewer = new MapViewer(model);
-		mapViewer.show();
+	public void setData(ModelData data)
+	{
+		this.data = data;
+	}
+
+	public List<MapView> getViews()
+	{
+		return views;
+	}
+
+	public void setViews(List<MapView> views)
+	{
+		this.views = views;
 	}
 
 }

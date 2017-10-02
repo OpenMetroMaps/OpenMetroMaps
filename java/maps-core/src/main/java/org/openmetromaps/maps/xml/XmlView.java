@@ -17,21 +17,28 @@
 
 package org.openmetromaps.maps.xml;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class XmlModel
+public class XmlView
 {
 
-	private List<XmlStation> stations;
-	private List<XmlLine> lines;
-	private List<XmlView> xmlViews;
+	private String name;
+	private List<XmlStation> stations = new ArrayList<>();
 
-	public XmlModel(List<XmlStation> stations, List<XmlLine> lines,
-			List<XmlView> xmlViews)
+	public XmlView(String name)
 	{
-		this.stations = stations;
-		this.lines = lines;
-		this.xmlViews = xmlViews;
+		this.name = name;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 
 	public List<XmlStation> getStations()
@@ -42,26 +49,6 @@ public class XmlModel
 	public void setStations(List<XmlStation> stations)
 	{
 		this.stations = stations;
-	}
-
-	public List<XmlLine> getLines()
-	{
-		return lines;
-	}
-
-	public void setLines(List<XmlLine> lines)
-	{
-		this.lines = lines;
-	}
-
-	public List<XmlView> getXmlViews()
-	{
-		return xmlViews;
-	}
-
-	public void setXmlViews(List<XmlView> xmlViews)
-	{
-		this.xmlViews = xmlViews;
 	}
 
 }

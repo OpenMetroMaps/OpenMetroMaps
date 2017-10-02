@@ -49,6 +49,7 @@ public class XmlModelReader
 
 	private List<XmlStation> xmlStations = new ArrayList<>();
 	private List<XmlLine> xmlLines = new ArrayList<>();
+	private List<XmlView> xmlViews = new ArrayList<>();
 
 	private Map<String, XmlStation> nameToStation = new HashMap<>();
 
@@ -67,8 +68,9 @@ public class XmlModelReader
 
 		parseStations(doc);
 		parseLines(doc);
+		parseViews(doc);
 
-		return new XmlModel(xmlStations, xmlLines);
+		return new XmlModel(xmlStations, xmlLines, xmlViews);
 	}
 
 	private void parseStations(Document doc)
@@ -128,6 +130,45 @@ public class XmlModelReader
 
 			xmlLines.add(new XmlLine(lineName, color, isCircular, stops));
 		}
+	}
+
+	private void parseViews(Document doc)
+	{
+		NodeList allViews = doc.getElementsByTagName("view");
+		for (int i = 0; i < allViews.getLength(); i++) {
+			Element eView = (Element) allViews.item(i);
+			xmlViews.add(parseView(eView));
+		}
+	}
+
+	private XmlView parseView(Element eView)
+	{
+		NamedNodeMap attributes = eView.getAttributes();
+		String viewName = attributes.getNamedItem("name").getNodeValue();
+
+		XmlView view = new XmlView(viewName);
+
+		NodeList stationList = eView.getElementsByTagName("station");
+
+		for (int i = 0; i < stationList.getLength(); i++) {
+			Element eStation = (Element) stationList.item(i);
+			XmlStation station = parseViewStation(eStation);
+			view.getStations().add(station);
+		}
+
+		return view;
+	}
+
+	private XmlStation parseViewStation(Element eStation)
+	{
+		NamedNodeMap attributes = eStation.getAttributes();
+		String stationName = attributes.getNamedItem("name").getNodeValue();
+		String valLon = attributes.getNamedItem("lon").getNodeValue();
+		String valLat = attributes.getNamedItem("lat").getNodeValue();
+		double lon = Double.parseDouble(valLon);
+		double lat = Double.parseDouble(valLat);
+
+		return new XmlStation(stationName, new Coordinate(lon, lat));
 	}
 
 }

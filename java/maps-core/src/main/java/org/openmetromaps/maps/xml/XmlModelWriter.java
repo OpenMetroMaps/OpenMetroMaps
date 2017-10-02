@@ -141,7 +141,7 @@ public class XmlModelWriter
 				Element eStation = doc.createElement("station");
 				eView.appendChild(eStation);
 
-				Coordinate location = station.getLocation();
+				Coordinate location = node.location;
 
 				eStation.setAttribute("name", station.getName());
 				eStation.setAttribute("lon",

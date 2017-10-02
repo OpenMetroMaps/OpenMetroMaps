@@ -918,10 +918,10 @@
     <station lat="52.439681" lon="13.387636" name="Alt Mariendorf"/>
     <station lat="52.577808" lon="13.350773" name="Alt-Reinickendorf"/>
     <station lat="52.589675" lon="13.283644" name="Alt-Tegel"/>
-    <station lat="52.465420" lon="13.385642" name="Alt-Tempelhof"/>
+    <station lat="52.464471" lon="13.384581" name="Alt-Tempelhof"/>
     <station lat="52.407115" lon="13.558502" name="Altglienicke"/>
     <station lat="52.539033" lon="13.205630" name="Altstadt Spandau"/>
-    <station lat="52.542417" lon="13.350351" name="Amrumer Straße"/>
+    <station lat="52.549839" lon="13.346788" name="Amrumer Straße"/>
     <station lat="52.503440" lon="13.381474" name="Anhalter Bahnhof"/>
     <station lat="52.447974" lon="13.360784" name="Attilastraße"/>
     <station lat="52.500436" lon="13.336492" name="Augsburger Straße"/>
@@ -936,7 +936,7 @@
     <station lat="52.537430" lon="13.396725" name="Bernauer Straße"/>
     <station lat="52.493890" lon="13.497636" name="Betriebsbahnhof Rummelsburg"/>
     <station lat="52.446809" lon="13.523857" name="Betriebsbahnhof Schöneweide"/>
-    <station lat="52.534343" lon="13.329058" name="Beusselstraße"/>
+    <station lat="52.540197" lon="13.319607" name="Beusselstraße"/>
     <station lat="52.513084" lon="13.556067" name="Biesdorf"/>
     <station lat="52.499583" lon="13.546445" name="Biesdorf-Süd"/>
     <station lat="52.515633" lon="13.647348" name="Birkenstein"/>
@@ -957,7 +957,7 @@
     <station lat="52.437864" lon="13.448164" name="Britz-Süd"/>
     <station lat="52.635872" lon="13.491699" name="Buch"/>
     <station lat="52.410329" lon="13.382879" name="Buckower Chaussee"/>
-    <station lat="52.477751" lon="13.328970" name="Bundesplatz"/>
+    <station lat="52.476667" lon="13.327401" name="Bundesplatz"/>
     <station lat="52.520191" lon="13.373052" name="Bundestag"/>
     <station lat="52.497610" lon="13.363085" name="Bülowstraße"/>
     <station lat="52.505050" lon="13.304502" name="Charlottenburg"/>
@@ -980,18 +980,18 @@
     <station lat="52.514608" lon="13.389177" name="Französische Straße"/>
     <station lat="52.526238" lon="13.760435" name="Fredersdorf"/>
     <station lat="52.451012" lon="13.281676" name="Freie Universität (Thielplatz)"/>
-    <station lat="52.470744" lon="13.341519" name="Friedenau"/>
-    <station lat="52.471929" lon="13.328741" name="Friedrich-Wilhelm-Platz"/>
+    <station lat="52.468569" lon="13.339094" name="Friedenau"/>
+    <station lat="52.470716" lon="13.328042" name="Friedrich-Wilhelm-Platz"/>
     <station lat="52.506201" lon="13.512803" name="Friedrichsfelde"/>
     <station lat="52.514111" lon="13.519960" name="Friedrichsfelde Ost"/>
     <station lat="52.457359" lon="13.623737" name="Friedrichshagen"/>
     <station lat="52.520387" lon="13.386885" name="Friedrichstraße"/>
     <station lat="52.632322" lon="13.290332" name="Frohnau"/>
     <station lat="52.556463" lon="13.524735" name="Gehrenseestraße"/>
-    <station lat="52.549118" lon="13.389588" name="Gesundbrunnen"/>
+    <station lat="52.550252" lon="13.389145" name="Gesundbrunnen"/>
     <station lat="52.499477" lon="13.374108" name="Gleisdreieck"/>
     <station lat="52.491382" lon="13.395477" name="Gneisenaustraße"/>
-    <station lat="52.540131" lon="13.439224" name="Greifswalder Straße"/>
+    <station lat="52.541575" lon="13.440336" name="Greifswalder Straße"/>
     <station lat="52.462847" lon="13.444813" name="Grenzallee"/>
     <station lat="52.394436" lon="13.127173" name="Griebnitzsee"/>
     <station lat="52.488447" lon="13.261413" name="Grunewald"/>
@@ -1001,7 +1001,7 @@
     <station lat="52.492086" lon="13.330883" name="Güntzelstraße"/>
     <station lat="52.522648" lon="13.402209" name="Hackescher Markt"/>
     <station lat="52.536670" lon="13.286001" name="Halemweg"/>
-    <station lat="52.495984" lon="13.290596" name="Halensee"/>
+    <station lat="52.493608" lon="13.288575" name="Halensee"/>
     <station lat="52.498381" lon="13.391162" name="Hallesches Tor"/>
     <station lat="52.518224" lon="13.341924" name="Hansaplatz"/>
     <station lat="52.538692" lon="13.232925" name="Haselhorst"/>
@@ -1014,19 +1014,19 @@
     <station lat="52.510473" lon="13.415965" name="Heinrich-Heine-Straße"/>
     <station lat="52.536714" lon="13.606755" name="Hellersdorf"/>
     <station lat="52.637494" lon="13.206046" name="Hennigsdorf (bei Berlin)"/>
-    <station lat="52.486363" lon="13.424323" name="Hermannplatz"/>
+    <station lat="52.486363" lon="13.429323" name="Hermannplatz"/>
     <station lat="52.467558" lon="13.430998" name="Hermannstraße"/>
     <station lat="52.617342" lon="13.307649" name="Hermsdorf"/>
     <station lat="52.457899" lon="13.603478" name="Hirschgarten"/>
     <station lat="52.668653" lon="13.287046" name="Hohen Neuendorf (b Berlin)"/>
     <station lat="52.566231" lon="13.512542" name="Hohenschönhausen"/>
-    <station lat="52.488670" lon="13.300182" name="Hohenzollerndamm"/>
+    <station lat="52.485471" lon="13.296729" name="Hohenzollerndamm"/>
     <station lat="52.494066" lon="13.324600" name="Hohenzollernplatz"/>
     <station lat="52.575661" lon="13.296136" name="Holzhauser Straße"/>
     <station lat="52.518194" lon="13.673906" name="Hoppegarten (Mark)"/>
     <station lat="52.545025" lon="13.379546" name="Humboldthain"/>
     <station lat="52.538409" lon="13.633216" name="Hönow"/>
-    <station lat="52.478476" lon="13.342241" name="Innsbrucker Platz"/>
+    <station lat="52.474228" lon="13.340054" name="Innsbrucker Platz"/>
     <station lat="52.536288" lon="13.293279" name="Jakob-Kaiser-Platz"/>
     <station lat="52.514625" lon="13.419141" name="Jannowitzbrücke"/>
     <station lat="52.429283" lon="13.453382" name="Johannisthaler Chaussee"/>
@@ -1053,11 +1053,11 @@
     <station lat="52.469712" lon="13.468546" name="Köllnische Heide"/>
     <station lat="52.296445" lon="13.631438" name="Königs Wusterhausen"/>
     <station lat="52.458605" lon="13.581312" name="Köpenick"/>
-    <station lat="52.529466" lon="13.454794" name="Landsberger Allee"/>
+    <station lat="52.532481" lon="13.459136" name="Landsberger Allee"/>
     <station lat="52.438830" lon="13.342176" name="Lankwitz"/>
     <station lat="52.741012" lon="13.263636" name="Lehnitz"/>
     <station lat="52.472995" lon="13.428417" name="Leinestraße"/>
-    <station lat="52.546388" lon="13.359151" name="Leopoldplatz"/>
+    <station lat="52.551768" lon="13.354263" name="Leopoldplatz"/>
     <station lat="52.410340" lon="13.308826" name="Lichtefelde Süd"/>
     <station lat="52.510539" lon="13.498209" name="Lichtenberg"/>
     <station lat="52.387589" lon="13.396301" name="Lichtenrade"/>
@@ -1085,14 +1085,14 @@
     <station lat="52.498896" lon="13.382957" name="Möckernbrücke"/>
     <station lat="52.654829" lon="13.386043" name="Mühlenbeck-Mönchmühle"/>
     <station lat="52.530853" lon="13.382706" name="Naturkundemuseum"/>
-    <station lat="52.551389" lon="13.367221" name="Nauener Platz"/>
+    <station lat="52.556481" lon="13.364930" name="Nauener Platz"/>
     <station lat="52.516233" lon="13.259327" name="Neu-Westend"/>
     <station lat="52.520768" lon="13.700552" name="Neuenhagen"/>
     <station lat="52.469297" lon="13.443038" name="Neukölln"/>
     <station lat="52.432151" lon="13.193852" name="Nikolassee"/>
     <station lat="52.499764" lon="13.354803" name="Nollendorfplatz"/>
     <station lat="52.532670" lon="13.387260" name="Nordbahnhof"/>
-    <station lat="52.503910" lon="13.485485" name="Nöldnerplatz"/>
+    <station lat="52.504510" lon="13.488857" name="Nöldnerplatz"/>
     <station lat="52.452419" lon="13.537756" name="Oberspree"/>
     <station lat="52.516881" lon="13.250616" name="Olympia-Stadion"/>
     <station lat="52.511281" lon="13.242976" name="Olympiastadion"/>
@@ -1102,13 +1102,13 @@
     <station lat="52.525605" lon="13.387354" name="Oranienburger Tor"/>
     <station lat="52.418956" lon="13.314313" name="Osdorfer Straße"/>
     <station lat="52.450355" lon="13.269132" name="Oskar-Helene-Heim"/>
-    <station lat="52.557117" lon="13.373252" name="Osloer Straße"/>
+    <station lat="52.559661" lon="13.373448" name="Osloer Straße"/>
     <station lat="52.510668" lon="13.435154" name="Ostbahnhof"/>
-    <station lat="52.503198" lon="13.469236" name="Ostkreuz"/>
+    <station lat="52.502530" lon="13.475197" name="Ostkreuz"/>
     <station lat="52.571025" lon="13.302934" name="Otisstraße"/>
     <station lat="52.565898" lon="13.409732" name="Pankow"/>
     <station lat="52.577964" lon="13.429412" name="Pankow-Heinersdorf"/>
-    <station lat="52.552219" lon="13.381582" name="Pankstraße"/>
+    <station lat="52.555664" lon="13.380621" name="Pankstraße"/>
     <station lat="52.574159" lon="13.349336" name="Paracelsus-Bad"/>
     <station lat="52.478115" lon="13.386270" name="Paradestraße"/>
     <station lat="52.444779" lon="13.449536" name="Parchimer Allee"/>
@@ -1116,12 +1116,12 @@
     <station lat="52.528847" lon="13.789232" name="Petershagen-Nord"/>
     <station lat="52.510135" lon="13.227644" name="Pichelsberg"/>
     <station lat="52.486049" lon="13.385952" name="Platz der Luftbrücke"/>
-    <station lat="52.478481" lon="13.473359" name="Plänterwald"/>
+    <station lat="52.477325" lon="13.475380" name="Plänterwald"/>
     <station lat="52.464138" lon="13.295994" name="Podbielskiallee"/>
     <station lat="52.535701" lon="13.535502" name="Poelchaustraße"/>
     <station lat="52.391799" lon="13.067086" name="Potsdam Hbf"/>
     <station lat="52.509472" lon="13.376962" name="Potsdamer Platz"/>
-    <station lat="52.544892" lon="13.425727" name="Prenzlauer Allee"/>
+    <station lat="52.546396" lon="13.427651" name="Prenzlauer Allee"/>
     <station lat="52.459915" lon="13.356253" name="Priesterweg"/>
     <station lat="52.498392" lon="13.405891" name="Prinzenstraße"/>
     <station lat="52.451622" lon="13.690014" name="Rahnsdorf"/>
@@ -1140,7 +1140,7 @@
     <station lat="52.529740" lon="13.401267" name="Rosenthaler Platz"/>
     <station lat="52.416604" lon="13.494587" name="Rudow"/>
     <station lat="52.525631" lon="13.241321" name="Ruhleben"/>
-    <station lat="52.501240" lon="13.478474" name="Rummelsburg"/>
+    <station lat="52.498808" lon="13.485084" name="Rummelsburg"/>
     <station lat="52.648624" lon="13.513319" name="Röntgental"/>
     <station lat="52.473164" lon="13.314479" name="Rüdesheimer Platz"/>
     <station lat="52.514714" lon="13.464647" name="Samariterstraße"/>
@@ -1153,13 +1153,13 @@
     <station lat="52.461481" lon="13.325095" name="Schloßstraße"/>
     <station lat="52.612953" lon="13.246083" name="Schulzendorf"/>
     <station lat="52.535151" lon="13.377340" name="Schwartzkopffstraße"/>
-    <station lat="52.479290" lon="13.351737" name="Schöneberg"/>
+    <station lat="52.472472" lon="13.351907" name="Schöneberg"/>
     <station lat="52.455009" lon="13.509594" name="Schöneweide"/>
     <station lat="52.664592" lon="13.340496" name="Schönfließ"/>
     <station lat="52.549283" lon="13.414966" name="Schönhauser Allee"/>
     <station lat="52.571282" lon="13.381354" name="Schönholz"/>
     <station lat="52.493059" lon="13.422106" name="Schönleinstraße"/>
-    <station lat="52.549635" lon="13.353340" name="Seestraße"/>
+    <station lat="52.554522" lon="13.344976" name="Seestraße"/>
     <station lat="52.532404" lon="13.412684" name="Senefelderplatz"/>
     <station lat="52.536810" lon="13.272753" name="Siemensdamm"/>
     <station lat="52.472945" lon="13.455621" name="Sonnenallee"/>
@@ -1170,7 +1170,7 @@
     <station lat="52.511314" lon="13.403885" name="Spittelmarkt"/>
     <station lat="52.527074" lon="13.536542" name="Springpfuhl"/>
     <station lat="52.511182" lon="13.390346" name="Stadtmitte"/>
-    <station lat="52.523758" lon="13.464924" name="Storkower Straße"/>
+    <station lat="52.524765" lon="13.467970" name="Storkower Straße"/>
     <station lat="52.532164" lon="13.833623" name="Strausberg"/>
     <station lat="52.590323" lon="13.908428" name="Strausberg Nord"/>
     <station lat="52.576637" lon="13.887955" name="Strausberg Stadt"/>
@@ -1178,15 +1178,15 @@
     <station lat="52.531944" lon="13.209308" name="Stresow"/>
     <station lat="52.436395" lon="13.274050" name="Sundgauer Straße"/>
     <station lat="52.448275" lon="13.353765" name="Südende"/>
-    <station lat="52.475881" lon="13.365242" name="Südkreuz"/>
+    <station lat="52.470033" lon="13.366322" name="Südkreuz"/>
     <station lat="52.489298" lon="13.407667" name="Südstern"/>
     <station lat="52.588113" lon="13.289761" name="Tegel"/>
     <station lat="52.396818" lon="13.276420" name="Teltow Stadt"/>
-    <station lat="52.470796" lon="13.384500" name="Tempelhof"/>
+    <station lat="52.468276" lon="13.384420" name="Tempelhof"/>
     <station lat="52.509933" lon="13.272613" name="Theodor-Heuss-Platz"/>
     <station lat="52.514127" lon="13.336330" name="Tiergarten"/>
     <station lat="52.497705" lon="13.522963" name="Tierpark"/>
-    <station lat="52.493817" lon="13.461794" name="Treptower Park"/>
+    <station lat="52.487164" lon="13.468692" name="Treptower Park"/>
     <station lat="52.526355" lon="13.341434" name="Turmstraße"/>
     <station lat="52.502812" lon="13.326697" name="Uhlandstraße"/>
     <station lat="52.453263" lon="13.384332" name="Ullsteinstraße"/>
@@ -1198,10 +1198,10 @@
     <station lat="52.421104" lon="13.179253" name="Wannsee"/>
     <station lat="52.505869" lon="13.450470" name="Warschauer Straße"/>
     <station lat="52.572477" lon="13.504406" name="Wartenberg"/>
-    <station lat="52.543031" lon="13.366270" name="Wedding"/>
+    <station lat="52.549151" lon="13.363096" name="Wedding"/>
     <station lat="52.525519" lon="13.404932" name="Weinmeisterstraße"/>
     <station lat="52.518439" lon="13.284297" name="Westend"/>
-    <station lat="52.536524" lon="13.343439" name="Westhafen"/>
+    <station lat="52.545707" lon="13.339766" name="Westhafen"/>
     <station lat="52.500858" lon="13.283973" name="Westkreuz"/>
     <station lat="52.446255" lon="13.385645" name="Westphalweg"/>
     <station lat="52.319209" lon="13.633765" name="Wildau"/>

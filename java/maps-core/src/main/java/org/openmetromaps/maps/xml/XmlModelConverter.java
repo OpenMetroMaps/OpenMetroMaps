@@ -26,8 +26,10 @@ import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
+import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
@@ -136,6 +138,10 @@ public class XmlModelConverter
 				if (station != null) {
 					node.location = station.getLocation();
 				}
+			}
+
+			for (Edge edge : lineNetwork.edges) {
+				LineNetworkUtil.calculateNeighborLocations(edge);
 			}
 		}
 

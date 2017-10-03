@@ -7,5 +7,8 @@ dependencies {
     compile 'de.topobyte:swing-utils:0.0.10'
     compile 'de.topobyte:awt-utils:0.0.3'
 
+    compile 'org.dockingframes:docking-frames-core:1.1.1'
+    compile 'org.dockingframes:docking-frames-common:1.1.1'
+
     testCompile project(':openmetromaps-test-data')
 }

@@ -44,6 +44,9 @@ import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.Node;
 
+import bibliothek.gui.dock.common.CControl;
+import bibliothek.gui.dock.common.CGrid;
+import bibliothek.gui.dock.common.DefaultSingleCDockable;
 import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.geomath.WGS84;
@@ -60,6 +63,9 @@ public class MapViewer
 	private ViewConfig viewConfig;
 
 	private JFrame frame;
+
+	private CControl control;
+	private CGrid grid;
 
 	private ScrollableAdvancedPanel map;
 	private StatusBar statusBar;
@@ -215,12 +221,25 @@ public class MapViewer
 
 		statusBar = new StatusBar();
 
+		control = new CControl(frame);
+
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
 		c.weight(1, 1).fill(GridBagConstraints.BOTH);
-		panel.add(map, c.getConstraints());
+		panel.add(control.getContentArea(), c.getConstraints());
 		c.weight(1, 0).fill(GridBagConstraints.HORIZONTAL);
 		c.gridPos(0, 1);
 		panel.add(statusBar, c.getConstraints());
+
+		grid = new CGrid(control);
+
+		DefaultSingleCDockable mapDockable = new DefaultSingleCDockable("Map",
+				"Map", map);
+		grid.add(0, 0, 1, 1, mapDockable);
+		mapDockable.setExternalizable(false);
+		mapDockable.setCloseable(false);
+		mapDockable.setMinimizable(false);
+
+		control.getContentArea().deploy(grid);
 	}
 
 	protected void updateStatusBar(int x, int y)

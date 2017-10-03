@@ -83,10 +83,14 @@ public class LineNetworkUtil
 				}
 			}
 
-			Coordinate lp = Coordinate.mean(prevs);
-			Coordinate ln = Coordinate.mean(nexts);
-			edge.setPrev(lp);
-			edge.setNext(ln);
+			if (!prevs.isEmpty()) {
+				Coordinate lp = Coordinate.mean(prevs);
+				edge.setPrev(lp);
+			}
+			if (!nexts.isEmpty()) {
+				Coordinate ln = Coordinate.mean(nexts);
+				edge.setNext(ln);
+			}
 		}
 	}
 

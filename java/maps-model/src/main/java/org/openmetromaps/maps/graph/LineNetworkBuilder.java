@@ -44,12 +44,30 @@ public class LineNetworkBuilder
 
 	public LineNetworkBuilder(ModelData data)
 	{
+		addStations(data);
+
+		addLines(data);
+
+		sortEdgeLines();
+
+		calculateEdgeNeighborLocations();
+
+		computeRanks();
+
+		sortNodesByRank();
+	}
+
+	private void addStations(ModelData data)
+	{
 		for (Station station : data.stations) {
 			Node node = new Node(station);
 			graph.nodes.add(node);
 			stationToNode.put(station, node);
 		}
+	}
 
+	private void addLines(ModelData data)
+	{
 		final int nLines = data.lines.size();
 		for (int i = 0; i < nLines; i++) {
 			Line line = data.lines.get(i);
@@ -72,18 +90,28 @@ public class LineNetworkBuilder
 
 			networkLine.setEdges(edges);
 		}
+	}
 
+	private void sortEdgeLines()
+	{
 		final int nEdges = graph.edges.size();
 		for (int i = 0; i < nEdges; i++) {
 			Edge edge = graph.edges.get(i);
 			Collections.sort(edge.lines, Edge.COMPARATOR);
 		}
+	}
 
+	private void calculateEdgeNeighborLocations()
+	{
+		final int nEdges = graph.edges.size();
 		for (int i = 0; i < nEdges; i++) {
 			Edge edge = graph.edges.get(i);
 			LineNetworkUtil.calculateNeighborLocations(edge);
 		}
+	}
 
+	private void computeRanks()
+	{
 		final int nNodes = graph.nodes.size();
 		for (int i = 0; i < nNodes; i++) {
 			Node node = graph.nodes.get(i);
@@ -114,7 +142,10 @@ public class LineNetworkBuilder
 			}
 			node.setRank(rank);
 		}
+	}
 
+	private void sortNodesByRank()
+	{
 		Collections.sort(graph.nodes, new Comparator<Node>() {
 
 			@Override

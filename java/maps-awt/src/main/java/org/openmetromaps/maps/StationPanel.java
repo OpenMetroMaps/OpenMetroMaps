@@ -31,6 +31,7 @@ import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 
 public class StationPanel extends JPanel
@@ -39,6 +40,8 @@ public class StationPanel extends JPanel
 	final static Logger logger = LoggerFactory.getLogger(StationPanel.class);
 
 	private static final long serialVersionUID = 1L;
+
+	private MapViewer mapViewer;
 
 	private JTextField inputName;
 	private JTextField inputX;
@@ -49,6 +52,7 @@ public class StationPanel extends JPanel
 	public StationPanel(MapViewer mapViewer)
 	{
 		super(new GridBagLayout());
+		this.mapViewer = mapViewer;
 
 		mapViewer.addDataChangeListener(new DataChangeListener() {
 
@@ -144,10 +148,12 @@ public class StationPanel extends JPanel
 		try {
 			double parsedX = Double.parseDouble(valX);
 			double parsedY = Double.parseDouble(valY);
-			System.out.println(String.format("%f, %f", parsedX, parsedY));
+			node.location = new Coordinate(parsedX, parsedY);
+			mapViewer.getMap().repaint();
 		} catch (NumberFormatException e) {
 			logger.warn("Error while parsing value. " + e.getMessage());
 		}
+		// TODO: update name, too
 	}
 
 }

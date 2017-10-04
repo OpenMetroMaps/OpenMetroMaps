@@ -20,10 +20,15 @@ package org.openmetromaps.maps.graph;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.topobyte.adt.geo.Coordinate;
 
 public class LineNetworkUtil
 {
+
+	final static Logger logger = LoggerFactory.getLogger(LineNetworkUtil.class);
 
 	public static Node previousStation(NetworkLine line, Edge edge)
 	{
@@ -90,6 +95,27 @@ public class LineNetworkUtil
 			if (!nexts.isEmpty()) {
 				Coordinate ln = Coordinate.mean(nexts);
 				edge.setNext(ln);
+			}
+		}
+	}
+
+	public static void updateEdges(Node node)
+	{
+		// Update all edges connected to neighbor nodes in the network graph
+		List<Node> neighbors = new ArrayList<>();
+		for (Edge edge : node.edges) {
+			if (edge.n1 != node) {
+				neighbors.add(edge.n1);
+			}
+			if (edge.n2 != node) {
+				neighbors.add(edge.n2);
+			}
+		}
+		for (Node n : neighbors) {
+			for (Edge edge : n.edges) {
+				logger.info(String.format("Updating edge: %s - %s",
+						edge.n1.station.getName(), edge.n2.station.getName()));
+				LineNetworkUtil.calculateNeighborLocations(edge);
 			}
 		}
 	}

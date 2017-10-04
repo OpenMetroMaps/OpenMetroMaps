@@ -18,10 +18,7 @@
 package org.openmetromaps.maps;
 
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.swing.Util;
@@ -96,24 +93,7 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 			double lat = mapWindow.getPositionLat(currentPoint.y);
 			dragNode.location = new Coordinate(lon, lat);
 
-			// Update all edges connected to neighbor nodes in the network graph
-			List<Node> neighbors = new ArrayList<>();
-			for (Edge edge : dragNode.edges) {
-				if (edge.n1 != dragNode) {
-					neighbors.add(edge.n1);
-				}
-				if (edge.n2 != dragNode) {
-					neighbors.add(edge.n2);
-				}
-			}
-			for (Node node : neighbors) {
-				for (Edge edge : node.edges) {
-					logger.info(String.format("Updating edge: %s - %s",
-							edge.n1.station.getName(),
-							edge.n2.station.getName()));
-					LineNetworkUtil.calculateNeighborLocations(edge);
-				}
-			}
+			LineNetworkUtil.updateEdges(dragNode);
 
 			mapViewer.triggerDataChanged();
 			c.repaint();

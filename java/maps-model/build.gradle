@@ -2,4 +2,6 @@ dependencies {
     compile 'de.topobyte:adt-geo:0.0.3'
 
     compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
+
+    compile 'org.slf4j:slf4j-api:1.6.1'
 }

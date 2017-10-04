@@ -116,6 +116,7 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 				}
 			}
 
+			mapViewer.triggerDataChanged();
 			c.repaint();
 		}
 	}

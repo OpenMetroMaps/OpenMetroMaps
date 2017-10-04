@@ -20,6 +20,9 @@ package org.openmetromaps.maps;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.openmetromaps.maps.xml.XmlModel;
+import org.openmetromaps.maps.xml.XmlModelConverter;
+
 public class TestStationPanel extends JPanel
 {
 
@@ -27,7 +30,13 @@ public class TestStationPanel extends JPanel
 
 	public static void main(String[] args) throws Exception
 	{
-		StationPanel panel = new StationPanel();
+		XmlModel xmlModel = TestData.berlinXml();
+
+		XmlModelConverter modelConverter = new XmlModelConverter();
+		MapModel model = modelConverter.convert(xmlModel);
+
+		MapViewer mapViewer = new MapViewer(model);
+		StationPanel panel = new StationPanel(mapViewer);
 
 		final JFrame frame = new JFrame("StationPanel");
 

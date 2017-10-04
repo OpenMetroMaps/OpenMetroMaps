@@ -21,6 +21,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Window;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
@@ -74,9 +76,13 @@ public class MapViewer
 	private StationPanel stationPanel;
 	private DefaultSingleCDockable stationPanelDockable;
 
+	private List<DataChangeListener> dataChangeListeners;
+
 	public MapViewer(MapModel model)
 	{
 		init(model);
+
+		dataChangeListeners = new ArrayList<>();
 	}
 
 	public void setModel(MapModel model)
@@ -126,6 +132,23 @@ public class MapViewer
 	public StatusBar getStatusBar()
 	{
 		return statusBar;
+	}
+
+	public void addDataChangeListener(DataChangeListener listener)
+	{
+		dataChangeListeners.add(listener);
+	}
+
+	public void removeDataChangeListener(DataChangeListener listener)
+	{
+		dataChangeListeners.remove(listener);
+	}
+
+	void triggerDataChanged()
+	{
+		for (DataChangeListener listener : dataChangeListeners) {
+			listener.dataChanged();
+		}
 	}
 
 	public void show()
@@ -311,7 +334,7 @@ public class MapViewer
 
 	void setupStationPanel(boolean show)
 	{
-		stationPanel = new StationPanel();
+		stationPanel = new StationPanel(this);
 
 		stationPanelDockable = new DefaultSingleCDockable("station-panel",
 				"Station Panel", stationPanel);

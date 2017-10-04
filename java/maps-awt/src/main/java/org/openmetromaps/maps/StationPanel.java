@@ -37,9 +37,21 @@ public class StationPanel extends JPanel
 	private JTextField inputX;
 	private JTextField inputY;
 
-	public StationPanel()
+	private Node node;
+
+	public StationPanel(MapViewer mapViewer)
 	{
 		super(new GridBagLayout());
+
+		mapViewer.addDataChangeListener(new DataChangeListener() {
+
+			@Override
+			public void dataChanged()
+			{
+				refresh();
+			}
+
+		});
 
 		JLabel labelName = new JLabel("name:");
 		JLabel labelX = new JLabel("x:");
@@ -76,6 +88,12 @@ public class StationPanel extends JPanel
 	}
 
 	public void setNode(Node node)
+	{
+		this.node = node;
+		refresh();
+	}
+
+	protected void refresh()
 	{
 		boolean nonNullNode = node != null;
 

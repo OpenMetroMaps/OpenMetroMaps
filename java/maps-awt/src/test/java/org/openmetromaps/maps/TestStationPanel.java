@@ -20,6 +20,8 @@ package org.openmetromaps.maps;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
@@ -45,6 +47,10 @@ public class TestStationPanel extends JPanel
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(400, 300);
 		frame.setVisible(true);
+
+		LineNetwork lineNetwork = model.getViews().get(0).getLineNetwork();
+		Node node = lineNetwork.getNodes().get(0);
+		panel.setNode(node);
 	}
 
 }

@@ -40,6 +40,7 @@ import org.openmetromaps.maps.actions.OpenAction;
 import org.openmetromaps.maps.actions.SaveAction;
 import org.openmetromaps.maps.actions.SaveAsAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
+import org.openmetromaps.maps.dockables.DockableHelper;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.Node;
@@ -69,6 +70,9 @@ public class MapViewer
 
 	private ScrollableAdvancedPanel map;
 	private StatusBar statusBar;
+
+	private StationPanel stationPanel;
+	private DefaultSingleCDockable stationPanelDockable;
 
 	public MapViewer(MapModel model)
 	{
@@ -239,6 +243,8 @@ public class MapViewer
 		mapDockable.setCloseable(false);
 		mapDockable.setMinimizable(false);
 
+		setupStationPanel(true);
+
 		control.getContentArea().deploy(grid);
 	}
 
@@ -296,6 +302,19 @@ public class MapViewer
 		}
 
 		return best;
+	}
+
+	void setupStationPanel(boolean show)
+	{
+		stationPanel = new StationPanel();
+
+		stationPanelDockable = new DefaultSingleCDockable("station-panel",
+				"Station Panel", stationPanel);
+
+		grid.add(1, 0, 0.3, 1, stationPanelDockable);
+
+		stationPanelDockable.setVisible(show);
+		DockableHelper.setDefaultOptions(stationPanelDockable);
 	}
 
 }

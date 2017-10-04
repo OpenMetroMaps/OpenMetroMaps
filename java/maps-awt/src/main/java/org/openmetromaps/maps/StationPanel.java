@@ -24,6 +24,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.openmetromaps.maps.graph.Node;
+
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 
 public class StationPanel extends JPanel
@@ -71,6 +73,28 @@ public class StationPanel extends JPanel
 		ce.weight(1, 1);
 		ce.gridWidth(2);
 		add(new JPanel(), c);
+	}
+
+	public void setNode(Node node)
+	{
+		boolean nonNullNode = node != null;
+
+		inputName.setEnabled(nonNullNode);
+		inputX.setEnabled(nonNullNode);
+		inputY.setEnabled(nonNullNode);
+
+		if (!nonNullNode) {
+			inputName.setText("");
+			inputX.setText("");
+			inputY.setText("");
+			return;
+		}
+
+		inputName.setText(node.station.getName());
+		String x = String.format("%.4f", node.location.lon);
+		String y = String.format("%.4f", node.location.lat);
+		inputX.setText(x);
+		inputY.setText(y);
 	}
 
 }

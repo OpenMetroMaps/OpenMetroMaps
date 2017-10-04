@@ -304,6 +304,11 @@ public class MapViewer
 		return best;
 	}
 
+	void select(Node node)
+	{
+		stationPanel.setNode(node);
+	}
+
 	void setupStationPanel(boolean show)
 	{
 		stationPanel = new StationPanel();

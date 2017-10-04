@@ -27,6 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,8 +150,7 @@ public class StationPanel extends JPanel
 			double parsedX = Double.parseDouble(valX);
 			double parsedY = Double.parseDouble(valY);
 			node.location = new Coordinate(parsedX, parsedY);
-			// TODO: update neighbor edges as in
-			// MapViewerMouseEventProcessor#mouseDragged
+			LineNetworkUtil.updateEdges(node);
 			mapViewer.getMap().repaint();
 		} catch (NumberFormatException e) {
 			logger.warn("Error while parsing value. " + e.getMessage());

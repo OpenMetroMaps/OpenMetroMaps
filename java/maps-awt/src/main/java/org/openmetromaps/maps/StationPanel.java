@@ -143,9 +143,16 @@ public class StationPanel extends JPanel
 
 	protected void validateValuesAndApply()
 	{
+		if (node == null) {
+			return;
+		}
+
 		String valName = inputName.getText();
 		String valX = inputX.getText();
 		String valY = inputY.getText();
+
+		node.station.setName(valName);
+
 		try {
 			double parsedX = Double.parseDouble(valX);
 			double parsedY = Double.parseDouble(valY);
@@ -155,7 +162,6 @@ public class StationPanel extends JPanel
 		} catch (NumberFormatException e) {
 			logger.warn("Error while parsing value. " + e.getMessage());
 		}
-		// TODO: update name, too
 	}
 
 }

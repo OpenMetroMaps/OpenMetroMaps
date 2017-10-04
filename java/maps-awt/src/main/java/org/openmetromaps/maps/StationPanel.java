@@ -149,6 +149,8 @@ public class StationPanel extends JPanel
 			double parsedX = Double.parseDouble(valX);
 			double parsedY = Double.parseDouble(valY);
 			node.location = new Coordinate(parsedX, parsedY);
+			// TODO: update neighbor edges as in
+			// MapViewerMouseEventProcessor#mouseDragged
 			mapViewer.getMap().repaint();
 		} catch (NumberFormatException e) {
 			logger.warn("Error while parsing value. " + e.getMessage());

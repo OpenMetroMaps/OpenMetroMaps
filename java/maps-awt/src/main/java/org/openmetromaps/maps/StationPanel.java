@@ -31,6 +31,7 @@ public class StationPanel extends JPanel
 
 	private static final long serialVersionUID = 1L;
 
+	private JTextField inputName;
 	private JTextField inputX;
 	private JTextField inputY;
 
@@ -38,9 +39,11 @@ public class StationPanel extends JPanel
 	{
 		super(new GridBagLayout());
 
+		JLabel labelName = new JLabel("name:");
 		JLabel labelX = new JLabel("x:");
 		JLabel labelY = new JLabel("y:");
 
+		inputName = new JTextField();
 		inputX = new JTextField();
 		inputY = new JTextField();
 
@@ -50,17 +53,21 @@ public class StationPanel extends JPanel
 		ce.fill(GridBagConstraints.BOTH);
 		ce.weight(0, 0);
 		ce.gridPos(0, 0);
-		add(labelX, c);
+		add(labelName, c);
 		ce.gridPos(0, 1);
+		add(labelX, c);
+		ce.gridPos(0, 2);
 		add(labelY, c);
 
 		ce.weight(1, 0);
 		ce.gridPos(1, 0);
-		add(inputX, c);
+		add(inputName, c);
 		ce.gridPos(1, 1);
+		add(inputX, c);
+		ce.gridPos(1, 2);
 		add(inputY, c);
 
-		ce.gridPos(0, 2);
+		ce.gridPos(0, 3);
 		ce.weight(1, 1);
 		ce.gridWidth(2);
 		add(new JPanel(), c);

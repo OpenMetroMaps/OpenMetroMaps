@@ -19,17 +19,24 @@ package org.openmetromaps.maps;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.openmetromaps.maps.graph.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 
 public class StationPanel extends JPanel
 {
+
+	final static Logger logger = LoggerFactory.getLogger(StationPanel.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -85,6 +92,20 @@ public class StationPanel extends JPanel
 		ce.weight(1, 1);
 		ce.gridWidth(2);
 		add(new JPanel(), c);
+
+		FocusListener focusListener = new FocusAdapter() {
+
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+				validateValuesAndApply();
+			}
+
+		};
+
+		inputName.addFocusListener(focusListener);
+		inputX.addFocusListener(focusListener);
+		inputY.addFocusListener(focusListener);
 	}
 
 	public void setNode(Node node)
@@ -113,6 +134,20 @@ public class StationPanel extends JPanel
 		String y = String.format("%.4f", node.location.lat);
 		inputX.setText(x);
 		inputY.setText(y);
+	}
+
+	protected void validateValuesAndApply()
+	{
+		String valName = inputName.getText();
+		String valX = inputX.getText();
+		String valY = inputY.getText();
+		try {
+			double parsedX = Double.parseDouble(valX);
+			double parsedY = Double.parseDouble(valY);
+			System.out.println(String.format("%f, %f", parsedX, parsedY));
+		} catch (NumberFormatException e) {
+			logger.warn("Error while parsing value. " + e.getMessage());
+		}
 	}
 
 }

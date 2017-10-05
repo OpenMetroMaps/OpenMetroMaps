@@ -40,6 +40,7 @@ import org.openmetromaps.maps.actions.LicenseAction;
 import org.openmetromaps.maps.actions.OpenAction;
 import org.openmetromaps.maps.actions.SaveAction;
 import org.openmetromaps.maps.actions.SaveAsAction;
+import org.openmetromaps.maps.actions.SelectAllAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.dockables.DockableHelper;
 import org.openmetromaps.maps.graph.LineNetwork;
@@ -62,6 +63,7 @@ public class MapEditor
 
 	private MapModel model;
 	private MapView view;
+	private MapViewStatus mapViewStatus;
 
 	private ViewConfig viewConfig;
 
@@ -70,7 +72,6 @@ public class MapEditor
 	private CControl control;
 	private CGrid grid;
 
-	private MapViewStatus mapViewStatus;
 	private ScrollableAdvancedPanel map;
 	private StatusBar statusBar;
 
@@ -120,6 +121,11 @@ public class MapEditor
 	public MapView getView()
 	{
 		return view;
+	}
+
+	public MapViewStatus getMapViewStatus()
+	{
+		return mapViewStatus;
 	}
 
 	public Window getFrame()
@@ -208,7 +214,8 @@ public class MapEditor
 
 	private void setupMenuEdit(JMenu menuEdit)
 	{
-		// TODO: add some actions here
+		JMenus.addItem(menuEdit, new SelectAllAction(this),
+				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_A);
 	}
 
 	private void setupMenuView(JMenu menuView)
@@ -373,7 +380,7 @@ public class MapEditor
 		updateStationPanel();
 	}
 
-	private void updateStationPanel()
+	public void updateStationPanel()
 	{
 		if (mapViewStatus.getNumSelectedNodes() == 1) {
 			Node node = mapViewStatus.getSelectedNodes().iterator().next();

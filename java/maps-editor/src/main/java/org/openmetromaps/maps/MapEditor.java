@@ -209,10 +209,15 @@ public class MapEditor
 
 	private void setupMenuFile(JMenu menuFile)
 	{
-		menuFile.add(new OpenAction(this));
-		menuFile.add(new SaveAction(this));
-		menuFile.add(new SaveAsAction(this));
-		menuFile.add(new ExitAction());
+		JMenus.addItem(menuFile, new OpenAction(this), KeyEvent.CTRL_DOWN_MASK,
+				KeyEvent.VK_O);
+		JMenus.addItem(menuFile, new SaveAction(this), KeyEvent.CTRL_DOWN_MASK,
+				KeyEvent.VK_S);
+		JMenus.addItem(menuFile, new SaveAsAction(this),
+				KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK,
+				KeyEvent.VK_S);
+		JMenus.addItem(menuFile, new ExitAction(), KeyEvent.CTRL_DOWN_MASK,
+				KeyEvent.VK_Q);
 	}
 
 	private void setupMenuEdit(JMenu menuEdit)

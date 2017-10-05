@@ -102,10 +102,9 @@ public class StationDrawerConvex extends AbstractStationDrawer
 		if (stops.size() == 1) {
 			Stop stop = stops.get(0);
 			IPaintInfo paint = lineToPaintForStations[stop.getLine().getId()];
-			g.setPaintInfo(paint);
 			double px = ltp.getX(location.lon);
 			double py = ltp.getY(location.lat);
-			g.drawCircle(px, py, circleRadius);
+			drawSinglePuntal(g, px, py, paint, selected);
 			return;
 		}
 
@@ -140,7 +139,7 @@ public class StationDrawerConvex extends AbstractStationDrawer
 
 		// Simple stations with only one line
 		if (spis.size() == 0) {
-			drawPuntal(g, px, py, selected);
+			drawMultiPuntal(g, px, py, selected);
 			return;
 		}
 

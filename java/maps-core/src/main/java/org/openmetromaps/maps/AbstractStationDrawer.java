@@ -132,7 +132,19 @@ public abstract class AbstractStationDrawer implements StationDrawer
 		}
 	}
 
-	protected void drawPuntal(Painter g, double px, double py, boolean selected)
+	protected void drawSinglePuntal(Painter g, double px, double py,
+			IPaintInfo paint, boolean selected)
+	{
+		if (selected) {
+			g.setPaintInfo(paintSelectedStationsFillOutline);
+			g.drawCircle(px, py, circleRadiusOutline);
+		}
+		g.setPaintInfo(paint);
+		g.drawCircle(px, py, circleRadius);
+	}
+
+	protected void drawMultiPuntal(Painter g, double px, double py,
+			boolean selected)
 	{
 		if (selected) {
 			g.setPaintInfo(paintSelectedStationsFillOutline);

@@ -37,6 +37,7 @@ import org.openmetromaps.maps.actions.AlignHorizontallyAction;
 import org.openmetromaps.maps.actions.AlignVerticallyAction;
 import org.openmetromaps.maps.actions.DebugRanksAction;
 import org.openmetromaps.maps.actions.DebugTangentsAction;
+import org.openmetromaps.maps.actions.DistributeEvenlyAction;
 import org.openmetromaps.maps.actions.ExitAction;
 import org.openmetromaps.maps.actions.LicenseAction;
 import org.openmetromaps.maps.actions.OpenAction;
@@ -222,6 +223,8 @@ public class MapEditor
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_H);
 		JMenus.addItem(menuEdit, new AlignVerticallyAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_V);
+		JMenus.addItem(menuEdit, new DistributeEvenlyAction(this),
+				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_D);
 	}
 
 	private void setupMenuView(JMenu menuView)

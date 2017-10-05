@@ -1,14 +1,8 @@
 dependencies {
     compile project(':openmetromaps-maps-core')
-    compile project(':openmetromaps-ui-resources')
     compile project(':openmetromaps-swing-misc')
 
     compile 'de.topobyte:lightweight-geometry-awt:1.0.0'
-    compile 'de.topobyte:swing-utils:0.0.11'
-    compile 'de.topobyte:awt-utils:0.0.3'
-
-    compile 'org.dockingframes:docking-frames-core:1.1.1'
-    compile 'org.dockingframes:docking-frames-common:1.1.1'
 
     testCompile project(':openmetromaps-test-data')
 }

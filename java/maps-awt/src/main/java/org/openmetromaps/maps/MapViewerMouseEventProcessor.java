@@ -60,6 +60,8 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 				dragNode = node;
 			}
 		}
+
+		mapViewer.getMap().repaint();
 	}
 
 	@Override

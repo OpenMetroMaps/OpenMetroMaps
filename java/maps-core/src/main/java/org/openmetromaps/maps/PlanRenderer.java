@@ -94,6 +94,7 @@ public class PlanRenderer implements ZoomChangedListener
 	private double f = 0.3;
 
 	private LineNetwork lineNetwork;
+	private MapViewStatus mapViewStatus;
 	private Map<NetworkLine, ColorCode> colors = new HashMap<>();
 
 	protected SteplessMapWindow mapWindow;
@@ -103,11 +104,13 @@ public class PlanRenderer implements ZoomChangedListener
 
 	private StationDrawer stationDrawer;
 
-	public PlanRenderer(LineNetwork lineNetwork, StationMode stationMode,
-			SegmentMode segmentMode, SteplessMapWindow mapWindow,
-			LocationToPoint ltp, float scale, PaintFactory pf)
+	public PlanRenderer(LineNetwork lineNetwork, MapViewStatus mapViewStatus,
+			StationMode stationMode, SegmentMode segmentMode,
+			SteplessMapWindow mapWindow, LocationToPoint ltp, float scale,
+			PaintFactory pf)
 	{
 		this.lineNetwork = lineNetwork;
+		this.mapViewStatus = mapViewStatus;
 		this.mapWindow = mapWindow;
 		this.ltp = ltp;
 
@@ -301,7 +304,9 @@ public class PlanRenderer implements ZoomChangedListener
 				continue;
 			}
 
-			stationDrawer.drawStation(g, node, path);
+			boolean selected = mapViewStatus.isNodeSelected(node);
+
+			stationDrawer.drawStation(g, node, path, selected);
 		}
 		tm.stop(LOG_STATIONS);
 

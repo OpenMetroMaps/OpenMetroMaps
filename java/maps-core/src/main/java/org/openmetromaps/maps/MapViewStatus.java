@@ -17,15 +17,34 @@
 
 package org.openmetromaps.maps;
 
-import org.openmetromaps.maps.graph.Node;
-import org.openmetromaps.maps.painting.core.Painter;
-import org.openmetromaps.maps.painting.core.geom.Path;
+import java.util.HashSet;
+import java.util.Set;
 
-public interface StationDrawer
+import org.openmetromaps.maps.graph.Node;
+
+public class MapViewStatus
 {
 
-	public void drawStation(Painter g, Node node, Path path, boolean selected);
+	private Set<Node> selectedNodes = new HashSet<>();
 
-	public void zoomChanged(float factor, float lineWidth);
+	public boolean isNodeSelected(Node node)
+	{
+		return selectedNodes.contains(node);
+	}
+
+	public void selectNode(Node node)
+	{
+		selectedNodes.add(node);
+	}
+
+	public void unselectNode(Node node)
+	{
+		selectedNodes.remove(node);
+	}
+
+	public void selectNoNodes()
+	{
+		selectedNodes.clear();
+	}
 
 }

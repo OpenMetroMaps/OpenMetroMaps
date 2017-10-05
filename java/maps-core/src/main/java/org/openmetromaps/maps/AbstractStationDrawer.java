@@ -56,6 +56,9 @@ public abstract class AbstractStationDrawer implements StationDrawer
 	protected IPaintInfo paintStationsFill;
 	protected IPaintInfo paintStationsFillOutline;
 
+	protected IPaintInfo paintSelectedStationsStrokeOutline;
+	protected IPaintInfo paintSelectedStationsFillOutline;
+
 	protected float spreadFactor;
 	private float baseStationsSize = 8;
 	protected float stationsSize;
@@ -89,6 +92,13 @@ public abstract class AbstractStationDrawer implements StationDrawer
 		paintStationsStrokeOutline.setJoin(Join.ROUND);
 		paintStationsStrokeOutline.setStyle(PaintType.STROKE);
 
+		paintSelectedStationsFillOutline = pf.create(Colors.RED);
+		paintSelectedStationsFillOutline.setStyle(PaintType.FILL);
+		paintSelectedStationsStrokeOutline = pf.create(Colors.RED);
+		paintSelectedStationsStrokeOutline.setCap(Cap.ROUND);
+		paintSelectedStationsStrokeOutline.setJoin(Join.ROUND);
+		paintSelectedStationsStrokeOutline.setStyle(PaintType.STROKE);
+
 		lineToPaintForStations = new IPaintInfo[data.getLines().size()];
 
 		final int nLines = data.getLines().size();
@@ -111,6 +121,7 @@ public abstract class AbstractStationDrawer implements StationDrawer
 
 		paintStationsStroke.setWidth(stationsSize / STATION_OUTLINE_ICREASE);
 		paintStationsStrokeOutline.setWidth(stationsSize);
+		paintSelectedStationsStrokeOutline.setWidth(stationsSize);
 
 		int nLines = data.getLines().size();
 		for (int i = 0; i < nLines; i++) {
@@ -121,22 +132,30 @@ public abstract class AbstractStationDrawer implements StationDrawer
 		}
 	}
 
-	protected void drawPuntal(Painter g, double px, double py)
+	protected void drawPuntal(Painter g, double px, double py, boolean selected)
 	{
-		g.setPaintInfo(paintStationsFillOutline);
+		if (selected) {
+			g.setPaintInfo(paintSelectedStationsFillOutline);
+		} else {
+			g.setPaintInfo(paintStationsFillOutline);
+		}
 		g.drawCircle(px, py, circleRadiusOutline);
 		g.setPaintInfo(paintStationsFill);
 		g.drawCircle(px, py, circleRadius);
 	}
 
 	protected void drawLineal(Painter g, Path path, double px, double py,
-			SegmentEndPointPaintInfo spi)
+			SegmentEndPointPaintInfo spi, boolean selected)
 	{
 		path.reset();
 		path.moveTo(px + spi.sx, py + spi.sy);
 		path.lineTo(px + spi.ex, py + spi.ey);
 
-		g.setPaintInfo(paintStationsStrokeOutline);
+		if (selected) {
+			g.setPaintInfo(paintSelectedStationsStrokeOutline);
+		} else {
+			g.setPaintInfo(paintStationsStrokeOutline);
+		}
 		g.draw(path);
 
 		g.setPaintInfo(paintStationsStroke);

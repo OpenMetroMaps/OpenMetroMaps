@@ -45,13 +45,14 @@ public class TestScrollableAdvancedPanel extends JPanel
 		}
 
 		LineNetwork lineNetwork = model.getViews().get(0).getLineNetwork();
+		MapViewStatus mapViewStatus = new MapViewStatus();
 
 		ViewConfig viewConfig = ModelUtil.viewConfig(model.getData());
 
 		ScrollableAdvancedPanel panel = new ScrollableAdvancedPanel(
-				model.getData(), lineNetwork, PlanRenderer.StationMode.CONVEX,
-				PlanRenderer.SegmentMode.CURVE, viewConfig.getStartPosition(),
-				10, 15, viewConfig.getBbox());
+				model.getData(), lineNetwork, mapViewStatus,
+				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
+				viewConfig.getStartPosition(), 10, 15, viewConfig.getBbox());
 
 		final JFrame frame = new JFrame("AdvancedPanel");
 

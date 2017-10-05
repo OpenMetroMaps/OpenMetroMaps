@@ -94,7 +94,7 @@ public class StationDrawerConvex extends AbstractStationDrawer
 	private List<Edge> skipped = new ArrayList<>();
 
 	@Override
-	public void drawStation(Painter g, Node node, Path path)
+	public void drawStation(Painter g, Node node, Path path, boolean selected)
 	{
 		List<Stop> stops = node.station.getStops();
 		Coordinate location = node.location;
@@ -140,14 +140,14 @@ public class StationDrawerConvex extends AbstractStationDrawer
 
 		// Simple stations with only one line
 		if (spis.size() == 0) {
-			drawPuntal(g, px, py);
+			drawPuntal(g, px, py, selected);
 			return;
 		}
 
 		// Stations with multiple lines but all on the the same one or two edges
 		if (spis.size() == 1) {
 			SegmentEndPointPaintInfo spi = spis.get(0);
-			drawLineal(g, path, px, py, spi);
+			drawLineal(g, path, px, py, spi, selected);
 			spiPool.give(spi);
 			return;
 		}
@@ -164,7 +164,7 @@ public class StationDrawerConvex extends AbstractStationDrawer
 				// > ~172 degrees
 				SegmentEndPointPaintInfo spi = spi1.nShift > spi2.nShift ? spi1
 						: spi2;
-				drawLineal(g, path, px, py, spi);
+				drawLineal(g, path, px, py, spi, selected);
 				spiPool.give(spi1);
 				spiPool.give(spi2);
 				return;
@@ -239,7 +239,11 @@ public class StationDrawerConvex extends AbstractStationDrawer
 		logger.info("number of points: " + coords.numPoints());
 		hull(path, coords);
 
-		g.setPaintInfo(paintStationsStrokeOutline);
+		if (selected) {
+			g.setPaintInfo(paintSelectedStationsStrokeOutline);
+		} else {
+			g.setPaintInfo(paintStationsStrokeOutline);
+		}
 		g.draw(path);
 		g.setPaintInfo(paintStationsFill);
 		g.draw(path);

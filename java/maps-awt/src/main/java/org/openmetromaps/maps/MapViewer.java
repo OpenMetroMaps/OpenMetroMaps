@@ -70,6 +70,7 @@ public class MapViewer
 	private CControl control;
 	private CGrid grid;
 
+	private MapViewStatus mapViewStatus;
 	private ScrollableAdvancedPanel map;
 	private StatusBar statusBar;
 
@@ -96,6 +97,8 @@ public class MapViewer
 	private void init(MapModel model)
 	{
 		this.model = model;
+
+		mapViewStatus = new MapViewStatus();
 
 		if (model.getViews().isEmpty()) {
 			LineNetworkBuilder builder = new LineNetworkBuilder(
@@ -242,9 +245,9 @@ public class MapViewer
 		frame.setContentPane(panel);
 
 		map = new ScrollableAdvancedPanel(model.getData(),
-				view.getLineNetwork(), PlanRenderer.StationMode.CONVEX,
-				PlanRenderer.SegmentMode.CURVE, viewConfig.getStartPosition(),
-				10, 15, viewConfig.getBbox());
+				view.getLineNetwork(), mapViewStatus,
+				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
+				viewConfig.getStartPosition(), 10, 15, viewConfig.getBbox());
 
 		statusBar = new StatusBar();
 
@@ -330,6 +333,8 @@ public class MapViewer
 	void select(Node node)
 	{
 		stationPanel.setNode(node);
+		mapViewStatus.selectNoNodes();
+		mapViewStatus.selectNode(node);
 	}
 
 	void setupStationPanel(boolean show)

@@ -22,5 +22,6 @@ public class Colors
 
 	public static ColorCode BLACK = new ColorCode(0x000000);
 	public static ColorCode WHITE = new ColorCode(0xFFFFFF);
+	public static ColorCode RED = new ColorCode(0xFF0000);
 
 }

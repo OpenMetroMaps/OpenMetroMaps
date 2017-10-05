@@ -50,7 +50,7 @@ public class StationDrawerSimple extends AbstractStationDrawer
 	}
 
 	@Override
-	public void drawStation(Painter g, Node node, Path path)
+	public void drawStation(Painter g, Node node, Path path, boolean selected)
 	{
 		List<Stop> stops = node.station.getStops();
 		Coordinate location = node.location;
@@ -98,12 +98,16 @@ public class StationDrawerSimple extends AbstractStationDrawer
 		}
 
 		if (moreThanDot) {
-			g.setPaintInfo(paintStationsStrokeOutline);
+			if (selected) {
+				g.setPaintInfo(paintSelectedStationsStrokeOutline);
+			} else {
+				g.setPaintInfo(paintStationsStrokeOutline);
+			}
 			g.draw(path);
 			g.setPaintInfo(paintStationsStroke);
 			g.draw(path);
 		} else {
-			drawPuntal(g, px, py);
+			drawPuntal(g, px, py, selected);
 		}
 	}
 

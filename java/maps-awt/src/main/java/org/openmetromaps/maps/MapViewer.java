@@ -332,9 +332,35 @@ public class MapViewer
 
 	void select(Node node)
 	{
-		stationPanel.setNode(node);
 		mapViewStatus.selectNoNodes();
 		mapViewStatus.selectNode(node);
+		updateStationPanel();
+	}
+
+	void toggleSelected(Node node)
+	{
+		if (mapViewStatus.isNodeSelected(node)) {
+			mapViewStatus.unselectNode(node);
+		} else {
+			mapViewStatus.selectNode(node);
+		}
+		updateStationPanel();
+	}
+
+	void selectNone()
+	{
+		mapViewStatus.selectNoNodes();
+		updateStationPanel();
+	}
+
+	private void updateStationPanel()
+	{
+		if (mapViewStatus.getNumSelectedNodes() == 1) {
+			Node node = mapViewStatus.getSelectedNodes().iterator().next();
+			stationPanel.setNode(node);
+		} else {
+			stationPanel.setNode(null);
+		}
 	}
 
 	void setupStationPanel(boolean show)

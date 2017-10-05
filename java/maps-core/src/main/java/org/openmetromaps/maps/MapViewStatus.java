@@ -17,6 +17,7 @@
 
 package org.openmetromaps.maps;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,6 +46,16 @@ public class MapViewStatus
 	public void selectNoNodes()
 	{
 		selectedNodes.clear();
+	}
+
+	public int getNumSelectedNodes()
+	{
+		return selectedNodes.size();
+	}
+
+	public Set<Node> getSelectedNodes()
+	{
+		return Collections.unmodifiableSet(selectedNodes);
 	}
 
 }

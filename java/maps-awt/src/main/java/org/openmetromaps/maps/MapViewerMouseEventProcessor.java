@@ -52,7 +52,11 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			if (node != null) {
-				mapViewer.select(node);
+				if (!Util.isShiftPressed(e)) {
+					mapViewer.select(node);
+				} else {
+					mapViewer.toggleSelected(node);
+				}
 			}
 			if (Util.isControlPressed(e)) {
 				if (node == null) {
@@ -64,7 +68,7 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 		}
 
 		if (e.getButton() == MouseEvent.BUTTON3) {
-			mapViewer.select(null);
+			mapViewer.selectNone();
 		}
 
 		mapViewer.getMap().repaint();

@@ -57,7 +57,7 @@ import de.topobyte.swing.util.JMenus;
 import de.topobyte.swing.util.action.enums.DefaultAppearance;
 import de.topobyte.swing.util.action.enums.EnumActions;
 
-public class MapViewer
+public class MapEditor
 {
 
 	private MapModel model;
@@ -79,7 +79,7 @@ public class MapViewer
 
 	private List<DataChangeListener> dataChangeListeners;
 
-	public MapViewer(MapModel model)
+	public MapEditor(MapModel model)
 	{
 		init(model);
 
@@ -156,7 +156,7 @@ public class MapViewer
 
 	public void show()
 	{
-		frame = new JFrame("Map Viewer");
+		frame = new JFrame("Map Editor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 800);
 
@@ -170,7 +170,7 @@ public class MapViewer
 		setupContent();
 		setupMenu();
 
-		MapViewerMouseEventProcessor mep = new MapViewerMouseEventProcessor(
+		MapEditorMouseEventProcessor mep = new MapEditorMouseEventProcessor(
 				this);
 		map.setMouseProcessor(mep);
 	}

@@ -35,12 +35,12 @@ public class Storage
 
 	final static Logger logger = LoggerFactory.getLogger(Storage.class);
 
-	public static void save(File file, MapViewer mapViewer)
+	public static void save(File file, MapEditor mapEditor)
 	{
 		try {
 			FileOutputStream os = new FileOutputStream(file);
-			MapModel model = mapViewer.getModel();
-			MapView view = mapViewer.getView();
+			MapModel model = mapEditor.getModel();
+			MapView view = mapEditor.getView();
 			List<MapView> views = Arrays.asList(view);
 			new XmlModelWriter().write(os, model.getData(), views);
 			os.close();

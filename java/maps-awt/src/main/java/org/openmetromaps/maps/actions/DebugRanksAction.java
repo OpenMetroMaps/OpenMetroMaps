@@ -17,7 +17,7 @@
 
 package org.openmetromaps.maps.actions;
 
-import org.openmetromaps.maps.MapViewer;
+import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.ScrollableAdvancedPanel;
 
@@ -29,25 +29,25 @@ public class DebugRanksAction extends SimpleBooleanAction
 
 	private static final long serialVersionUID = 1L;
 
-	private MapViewer mapViewer;
+	private MapEditor mapEditor;
 
-	public DebugRanksAction(MapViewer mapViewer)
+	public DebugRanksAction(MapEditor mapEditor)
 	{
 		super("Debug ranks", "Toggle station rank visibility");
-		this.mapViewer = mapViewer;
+		this.mapEditor = mapEditor;
 		setIcon(new EmptyIcon(24));
 	}
 
 	@Override
 	public boolean getState()
 	{
-		return mapViewer.getMap().getPlanRenderer().isDebugRanks();
+		return mapEditor.getMap().getPlanRenderer().isDebugRanks();
 	}
 
 	@Override
 	public void toggleState()
 	{
-		ScrollableAdvancedPanel map = mapViewer.getMap();
+		ScrollableAdvancedPanel map = mapEditor.getMap();
 		PlanRenderer planRenderer = map.getPlanRenderer();
 		planRenderer.setDebugRanks(!planRenderer.isDebugRanks());
 		map.repaint();

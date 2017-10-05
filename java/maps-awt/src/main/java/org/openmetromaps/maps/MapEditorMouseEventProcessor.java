@@ -27,18 +27,18 @@ import org.slf4j.LoggerFactory;
 
 import de.topobyte.adt.geo.Coordinate;
 
-public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
+public class MapEditorMouseEventProcessor extends BaseMouseEventProcessor
 {
 
 	final static Logger logger = LoggerFactory
-			.getLogger(MapViewerMouseEventProcessor.class);
+			.getLogger(MapEditorMouseEventProcessor.class);
 
-	private MapViewer mapViewer;
+	private MapEditor mapEditor;
 
-	public MapViewerMouseEventProcessor(MapViewer mapViewer)
+	public MapEditorMouseEventProcessor(MapEditor mapEditor)
 	{
-		super(mapViewer.getMap(), mapViewer.getMap().getMapWindow());
-		this.mapViewer = mapViewer;
+		super(mapEditor.getMap(), mapEditor.getMap().getMapWindow());
+		this.mapEditor = mapEditor;
 	}
 
 	private boolean draggingNode = false;
@@ -48,14 +48,14 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 	public void mousePressed(MouseEvent e)
 	{
 		super.mousePressed(e);
-		Node node = mapViewer.mouseNode(e.getX(), e.getY());
+		Node node = mapEditor.mouseNode(e.getX(), e.getY());
 
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			if (node != null) {
 				if (!Util.isShiftPressed(e)) {
-					mapViewer.select(node);
+					mapEditor.select(node);
 				} else {
-					mapViewer.toggleSelected(node);
+					mapEditor.toggleSelected(node);
 				}
 			}
 			if (Util.isControlPressed(e)) {
@@ -68,10 +68,10 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 		}
 
 		if (e.getButton() == MouseEvent.BUTTON3) {
-			mapViewer.selectNone();
+			mapEditor.selectNone();
 		}
 
-		mapViewer.getMap().repaint();
+		mapEditor.getMap().repaint();
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 	public void mouseMoved(MouseEvent e)
 	{
 		super.mouseMoved(e);
-		mapViewer.updateStatusBar(e.getX(), e.getY());
+		mapEditor.updateStatusBar(e.getX(), e.getY());
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 
 			LineNetworkUtil.updateEdges(dragNode);
 
-			mapViewer.triggerDataChanged();
+			mapEditor.triggerDataChanged();
 			c.repaint();
 		}
 	}

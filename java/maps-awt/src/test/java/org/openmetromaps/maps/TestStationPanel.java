@@ -37,8 +37,8 @@ public class TestStationPanel extends JPanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		MapViewer mapViewer = new MapViewer(model);
-		StationPanel panel = new StationPanel(mapViewer);
+		MapEditor mapEditor = new MapEditor(model);
+		StationPanel panel = new StationPanel(mapEditor);
 
 		final JFrame frame = new JFrame("StationPanel");
 

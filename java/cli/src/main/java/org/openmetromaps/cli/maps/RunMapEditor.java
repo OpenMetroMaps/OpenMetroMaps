@@ -25,7 +25,7 @@ import java.nio.file.Paths;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.maps.MapModel;
-import org.openmetromaps.maps.MapViewer;
+import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
@@ -36,7 +36,7 @@ import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOp
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
 
-public class RunMapViewer
+public class RunMapEditor
 {
 
 	private static final String OPTION_INPUT = "input";
@@ -70,8 +70,8 @@ public class RunMapViewer
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		MapViewer mapViewer = new MapViewer(model);
-		mapViewer.show();
+		MapEditor mapEditor = new MapEditor(model);
+		mapEditor.show();
 	}
 
 }

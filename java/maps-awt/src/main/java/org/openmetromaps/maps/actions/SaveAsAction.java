@@ -23,7 +23,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import org.openmetromaps.maps.MapViewer;
+import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.Storage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,12 +37,12 @@ public class SaveAsAction extends SimpleAction
 
 	private static final long serialVersionUID = 1L;
 
-	private MapViewer mapViewer;
+	private MapEditor mapEditor;
 
-	public SaveAsAction(MapViewer mapViewer)
+	public SaveAsAction(MapEditor mapEditor)
 	{
 		super("Save As...", "Save to a different file");
-		this.mapViewer = mapViewer;
+		this.mapEditor = mapEditor;
 		setIcon("res/images/24/document-save-as.png");
 	}
 
@@ -50,13 +50,13 @@ public class SaveAsAction extends SimpleAction
 	public void actionPerformed(ActionEvent event)
 	{
 		// TODO: if file exists, ask user if we should overwrite it
-		Window frame = mapViewer.getFrame();
+		Window frame = mapEditor.getFrame();
 		JFileChooser chooser = new JFileChooser();
 		int value = chooser.showSaveDialog(frame);
 		if (value == JFileChooser.APPROVE_OPTION) {
 			File file = chooser.getSelectedFile();
 			logger.debug("attempting to save document to file: " + file);
-			Storage.save(file, mapViewer);
+			Storage.save(file, mapEditor);
 		}
 	}
 }

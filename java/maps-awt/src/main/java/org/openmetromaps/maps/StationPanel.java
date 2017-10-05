@@ -42,7 +42,7 @@ public class StationPanel extends JPanel
 
 	private static final long serialVersionUID = 1L;
 
-	private MapViewer mapViewer;
+	private MapEditor mapEditor;
 
 	private JTextField inputName;
 	private JTextField inputX;
@@ -50,12 +50,12 @@ public class StationPanel extends JPanel
 
 	private Node node;
 
-	public StationPanel(MapViewer mapViewer)
+	public StationPanel(MapEditor mapEditor)
 	{
 		super(new GridBagLayout());
-		this.mapViewer = mapViewer;
+		this.mapEditor = mapEditor;
 
-		mapViewer.addDataChangeListener(new DataChangeListener() {
+		mapEditor.addDataChangeListener(new DataChangeListener() {
 
 			@Override
 			public void dataChanged()
@@ -158,7 +158,7 @@ public class StationPanel extends JPanel
 			double parsedY = Double.parseDouble(valY);
 			node.location = new Coordinate(parsedX, parsedY);
 			LineNetworkUtil.updateEdges(node);
-			mapViewer.getMap().repaint();
+			mapEditor.getMap().repaint();
 		} catch (NumberFormatException e) {
 			logger.warn("Error while parsing value. " + e.getMessage());
 		}

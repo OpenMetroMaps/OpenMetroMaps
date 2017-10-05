@@ -43,7 +43,7 @@ public class AboutDialog extends JDialog
 
 	public AboutDialog(Window owner, Page page)
 	{
-		super(owner, "OpenMetroMaps Map Viewer");
+		super(owner, "OpenMetroMaps Map Editor");
 
 		aboutPanel = new AboutPanel("res/about.html");
 		lgplPanel = new LicensePanel("res/lgpl.html");

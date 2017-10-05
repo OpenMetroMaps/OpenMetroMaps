@@ -27,7 +27,7 @@ import javax.swing.JFileChooser;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.MapModel;
-import org.openmetromaps.maps.MapViewer;
+import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
@@ -44,19 +44,19 @@ public class OpenAction extends SimpleAction
 
 	private static final long serialVersionUID = 1L;
 
-	private MapViewer mapViewer;
+	private MapEditor mapEditor;
 
-	public OpenAction(MapViewer mapViewer)
+	public OpenAction(MapEditor mapEditor)
 	{
 		super("Open", "Open a file");
-		this.mapViewer = mapViewer;
+		this.mapEditor = mapEditor;
 		setIcon("res/images/24/document-open.png");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		Window frame = mapViewer.getFrame();
+		Window frame = mapEditor.getFrame();
 		JFileChooser chooser = new JFileChooser();
 		int value = chooser.showOpenDialog(frame);
 		if (value == JFileChooser.APPROVE_OPTION) {
@@ -69,8 +69,8 @@ public class OpenAction extends SimpleAction
 				is.close();
 
 				MapModel model = new XmlModelConverter().convert(xmlModel);
-				mapViewer.setModel(model);
-				mapViewer.getMap().repaint();
+				mapEditor.setModel(model);
+				mapEditor.getMap().repaint();
 			} catch (ParserConfigurationException | SAXException
 					| IOException e) {
 				logger.error("Error while loading file", e);

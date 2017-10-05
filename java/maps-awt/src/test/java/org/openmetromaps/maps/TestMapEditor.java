@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
-public class TestMapViewer extends JPanel
+public class TestMapEditor extends JPanel
 {
 
 	private static final long serialVersionUID = 1L;
@@ -34,8 +34,8 @@ public class TestMapViewer extends JPanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		MapViewer mapViewer = new MapViewer(model);
-		mapViewer.show();
+		MapEditor mapEditor = new MapEditor(model);
+		mapEditor.show();
 	}
 
 }

@@ -17,7 +17,7 @@
 
 package org.openmetromaps.maps.actions;
 
-import org.openmetromaps.maps.MapViewer;
+import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.ScrollableAdvancedPanel;
 
@@ -29,25 +29,25 @@ public class DebugTangentsAction extends SimpleBooleanAction
 
 	private static final long serialVersionUID = 1L;
 
-	private MapViewer mapViewer;
+	private MapEditor mapEditor;
 
-	public DebugTangentsAction(MapViewer mapViewer)
+	public DebugTangentsAction(MapEditor mapEditor)
 	{
 		super("Debug tangents", "Toggle edge tangent visibility");
-		this.mapViewer = mapViewer;
+		this.mapEditor = mapEditor;
 		setIcon(new EmptyIcon(24));
 	}
 
 	@Override
 	public boolean getState()
 	{
-		return mapViewer.getMap().getPlanRenderer().isDebugTangents();
+		return mapEditor.getMap().getPlanRenderer().isDebugTangents();
 	}
 
 	@Override
 	public void toggleState()
 	{
-		ScrollableAdvancedPanel map = mapViewer.getMap();
+		ScrollableAdvancedPanel map = mapEditor.getMap();
 		PlanRenderer planRenderer = map.getPlanRenderer();
 		planRenderer.setDebugTangents(!planRenderer.isDebugTangents());
 		map.repaint();

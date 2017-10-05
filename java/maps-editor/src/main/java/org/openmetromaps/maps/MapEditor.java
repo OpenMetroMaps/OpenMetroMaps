@@ -33,6 +33,8 @@ import javax.swing.JPanel;
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.openmetromaps.maps.actions.AboutAction;
+import org.openmetromaps.maps.actions.AlignHorizontallyAction;
+import org.openmetromaps.maps.actions.AlignVerticallyAction;
 import org.openmetromaps.maps.actions.DebugRanksAction;
 import org.openmetromaps.maps.actions.DebugTangentsAction;
 import org.openmetromaps.maps.actions.ExitAction;
@@ -216,6 +218,10 @@ public class MapEditor
 	{
 		JMenus.addItem(menuEdit, new SelectAllAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_A);
+		JMenus.addItem(menuEdit, new AlignHorizontallyAction(this),
+				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_H);
+		JMenus.addItem(menuEdit, new AlignVerticallyAction(this),
+				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_V);
 	}
 
 	private void setupMenuView(JMenu menuView)

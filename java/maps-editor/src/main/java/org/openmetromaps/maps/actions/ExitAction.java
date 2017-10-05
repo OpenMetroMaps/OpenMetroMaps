@@ -19,6 +19,8 @@ package org.openmetromaps.maps.actions;
 
 import java.awt.event.ActionEvent;
 
+import org.openmetromaps.maps.MapEditor;
+
 import de.topobyte.swing.util.action.SimpleAction;
 
 public class ExitAction extends SimpleAction
@@ -26,16 +28,19 @@ public class ExitAction extends SimpleAction
 
 	private static final long serialVersionUID = 1L;
 
-	public ExitAction()
+	private MapEditor mapEditor;
+
+	public ExitAction(MapEditor mapEditor)
 	{
 		super("Exit", "Quit the application");
+		this.mapEditor = mapEditor;
 		setIcon("res/images/24/gtk-quit.png");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		System.exit(0);
+		mapEditor.showReallyExitDialog();
 	}
 
 }

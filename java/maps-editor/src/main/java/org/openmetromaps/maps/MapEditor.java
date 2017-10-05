@@ -21,6 +21,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Window;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,10 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
@@ -166,8 +171,18 @@ public class MapEditor
 	public void show()
 	{
 		frame = new JFrame("Map Editor");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		frame.setSize(1000, 800);
+
+		frame.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e)
+			{
+				showReallyExitDialog();
+			}
+
+		});
 
 		build();
 
@@ -216,7 +231,7 @@ public class MapEditor
 		JMenus.addItem(menuFile, new SaveAsAction(this),
 				KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK,
 				KeyEvent.VK_S);
-		JMenus.addItem(menuFile, new ExitAction(), KeyEvent.CTRL_DOWN_MASK,
+		JMenus.addItem(menuFile, new ExitAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_Q);
 	}
 
@@ -415,6 +430,21 @@ public class MapEditor
 
 		stationPanelDockable.setVisible(show);
 		DockableHelper.setDefaultOptions(stationPanelDockable);
+	}
+
+	public void showReallyExitDialog()
+	{
+		String yes = UIManager.getString("OptionPane.okButtonText");
+		String no = UIManager.getString("OptionPane.cancelButtonText");
+
+		Object[] options = { yes, no };
+
+		int status = JOptionPane.showOptionDialog(frame, "Exit Map Editor?",
+				"Confirm Exit", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, options, no);
+		if (status == JOptionPane.YES_OPTION) {
+			System.exit(0);
+		}
 	}
 
 }

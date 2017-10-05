@@ -51,7 +51,9 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 		Node node = mapViewer.mouseNode(e.getX(), e.getY());
 
 		if (e.getButton() == MouseEvent.BUTTON1) {
-			mapViewer.select(node);
+			if (node != null) {
+				mapViewer.select(node);
+			}
 			if (Util.isControlPressed(e)) {
 				if (node == null) {
 					return;
@@ -59,6 +61,10 @@ public class MapViewerMouseEventProcessor extends BaseMouseEventProcessor
 				draggingNode = true;
 				dragNode = node;
 			}
+		}
+
+		if (e.getButton() == MouseEvent.BUTTON3) {
+			mapViewer.select(null);
 		}
 
 		mapViewer.getMap().repaint();

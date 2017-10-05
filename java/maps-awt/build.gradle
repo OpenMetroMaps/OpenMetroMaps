@@ -4,7 +4,7 @@ dependencies {
     compile project(':openmetromaps-swing-misc')
 
     compile 'de.topobyte:lightweight-geometry-awt:1.0.0'
-    compile 'de.topobyte:swing-utils:0.0.10'
+    compile 'de.topobyte:swing-utils:0.0.11'
     compile 'de.topobyte:awt-utils:0.0.3'
 
     compile 'org.dockingframes:docking-frames-core:1.1.1'

@@ -20,12 +20,11 @@ package org.openmetromaps.maps;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Window;
+import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Action;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -54,6 +53,7 @@ import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.geomath.WGS84;
 import de.topobyte.swing.util.EmptyIcon;
+import de.topobyte.swing.util.JMenus;
 import de.topobyte.swing.util.action.enums.DefaultAppearance;
 import de.topobyte.swing.util.action.enums.EnumActions;
 
@@ -194,13 +194,16 @@ public class MapViewer
 		menuFile.add(new SaveAsAction(this));
 		menuFile.add(new ExitAction());
 
-		addCheckbox(menuView, new ShowLabelsAction(this));
+		JMenus.addCheckbox(menuView, new ShowLabelsAction(this),
+				KeyEvent.VK_F2);
 		JMenu stationMode = submenu("Station mode");
 		JMenu segmentMode = submenu("Segment mode");
 		menuView.add(stationMode);
 		menuView.add(segmentMode);
-		addCheckbox(menuView, new DebugTangentsAction(this));
-		addCheckbox(menuView, new DebugRanksAction(this));
+		JMenus.addCheckbox(menuView, new DebugTangentsAction(this),
+				KeyEvent.VK_F3);
+		JMenus.addCheckbox(menuView, new DebugRanksAction(this),
+				KeyEvent.VK_F4);
 
 		PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
@@ -232,11 +235,6 @@ public class MapViewer
 		JMenu menu = new JMenu(string);
 		menu.setIcon(new EmptyIcon(24));
 		return menu;
-	}
-
-	private void addCheckbox(JMenu menu, Action action)
-	{
-		menu.add(new JCheckBoxMenuItem(action));
 	}
 
 	private void setupContent()

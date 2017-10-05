@@ -8,7 +8,7 @@ dependencies {
     compile project(':openmetromaps-ui-resources')
     compile project(':openmetromaps-swing-misc')
 
-    compile 'de.topobyte:swing-utils:0.0.10'
+    compile 'de.topobyte:swing-utils:0.0.11'
     compile 'de.topobyte:awt-utils:0.0.3'
     compile 'de.topobyte:system-utils:0.0.1'
     compile 'de.topobyte:osm4j-xml:0.1.1'

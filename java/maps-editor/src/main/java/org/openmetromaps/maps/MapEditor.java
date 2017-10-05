@@ -189,11 +189,21 @@ public class MapEditor
 		JMenu menuHelp = new JMenu("Help");
 		menuBar.add(menuHelp);
 
+		setupMenuFile(menuFile);
+		setupMenuView(menuView);
+		setupMenuHelp(menuHelp);
+	}
+
+	private void setupMenuFile(JMenu menuFile)
+	{
 		menuFile.add(new OpenAction(this));
 		menuFile.add(new SaveAction(this));
 		menuFile.add(new SaveAsAction(this));
 		menuFile.add(new ExitAction());
+	}
 
+	private void setupMenuView(JMenu menuView)
+	{
 		JMenus.addCheckbox(menuView, new ShowLabelsAction(this),
 				KeyEvent.VK_F2);
 		JMenu stationMode = submenu("Station mode");
@@ -213,7 +223,10 @@ public class MapEditor
 		EnumActions.add(segmentMode, SegmentMode.class, changeSupport,
 				"segment-mode", SegmentMode.CURVE, x -> setSegmentMode(x),
 				new DefaultAppearance<>());
+	}
 
+	private void setupMenuHelp(JMenu menuHelp)
+	{
 		menuHelp.add(new AboutAction(frame));
 		menuHelp.add(new LicenseAction(frame));
 	}

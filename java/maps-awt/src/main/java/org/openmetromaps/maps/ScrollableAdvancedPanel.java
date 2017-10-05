@@ -104,10 +104,12 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 		return lineNetwork;
 	}
 
-	public void setData(ModelData data, LineNetwork lineNetwork)
+	public void setData(ModelData data, LineNetwork lineNetwork,
+			MapViewStatus mapViewStatus)
 	{
 		this.data = data;
 		this.lineNetwork = lineNetwork;
+		this.mapViewStatus = mapViewStatus;
 		initRenderer();
 	}
 

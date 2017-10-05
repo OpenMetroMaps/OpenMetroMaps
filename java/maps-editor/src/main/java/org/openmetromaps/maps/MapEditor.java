@@ -93,7 +93,7 @@ public class MapEditor
 	public void setModel(MapModel model)
 	{
 		init(model);
-		map.setData(model.getData(), view.getLineNetwork());
+		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
 		map.setViewConfig(viewConfig.getBbox(), viewConfig.getStartPosition(),
 				Constants.DEFAULT_ZOOM);
 	}

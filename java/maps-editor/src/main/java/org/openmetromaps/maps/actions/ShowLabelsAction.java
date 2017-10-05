@@ -22,19 +22,15 @@ import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.ScrollableAdvancedPanel;
 
 import de.topobyte.swing.util.EmptyIcon;
-import de.topobyte.swing.util.action.SimpleBooleanAction;
 
-public class ShowLabelsAction extends SimpleBooleanAction
+public class ShowLabelsAction extends MapEditorBooleanAction
 {
 
 	private static final long serialVersionUID = 1L;
 
-	private MapEditor mapEditor;
-
 	public ShowLabelsAction(MapEditor mapEditor)
 	{
-		super("Show labels", "Toggle map label visibility");
-		this.mapEditor = mapEditor;
+		super(mapEditor, "Show labels", "Toggle map label visibility");
 		setIcon(new EmptyIcon(24));
 	}
 

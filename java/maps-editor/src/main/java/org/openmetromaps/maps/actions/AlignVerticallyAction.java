@@ -29,9 +29,8 @@ import org.slf4j.LoggerFactory;
 
 import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.swing.util.EmptyIcon;
-import de.topobyte.swing.util.action.SimpleAction;
 
-public class AlignVerticallyAction extends SimpleAction
+public class AlignVerticallyAction extends MapEditorAction
 {
 
 	final static Logger logger = LoggerFactory
@@ -39,13 +38,10 @@ public class AlignVerticallyAction extends SimpleAction
 
 	private static final long serialVersionUID = 1L;
 
-	private MapEditor mapEditor;
-
 	public AlignVerticallyAction(MapEditor mapEditor)
 	{
-		super("Align Vertically",
+		super(mapEditor, "Align Vertically",
 				"Align selected stations vertically (same y coordinate)");
-		this.mapEditor = mapEditor;
 		setIcon(new EmptyIcon(24));
 	}
 

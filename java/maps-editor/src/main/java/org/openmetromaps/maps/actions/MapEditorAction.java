@@ -18,35 +18,20 @@
 package org.openmetromaps.maps.actions;
 
 import org.openmetromaps.maps.MapEditor;
-import org.openmetromaps.maps.PlanRenderer;
-import org.openmetromaps.maps.ScrollableAdvancedPanel;
 
-import de.topobyte.swing.util.EmptyIcon;
+import de.topobyte.swing.util.action.SimpleAction;
 
-public class DebugTangentsAction extends MapEditorBooleanAction
+public abstract class MapEditorAction extends SimpleAction
 {
 
 	private static final long serialVersionUID = 1L;
 
-	public DebugTangentsAction(MapEditor mapEditor)
-	{
-		super(mapEditor, "Debug tangents", "Toggle edge tangent visibility");
-		setIcon(new EmptyIcon(24));
-	}
+	protected MapEditor mapEditor;
 
-	@Override
-	public boolean getState()
+	public MapEditorAction(MapEditor mapEditor, String name, String description)
 	{
-		return mapEditor.getMap().getPlanRenderer().isDebugTangents();
-	}
-
-	@Override
-	public void toggleState()
-	{
-		ScrollableAdvancedPanel map = mapEditor.getMap();
-		PlanRenderer planRenderer = map.getPlanRenderer();
-		planRenderer.setDebugTangents(!planRenderer.isDebugTangents());
-		map.repaint();
+		super(name, description);
+		this.mapEditor = mapEditor;
 	}
 
 }

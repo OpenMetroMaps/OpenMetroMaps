@@ -28,21 +28,16 @@ import org.openmetromaps.maps.Storage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.topobyte.swing.util.action.SimpleAction;
-
-public class SaveAction extends SimpleAction
+public class SaveAction extends MapEditorAction
 {
 
 	final static Logger logger = LoggerFactory.getLogger(SaveAction.class);
 
 	private static final long serialVersionUID = 1L;
 
-	private MapEditor mapEditor;
-
 	public SaveAction(MapEditor mapEditor)
 	{
-		super("Save", "Save the current file");
-		this.mapEditor = mapEditor;
+		super(mapEditor, "Save", "Save the current file");
 		setIcon("res/images/24/document-save.png");
 	}
 

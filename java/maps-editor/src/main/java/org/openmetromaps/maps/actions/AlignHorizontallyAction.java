@@ -29,9 +29,8 @@ import org.slf4j.LoggerFactory;
 
 import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.swing.util.EmptyIcon;
-import de.topobyte.swing.util.action.SimpleAction;
 
-public class AlignHorizontallyAction extends SimpleAction
+public class AlignHorizontallyAction extends MapEditorAction
 {
 
 	final static Logger logger = LoggerFactory
@@ -39,13 +38,10 @@ public class AlignHorizontallyAction extends SimpleAction
 
 	private static final long serialVersionUID = 1L;
 
-	private MapEditor mapEditor;
-
 	public AlignHorizontallyAction(MapEditor mapEditor)
 	{
-		super("Align Horizontally",
+		super(mapEditor, "Align Horizontally",
 				"Align selected stations horizontally (same x coordinate)");
-		this.mapEditor = mapEditor;
 		setIcon(new EmptyIcon(24));
 	}
 

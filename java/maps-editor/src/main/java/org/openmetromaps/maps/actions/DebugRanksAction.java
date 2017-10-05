@@ -22,19 +22,15 @@ import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.ScrollableAdvancedPanel;
 
 import de.topobyte.swing.util.EmptyIcon;
-import de.topobyte.swing.util.action.SimpleBooleanAction;
 
-public class DebugRanksAction extends SimpleBooleanAction
+public class DebugRanksAction extends MapEditorBooleanAction
 {
 
 	private static final long serialVersionUID = 1L;
 
-	private MapEditor mapEditor;
-
 	public DebugRanksAction(MapEditor mapEditor)
 	{
-		super("Debug ranks", "Toggle station rank visibility");
-		this.mapEditor = mapEditor;
+		super(mapEditor, "Debug ranks", "Toggle station rank visibility");
 		setIcon(new EmptyIcon(24));
 	}
 

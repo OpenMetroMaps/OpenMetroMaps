@@ -39,9 +39,8 @@ import com.google.common.collect.Sets.SetView;
 
 import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.swing.util.EmptyIcon;
-import de.topobyte.swing.util.action.SimpleAction;
 
-public class DistributeEvenlyAction extends SimpleAction
+public class DistributeEvenlyAction extends MapEditorAction
 {
 
 	final static Logger logger = LoggerFactory
@@ -49,13 +48,10 @@ public class DistributeEvenlyAction extends SimpleAction
 
 	private static final long serialVersionUID = 1L;
 
-	private MapEditor mapEditor;
-
 	public DistributeEvenlyAction(MapEditor mapEditor)
 	{
-		super("Distribute Evenly",
+		super(mapEditor, "Distribute Evenly",
 				"Distribute the stations between two selected ones evenly");
-		this.mapEditor = mapEditor;
 		setIcon(new EmptyIcon(24));
 	}
 

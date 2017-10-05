@@ -26,21 +26,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.topobyte.swing.util.EmptyIcon;
-import de.topobyte.swing.util.action.SimpleAction;
 
-public class SelectAllAction extends SimpleAction
+public class SelectAllAction extends MapEditorAction
 {
 
 	final static Logger logger = LoggerFactory.getLogger(SelectAllAction.class);
 
 	private static final long serialVersionUID = 1L;
 
-	private MapEditor mapEditor;
-
 	public SelectAllAction(MapEditor mapEditor)
 	{
-		super("Select All", "Select all stations");
-		this.mapEditor = mapEditor;
+		super(mapEditor, "Select All", "Select all stations");
 		setIcon(new EmptyIcon(24));
 	}
 

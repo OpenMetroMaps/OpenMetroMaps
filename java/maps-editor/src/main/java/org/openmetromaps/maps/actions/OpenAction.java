@@ -26,8 +26,8 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapEditor;
+import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
@@ -35,21 +35,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
-import de.topobyte.swing.util.action.SimpleAction;
-
-public class OpenAction extends SimpleAction
+public class OpenAction extends MapEditorAction
 {
 
 	final static Logger logger = LoggerFactory.getLogger(OpenAction.class);
 
 	private static final long serialVersionUID = 1L;
 
-	private MapEditor mapEditor;
-
 	public OpenAction(MapEditor mapEditor)
 	{
-		super("Open", "Open a file");
-		this.mapEditor = mapEditor;
+		super(mapEditor, "Open", "Open a file");
 		setIcon("res/images/24/document-open.png");
 	}
 

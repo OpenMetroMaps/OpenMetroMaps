@@ -183,6 +183,9 @@ public class MapEditor
 		JMenu menuFile = new JMenu("File");
 		menuBar.add(menuFile);
 
+		JMenu menuEdit = new JMenu("Edit");
+		menuBar.add(menuEdit);
+
 		JMenu menuView = new JMenu("View");
 		menuBar.add(menuView);
 
@@ -190,6 +193,7 @@ public class MapEditor
 		menuBar.add(menuHelp);
 
 		setupMenuFile(menuFile);
+		setupMenuEdit(menuEdit);
 		setupMenuView(menuView);
 		setupMenuHelp(menuHelp);
 	}
@@ -200,6 +204,11 @@ public class MapEditor
 		menuFile.add(new SaveAction(this));
 		menuFile.add(new SaveAsAction(this));
 		menuFile.add(new ExitAction());
+	}
+
+	private void setupMenuEdit(JMenu menuEdit)
+	{
+		// TODO: add some actions here
 	}
 
 	private void setupMenuView(JMenu menuView)

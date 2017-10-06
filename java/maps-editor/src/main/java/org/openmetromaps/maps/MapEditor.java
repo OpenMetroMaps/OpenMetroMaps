@@ -49,6 +49,7 @@ import org.openmetromaps.maps.actions.OpenAction;
 import org.openmetromaps.maps.actions.SaveAction;
 import org.openmetromaps.maps.actions.SaveAsAction;
 import org.openmetromaps.maps.actions.SelectAllAction;
+import org.openmetromaps.maps.actions.SelectLinesAction;
 import org.openmetromaps.maps.actions.SelectNodesInBetweenAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.dockables.DockableHelper;
@@ -240,6 +241,8 @@ public class MapEditor
 	{
 		JMenus.addItem(menuEdit, new SelectAllAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_A);
+		JMenus.addItem(menuEdit, new SelectLinesAction(this),
+				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_L);
 		JMenus.addItem(menuEdit, new SelectNodesInBetweenAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_B);
 		JMenus.addItem(menuEdit, new AlignHorizontallyAction(this),

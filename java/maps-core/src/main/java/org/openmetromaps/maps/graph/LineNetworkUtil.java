@@ -18,10 +18,18 @@
 package org.openmetromaps.maps.graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.maps.model.Stop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Sets;
+import com.google.common.collect.Sets.SetView;
 
 import de.topobyte.adt.geo.Coordinate;
 
@@ -118,6 +126,119 @@ public class LineNetworkUtil
 				LineNetworkUtil.calculateNeighborLocations(edge);
 			}
 		}
+	}
+
+	public static NodeConnectionResult findConnection(Node node1, Node node2)
+	{
+		NodeConnectionResult result = new NodeConnectionResult();
+
+		Set<Line> node1Lines = lines(node1);
+		Set<Line> node2Lines = lines(node2);
+
+		SetView<Line> commonLines = Sets.intersection(node1Lines, node2Lines);
+		boolean connected = !commonLines.isEmpty();
+
+		result.setConnected(connected);
+		result.setCommonLines(commonLines);
+
+		if (!connected) {
+			return result;
+		}
+
+		return result;
+	}
+
+	private static Set<Line> lines(Node node)
+	{
+		Set<Line> lines = new HashSet<>();
+		for (Stop stop : node.station.getStops()) {
+			lines.add(stop.getLine());
+		}
+		return lines;
+	}
+
+	public static LineConnectionResult findConnection(Line line, Node node1,
+			Node node2)
+	{
+		LineConnectionResult result = new LineConnectionResult();
+
+		int idxNode1 = -1;
+		int idxNode2 = -1;
+
+		List<Stop> stops = line.getStops();
+		for (int i = 0; i < stops.size(); i++) {
+			Station station = stops.get(i).getStation();
+			if (station == node1.station) {
+				idxNode1 = i;
+			} else if (station == node2.station) {
+				idxNode2 = i;
+			}
+		}
+
+		result.setIndex1(idxNode1);
+		result.setIndex2(idxNode2);
+
+		result.setValid(idxNode1 >= 0 && idxNode2 >= 0);
+
+		return result;
+	}
+
+	public static NodesInBetweenResult getNodesBetween(LineNetwork lineNetwork,
+			Line line, int idxNode1, int idxNode2)
+	{
+		NodesInBetweenResult result = new NodesInBetweenResult();
+
+		List<Stop> stops = line.getStops();
+		Stop stop1 = stops.get(idxNode1);
+		Stop stop2 = stops.get(idxNode2);
+		Node node1 = getNode(lineNetwork, stop1);
+		Node node2 = getNode(lineNetwork, stop2);
+
+		Node start, end;
+		int min, max;
+		if (idxNode1 < idxNode2) {
+			min = idxNode1;
+			max = idxNode2;
+			start = node1;
+			end = node2;
+		} else {
+			min = idxNode2;
+			max = idxNode1;
+			start = node2;
+			end = node1;
+		}
+
+		result.setStart(start);
+		result.setEnd(end);
+
+		int num = max - min;
+
+		logger.debug(String.format("Stops min: %d, max: %d, num: %d", min, max,
+				num));
+
+		List<Node> nodes = new ArrayList<>();
+		for (int i = 1; i <= num; i++) {
+			Stop stop = stops.get(min + i);
+			Node node = getNode(lineNetwork, stop);
+			nodes.add(node);
+		}
+
+		result.setNodes(nodes);
+
+		return result;
+	}
+
+	private static Node getNode(LineNetwork lineNetwork, Stop stop)
+	{
+		// TODO: this is pretty inefficient
+		for (Node node : lineNetwork.getNodes()) {
+			for (Stop s : node.station.getStops()) {
+				if (s == stop) {
+					return node;
+				}
+			}
+		}
+		return null;
 	}
 
 }

@@ -18,6 +18,7 @@
 package org.openmetromaps.maps.actions;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +28,7 @@ import javax.swing.JOptionPane;
 
 import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
@@ -140,12 +142,18 @@ public class DistributeEvenlyAction extends MapEditorAction
 
 		LineNetwork lineNetwork = mapEditor.getMap().getLineNetwork();
 
+		List<Node> updated = new ArrayList<>();
 		for (int i = 1; i <= num; i++) {
 			Stop stop = stops.get(min + i);
 			Node node = getNode(lineNetwork, stop);
 			double x = c1.lon + dx * i;
 			double y = c1.lat + dy * i;
 			node.location = new Coordinate(x, y);
+			updated.add(node);
+		}
+
+		for (Node node : updated) {
+			LineNetworkUtil.updateEdges(node);
 		}
 	}
 

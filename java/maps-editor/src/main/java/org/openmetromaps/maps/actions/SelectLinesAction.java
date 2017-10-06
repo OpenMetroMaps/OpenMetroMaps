@@ -21,9 +21,17 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JDialog;
+
 import org.openmetromaps.maps.MapEditor;
+import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.LineSelectionDialog;
+import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.maps.model.Stop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,17 +55,46 @@ public class SelectLinesAction extends MapEditorAction
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		LineNetwork lineNetwork = mapEditor.getModel().getViews().get(0)
-				.getLineNetwork();
+		MapModel model = mapEditor.getModel();
+		ModelData data = model.getData();
 
-		// TODO: show dialog, let user pick lines and get the list of nodes from
-		// that selection
+		LineSelectionDialog dialog = new LineSelectionDialog(
+				mapEditor.getFrame(), data,
+				(d, positive) -> dialogDone(d, positive));
+		dialog.setModal(true);
+
+		dialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+		dialog.setSize(400, 300);
+		dialog.setLocationRelativeTo(mapEditor.getFrame());
+		dialog.setVisible(true);
 
 		List<Node> nodes = new ArrayList<>();
 
 		for (Node node : nodes) {
 			mapEditor.getMapViewStatus().selectNode(node);
 		}
+		mapEditor.updateStationPanel();
+		mapEditor.getMap().repaint();
+	}
+
+	private void dialogDone(LineSelectionDialog dialog, boolean positive)
+	{
+		if (!positive) {
+			dialog.dispose();
+			return;
+		}
+
+		LineNetwork lineNetwork = mapEditor.getMap().getLineNetwork();
+
+		List<Line> lines = dialog.getSelectedLines();
+		for (Line line : lines) {
+			for (Stop stop : line.getStops()) {
+				Node node = LineNetworkUtil.getNode(lineNetwork, stop);
+				mapEditor.getMapViewStatus().selectNode(node);
+			}
+		}
+		dialog.dispose();
+
 		mapEditor.updateStationPanel();
 		mapEditor.getMap().repaint();
 	}

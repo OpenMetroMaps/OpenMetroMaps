@@ -228,7 +228,7 @@ public class LineNetworkUtil
 		return result;
 	}
 
-	private static Node getNode(LineNetwork lineNetwork, Stop stop)
+	public static Node getNode(LineNetwork lineNetwork, Stop stop)
 	{
 		// TODO: this is pretty inefficient
 		for (Node node : lineNetwork.getNodes()) {

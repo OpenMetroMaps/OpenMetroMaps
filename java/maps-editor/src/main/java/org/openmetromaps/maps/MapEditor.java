@@ -440,14 +440,14 @@ public class MapEditor
 
 	public void showReallyExitDialog()
 	{
-		String yes = UIManager.getString("OptionPane.okButtonText");
-		String no = UIManager.getString("OptionPane.cancelButtonText");
+		String ok = UIManager.getString("OptionPane.okButtonText");
+		String cancel = UIManager.getString("OptionPane.cancelButtonText");
 
-		Object[] options = { yes, no };
+		Object[] options = { ok, cancel };
 
 		int status = JOptionPane.showOptionDialog(frame, "Exit Map Editor?",
 				"Confirm Exit", JOptionPane.DEFAULT_OPTION,
-				JOptionPane.QUESTION_MESSAGE, null, options, no);
+				JOptionPane.QUESTION_MESSAGE, null, options, cancel);
 		if (status == JOptionPane.YES_OPTION) {
 			System.exit(0);
 		}

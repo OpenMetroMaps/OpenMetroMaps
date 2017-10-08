@@ -48,6 +48,8 @@ public class ScrollableSimplePanel extends BaseMapWindowPanel
 	{
 		super(startPosition, minZoom, maxZoom, new BboxViewBounds(boundsBox));
 		this.data = data;
+
+		ViewActions.setupMovementActions(getInputMap(), getActionMap(), this);
 	}
 
 	@Override

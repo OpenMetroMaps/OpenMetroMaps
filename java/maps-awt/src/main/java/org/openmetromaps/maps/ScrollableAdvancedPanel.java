@@ -20,8 +20,6 @@ package org.openmetromaps.maps;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
@@ -63,27 +61,7 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 
 		initRenderer();
 
-		final int scrollDistance = 16;
-
-		addKeyListener(new KeyAdapter() {
-
-			@Override
-			public void keyReleased(KeyEvent e)
-			{
-				super.keyTyped(e);
-				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					mapWindow.move(0, -scrollDistance);
-				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					mapWindow.move(0, scrollDistance);
-				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					mapWindow.move(-scrollDistance, 0);
-				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					mapWindow.move(scrollDistance, 0);
-				}
-				repaint();
-			}
-
-		});
+		ViewActions.setupMovementActions(getInputMap(), getActionMap(), this);
 
 		setFocusable(true);
 	}

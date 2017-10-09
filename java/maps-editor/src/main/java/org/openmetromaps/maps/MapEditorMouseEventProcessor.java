@@ -41,8 +41,8 @@ public class MapEditorMouseEventProcessor extends BaseMouseEventProcessor
 		this.mapEditor = mapEditor;
 	}
 
-	private boolean draggingNode = false;
-	private Node dragNode = null;
+	private boolean draggingNodes = false;
+	private java.awt.Point lastPoint = null;
 
 	@Override
 	public void mousePressed(MouseEvent e)
@@ -50,20 +50,22 @@ public class MapEditorMouseEventProcessor extends BaseMouseEventProcessor
 		super.mousePressed(e);
 		Node node = mapEditor.mouseNode(e.getX(), e.getY());
 
+		boolean control = Util.isControlPressed(e);
+		boolean shift = Util.isShiftPressed(e);
+		boolean onNode = node != null;
+		int numSelected = mapEditor.getMapViewStatus().getNumSelectedNodes();
+		boolean someSelected = numSelected != 0;
+
 		if (e.getButton() == MouseEvent.BUTTON1) {
-			if (node != null) {
-				if (!Util.isShiftPressed(e)) {
+			if (onNode && !control) {
+				if (!shift) {
 					mapEditor.select(node);
 				} else {
 					mapEditor.toggleSelected(node);
 				}
-			}
-			if (Util.isControlPressed(e)) {
-				if (node == null) {
-					return;
-				}
-				draggingNode = true;
-				dragNode = node;
+			} else if (control && someSelected) {
+				draggingNodes = true;
+				lastPoint = e.getPoint();
 			}
 		}
 
@@ -79,7 +81,7 @@ public class MapEditorMouseEventProcessor extends BaseMouseEventProcessor
 	{
 		super.mouseReleased(e);
 		if (e.getButton() == MouseEvent.BUTTON1) {
-			draggingNode = false;
+			draggingNodes = false;
 		}
 	}
 
@@ -93,23 +95,45 @@ public class MapEditorMouseEventProcessor extends BaseMouseEventProcessor
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
-		if (!draggingNode) {
+		if (!draggingNodes) {
 			super.mouseDragged(e);
 			return;
 		}
 
-		if (draggingNode) {
+		if (draggingNodes) {
 			java.awt.Point currentPoint = e.getPoint();
+			int dx = currentPoint.x - lastPoint.x;
+			int dy = currentPoint.y - lastPoint.y;
+			lastPoint = currentPoint;
 
-			double lon = mapWindow.getPositionLon(currentPoint.x);
-			double lat = mapWindow.getPositionLat(currentPoint.y);
-			dragNode.location = new Coordinate(lon, lat);
+			for (Node node : mapEditor.getMapViewStatus().getSelectedNodes()) {
+				update(node, dx, dy);
+			}
 
-			LineNetworkUtil.updateEdges(dragNode);
+			for (Node node : mapEditor.getMapViewStatus().getSelectedNodes()) {
+				LineNetworkUtil.updateEdges(node);
+			}
 
 			mapEditor.triggerDataChanged();
 			c.repaint();
 		}
+	}
+
+	private void update(Node node, int dx, int dy)
+	{
+		Coordinate old = node.location;
+
+		double oldX = mapWindow.getX(old.getLongitude());
+		double oldY = mapWindow.getY(old.getLatitude());
+
+		double newX = oldX + dx;
+		double newY = oldY + dy;
+
+		// TODO: after moving to new coordinate system, remove the rounding
+		double lon = mapWindow.getPositionLon((int) Math.round(newX));
+		double lat = mapWindow.getPositionLat((int) Math.round(newY));
+
+		node.location = new Coordinate(lon, lat);
 	}
 
 }

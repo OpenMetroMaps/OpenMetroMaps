@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.openmetromaps.maps.MapEditor;
+import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +60,10 @@ public class AlignHorizontallyAction extends MapEditorAction
 		for (Node node : nodes) {
 			node.location = new Coordinate(mean.getLongitude(),
 					node.location.getLatitude());
+		}
+
+		for (Node node : nodes) {
+			LineNetworkUtil.updateEdges(node);
 		}
 
 		mapEditor.getMap().repaint();

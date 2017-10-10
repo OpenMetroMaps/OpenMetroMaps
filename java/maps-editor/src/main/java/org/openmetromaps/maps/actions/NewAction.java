@@ -23,12 +23,17 @@ import java.util.List;
 
 import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.ViewConfig;
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.Coordinate;
 
 public class NewAction extends MapEditorAction
@@ -48,14 +53,17 @@ public class NewAction extends MapEditorAction
 	public void actionPerformed(ActionEvent event)
 	{
 		// TODO: if there are pending changes, let user confirm
-		// TODO: avoid dummy node creation
 		List<Line> lines = new ArrayList<>();
 		List<Station> stations = new ArrayList<>();
 		ModelData data = new ModelData(lines, stations);
 		MapModel model = new MapModel(data);
 
-		stations.add(new Station(0, "Test", new Coordinate(10, 10),
-				new ArrayList<>()));
+		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData());
+		LineNetwork lineNetwork = builder.getGraph();
+
+		ViewConfig viewConfig = new ViewConfig(new BBox(10, 10, 20, 20),
+				new Coordinate(15, 15));
+		model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
 
 		mapEditor.setModel(model);
 		mapEditor.getMap().repaint();

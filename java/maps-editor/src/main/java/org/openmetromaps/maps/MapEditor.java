@@ -357,6 +357,10 @@ public class MapEditor
 	{
 		Node best = closestNode(x, y);
 
+		if (best == null) {
+			return null;
+		}
+
 		double sx = map.getMapWindow().longitudeToX(best.location.lon);
 		double sy = map.getMapWindow().latitudeToY(best.location.lat);
 

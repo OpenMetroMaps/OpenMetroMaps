@@ -41,7 +41,8 @@ public class TestScrollableAdvancedPanel extends JPanel
 			LineNetworkBuilder builder = new LineNetworkBuilder(
 					model.getData());
 			LineNetwork lineNetwork = builder.getGraph();
-			model.getViews().add(new MapView("Test", lineNetwork));
+			ViewConfig viewConfig = ModelUtil.viewConfig(model.getData());
+			model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
 		}
 
 		LineNetwork lineNetwork = model.getViews().get(0).getLineNetwork();

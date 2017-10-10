@@ -24,11 +24,13 @@ public class MapView
 
 	private String name;
 	private LineNetwork lineNetwork;
+	private ViewConfig config;
 
-	public MapView(String name, LineNetwork lineNetwork)
+	public MapView(String name, LineNetwork lineNetwork, ViewConfig config)
 	{
 		this.name = name;
 		this.lineNetwork = lineNetwork;
+		this.config = config;
 	}
 
 	public String getName()
@@ -49,6 +51,16 @@ public class MapView
 	public void setLineNetwork(LineNetwork lineNetwork)
 	{
 		this.lineNetwork = lineNetwork;
+	}
+
+	public ViewConfig getConfig()
+	{
+		return config;
+	}
+
+	public void setConfig(ViewConfig config)
+	{
+		this.config = config;
 	}
 
 }

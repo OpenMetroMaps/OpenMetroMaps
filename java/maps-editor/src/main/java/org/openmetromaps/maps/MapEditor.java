@@ -115,12 +115,12 @@ public class MapEditor
 			LineNetworkBuilder builder = new LineNetworkBuilder(
 					model.getData());
 			LineNetwork lineNetwork = builder.getGraph();
-			model.getViews().add(new MapView("Test", lineNetwork));
+			ViewConfig viewConfig = ModelUtil.viewConfig(model.getData());
+			model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
 		}
 
 		view = model.getViews().get(0);
-
-		viewConfig = ModelUtil.viewConfig(model.getData());
+		viewConfig = view.getConfig();
 	}
 
 	public MapModel getModel()

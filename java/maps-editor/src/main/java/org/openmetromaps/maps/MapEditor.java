@@ -43,6 +43,7 @@ import org.openmetromaps.maps.actions.AlignVerticallyAction;
 import org.openmetromaps.maps.actions.DebugRanksAction;
 import org.openmetromaps.maps.actions.DebugTangentsAction;
 import org.openmetromaps.maps.actions.DistributeEvenlyAction;
+import org.openmetromaps.maps.actions.DummyOptimizationAction;
 import org.openmetromaps.maps.actions.ExitAction;
 import org.openmetromaps.maps.actions.LicenseAction;
 import org.openmetromaps.maps.actions.NewAction;
@@ -255,6 +256,12 @@ public class MapEditor
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_V);
 		JMenus.addItem(menuEdit, new DistributeEvenlyAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_D);
+
+		JMenu menuAlgorithms = new JMenu("Algorithms");
+		menuEdit.add(menuAlgorithms);
+		menuAlgorithms.setIcon(new EmptyIcon(24));
+
+		JMenus.addItem(menuAlgorithms, new DummyOptimizationAction(this));
 	}
 
 	private void setupMenuView(JMenu menuView)

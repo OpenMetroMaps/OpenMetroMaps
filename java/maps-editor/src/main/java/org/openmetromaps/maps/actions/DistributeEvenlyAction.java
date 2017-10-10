@@ -121,9 +121,13 @@ public class DistributeEvenlyAction extends MapEditorAction
 			node.location = new Coordinate(x, y);
 		}
 
+		LineNetworkUtil.updateEdges(nodesBetween.getStart());
+		LineNetworkUtil.updateEdges(nodesBetween.getEnd());
 		for (Node node : between) {
 			LineNetworkUtil.updateEdges(node);
 		}
+
+		mapEditor.getMap().repaint();
 	}
 
 }

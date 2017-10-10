@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 
 import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.actions.MapEditorAction;
+import org.openmetromaps.maps.algorithms.StraightenAxisParallelLinesOptimization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +43,8 @@ public class StraightenAxisParallelLinesAction extends MapEditorAction
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		// TODO: implement this
+		StraightenAxisParallelLinesOptimization optimization = new StraightenAxisParallelLinesOptimization();
+		optimization.runOptimization(mapEditor);
 	}
 
 }

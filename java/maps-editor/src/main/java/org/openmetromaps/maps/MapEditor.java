@@ -104,6 +104,7 @@ public class MapEditor
 		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
 		map.setViewConfig(viewConfig.getBbox(), viewConfig.getStartPosition(),
 				Constants.DEFAULT_ZOOM);
+		selectNone();
 	}
 
 	private void init(MapModel model)

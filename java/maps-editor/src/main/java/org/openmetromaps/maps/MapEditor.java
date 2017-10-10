@@ -54,6 +54,7 @@ import org.openmetromaps.maps.actions.SelectLinesAction;
 import org.openmetromaps.maps.actions.SelectNodesInBetweenAction;
 import org.openmetromaps.maps.actions.ShowLabelsAction;
 import org.openmetromaps.maps.actions.algorithms.DummyOptimizationAction;
+import org.openmetromaps.maps.actions.algorithms.StraightenAxisParallelLinesAction;
 import org.openmetromaps.maps.dockables.DockableHelper;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
@@ -262,6 +263,8 @@ public class MapEditor
 		menuAlgorithms.setIcon(new EmptyIcon(24));
 
 		JMenus.addItem(menuAlgorithms, new DummyOptimizationAction(this));
+		JMenus.addItem(menuAlgorithms,
+				new StraightenAxisParallelLinesAction(this));
 	}
 
 	private void setupMenuView(JMenu menuView)

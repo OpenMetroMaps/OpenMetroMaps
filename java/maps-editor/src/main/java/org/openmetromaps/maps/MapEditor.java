@@ -45,6 +45,7 @@ import org.openmetromaps.maps.actions.DebugTangentsAction;
 import org.openmetromaps.maps.actions.DistributeEvenlyAction;
 import org.openmetromaps.maps.actions.ExitAction;
 import org.openmetromaps.maps.actions.LicenseAction;
+import org.openmetromaps.maps.actions.NewAction;
 import org.openmetromaps.maps.actions.OpenAction;
 import org.openmetromaps.maps.actions.SaveAction;
 import org.openmetromaps.maps.actions.SaveAsAction;
@@ -226,6 +227,8 @@ public class MapEditor
 
 	private void setupMenuFile(JMenu menuFile)
 	{
+		JMenus.addItem(menuFile, new NewAction(this), KeyEvent.CTRL_DOWN_MASK,
+				KeyEvent.VK_N);
 		JMenus.addItem(menuFile, new OpenAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_O);
 		JMenus.addItem(menuFile, new SaveAction(this), KeyEvent.CTRL_DOWN_MASK,

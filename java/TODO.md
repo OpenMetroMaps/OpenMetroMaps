@@ -2,7 +2,6 @@
 
 ## Open
 * simpler non-geographic coordinate system
-* new file action
 * integrate import tool
 * new station action
 * delete station action
@@ -16,3 +15,4 @@
 
 ## Done
 * bulk station dragging
+* new file action

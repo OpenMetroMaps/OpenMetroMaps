@@ -15,46 +15,34 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.graph;
+package org.openmetromaps.maps.algorithms;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.openmetromaps.maps.model.Station;
+import de.topobyte.collections.util.ListUtil;
 
-public class LineNetwork
+public class Util
 {
 
-	public List<Node> nodes = new ArrayList<>();
-	public List<Edge> edges = new ArrayList<>();
-	public List<NetworkLine> lines = new ArrayList<>();
-
-	private Map<Station, Node> stationToNode;
-
-	public List<Node> getNodes()
+	public static List<List<Integer>> findConsecutive(List<Integer> ids)
 	{
-		return nodes;
-	}
+		List<List<Integer>> lists = new ArrayList<>();
 
-	public List<Edge> getEdges()
-	{
-		return edges;
-	}
+		List<Integer> current = new ArrayList<>();
+		lists.add(current);
+		current.add(ids.get(0));
 
-	public List<NetworkLine> getLines()
-	{
-		return lines;
-	}
+		for (int i = 1; i < ids.size(); i++) {
+			int id = ids.get(i);
+			if (ListUtil.last(current) + 1 != id) {
+				current = new ArrayList<>();
+				lists.add(current);
+			}
+			current.add(id);
+		}
 
-	public Map<Station, Node> getStationToNode()
-	{
-		return stationToNode;
-	}
-
-	public void setStationToNode(Map<Station, Node> stationToNode)
-	{
-		this.stationToNode = stationToNode;
+		return lists;
 	}
 
 }

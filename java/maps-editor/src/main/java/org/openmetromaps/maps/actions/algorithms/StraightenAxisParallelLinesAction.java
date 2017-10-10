@@ -44,7 +44,9 @@ public class StraightenAxisParallelLinesAction extends MapEditorAction
 	public void actionPerformed(ActionEvent event)
 	{
 		StraightenAxisParallelLinesOptimization optimization = new StraightenAxisParallelLinesOptimization();
-		optimization.runOptimization(mapEditor);
+		optimization.runOptimization(mapEditor, 0.001);
+
+		mapEditor.getMap().repaint();
 	}
 
 }

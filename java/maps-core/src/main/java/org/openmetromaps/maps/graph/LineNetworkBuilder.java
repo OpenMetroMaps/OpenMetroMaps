@@ -44,6 +44,8 @@ public class LineNetworkBuilder
 
 	public LineNetworkBuilder(ModelData data)
 	{
+		graph.setStationToNode(stationToNode);
+
 		addStations(data);
 
 		addLines(data);

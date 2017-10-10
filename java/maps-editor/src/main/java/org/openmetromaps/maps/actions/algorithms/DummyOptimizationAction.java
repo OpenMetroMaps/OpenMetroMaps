@@ -15,13 +15,14 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.actions;
+package org.openmetromaps.maps.actions.algorithms;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
 import org.openmetromaps.maps.MapEditor;
+import org.openmetromaps.maps.actions.MapEditorAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

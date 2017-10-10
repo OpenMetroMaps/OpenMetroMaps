@@ -15,38 +15,34 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.actions;
+package org.openmetromaps.maps.actions.help;
 
-import org.openmetromaps.maps.MapEditor;
-import org.openmetromaps.maps.PlanRenderer;
-import org.openmetromaps.maps.ScrollableAdvancedPanel;
+import java.awt.event.ActionEvent;
 
-import de.topobyte.swing.util.EmptyIcon;
+import javax.swing.JFrame;
 
-public class DebugTangentsAction extends MapEditorBooleanAction
+import org.openmetromaps.maps.about.AboutDialog;
+
+import de.topobyte.swing.util.action.SimpleAction;
+
+public class LicenseAction extends SimpleAction
 {
 
 	private static final long serialVersionUID = 1L;
 
-	public DebugTangentsAction(MapEditor mapEditor)
+	private JFrame frame;
+
+	public LicenseAction(JFrame frame)
 	{
-		super(mapEditor, "Debug tangents", "Toggle edge tangent visibility");
-		setIcon(new EmptyIcon(24));
+		super("License", "Show license information about this software");
+		this.frame = frame;
+		setIcon("res/images/24/help-about.png");
 	}
 
 	@Override
-	public boolean getState()
+	public void actionPerformed(ActionEvent e)
 	{
-		return mapEditor.getMap().getPlanRenderer().isDebugTangents();
-	}
-
-	@Override
-	public void toggleState()
-	{
-		ScrollableAdvancedPanel map = mapEditor.getMap();
-		PlanRenderer planRenderer = map.getPlanRenderer();
-		planRenderer.setDebugTangents(!planRenderer.isDebugTangents());
-		map.repaint();
+		AboutDialog.showDialog(frame, AboutDialog.Page.LGPL);
 	}
 
 }

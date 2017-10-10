@@ -15,11 +15,12 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.actions;
+package org.openmetromaps.maps.actions.view;
 
 import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.ScrollableAdvancedPanel;
+import org.openmetromaps.maps.actions.MapEditorBooleanAction;
 
 import de.topobyte.swing.util.EmptyIcon;
 

@@ -15,40 +15,58 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.actions;
+package org.openmetromaps.maps.actions.edit;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.openmetromaps.maps.MapEditor;
-import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.actions.MapEditorAction;
+import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.swing.util.EmptyIcon;
 
-public class SelectAllAction extends MapEditorAction
+public class AlignVerticallyAction extends MapEditorAction
 {
 
-	final static Logger logger = LoggerFactory.getLogger(SelectAllAction.class);
+	final static Logger logger = LoggerFactory
+			.getLogger(AlignVerticallyAction.class);
 
 	private static final long serialVersionUID = 1L;
 
-	public SelectAllAction(MapEditor mapEditor)
+	public AlignVerticallyAction(MapEditor mapEditor)
 	{
-		super(mapEditor, "Select All", "Select all stations");
+		super(mapEditor, "Align Vertically",
+				"Align selected stations vertically (same y coordinate)");
 		setIcon(new EmptyIcon(24));
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		LineNetwork lineNetwork = mapEditor.getModel().getViews().get(0)
-				.getLineNetwork();
-		for (Node node : lineNetwork.nodes) {
-			mapEditor.getMapViewStatus().selectNode(node);
+		Set<Node> nodes = mapEditor.getMapViewStatus().getSelectedNodes();
+
+		List<Coordinate> locations = new ArrayList<>();
+		for (Node node : nodes) {
+			locations.add(node.location);
 		}
-		mapEditor.updateStationPanel();
+		Coordinate mean = Coordinate.mean(locations);
+
+		for (Node node : nodes) {
+			node.location = new Coordinate(node.location.getLongitude(),
+					mean.getLatitude());
+		}
+
+		for (Node node : nodes) {
+			LineNetworkUtil.updateEdges(node);
+		}
+
 		mapEditor.getMap().repaint();
 	}
 

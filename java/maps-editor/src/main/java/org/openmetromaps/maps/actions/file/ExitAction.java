@@ -15,34 +15,28 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.actions;
+package org.openmetromaps.maps.actions.file;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.JFrame;
+import org.openmetromaps.maps.MapEditor;
+import org.openmetromaps.maps.actions.MapEditorAction;
 
-import org.openmetromaps.maps.about.AboutDialog;
-
-import de.topobyte.swing.util.action.SimpleAction;
-
-public class LicenseAction extends SimpleAction
+public class ExitAction extends MapEditorAction
 {
 
 	private static final long serialVersionUID = 1L;
 
-	private JFrame frame;
-
-	public LicenseAction(JFrame frame)
+	public ExitAction(MapEditor mapEditor)
 	{
-		super("License", "Show license information about this software");
-		this.frame = frame;
-		setIcon("res/images/24/help-about.png");
+		super(mapEditor, "Exit", "Quit the application");
+		setIcon("res/images/24/gtk-quit.png");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		AboutDialog.showDialog(frame, AboutDialog.Page.LGPL);
+		mapEditor.showReallyExitDialog();
 	}
 
 }

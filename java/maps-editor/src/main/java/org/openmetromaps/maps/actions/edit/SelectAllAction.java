@@ -15,38 +15,42 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.actions;
+package org.openmetromaps.maps.actions.edit;
+
+import java.awt.event.ActionEvent;
 
 import org.openmetromaps.maps.MapEditor;
-import org.openmetromaps.maps.PlanRenderer;
-import org.openmetromaps.maps.ScrollableAdvancedPanel;
+import org.openmetromaps.maps.actions.MapEditorAction;
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.topobyte.swing.util.EmptyIcon;
 
-public class ShowLabelsAction extends MapEditorBooleanAction
+public class SelectAllAction extends MapEditorAction
 {
+
+	final static Logger logger = LoggerFactory.getLogger(SelectAllAction.class);
 
 	private static final long serialVersionUID = 1L;
 
-	public ShowLabelsAction(MapEditor mapEditor)
+	public SelectAllAction(MapEditor mapEditor)
 	{
-		super(mapEditor, "Show labels", "Toggle map label visibility");
+		super(mapEditor, "Select All", "Select all stations");
 		setIcon(new EmptyIcon(24));
 	}
 
 	@Override
-	public boolean getState()
+	public void actionPerformed(ActionEvent event)
 	{
-		return mapEditor.getMap().getPlanRenderer().isRenderLabels();
-	}
-
-	@Override
-	public void toggleState()
-	{
-		ScrollableAdvancedPanel map = mapEditor.getMap();
-		PlanRenderer planRenderer = map.getPlanRenderer();
-		planRenderer.setRenderLabels(!planRenderer.isRenderLabels());
-		map.repaint();
+		LineNetwork lineNetwork = mapEditor.getModel().getViews().get(0)
+				.getLineNetwork();
+		for (Node node : lineNetwork.nodes) {
+			mapEditor.getMapViewStatus().selectNode(node);
+		}
+		mapEditor.updateStationPanel();
+		mapEditor.getMap().repaint();
 	}
 
 }

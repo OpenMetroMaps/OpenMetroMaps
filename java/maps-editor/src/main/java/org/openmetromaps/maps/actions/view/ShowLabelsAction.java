@@ -15,27 +15,39 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.actions;
-
-import java.awt.event.ActionEvent;
+package org.openmetromaps.maps.actions.view;
 
 import org.openmetromaps.maps.MapEditor;
+import org.openmetromaps.maps.PlanRenderer;
+import org.openmetromaps.maps.ScrollableAdvancedPanel;
+import org.openmetromaps.maps.actions.MapEditorBooleanAction;
 
-public class ExitAction extends MapEditorAction
+import de.topobyte.swing.util.EmptyIcon;
+
+public class ShowLabelsAction extends MapEditorBooleanAction
 {
 
 	private static final long serialVersionUID = 1L;
 
-	public ExitAction(MapEditor mapEditor)
+	public ShowLabelsAction(MapEditor mapEditor)
 	{
-		super(mapEditor, "Exit", "Quit the application");
-		setIcon("res/images/24/gtk-quit.png");
+		super(mapEditor, "Show labels", "Toggle map label visibility");
+		setIcon(new EmptyIcon(24));
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
+	public boolean getState()
 	{
-		mapEditor.showReallyExitDialog();
+		return mapEditor.getMap().getPlanRenderer().isRenderLabels();
+	}
+
+	@Override
+	public void toggleState()
+	{
+		ScrollableAdvancedPanel map = mapEditor.getMap();
+		PlanRenderer planRenderer = map.getPlanRenderer();
+		planRenderer.setRenderLabels(!planRenderer.isRenderLabels());
+		map.repaint();
 	}
 
 }

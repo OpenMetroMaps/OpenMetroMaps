@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.actions;
+package org.openmetromaps.maps.actions.edit;
 
 import java.awt.event.ActionEvent;
 import java.util.Iterator;
@@ -25,6 +25,7 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import org.openmetromaps.maps.MapEditor;
+import org.openmetromaps.maps.actions.MapEditorAction;
 import org.openmetromaps.maps.graph.LineConnectionResult;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkUtil;

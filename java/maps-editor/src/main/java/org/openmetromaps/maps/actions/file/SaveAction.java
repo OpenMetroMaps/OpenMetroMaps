@@ -15,62 +15,44 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.actions;
+package org.openmetromaps.maps.actions.file;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 import javax.swing.JFileChooser;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.MapEditor;
-import org.openmetromaps.maps.MapModel;
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelConverter;
-import org.openmetromaps.maps.xml.XmlModelReader;
+import org.openmetromaps.maps.Storage;
+import org.openmetromaps.maps.actions.MapEditorAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
 
-public class OpenAction extends MapEditorAction
+public class SaveAction extends MapEditorAction
 {
 
-	final static Logger logger = LoggerFactory.getLogger(OpenAction.class);
+	final static Logger logger = LoggerFactory.getLogger(SaveAction.class);
 
 	private static final long serialVersionUID = 1L;
 
-	public OpenAction(MapEditor mapEditor)
+	public SaveAction(MapEditor mapEditor)
 	{
-		super(mapEditor, "Open", "Open a file");
-		setIcon("res/images/24/document-open.png");
+		super(mapEditor, "Save", "Save the current file");
+		setIcon("res/images/24/document-save.png");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
+		// TODO: don't show chooser, save to current file
 		Window frame = mapEditor.getFrame();
 		JFileChooser chooser = new JFileChooser();
-		int value = chooser.showOpenDialog(frame);
+		int value = chooser.showSaveDialog(frame);
 		if (value == JFileChooser.APPROVE_OPTION) {
 			File file = chooser.getSelectedFile();
-			logger.debug("attempting to open document from file: " + file);
-
-			try {
-				FileInputStream is = new FileInputStream(file);
-				XmlModel xmlModel = XmlModelReader.read(is);
-				is.close();
-
-				MapModel model = new XmlModelConverter().convert(xmlModel);
-				mapEditor.setModel(model);
-				mapEditor.getMap().repaint();
-			} catch (ParserConfigurationException | SAXException
-					| IOException e) {
-				logger.error("Error while loading file", e);
-				// TODO: display an error dialog
-			}
+			logger.debug("attempting to save document to file: " + file);
+			Storage.save(file, mapEditor);
 		}
 	}
 

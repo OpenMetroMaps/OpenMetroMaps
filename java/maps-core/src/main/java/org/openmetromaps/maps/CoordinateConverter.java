@@ -35,6 +35,9 @@ public class CoordinateConverter
 	private double minX;
 	private double minY;
 
+	private double width;
+	private double height;
+
 	public CoordinateConverter(BBox bbox, double size)
 	{
 		double x1 = WGS84.lon2merc(bbox.getLon1(), worldsize);
@@ -54,6 +57,19 @@ public class CoordinateConverter
 
 		logger.debug(String.format("coordinates: %f,%f:%f,%f", x1, x2, y1, y2));
 		logger.debug(String.format("spanX: %f, spanY: %f", spanX, spanY));
+
+		width = spanX * factor;
+		height = spanY * factor;
+	}
+
+	public double getWidth()
+	{
+		return width;
+	}
+
+	public double getHeight()
+	{
+		return height;
 	}
 
 	public Coordinate convert(Coordinate coordinate)

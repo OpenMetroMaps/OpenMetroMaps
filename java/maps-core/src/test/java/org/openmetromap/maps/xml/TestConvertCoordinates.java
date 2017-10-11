@@ -59,6 +59,8 @@ public class TestConvertCoordinates
 		System.out.println("bbox: " + bbox);
 
 		CoordinateConverter converter = new CoordinateConverter(bbox, size);
+		System.out.println(String.format("size: %f x %f", converter.getWidth(),
+				converter.getHeight()));
 
 		List<Coordinate> newCoordinates = new ArrayList<>();
 

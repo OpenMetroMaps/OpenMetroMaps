@@ -44,17 +44,17 @@ public class TestConvertCoordinates
 				.getResourceAsStream("berlin.xml");
 		XmlModel model = XmlModelReader.read(input);
 
+		convert(model.getStations(), 1000);
+	}
+
+	private static void convert(List<XmlStation> stations, double size)
+	{
 		List<Coordinate> coordinates = new ArrayList<>();
-		for (XmlStation station : model.getStations()) {
+		for (XmlStation station : stations) {
 			Coordinate location = station.getLocation();
 			coordinates.add(location);
 		}
 
-		convert(coordinates, 1000);
-	}
-
-	private static void convert(List<Coordinate> coordinates, double size)
-	{
 		BBox bbox = BBoxHelper.minimumBoundingBox(coordinates);
 		System.out.println("bbox: " + bbox);
 
@@ -64,11 +64,11 @@ public class TestConvertCoordinates
 
 		List<Coordinate> newCoordinates = new ArrayList<>();
 
-		for (Coordinate coordinate : coordinates) {
-			Coordinate c = converter.convert(coordinate);
+		for (XmlStation station : stations) {
+			Coordinate c = converter.convert(station.getLocation());
 			newCoordinates.add(c);
-			System.out.println(
-					String.format("%f, %f", c.getLongitude(), c.getLatitude()));
+			System.out.println(String.format("%f, %f: %s", c.getLongitude(),
+					c.getLatitude(), station.getName()));
 		}
 
 		Coordinate minimum = Coordinate.minimum(newCoordinates);

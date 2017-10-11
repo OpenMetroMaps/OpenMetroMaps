@@ -39,11 +39,12 @@ public class TestSimplePanel extends JPanel
 
 		TestDataUtil.ensureView(model);
 
+		CoordinateConversion.convertViews(model);
+
 		SimplePanel panel = new SimplePanel(model.getData(),
 				model.getViews().get(0));
 
-		BBox box = new BBox(13.271827697753906, 52.55715099278439,
-				13.487091064453125, 52.460193408127836);
+		BBox box = new BBox(150, 280, 650, 680);
 		panel.setViewport(box);
 
 		JFrame frame = new JFrame("SimplePanel");

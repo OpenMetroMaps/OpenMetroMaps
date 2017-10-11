@@ -134,7 +134,7 @@ public class SimplePanel extends JPanel
 	private Point getPoint(Coordinate location)
 	{
 		double x = (location.lon - mx) / w * getWidth();
-		double y = getHeight() - (location.lat - my) / h * getHeight();
+		double y = (location.lat - my) / h * getHeight();
 		return new Point(x, y);
 	}
 

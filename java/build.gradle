@@ -20,6 +20,8 @@ subprojects {
         }
         mavenCentral()
     }
+
+    task allDeps(type: DependencyReportTask) {}
 }
 
 configure([project(':openmetromaps-model'),

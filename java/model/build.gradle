@@ -5,6 +5,7 @@ if (project.hasProperty("topobyte")) {
 
 dependencies {
     compile 'de.topobyte:osm4j-utils:0.1.1'
+    compile 'de.topobyte:adt-geo:0.0.4'
     compile 'de.topobyte:geomath:0.0.2'
     compile 'de.topobyte:line-printer-core:0.0.1'
     compile 'de.topobyte:line-printer-slf4j:0.0.1'

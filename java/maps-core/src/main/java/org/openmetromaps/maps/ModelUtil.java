@@ -50,7 +50,7 @@ public class ModelUtil
 				}
 			}
 		}
-		BBox bbox = BBoxHelper.minimumBoundingBox(null, coords);
+		BBox bbox = BBoxHelper.minimumBoundingBox(coords);
 
 		coords.sort(new CoordinateComparatorLongitude());
 		double medianLon = coords.get(coords.size() / 2).getLongitude();

@@ -38,7 +38,8 @@ public class TestScrollableSimplePanel extends JPanel
 		ViewConfig viewConfig = ModelUtil.viewConfig(model.getData());
 
 		ScrollableSimplePanel panel = new ScrollableSimplePanel(model.getData(),
-				viewConfig.getStartPosition(), 10, 15, viewConfig.getBbox());
+				model.getViews().get(0), viewConfig.getStartPosition(), 10, 15,
+				viewConfig.getBbox());
 
 		JFrame frame = new JFrame("SimplePanel");
 

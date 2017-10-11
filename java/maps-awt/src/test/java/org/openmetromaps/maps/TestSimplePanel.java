@@ -37,7 +37,8 @@ public class TestSimplePanel extends JPanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		SimplePanel panel = new SimplePanel(model.getData());
+		SimplePanel panel = new SimplePanel(model.getData(),
+				model.getViews().get(0));
 
 		BBox box = new BBox(13.271827697753906, 52.55715099278439,
 				13.487091064453125, 52.460193408127836);

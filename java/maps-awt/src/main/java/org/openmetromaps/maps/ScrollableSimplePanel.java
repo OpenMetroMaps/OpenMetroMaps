@@ -25,7 +25,9 @@ import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Line2D;
 import java.util.List;
+import java.util.Map;
 
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
@@ -42,12 +44,14 @@ public class ScrollableSimplePanel extends BaseMapWindowPanel
 	private static final long serialVersionUID = 1L;
 
 	private ModelData data;
+	private MapView view;
 
-	public ScrollableSimplePanel(ModelData data, Coordinate startPosition,
-			int minZoom, int maxZoom, BBox boundsBox)
+	public ScrollableSimplePanel(ModelData data, MapView view,
+			Coordinate startPosition, int minZoom, int maxZoom, BBox boundsBox)
 	{
 		super(startPosition, minZoom, maxZoom, new BboxViewBounds(boundsBox));
 		this.data = data;
+		this.view = view;
 
 		ViewActions.setupMovementActions(getInputMap(), getActionMap(), this);
 	}
@@ -64,13 +68,18 @@ public class ScrollableSimplePanel extends BaseMapWindowPanel
 		float s = 10;
 		float w = 3;
 
+		Map<Station, Node> stationToNode = view.getLineNetwork()
+				.getStationToNode();
+
 		g.setStroke(new BasicStroke(w));
 		for (Line line : data.lines) {
 			g.setColor(AwtUtil.getAwtColor(line));
 			List<Stop> stops = line.getStops();
-			Coordinate prev = StationUtil.location(stops.get(0));
+			Coordinate prev = stationToNode
+					.get(stops.get(0).getStation()).location;
 			for (int i = 1; i < stops.size(); i++) {
-				Coordinate next = StationUtil.location(stops.get(i));
+				Coordinate next = stationToNode
+						.get(stops.get(i).getStation()).location;
 				Point a = getPoint(prev);
 				Point b = getPoint(next);
 				Line2D l = new Line2D.Double(a.x, a.y, b.x, b.y);
@@ -85,14 +94,14 @@ public class ScrollableSimplePanel extends BaseMapWindowPanel
 				continue;
 			} else if (stops.size() > 1) {
 				g.setColor(Color.WHITE);
-				Point p = getPoint(station.getLocation());
+				Point p = getPoint(stationToNode.get(station).location);
 				Arc2D arc = new Arc2D.Double(p.x - s / 2, p.y - s / 2, s, s, 0,
 						360, Arc2D.CHORD);
 				g.fill(arc);
 			} else {
 				Stop stop = stops.iterator().next();
 				g.setColor(AwtUtil.getAwtColor(stop.getLine()));
-				Point p = getPoint(station.getLocation());
+				Point p = getPoint(stationToNode.get(station).location);
 				Arc2D arc = new Arc2D.Double(p.x - s / 2, p.y - s / 2, s, s, 0,
 						360, Arc2D.CHORD);
 				g.fill(arc);

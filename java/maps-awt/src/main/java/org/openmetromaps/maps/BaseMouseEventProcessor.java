@@ -24,8 +24,6 @@ import javax.swing.JComponent;
 
 import org.openmetromaps.swing.Util;
 
-import de.topobyte.jeography.core.mapwindow.SteplessMapWindow;
-
 public class BaseMouseEventProcessor implements MouseProcessor
 {
 

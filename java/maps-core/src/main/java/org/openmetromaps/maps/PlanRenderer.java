@@ -47,7 +47,6 @@ import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.BBoxHelper;
 import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.interactiveview.ZoomChangedListener;
-import de.topobyte.jeography.core.mapwindow.SteplessMapWindow;
 import de.topobyte.jsi.intersectiontester.RTreeIntersectionTester;
 import de.topobyte.jsi.intersectiontester.RectangleIntersectionTester;
 import de.topobyte.lightgeom.curves.spline.CubicSpline;

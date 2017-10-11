@@ -23,7 +23,6 @@ import java.awt.event.ComponentListener;
 import javax.swing.JPanel;
 
 import de.topobyte.adt.geo.Coordinate;
-import de.topobyte.jeography.core.mapwindow.SteplessMapWindow;
 import de.topobyte.jeography.core.viewbounds.ViewBounds;
 import de.topobyte.lightgeom.lina.Point;
 

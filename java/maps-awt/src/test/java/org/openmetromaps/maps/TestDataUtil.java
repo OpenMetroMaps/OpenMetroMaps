@@ -17,39 +17,22 @@
 
 package org.openmetromaps.maps;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkBuilder;
 
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelConverter;
-
-public class TestScrollableSimplePanel extends JPanel
+public class TestDataUtil
 {
 
-	private static final long serialVersionUID = 1L;
-
-	public static void main(String[] args) throws Exception
+	public static void ensureView(MapModel model)
 	{
-		XmlModel xmlModel = TestData.berlinXml();
+		if (!model.getViews().isEmpty()) {
+			return;
+		}
 
-		XmlModelConverter modelConverter = new XmlModelConverter();
-		MapModel model = modelConverter.convert(xmlModel);
-
-		TestDataUtil.ensureView(model);
-
+		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData());
+		LineNetwork lineNetwork = builder.getGraph();
 		ViewConfig viewConfig = ModelUtil.viewConfig(model.getData());
-
-		ScrollableSimplePanel panel = new ScrollableSimplePanel(model.getData(),
-				model.getViews().get(0), viewConfig.getStartPosition(), 10, 15,
-				viewConfig.getBbox());
-
-		JFrame frame = new JFrame("SimplePanel");
-
-		frame.add(panel);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1000, 800);
-		frame.setVisible(true);
+		model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
 	}
 
 }

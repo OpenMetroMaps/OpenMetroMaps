@@ -21,7 +21,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
@@ -37,13 +36,7 @@ public class TestScrollableAdvancedPanel extends JPanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		if (model.getViews().isEmpty()) {
-			LineNetworkBuilder builder = new LineNetworkBuilder(
-					model.getData());
-			LineNetwork lineNetwork = builder.getGraph();
-			ViewConfig viewConfig = ModelUtil.viewConfig(model.getData());
-			model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
-		}
+		TestDataUtil.ensureView(model);
 
 		LineNetwork lineNetwork = model.getViews().get(0).getLineNetwork();
 		MapViewStatus mapViewStatus = new MapViewStatus();

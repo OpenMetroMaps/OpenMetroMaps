@@ -24,6 +24,7 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.openmetromaps.maps.CoordinateConverter;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelReader;
 import org.openmetromaps.maps.xml.XmlStation;
@@ -32,7 +33,6 @@ import org.xml.sax.SAXException;
 import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.BBoxHelper;
 import de.topobyte.adt.geo.Coordinate;
-import de.topobyte.geomath.WGS84;
 
 public class TestConvertCoordinates
 {
@@ -58,38 +58,15 @@ public class TestConvertCoordinates
 		BBox bbox = BBoxHelper.minimumBoundingBox(coordinates);
 		System.out.println("bbox: " + bbox);
 
-		double worldsize = 1;
-
-		double x1 = WGS84.lon2merc(bbox.getLon1(), worldsize);
-		double x2 = WGS84.lon2merc(bbox.getLon2(), worldsize);
-
-		double y1 = WGS84.lat2merc(bbox.getLat1(), worldsize);
-		double y2 = WGS84.lat2merc(bbox.getLat2(), worldsize);
-
-		double spanX = Math.abs(x1 - x2);
-		double spanY = Math.abs(y1 - y2);
-
-		double biggerSpan = Math.max(spanX, spanY);
-		double factor = size / biggerSpan;
-
-		double minX = Math.min(x1, x2);
-		double minY = Math.min(y1, y2);
-
-		System.out.println(
-				String.format("coordinates: %f,%f:%f,%f", x1, x2, y1, y2));
-		System.out.println(String.format("spanX: %f, spanY: %f", spanX, spanY));
+		CoordinateConverter converter = new CoordinateConverter(bbox, size);
 
 		List<Coordinate> newCoordinates = new ArrayList<>();
 
 		for (Coordinate coordinate : coordinates) {
-			double x = WGS84.lon2merc(coordinate.getLongitude(), worldsize);
-			double y = WGS84.lat2merc(coordinate.getLatitude(), worldsize);
-			double dx = x - minX;
-			double dy = y - minY;
-			double sx = dx * factor;
-			double sy = dy * factor;
-			newCoordinates.add(new Coordinate(sx, sy));
-			System.out.println(String.format("%f, %f", sx, sy));
+			Coordinate c = converter.convert(coordinate);
+			newCoordinates.add(c);
+			System.out.println(
+					String.format("%f, %f", c.getLongitude(), c.getLatitude()));
 		}
 
 		Coordinate minimum = Coordinate.minimum(newCoordinates);

@@ -68,19 +68,24 @@ public class ModelUtil
 
 	public static ViewConfig viewConfig(LineNetwork lineNetwork)
 	{
-		List<Coordinate> coordinates = new ArrayList<>();
+		List<Coordinate> coords = new ArrayList<>();
 		for (Node node : lineNetwork.getNodes()) {
-			coordinates.add(node.location);
+			coords.add(node.location);
 		}
-		Coordinate min = Coordinate.minimum(coordinates);
-		Coordinate max = Coordinate.maximum(coordinates);
+		Coordinate min = Coordinate.minimum(coords);
+		Coordinate max = Coordinate.maximum(coords);
+
+		coords.sort(new CoordinateComparatorLongitude());
+		double medianX = coords.get(coords.size() / 2).getLongitude();
+
+		coords.sort(new CoordinateComparatorLatitude());
+		double medianY = coords.get(coords.size() / 2).getLatitude();
 
 		Rectangle scene = new Rectangle(min.lon, min.lat, max.lon, max.lat);
-		double x = (scene.getX1() + scene.getX2()) / 2;
-		double y = (scene.getY1() + scene.getY2()) / 2;
 
 		return new ViewConfig(scene,
-				new de.topobyte.viewports.geometry.Coordinate(x, y));
+				new de.topobyte.viewports.geometry.Coordinate(medianX,
+						medianY));
 	}
 
 }

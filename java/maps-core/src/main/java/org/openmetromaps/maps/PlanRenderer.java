@@ -218,7 +218,7 @@ public class PlanRenderer implements ViewportListener
 	public void zoomChanged()
 	{
 		double zoom = viewport.getZoom();
-		factor = (float) (zoom / 2);
+		factor = (float) (zoom / 3);
 		lineWidth = baseLineWidth * factor * scale;
 
 		List<NetworkLine> lines = lineNetwork.getLines();

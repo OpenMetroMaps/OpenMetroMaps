@@ -58,7 +58,7 @@ public class SimplePanel extends JPanel
 		this.data = data;
 		this.view = view;
 
-		ViewConfig viewConfig = ModelUtil.viewConfig(data);
+		DataConfig viewConfig = ModelUtil.dataConfig(data);
 		box = viewConfig.getBbox();
 
 		initInternalValues();

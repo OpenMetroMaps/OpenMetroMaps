@@ -29,16 +29,13 @@ import org.openmetromaps.maps.painting.awt.AwtPainter;
 import org.openmetromaps.maps.painting.core.GenericPaintFactory;
 import org.openmetromaps.maps.painting.core.Painter;
 
-import de.topobyte.adt.geo.BBox;
-import de.topobyte.adt.geo.Coordinate;
-import de.topobyte.jeography.core.viewbounds.BboxViewBounds;
-
 public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 {
 
 	private static final long serialVersionUID = 1L;
 
 	private ModelData data;
+	private MapView view;
 	private LineNetwork lineNetwork;
 	private MapViewStatus mapViewStatus;
 	private PlanRenderer renderer;
@@ -46,15 +43,16 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 	private StationMode stationMode;
 	private SegmentMode segmentMode;
 
-	public ScrollableAdvancedPanel(ModelData data, LineNetwork lineNetwork,
+	public ScrollableAdvancedPanel(ModelData data, MapView view,
 			MapViewStatus mapViewStatus, StationMode stationMode,
-			SegmentMode segmentMode, Coordinate startPosition, int minZoom,
-			int maxZoom, BBox boundsBox)
+			SegmentMode segmentMode, int minZoom, int maxZoom)
 	{
-		super(startPosition, minZoom, maxZoom, new BboxViewBounds(boundsBox));
+		super(view.getConfig().getScene());
+		// TODO: use start position
 
 		this.data = data;
-		this.lineNetwork = lineNetwork;
+		this.view = view;
+		this.lineNetwork = view.getLineNetwork();
 		this.mapViewStatus = mapViewStatus;
 		this.stationMode = stationMode;
 		this.segmentMode = segmentMode;
@@ -69,7 +67,7 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 	private void initRenderer()
 	{
 		renderer = new PlanRenderer(lineNetwork, mapViewStatus, stationMode,
-				segmentMode, mapWindow, this, 1, new GenericPaintFactory());
+				segmentMode, this, this, 1, new GenericPaintFactory());
 	}
 
 	public ModelData getData()
@@ -91,13 +89,13 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 		initRenderer();
 	}
 
-	public void setViewConfig(BBox boundsBox, Coordinate startPosition,
-			double zoomlevel)
+	public void setViewConfig(ViewConfig viewConfig, double zoomlevel)
 	{
-		mapWindow.setViewBounds(new BboxViewBounds(boundsBox));
-		mapWindow.gotoLonLat(startPosition.getLongitude(),
-				startPosition.getLatitude());
-		mapWindow.zoom(zoomlevel);
+		// TODO: re-enable this
+		// mapWindow.setViewBounds(new BboxViewBounds(boundsBox));
+		// mapWindow.gotoLonLat(startPosition.getLongitude(),
+		// startPosition.getLatitude());
+		// mapWindow.zoom(zoomlevel);
 	}
 
 	public PlanRenderer getPlanRenderer()

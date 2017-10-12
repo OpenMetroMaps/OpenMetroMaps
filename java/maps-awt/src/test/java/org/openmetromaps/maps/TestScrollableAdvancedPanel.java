@@ -20,9 +20,11 @@ package org.openmetromaps.maps;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
+
+import de.topobyte.viewports.scrolling.PanMouseAdapter;
+import de.topobyte.viewports.scrolling.ScrollableView;
 
 public class TestScrollableAdvancedPanel extends JPanel
 {
@@ -38,19 +40,26 @@ public class TestScrollableAdvancedPanel extends JPanel
 
 		TestDataUtil.ensureView(model);
 
-		LineNetwork lineNetwork = model.getViews().get(0).getLineNetwork();
+		CoordinateConversion.convertViews(model);
+
 		MapViewStatus mapViewStatus = new MapViewStatus();
 
-		ViewConfig viewConfig = ModelUtil.viewConfig(model.getData());
-
 		ScrollableAdvancedPanel panel = new ScrollableAdvancedPanel(
-				model.getData(), lineNetwork, mapViewStatus,
+				model.getData(), model.getViews().get(0), mapViewStatus,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				viewConfig.getStartPosition(), 10, 15, viewConfig.getBbox());
+				10, 15);
+
+		ScrollableView<ScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
+				panel);
+
+		PanMouseAdapter<ScrollableAdvancedPanel> panAdapter = new PanMouseAdapter<>(
+				panel);
+		panel.addMouseListener(panAdapter);
+		panel.addMouseMotionListener(panAdapter);
 
 		final JFrame frame = new JFrame("AdvancedPanel");
 
-		frame.add(panel);
+		frame.add(scrollableView);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 800);

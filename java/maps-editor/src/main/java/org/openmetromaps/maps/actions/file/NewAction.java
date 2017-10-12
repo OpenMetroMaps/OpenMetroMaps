@@ -34,8 +34,8 @@ import org.openmetromaps.maps.model.Station;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.topobyte.adt.geo.BBox;
-import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.viewports.geometry.Coordinate;
+import de.topobyte.viewports.geometry.Rectangle;
 
 public class NewAction extends MapEditorAction
 {
@@ -62,7 +62,7 @@ public class NewAction extends MapEditorAction
 		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData());
 		LineNetwork lineNetwork = builder.getGraph();
 
-		ViewConfig viewConfig = new ViewConfig(new BBox(10, 10, 20, 20),
+		ViewConfig viewConfig = new ViewConfig(new Rectangle(10, 10, 20, 20),
 				new Coordinate(15, 15));
 		model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
 

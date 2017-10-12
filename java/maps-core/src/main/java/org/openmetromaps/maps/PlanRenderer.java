@@ -46,7 +46,6 @@ import com.vividsolutions.jts.geom.Envelope;
 import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.BBoxHelper;
 import de.topobyte.adt.geo.Coordinate;
-import de.topobyte.interactiveview.ZoomChangedListener;
 import de.topobyte.jsi.intersectiontester.RTreeIntersectionTester;
 import de.topobyte.jsi.intersectiontester.RectangleIntersectionTester;
 import de.topobyte.lightgeom.curves.spline.CubicSpline;
@@ -54,8 +53,10 @@ import de.topobyte.lightgeom.curves.spline.CubicSplineB;
 import de.topobyte.lightgeom.curves.spline.SplineUtil;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
+import de.topobyte.viewports.scrolling.ViewportListener;
+import de.topobyte.viewports.scrolling.ViewportWithSignals;
 
-public class PlanRenderer implements ZoomChangedListener
+public class PlanRenderer implements ViewportListener
 {
 
 	static final Logger logger = LoggerFactory.getLogger(PlanRenderer.class);
@@ -96,7 +97,7 @@ public class PlanRenderer implements ZoomChangedListener
 	private MapViewStatus mapViewStatus;
 	private Map<NetworkLine, ColorCode> colors = new HashMap<>();
 
-	protected SteplessMapWindow mapWindow;
+	protected ViewportWithSignals viewport;
 	private LocationToPoint ltp;
 
 	private IPaintInfo[] lineToPaintForLines;
@@ -105,12 +106,12 @@ public class PlanRenderer implements ZoomChangedListener
 
 	public PlanRenderer(LineNetwork lineNetwork, MapViewStatus mapViewStatus,
 			StationMode stationMode, SegmentMode segmentMode,
-			SteplessMapWindow mapWindow, LocationToPoint ltp, float scale,
+			ViewportWithSignals viewport, LocationToPoint ltp, float scale,
 			PaintFactory pf)
 	{
 		this.lineNetwork = lineNetwork;
 		this.mapViewStatus = mapViewStatus;
-		this.mapWindow = mapWindow;
+		this.viewport = viewport;
 		this.ltp = ltp;
 
 		this.segmentMode = segmentMode;
@@ -132,7 +133,7 @@ public class PlanRenderer implements ZoomChangedListener
 
 		setupStationDrawer();
 
-		mapWindow.addZoomListener(this);
+		viewport.addViewportListener(this);
 		zoomChanged();
 	}
 
@@ -208,15 +209,16 @@ public class PlanRenderer implements ZoomChangedListener
 	}
 
 	@Override
+	public void viewportChanged()
+	{
+
+	}
+
+	@Override
 	public void zoomChanged()
 	{
-		double zoom = mapWindow.getZoom();
-		double f = zoom / 12;
-		if (factor > 1) {
-			factor = (float) Math.pow(f, 3);
-		} else {
-			factor = (float) Math.pow(f, 4);
-		}
+		double zoom = viewport.getZoom();
+		factor = (float) (zoom / 2);
 		lineWidth = baseLineWidth * factor * scale;
 
 		List<NetworkLine> lines = lineNetwork.getLines();
@@ -232,6 +234,12 @@ public class PlanRenderer implements ZoomChangedListener
 		stationDrawer.zoomChanged(factor, lineWidth);
 	}
 
+	@Override
+	public void complexChange()
+	{
+
+	}
+
 	private static final String LOG_SEGMENTS = "segments";
 	private static final String LOG_STATIONS = "stations";
 	private static final String LOG_LABELS = "labels";
@@ -239,12 +247,14 @@ public class PlanRenderer implements ZoomChangedListener
 
 	public void paint(Painter g)
 	{
-		SteplessMapWindow window = new SteplessMapWindow(
-				mapWindow.getWidth() + overDrawPixels,
-				mapWindow.getHeight() + overDrawPixels, mapWindow.getZoom(),
-				mapWindow.getCenterLon(), mapWindow.getCenterLat());
-		BBox bbox = window.getBoundingBox();
-		Envelope envelope = bbox.toEnvelope();
+		// TODO: re-enable envelope-checking
+		// SteplessMapWindow window = new SteplessMapWindow(
+		// mapWindow.getWidth() + overDrawPixels,
+		// mapWindow.getHeight() + overDrawPixels, mapWindow.getZoom(),
+		// mapWindow.getCenterLon(), mapWindow.getCenterLat());
+		// BBox bbox = window.getBoundingBox();
+		// Envelope envelope = bbox.toEnvelope();
+		Envelope envelope = null;
 
 		TimeMeasuring tm = new TimeMeasuring(logger);
 
@@ -267,9 +277,10 @@ public class PlanRenderer implements ZoomChangedListener
 
 			BBoxHelper.minimumBoundingBox(edgeBox, locationA, locationB);
 			edgeBox.toEnvelope(edgeEnvelope);
-			if (!envelope.intersects(edgeEnvelope)) {
-				continue;
-			}
+			// TODO: re-enable envelope-checking
+			// if (!envelope.intersects(edgeEnvelope)) {
+			// continue;
+			// }
 
 			double ax = ltp.getX(locationA.lon);
 			double ay = ltp.getY(locationA.lat);
@@ -299,9 +310,10 @@ public class PlanRenderer implements ZoomChangedListener
 			Node node = lineNetwork.nodes.get(i);
 			Coordinate location = node.location;
 
-			if (!envelope.contains(location.lon, location.lat)) {
-				continue;
-			}
+			// TODO: re-enable envelope-checking
+			// if (!envelope.contains(location.lon, location.lat)) {
+			// continue;
+			// }
 
 			boolean selected = mapViewStatus.isNodeSelected(node);
 
@@ -361,9 +373,10 @@ public class PlanRenderer implements ZoomChangedListener
 
 			Coordinate location = node.location;
 
-			if (!envelope.contains(location.lon, location.lat)) {
-				continue;
-			}
+			// TODO: re-enable envelope-checking
+			// if (!envelope.contains(location.lon, location.lat)) {
+			// continue;
+			// }
 
 			String name = station.getName();
 			Point p = ltp.getPoint(location);

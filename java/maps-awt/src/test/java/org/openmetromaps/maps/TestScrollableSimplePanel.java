@@ -23,6 +23,9 @@ import javax.swing.JPanel;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
+import de.topobyte.viewports.scrolling.PanMouseAdapter;
+import de.topobyte.viewports.scrolling.ScrollableView;
+
 public class TestScrollableSimplePanel extends JPanel
 {
 
@@ -37,15 +40,22 @@ public class TestScrollableSimplePanel extends JPanel
 
 		TestDataUtil.ensureView(model);
 
-		ViewConfig viewConfig = ModelUtil.viewConfig(model.getData());
+		CoordinateConversion.convertViews(model);
 
 		ScrollableSimplePanel panel = new ScrollableSimplePanel(model.getData(),
-				model.getViews().get(0), viewConfig.getStartPosition(), 10, 15,
-				viewConfig.getBbox());
+				model.getViews().get(0), 10, 15);
+
+		ScrollableView<ScrollableSimplePanel> scrollableView = new ScrollableView<>(
+				panel);
+
+		PanMouseAdapter<ScrollableSimplePanel> panAdapter = new PanMouseAdapter<>(
+				panel);
+		panel.addMouseListener(panAdapter);
+		panel.addMouseMotionListener(panAdapter);
 
 		JFrame frame = new JFrame("SimplePanel");
 
-		frame.add(panel);
+		frame.add(scrollableView);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 800);

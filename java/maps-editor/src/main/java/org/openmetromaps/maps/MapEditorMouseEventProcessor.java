@@ -26,8 +26,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.viewports.scrolling.ViewportUtil;
 
-public class MapEditorMouseEventProcessor extends BaseMouseEventProcessor
+public class MapEditorMouseEventProcessor
+		extends BaseMouseEventProcessor<BaseMapWindowPanel>
 {
 
 	final static Logger logger = LoggerFactory
@@ -37,7 +39,7 @@ public class MapEditorMouseEventProcessor extends BaseMouseEventProcessor
 
 	public MapEditorMouseEventProcessor(MapEditor mapEditor)
 	{
-		super(mapEditor.getMap(), mapEditor.getMap().getMapWindow());
+		super(mapEditor.getMap());
 		this.mapEditor = mapEditor;
 	}
 
@@ -123,17 +125,18 @@ public class MapEditorMouseEventProcessor extends BaseMouseEventProcessor
 	{
 		Coordinate old = node.location;
 
-		double oldX = mapWindow.getX(old.getLongitude());
-		double oldY = mapWindow.getY(old.getLatitude());
+		double oldX = ViewportUtil.getViewX(mapEditor.getMap(),
+				old.getLongitude());
+		double oldY = ViewportUtil.getViewY(mapEditor.getMap(),
+				old.getLatitude());
 
 		double newX = oldX + dx;
 		double newY = oldY + dy;
 
-		// TODO: after moving to new coordinate system, remove the rounding
-		double lon = mapWindow.getPositionLon((int) Math.round(newX));
-		double lat = mapWindow.getPositionLat((int) Math.round(newY));
+		double x = ViewportUtil.getRealX(mapEditor.getMap(), newX);
+		double y = ViewportUtil.getRealY(mapEditor.getMap(), newY);
 
-		node.location = new Coordinate(lon, lat);
+		node.location = new Coordinate(x, y);
 	}
 
 }

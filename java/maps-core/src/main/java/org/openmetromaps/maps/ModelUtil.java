@@ -20,6 +20,8 @@ package org.openmetromaps.maps;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
@@ -29,6 +31,7 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.BBoxHelper;
 import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.viewports.geometry.Rectangle;
 
 public class ModelUtil
 {
@@ -39,7 +42,7 @@ public class ModelUtil
 		return new ColorCode(Integer.decode(sColor));
 	}
 
-	public static ViewConfig viewConfig(ModelData model)
+	public static DataConfig dataConfig(ModelData model)
 	{
 		List<Coordinate> coords = new ArrayList<>();
 		for (Station station : model.stations) {
@@ -60,7 +63,24 @@ public class ModelUtil
 
 		Coordinate startPosition = new Coordinate(medianLon, medianLat);
 
-		return new ViewConfig(bbox, startPosition);
+		return new DataConfig(bbox, startPosition);
+	}
+
+	public static ViewConfig viewConfig(LineNetwork lineNetwork)
+	{
+		List<Coordinate> coordinates = new ArrayList<>();
+		for (Node node : lineNetwork.getNodes()) {
+			coordinates.add(node.location);
+		}
+		Coordinate min = Coordinate.minimum(coordinates);
+		Coordinate max = Coordinate.maximum(coordinates);
+
+		Rectangle scene = new Rectangle(min.lon, min.lat, max.lon, max.lat);
+		double x = (scene.getX1() + scene.getX2()) / 2;
+		double y = (scene.getY1() + scene.getY2()) / 2;
+
+		return new ViewConfig(scene,
+				new de.topobyte.viewports.geometry.Coordinate(x, y));
 	}
 
 }

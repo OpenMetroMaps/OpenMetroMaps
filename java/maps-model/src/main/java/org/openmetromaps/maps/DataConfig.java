@@ -17,22 +17,39 @@
 
 package org.openmetromaps.maps;
 
-import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.LineNetworkBuilder;
+import de.topobyte.adt.geo.BBox;
+import de.topobyte.adt.geo.Coordinate;
 
-public class TestDataUtil
+public class DataConfig
 {
 
-	public static void ensureView(MapModel model)
-	{
-		if (!model.getViews().isEmpty()) {
-			return;
-		}
+	private BBox bbox;
+	private Coordinate startPosition;
 
-		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData());
-		LineNetwork lineNetwork = builder.getGraph();
-		ViewConfig viewConfig = ModelUtil.viewConfig(lineNetwork);
-		model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
+	public DataConfig(BBox bbox, Coordinate startPosition)
+	{
+		this.bbox = bbox;
+		this.startPosition = startPosition;
+	}
+
+	public BBox getBbox()
+	{
+		return bbox;
+	}
+
+	public void setBbox(BBox bbox)
+	{
+		this.bbox = bbox;
+	}
+
+	public Coordinate getStartPosition()
+	{
+		return startPosition;
+	}
+
+	public void setStartPosition(Coordinate startPosition)
+	{
+		this.startPosition = startPosition;
 	}
 
 }

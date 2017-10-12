@@ -24,17 +24,21 @@ import javax.swing.JComponent;
 
 import org.openmetromaps.swing.Util;
 
-public class BaseMouseEventProcessor implements MouseProcessor
+import de.topobyte.viewports.scrolling.ViewportMouseListener;
+import de.topobyte.viewports.scrolling.ViewportUtil;
+import de.topobyte.viewports.scrolling.ViewportWithSignals;
+
+public class BaseMouseEventProcessor<T extends JComponent & ViewportWithSignals>
+		extends ViewportMouseListener implements MouseProcessor
 {
 
-	protected JComponent c;
-	protected SteplessMapWindow mapWindow;
+	protected T c;
 	protected double zoomStep = 0.1;
 
-	public BaseMouseEventProcessor(JComponent c, SteplessMapWindow mapWindow)
+	public BaseMouseEventProcessor(T c)
 	{
+		super(c);
 		this.c = c;
-		this.mapWindow = mapWindow;
 	}
 
 	private java.awt.Point pointPress;
@@ -52,13 +56,16 @@ public class BaseMouseEventProcessor implements MouseProcessor
 				if (!control) {
 					zoomFixed(e.getPoint(), true, zoomStep);
 				} else {
-					mapWindow.zoomInToPosition(e.getX(), e.getY(), zoomStep);
+					// TODO: re-enable zoom-and-center
+					// mapWindow.zoomInToPosition(e.getX(), e.getY(), zoomStep);
 				}
 			} else if (e.getButton() == MouseEvent.BUTTON3) {
 				if (!control) {
 					zoomFixed(e.getPoint(), false, zoomStep);
 				} else {
-					mapWindow.zoomOutToPosition(e.getX(), e.getY(), zoomStep);
+					// TODO: re-enable zoom-and-center
+					// mapWindow.zoomOutToPosition(e.getX(), e.getY(),
+					// zoomStep);
 				}
 			}
 			c.repaint();
@@ -103,7 +110,8 @@ public class BaseMouseEventProcessor implements MouseProcessor
 			int dy = pointPress.y - currentPoint.y;
 			pointPress = currentPoint;
 			// down right movement is negative for both
-			mapWindow.move(dx, dy);
+			c.setPositionX(c.getPositionX() - dx / c.getZoom());
+			c.setPositionY(c.getPositionY() - dy / c.getZoom());
 			c.repaint();
 		}
 	}
@@ -128,22 +136,26 @@ public class BaseMouseEventProcessor implements MouseProcessor
 
 	private void zoomFixed(java.awt.Point point, boolean in, double zoomStep)
 	{
-		// (lon, lat) that we want to keep fixed at the screen point (x, y)
-		double flon = mapWindow.getPositionLon(point.x);
-		double flat = mapWindow.getPositionLat(point.y);
+		// (x, y) that we want to keep fixed at the screen point (x, y)
+		double frx = ViewportUtil.getRealX(c, point.x);
+		double fry = ViewportUtil.getRealY(c, point.y);
 
 		if (in) {
-			mapWindow.zoomIn(zoomStep);
+			c.setZoom(c.getZoom() * (1 + zoomStep));
 		} else {
-			mapWindow.zoomOut(zoomStep);
+			c.setZoom(c.getZoom() / (1 + zoomStep));
 		}
 
 		// (x, y) of the (lon, lat) after applying the zoom change
-		double fx = mapWindow.getX(flon);
-		double fy = mapWindow.getY(flat);
+		double fx = ViewportUtil.getViewX(c, frx);
+		double fy = ViewportUtil.getViewY(c, fry);
+
 		// shift the map to keep the (lon, lat) fixed
-		mapWindow.move((int) Math.round(fx - point.x),
-				(int) Math.round(fy - point.y));
+		double dx = fx - point.x;
+		double dy = fy - point.y;
+
+		c.setPositionX(c.getPositionX() - dx / c.getZoom());
+		c.setPositionY(c.getPositionY() - dy / c.getZoom());
 	}
 
 }

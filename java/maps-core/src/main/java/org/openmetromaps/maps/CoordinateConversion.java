@@ -20,6 +20,7 @@ package org.openmetromaps.maps;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.Node;
 
 import de.topobyte.adt.geo.BBox;
@@ -49,6 +50,17 @@ public class CoordinateConversion
 		for (Node node : view.getLineNetwork().getNodes()) {
 			node.location = converter.convert(node.location);
 		}
+
+		for (Edge edge : view.getLineNetwork().getEdges()) {
+			if (edge.prev != null) {
+				edge.prev = converter.convert(edge.prev);
+			}
+			if (edge.next != null) {
+				edge.next = converter.convert(edge.next);
+			}
+		}
+
+		view.setConfig(ModelUtil.viewConfig(view.getLineNetwork()));
 	}
 
 }

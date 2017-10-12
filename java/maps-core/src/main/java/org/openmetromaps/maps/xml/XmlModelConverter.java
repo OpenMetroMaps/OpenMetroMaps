@@ -127,7 +127,7 @@ public class XmlModelConverter
 			LineNetworkBuilder builder = new LineNetworkBuilder(
 					model.getData());
 			LineNetwork lineNetwork = builder.getGraph();
-			ViewConfig viewConfig = ModelUtil.viewConfig(data);
+			ViewConfig viewConfig = ModelUtil.viewConfig(lineNetwork);
 			model.getViews().add(
 					new MapView(xmlView.getName(), lineNetwork, viewConfig));
 

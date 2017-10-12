@@ -64,7 +64,9 @@ public class MoveAction extends SimpleAction
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		map.getMapWindow().move(dx, dy);
+		map.setPositionX(map.getPositionX() - dx);
+		map.setPositionY(map.getPositionY() - dy);
+		map.checkBounds();
 		map.repaint();
 	}
 

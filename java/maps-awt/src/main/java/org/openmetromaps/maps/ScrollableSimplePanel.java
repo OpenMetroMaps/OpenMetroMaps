@@ -33,9 +33,7 @@ import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
 
-import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.Coordinate;
-import de.topobyte.jeography.core.viewbounds.BboxViewBounds;
 import de.topobyte.lightgeom.lina.Point;
 
 public class ScrollableSimplePanel extends BaseMapWindowPanel
@@ -46,10 +44,12 @@ public class ScrollableSimplePanel extends BaseMapWindowPanel
 	private ModelData data;
 	private MapView view;
 
-	public ScrollableSimplePanel(ModelData data, MapView view,
-			Coordinate startPosition, int minZoom, int maxZoom, BBox boundsBox)
+	public ScrollableSimplePanel(ModelData data, MapView view, int minZoom,
+			int maxZoom)
 	{
-		super(startPosition, minZoom, maxZoom, new BboxViewBounds(boundsBox));
+		super(view.getConfig().getScene());
+		// TODO: use start position
+
 		this.data = data;
 		this.view = view;
 

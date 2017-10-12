@@ -17,29 +17,29 @@
 
 package org.openmetromaps.maps;
 
-import de.topobyte.adt.geo.BBox;
-import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.viewports.geometry.Coordinate;
+import de.topobyte.viewports.geometry.Rectangle;
 
 public class ViewConfig
 {
 
-	private BBox bbox;
+	private Rectangle scene;
 	private Coordinate startPosition;
 
-	public ViewConfig(BBox bbox, Coordinate startPosition)
+	public ViewConfig(Rectangle scene, Coordinate startPosition)
 	{
-		this.bbox = bbox;
+		this.scene = scene;
 		this.startPosition = startPosition;
 	}
 
-	public BBox getBbox()
+	public Rectangle getScene()
 	{
-		return bbox;
+		return scene;
 	}
 
-	public void setBbox(BBox bbox)
+	public void setScene(Rectangle scene)
 	{
-		this.bbox = bbox;
+		this.scene = scene;
 	}
 
 	public Coordinate getStartPosition()

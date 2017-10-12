@@ -17,41 +17,27 @@
 
 package org.openmetromaps.maps;
 
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-
-import javax.swing.JPanel;
-
 import de.topobyte.adt.geo.Coordinate;
-import de.topobyte.jeography.core.viewbounds.ViewBounds;
 import de.topobyte.lightgeom.lina.Point;
+import de.topobyte.viewports.BaseScenePanel;
+import de.topobyte.viewports.geometry.Rectangle;
+import de.topobyte.viewports.scrolling.ViewportUtil;
 
-public class BaseMapWindowPanel extends JPanel
-		implements ComponentListener, LocationToPoint
+public class BaseMapWindowPanel extends BaseScenePanel
+		implements LocationToPoint
 {
 
 	private static final long serialVersionUID = 1L;
 
-	protected SteplessMapWindow mapWindow;
-
 	private MouseProcessor mouseProcessor = null;
 
-	public BaseMapWindowPanel(Coordinate position, int minZoom, int maxZoom,
-			ViewBounds bounds)
+	public BaseMapWindowPanel(Rectangle scene)
 	{
-		mapWindow = new SteplessMapWindow(1, 1, Constants.DEFAULT_ZOOM,
-				position.getLongitude(), position.getLatitude());
-		mapWindow.setMinZoom(minZoom);
-		mapWindow.setMaxZoom(maxZoom);
-		if (bounds != null) {
-			mapWindow.setViewBounds(bounds);
-		}
+		super(scene);
 
-		BaseMouseEventProcessor mep = new BaseMouseEventProcessor(this,
-				mapWindow);
+		BaseMouseEventProcessor<BaseMapWindowPanel> mep = new BaseMouseEventProcessor<>(
+				this);
 		setMouseProcessor(mep);
-
-		addComponentListener(this);
 	}
 
 	public void setMouseProcessor(MouseProcessor mouseProcessor)
@@ -68,67 +54,37 @@ public class BaseMapWindowPanel extends JPanel
 	}
 
 	@Override
-	// from ComponentListener
-	public void componentResized(ComponentEvent e)
-	{
-		int width = getWidth();
-		int height = getHeight();
-		mapWindow.resize(width, height);
-		repaint();
-	}
-
-	@Override
-	// from ComponentListener
-	public void componentHidden(ComponentEvent e)
-	{
-		// do nothing here
-	}
-
-	@Override
-	// from ComponentListener
-	public void componentMoved(ComponentEvent e)
-	{
-		// do nothing here
-	}
-
-	@Override
-	// from ComponentListener
-	public void componentShown(ComponentEvent e)
-	{
-		// do nothing here
-	}
-
-	@Override
 	public Point getPoint(Coordinate location)
 	{
-		double x = mapWindow.getX(location.lon);
-		double y = mapWindow.getY(location.lat);
+		double x = ViewportUtil.getViewX(this, location.lon);
+		double y = ViewportUtil.getViewY(this, location.lat);
 		return new Point(x, y);
 	}
 
 	@Override
 	public Point getPoint(Coordinate location, Point point)
 	{
-		double x = mapWindow.getX(location.lon);
-		double y = mapWindow.getY(location.lat);
+		double x = ViewportUtil.getViewX(this, location.lon);
+		double y = ViewportUtil.getViewY(this, location.lat);
 		return point.set(x, y);
 	}
 
 	@Override
 	public double getX(double lon)
 	{
-		return mapWindow.getX(lon);
+		return ViewportUtil.getViewX(this, lon);
 	}
 
 	@Override
 	public double getY(double lat)
 	{
-		return mapWindow.getY(lat);
+		return ViewportUtil.getViewY(this, lat);
 	}
 
-	public SteplessMapWindow getMapWindow()
+	@Override
+	public void checkBounds()
 	{
-		return mapWindow;
+		super.checkBounds();
 	}
 
 }

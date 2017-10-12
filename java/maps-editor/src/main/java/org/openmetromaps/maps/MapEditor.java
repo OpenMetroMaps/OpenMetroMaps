@@ -70,6 +70,9 @@ import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.JMenus;
 import de.topobyte.swing.util.action.enums.DefaultAppearance;
 import de.topobyte.swing.util.action.enums.EnumActions;
+import de.topobyte.viewports.scrolling.PanMouseAdapter;
+import de.topobyte.viewports.scrolling.ScrollableView;
+import de.topobyte.viewports.scrolling.ViewportUtil;
 
 public class MapEditor
 {
@@ -104,8 +107,7 @@ public class MapEditor
 	{
 		init(model);
 		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
-		map.setViewConfig(viewConfig.getBbox(), viewConfig.getStartPosition(),
-				Constants.DEFAULT_ZOOM);
+		map.setViewConfig(viewConfig, Constants.DEFAULT_ZOOM);
 		selectNone();
 	}
 
@@ -113,13 +115,15 @@ public class MapEditor
 	{
 		this.model = model;
 
+		CoordinateConversion.convertViews(model);
+
 		mapViewStatus = new MapViewStatus();
 
 		if (model.getViews().isEmpty()) {
 			LineNetworkBuilder builder = new LineNetworkBuilder(
 					model.getData());
 			LineNetwork lineNetwork = builder.getGraph();
-			ViewConfig viewConfig = ModelUtil.viewConfig(model.getData());
+			ViewConfig viewConfig = ModelUtil.viewConfig(lineNetwork);
 			model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
 		}
 
@@ -320,10 +324,17 @@ public class MapEditor
 		JPanel panel = new JPanel(new GridBagLayout());
 		frame.setContentPane(panel);
 
-		map = new ScrollableAdvancedPanel(model.getData(),
-				view.getLineNetwork(), mapViewStatus,
+		map = new ScrollableAdvancedPanel(model.getData(), view, mapViewStatus,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				viewConfig.getStartPosition(), 10, 15, viewConfig.getBbox());
+				10, 15);
+
+		ScrollableView<ScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
+				map);
+
+		PanMouseAdapter<ScrollableAdvancedPanel> panAdapter = new PanMouseAdapter<>(
+				map);
+		map.addMouseListener(panAdapter);
+		map.addMouseMotionListener(panAdapter);
 
 		statusBar = new StatusBar();
 
@@ -339,7 +350,7 @@ public class MapEditor
 		grid = new CGrid(control);
 
 		DefaultSingleCDockable mapDockable = new DefaultSingleCDockable("Map",
-				"Map", map);
+				"Map", scrollableView);
 		grid.add(0, 0, 1, 1, mapDockable);
 		mapDockable.setExternalizable(false);
 		mapDockable.setCloseable(false);
@@ -352,16 +363,12 @@ public class MapEditor
 
 	protected void updateStatusBar(int x, int y)
 	{
-		double lon = map.getMapWindow().getPositionLon(x);
-		double lat = map.getMapWindow().getPositionLat(y);
-
 		Node node = mouseNode(x, y);
 
 		String stationName = node == null ? "none" : node.station.getName();
 
-		statusBar.setText(String.format(
-				"Location: %d,%d, Coordinates: %.6f,%.6f, Station: %s", x, y,
-				lon, lat, stationName));
+		statusBar.setText(String.format("Location: %d,%d, Station: %s", x, y,
+				stationName));
 	}
 
 	protected Node mouseNode(int x, int y)
@@ -372,8 +379,8 @@ public class MapEditor
 			return null;
 		}
 
-		double sx = map.getMapWindow().longitudeToX(best.location.lon);
-		double sy = map.getMapWindow().latitudeToY(best.location.lat);
+		double sx = ViewportUtil.getViewX(map, best.location.lon);
+		double sy = ViewportUtil.getViewY(map, best.location.lat);
 
 		double dx = Math.abs(sx - x);
 		double dy = Math.abs(sy - y);
@@ -386,10 +393,10 @@ public class MapEditor
 		return null;
 	}
 
-	protected Node closestNode(int x, int y)
+	protected Node closestNode(int vx, int vy)
 	{
-		double lon = map.getMapWindow().getPositionLon(x);
-		double lat = map.getMapWindow().getPositionLat(y);
+		double x = ViewportUtil.getRealX(map, vx);
+		double y = ViewportUtil.getRealY(map, vy);
 
 		LineNetwork lineNetwork = map.getPlanRenderer().getLineNetwork();
 
@@ -400,7 +407,7 @@ public class MapEditor
 		for (Node node : lineNetwork.nodes) {
 			Coordinate location = node.location;
 			double d = WGS84.haversineDistance(location.getLongitude(),
-					location.getLatitude(), lon, lat);
+					location.getLatitude(), x, y);
 			if (d < bestDistance) {
 				bestDistance = d;
 				best = node;

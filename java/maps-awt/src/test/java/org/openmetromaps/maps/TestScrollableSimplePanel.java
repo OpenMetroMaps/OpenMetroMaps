@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
+import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.scrolling.PanMouseAdapter;
 import de.topobyte.viewports.scrolling.ScrollableView;
 
@@ -44,6 +45,10 @@ public class TestScrollableSimplePanel extends JPanel
 
 		ScrollableSimplePanel panel = new ScrollableSimplePanel(model.getData(),
 				model.getViews().get(0), 10, 15);
+
+		Coordinate start = model.getViews().get(0).getConfig()
+				.getStartPosition();
+		new InitialViewportSetupListener(panel, start);
 
 		ScrollableView<ScrollableSimplePanel> scrollableView = new ScrollableView<>(
 				panel);

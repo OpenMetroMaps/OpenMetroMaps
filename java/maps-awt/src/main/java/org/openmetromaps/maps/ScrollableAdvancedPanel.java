@@ -30,6 +30,8 @@ import org.openmetromaps.maps.painting.awt.AwtPainter;
 import org.openmetromaps.maps.painting.core.GenericPaintFactory;
 import org.openmetromaps.maps.painting.core.Painter;
 
+import de.topobyte.viewports.geometry.Coordinate;
+
 public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 {
 
@@ -49,7 +51,10 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 			SegmentMode segmentMode, int minZoom, int maxZoom)
 	{
 		super(view.getConfig().getScene());
-		// TODO: use start position
+
+		ViewConfig config = view.getConfig();
+		setPositionX(-config.getStartPosition().getX());
+		setPositionY(-config.getStartPosition().getY());
 
 		this.data = data;
 		this.view = view;
@@ -92,11 +97,10 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 
 	public void setViewConfig(ViewConfig viewConfig, double zoomlevel)
 	{
-		// TODO: re-enable this
-		// mapWindow.setViewBounds(new BboxViewBounds(boundsBox));
-		// mapWindow.gotoLonLat(startPosition.getLongitude(),
-		// startPosition.getLatitude());
-		// mapWindow.zoom(zoomlevel);
+		setZoom(zoomlevel);
+		Coordinate start = viewConfig.getStartPosition();
+		setPositionX(-start.getX() + getWidth() / 2);
+		setPositionY(-start.getY() + getHeight() / 2);
 	}
 
 	public PlanRenderer getPlanRenderer()

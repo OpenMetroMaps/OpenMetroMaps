@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
+import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.scrolling.PanMouseAdapter;
 import de.topobyte.viewports.scrolling.ScrollableView;
 
@@ -48,6 +49,10 @@ public class TestScrollableAdvancedPanel extends JPanel
 				model.getData(), model.getViews().get(0), mapViewStatus,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
 				10, 15);
+
+		Coordinate start = model.getViews().get(0).getConfig()
+				.getStartPosition();
+		new InitialViewportSetupListener(panel, start);
 
 		ScrollableView<ScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
 				panel);

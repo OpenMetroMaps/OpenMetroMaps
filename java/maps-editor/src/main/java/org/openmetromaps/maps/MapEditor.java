@@ -207,6 +207,9 @@ public class MapEditor
 		MapEditorMouseEventProcessor mep = new MapEditorMouseEventProcessor(
 				this);
 		map.setMouseProcessor(mep);
+
+		new InitialViewportSetupListener(map,
+				model.getViews().get(0).getConfig().getStartPosition());
 	}
 
 	private void setupMenu()

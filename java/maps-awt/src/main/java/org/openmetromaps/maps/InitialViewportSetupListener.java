@@ -17,9 +17,31 @@
 
 package org.openmetromaps.maps;
 
-public class Constants
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
+import de.topobyte.viewports.geometry.Coordinate;
+
+public class InitialViewportSetupListener extends ComponentAdapter
 {
 
-	public static double DEFAULT_ZOOM = 1;
+	private BaseMapWindowPanel panel;
+	private Coordinate start;
+
+	public InitialViewportSetupListener(BaseMapWindowPanel panel, Coordinate start)
+	{
+		this.panel = panel;
+		this.start = start;
+		panel.addComponentListener(this);
+	}
+
+	@Override
+	public void componentResized(ComponentEvent e)
+	{
+		super.componentResized(e);
+		panel.removeComponentListener(this);
+		panel.setPositionX(-start.getX() + panel.getWidth() / 2);
+		panel.setPositionY(-start.getY() + panel.getHeight() / 2);
+	}
 
 }

@@ -17,6 +17,7 @@
 
 package org.openmetromaps.maps;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -113,6 +114,9 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
 		Painter painter = new AwtPainter(g);
+
+		g.setColor(Color.WHITE);
+		fillRect(g, scene.getX1(), scene.getY1(), scene.getX2(), scene.getY2());
 
 		renderer.paint(painter);
 	}

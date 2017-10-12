@@ -65,6 +65,9 @@ public class ScrollableSimplePanel extends BaseMapWindowPanel
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
+		g.setColor(Color.WHITE);
+		fillRect(g, scene.getX1(), scene.getY1(), scene.getX2(), scene.getY2());
+
 		float s = 10;
 		float w = 3;
 

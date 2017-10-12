@@ -17,10 +17,17 @@
 
 package org.openmetromaps.maps;
 
-import de.topobyte.adt.geo.Coordinate;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
+
 import de.topobyte.lightgeom.lina.Point;
+import de.topobyte.lina.Matrix;
 import de.topobyte.viewports.BaseScenePanel;
+import de.topobyte.viewports.geometry.Coordinate;
+import de.topobyte.viewports.geometry.CoordinateTransformer;
 import de.topobyte.viewports.geometry.Rectangle;
+import de.topobyte.viewports.scrolling.TransformHelper;
 import de.topobyte.viewports.scrolling.ViewportUtil;
 
 public class BaseMapWindowPanel extends BaseScenePanel
@@ -54,7 +61,7 @@ public class BaseMapWindowPanel extends BaseScenePanel
 	}
 
 	@Override
-	public Point getPoint(Coordinate location)
+	public Point getPoint(de.topobyte.adt.geo.Coordinate location)
 	{
 		double x = ViewportUtil.getViewX(this, location.lon);
 		double y = ViewportUtil.getViewY(this, location.lat);
@@ -62,7 +69,7 @@ public class BaseMapWindowPanel extends BaseScenePanel
 	}
 
 	@Override
-	public Point getPoint(Coordinate location, Point point)
+	public Point getPoint(de.topobyte.adt.geo.Coordinate location, Point point)
 	{
 		double x = ViewportUtil.getViewX(this, location.lon);
 		double y = ViewportUtil.getViewY(this, location.lat);
@@ -85,6 +92,31 @@ public class BaseMapWindowPanel extends BaseScenePanel
 	public void checkBounds()
 	{
 		super.checkBounds();
+	}
+
+	private CoordinateTransformer transformer;
+
+	@Override
+	protected void paintComponent(Graphics graphics)
+	{
+		super.paintComponent(graphics);
+
+		Matrix matrix = TransformHelper.createMatrix(scene, this);
+		transformer = new CoordinateTransformer(matrix);
+	}
+
+	protected void fillRect(Graphics2D g, double x1, double y1, double x2,
+			double y2)
+	{
+		Coordinate start = new Coordinate(x1, y1);
+		Coordinate end = new Coordinate(x2, y2);
+		Coordinate tStart = transformer.transform(start);
+		Coordinate tEnd = transformer.transform(end);
+
+		Rectangle2D rectangle = new Rectangle2D.Double(tStart.getX(),
+				tStart.getY(), tEnd.getX() - tStart.getX(),
+				tEnd.getY() - tStart.getY());
+		g.fill(rectangle);
 	}
 
 }

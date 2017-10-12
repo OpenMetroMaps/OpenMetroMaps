@@ -229,7 +229,7 @@ public class PlanRenderer implements ViewportListener
 			paint.setWidth(lineWidth);
 		}
 
-		onlyImportant = zoom < 12;
+		onlyImportant = zoom < 2.2;
 
 		stationDrawer.zoomChanged(factor, lineWidth);
 	}

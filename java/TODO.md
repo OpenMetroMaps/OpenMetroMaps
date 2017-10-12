@@ -1,7 +1,6 @@
 # MapEditor
 
 ## Open
-* simpler non-geographic coordinate system
 * integrate import tool
 * new station action
 * delete station action
@@ -16,3 +15,4 @@
 ## Done
 * bulk station dragging
 * new file action
+* simpler non-geographic coordinate system

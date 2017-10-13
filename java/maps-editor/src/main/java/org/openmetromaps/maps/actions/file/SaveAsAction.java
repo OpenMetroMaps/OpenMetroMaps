@@ -20,6 +20,7 @@ package org.openmetromaps.maps.actions.file;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.nio.file.Path;
 
 import javax.swing.JFileChooser;
 
@@ -45,9 +46,14 @@ public class SaveAsAction extends MapEditorAction
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
+		Path lastUsed = mapEditor.getVolatileConfig().getLastUsedDirectory();
+
 		// TODO: if file exists, ask user if we should overwrite it
 		Window frame = mapEditor.getFrame();
 		JFileChooser chooser = new JFileChooser();
+		if (lastUsed != null) {
+			chooser.setCurrentDirectory(lastUsed.toFile());
+		}
 		chooser.setDialogTitle("Save As...");
 		int value = chooser.showSaveDialog(frame);
 		if (value == JFileChooser.APPROVE_OPTION) {

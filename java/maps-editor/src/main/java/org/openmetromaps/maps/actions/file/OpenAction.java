@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import javax.swing.JFileChooser;
 import javax.xml.parsers.ParserConfigurationException;
@@ -52,8 +53,13 @@ public class OpenAction extends MapEditorAction
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
+		Path lastUsed = mapEditor.getVolatileConfig().getLastUsedDirectory();
+
 		Window frame = mapEditor.getFrame();
 		JFileChooser chooser = new JFileChooser();
+		if (lastUsed != null) {
+			chooser.setCurrentDirectory(lastUsed.toFile());
+		}
 		int value = chooser.showOpenDialog(frame);
 		if (value == JFileChooser.APPROVE_OPTION) {
 			File file = chooser.getSelectedFile();

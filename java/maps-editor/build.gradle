@@ -10,6 +10,8 @@ dependencies {
     compile 'org.dockingframes:docking-frames-core:1.1.1'
     compile 'org.dockingframes:docking-frames-common:1.1.1'
 
+    compile 'dom4j:dom4j:1.6.1'
+
     testCompile project(':openmetromaps-test-data')
     testCompile 'junit:junit:4.12'
 }

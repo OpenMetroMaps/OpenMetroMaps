@@ -1,0 +1,4 @@
+<configuration>
+  <option name="look-and-feel" value="javax.swing.plaf.metal.MetalLookAndFeel"/>
+  <option name="docking-frames-theme" value="basic"/>
+</configuration>

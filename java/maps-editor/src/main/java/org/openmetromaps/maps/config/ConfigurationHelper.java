@@ -17,8 +17,11 @@
 
 package org.openmetromaps.maps.config;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Path;
 
+import de.topobyte.melon.io.StreamUtil;
 import de.topobyte.system.utils.SystemPaths;
 
 public class ConfigurationHelper
@@ -35,6 +38,22 @@ public class ConfigurationHelper
 	public static Path getUserVolatileFilePath()
 	{
 		return openmetromaps.resolve("map-editor-volatile.xml");
+	}
+
+	public static void store(PermanentConfiguration config) throws IOException
+	{
+		Path path = getUserConfigurationFilePath();
+		OutputStream out = StreamUtil.bufferedOutputStream(path);
+		PermanentConfigWriter.write(config, out);
+		out.close();
+	}
+
+	public static void store(VolatileConfiguration config) throws IOException
+	{
+		Path path = ConfigurationHelper.getUserVolatileFilePath();
+		OutputStream out = StreamUtil.bufferedOutputStream(path);
+		VolatileConfigWriter.write(config, out);
+		out.close();
 	}
 
 }

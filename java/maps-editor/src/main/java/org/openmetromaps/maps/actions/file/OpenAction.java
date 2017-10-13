@@ -30,6 +30,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.actions.MapEditorAction;
+import org.openmetromaps.maps.config.ConfigurationHelper;
+import org.openmetromaps.maps.config.VolatileConfiguration;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
@@ -53,7 +55,8 @@ public class OpenAction extends MapEditorAction
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		Path lastUsed = mapEditor.getVolatileConfig().getLastUsedDirectory();
+		VolatileConfiguration config = mapEditor.getVolatileConfig();
+		Path lastUsed = config.getLastUsedDirectory();
 
 		Window frame = mapEditor.getFrame();
 		JFileChooser chooser = new JFileChooser();
@@ -77,6 +80,14 @@ public class OpenAction extends MapEditorAction
 					| IOException e) {
 				logger.error("Error while loading file", e);
 				// TODO: display an error dialog
+			}
+
+			Path newLastUsed = file.toPath().getParent();
+			config.setLastUsedDirectory(newLastUsed);
+			try {
+				ConfigurationHelper.store(config);
+			} catch (IOException e) {
+				logger.warn("Unable to store volatile configuration", e);
 			}
 		}
 	}

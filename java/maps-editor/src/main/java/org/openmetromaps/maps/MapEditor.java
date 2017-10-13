@@ -94,6 +94,9 @@ public class MapEditor
 	private StationPanel stationPanel;
 	private DefaultSingleCDockable stationPanelDockable;
 
+	private ViewportPanel viewportPanel;
+	private DefaultSingleCDockable viewportPanelDockable;
+
 	private List<DataChangeListener> dataChangeListeners;
 
 	public MapEditor(MapModel model)
@@ -354,12 +357,13 @@ public class MapEditor
 
 		DefaultSingleCDockable mapDockable = new DefaultSingleCDockable("Map",
 				"Map", scrollableView);
-		grid.add(0, 0, 1, 1, mapDockable);
+		grid.add(0, 0, 10, 10, mapDockable);
 		mapDockable.setExternalizable(false);
 		mapDockable.setCloseable(false);
 		mapDockable.setMinimizable(false);
 
 		setupStationPanel(true);
+		setupViewportPanel(true);
 
 		control.getContentArea().deploy(grid);
 	}
@@ -460,10 +464,23 @@ public class MapEditor
 		stationPanelDockable = new DefaultSingleCDockable("station-panel",
 				"Station Panel", stationPanel);
 
-		grid.add(1, 0, 0.3, 1, stationPanelDockable);
+		grid.add(10, 0, 3, 1, stationPanelDockable);
 
 		stationPanelDockable.setVisible(show);
 		DockableHelper.setDefaultOptions(stationPanelDockable);
+	}
+
+	void setupViewportPanel(boolean show)
+	{
+		viewportPanel = new ViewportPanel(this);
+
+		viewportPanelDockable = new DefaultSingleCDockable("viewport-panel",
+				"Viewport Panel", viewportPanel);
+
+		grid.add(10, 1, 3, 1, viewportPanelDockable);
+
+		viewportPanelDockable.setVisible(show);
+		DockableHelper.setDefaultOptions(viewportPanelDockable);
 	}
 
 	public void showReallyExitDialog()

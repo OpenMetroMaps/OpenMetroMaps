@@ -215,6 +215,12 @@ public class PlanRenderer implements ViewportListener
 	}
 
 	@Override
+	public void complexChange()
+	{
+
+	}
+
+	@Override
 	public void zoomChanged()
 	{
 		double zoom = viewport.getZoom();
@@ -232,12 +238,6 @@ public class PlanRenderer implements ViewportListener
 		onlyImportant = zoom < 2.2;
 
 		stationDrawer.zoomChanged(factor, lineWidth);
-	}
-
-	@Override
-	public void complexChange()
-	{
-
 	}
 
 	private static final String LOG_SEGMENTS = "segments";

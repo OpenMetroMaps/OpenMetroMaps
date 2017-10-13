@@ -54,6 +54,7 @@ import de.topobyte.lightgeom.curves.spline.SplineUtil;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
 import de.topobyte.viewports.scrolling.ViewportListener;
+import de.topobyte.viewports.scrolling.ViewportUtil;
 import de.topobyte.viewports.scrolling.ViewportWithSignals;
 
 public class PlanRenderer implements ViewportListener
@@ -247,14 +248,14 @@ public class PlanRenderer implements ViewportListener
 
 	public void paint(Painter g)
 	{
-		// TODO: re-enable envelope-checking
-		// SteplessMapWindow window = new SteplessMapWindow(
-		// mapWindow.getWidth() + overDrawPixels,
-		// mapWindow.getHeight() + overDrawPixels, mapWindow.getZoom(),
-		// mapWindow.getCenterLon(), mapWindow.getCenterLat());
-		// BBox bbox = window.getBoundingBox();
-		// Envelope envelope = bbox.toEnvelope();
-		Envelope envelope = null;
+		double x1 = ViewportUtil.getRealX(viewport, 0);
+		double y1 = ViewportUtil.getRealY(viewport, 0);
+		double x2 = ViewportUtil.getRealX(viewport,
+				viewport.getViewportWidth());
+		double y2 = ViewportUtil.getRealY(viewport,
+				viewport.getViewportHeight());
+
+		Envelope envelope = new Envelope(x1, x2, y1, y2);
 
 		TimeMeasuring tm = new TimeMeasuring(logger);
 
@@ -277,10 +278,9 @@ public class PlanRenderer implements ViewportListener
 
 			BBoxHelper.minimumBoundingBox(edgeBox, locationA, locationB);
 			edgeBox.toEnvelope(edgeEnvelope);
-			// TODO: re-enable envelope-checking
-			// if (!envelope.intersects(edgeEnvelope)) {
-			// continue;
-			// }
+			if (!envelope.intersects(edgeEnvelope)) {
+				continue;
+			}
 
 			double ax = ltp.getX(locationA.lon);
 			double ay = ltp.getY(locationA.lat);
@@ -310,10 +310,9 @@ public class PlanRenderer implements ViewportListener
 			Node node = lineNetwork.nodes.get(i);
 			Coordinate location = node.location;
 
-			// TODO: re-enable envelope-checking
-			// if (!envelope.contains(location.lon, location.lat)) {
-			// continue;
-			// }
+			if (!envelope.contains(location.lon, location.lat)) {
+				continue;
+			}
 
 			boolean selected = mapViewStatus.isNodeSelected(node);
 
@@ -373,10 +372,9 @@ public class PlanRenderer implements ViewportListener
 
 			Coordinate location = node.location;
 
-			// TODO: re-enable envelope-checking
-			// if (!envelope.contains(location.lon, location.lat)) {
-			// continue;
-			// }
+			if (!envelope.contains(location.lon, location.lat)) {
+				continue;
+			}
 
 			String name = station.getName();
 			Point p = ltp.getPoint(location);

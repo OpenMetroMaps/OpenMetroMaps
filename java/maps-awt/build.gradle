@@ -3,7 +3,7 @@ dependencies {
     compile project(':openmetromaps-swing-misc')
 
     compile 'de.topobyte:lightweight-geometry-awt:1.0.0'
-    compile 'de.topobyte:viewports-swing:0.0.1'
+    compile 'de.topobyte:viewports-swing:0.0.2'
 
     testCompile project(':openmetromaps-test-data')
 }

@@ -55,6 +55,8 @@ public class StationPanel extends JPanel
 		super(new GridBagLayout());
 		this.mapEditor = mapEditor;
 
+		setupLayout();
+
 		mapEditor.addDataChangeListener(new DataChangeListener() {
 
 			@Override
@@ -65,6 +67,23 @@ public class StationPanel extends JPanel
 
 		});
 
+		FocusListener focusListener = new FocusAdapter() {
+
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+				validateValuesAndApply();
+			}
+
+		};
+
+		inputName.addFocusListener(focusListener);
+		inputX.addFocusListener(focusListener);
+		inputY.addFocusListener(focusListener);
+	}
+
+	private void setupLayout()
+	{
 		JLabel labelName = new JLabel("name:");
 		JLabel labelX = new JLabel("x:");
 		JLabel labelY = new JLabel("y:");
@@ -97,20 +116,6 @@ public class StationPanel extends JPanel
 		ce.weight(1, 1);
 		ce.gridWidth(2);
 		add(new JPanel(), c);
-
-		FocusListener focusListener = new FocusAdapter() {
-
-			@Override
-			public void focusLost(FocusEvent e)
-			{
-				validateValuesAndApply();
-			}
-
-		};
-
-		inputName.addFocusListener(focusListener);
-		inputX.addFocusListener(focusListener);
-		inputY.addFocusListener(focusListener);
 	}
 
 	public void setNode(Node node)

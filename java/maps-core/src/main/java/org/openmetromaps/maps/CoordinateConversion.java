@@ -44,6 +44,10 @@ public class CoordinateConversion
 			coordinates.add(node.location);
 		}
 
+		if (coordinates.isEmpty()) {
+			return;
+		}
+
 		BBox bbox = BBoxHelper.minimumBoundingBox(coordinates);
 		CoordinateConverter converter = new CoordinateConverter(bbox, 1000);
 

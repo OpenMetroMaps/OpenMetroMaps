@@ -35,7 +35,7 @@ public class TestViewportPanel extends JPanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		MapEditor mapEditor = new MapEditor(model);
+		MapEditor mapEditor = new MapEditor(model, null);
 		mapEditor.show();
 
 		ViewportPanel panel = new ViewportPanel(mapEditor);

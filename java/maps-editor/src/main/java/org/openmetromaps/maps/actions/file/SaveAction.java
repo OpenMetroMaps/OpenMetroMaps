@@ -18,6 +18,7 @@
 package org.openmetromaps.maps.actions.file;
 
 import java.awt.event.ActionEvent;
+import java.nio.file.Path;
 
 import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.Storage;
@@ -41,8 +42,12 @@ public class SaveAction extends MapEditorAction
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		// TODO: don't show chooser, save to current file
-		Storage.saveAs(mapEditor, "Save As...");
+		if (mapEditor.getSource() == null) {
+			Storage.saveAs(mapEditor, "Save As...");
+		} else {
+			Path file = mapEditor.getSource();
+			Storage.save(file.toFile(), mapEditor);
+		}
 	}
 
 }

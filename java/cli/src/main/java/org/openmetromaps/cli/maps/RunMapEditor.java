@@ -24,8 +24,8 @@ import java.nio.file.Paths;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapEditor;
+import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
@@ -70,7 +70,7 @@ public class RunMapEditor
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		MapEditor mapEditor = new MapEditor(model);
+		MapEditor mapEditor = new MapEditor(model, pathInput);
 		mapEditor.show();
 	}
 

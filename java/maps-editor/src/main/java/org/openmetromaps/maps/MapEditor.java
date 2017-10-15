@@ -100,6 +100,8 @@ public class MapEditor
 	private MapView view;
 	private MapViewStatus mapViewStatus;
 
+	private Path source;
+
 	private ViewConfig viewConfig;
 
 	private JFrame frame;
@@ -118,8 +120,9 @@ public class MapEditor
 
 	private List<DataChangeListener> dataChangeListeners;
 
-	public MapEditor(MapModel model)
+	public MapEditor(MapModel model, Path source)
 	{
+		this.source = source;
 		Path pathPermanentConfig = ConfigurationHelper
 				.getUserConfigurationFilePath();
 		Path pathVolatileConfig = ConfigurationHelper.getUserVolatileFilePath();
@@ -169,6 +172,11 @@ public class MapEditor
 		init(model);
 
 		dataChangeListeners = new ArrayList<>();
+	}
+
+	public Path getSource()
+	{
+		return source;
 	}
 
 	public PermanentConfiguration getPermanentConfig()

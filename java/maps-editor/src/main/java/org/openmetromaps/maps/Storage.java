@@ -17,15 +17,20 @@
 
 package org.openmetromaps.maps;
 
+import java.awt.Window;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JFileChooser;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import org.openmetromaps.maps.config.ConfigurationHelper;
+import org.openmetromaps.maps.config.VolatileConfiguration;
 import org.openmetromaps.maps.xml.XmlModelWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +53,36 @@ public class Storage
 				| IOException e) {
 			logger.error("Error while saving file", e);
 			// TODO: display an error dialog
+		}
+	}
+
+	public static void saveAs(MapEditor mapEditor, String title)
+	{
+		VolatileConfiguration config = mapEditor.getVolatileConfig();
+		Path lastUsed = config.getLastUsedDirectory();
+
+		// TODO: if file exists, ask user if we should overwrite it
+		Window frame = mapEditor.getFrame();
+		JFileChooser chooser = new JFileChooser();
+		if (lastUsed != null) {
+			chooser.setCurrentDirectory(lastUsed.toFile());
+		}
+		if (title != null) {
+			chooser.setDialogTitle(title);
+		}
+		int value = chooser.showSaveDialog(frame);
+		if (value == JFileChooser.APPROVE_OPTION) {
+			File file = chooser.getSelectedFile();
+			logger.debug("attempting to save document to file: " + file);
+			save(file, mapEditor);
+
+			Path newLastUsed = file.toPath().getParent();
+			config.setLastUsedDirectory(newLastUsed);
+			try {
+				ConfigurationHelper.store(config);
+			} catch (IOException e) {
+				logger.warn("Unable to store volatile configuration", e);
+			}
 		}
 	}
 

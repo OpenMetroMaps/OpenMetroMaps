@@ -9,10 +9,10 @@
 * edit lines
 * different line styles
 * exporting to image files
-* Save action should store to current file instead of asking
-  for a location
 
 ## Done
 * bulk station dragging
 * new file action
 * simpler non-geographic coordinate system
+* Save action should store to current file instead of asking
+  for a location

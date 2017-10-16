@@ -61,7 +61,6 @@ public class XmlModelReader
 	private XmlModel readModel(InputStream is)
 			throws ParserConfigurationException, SAXException, IOException
 	{
-
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.parse(is);

@@ -210,7 +210,9 @@ public class MapEditor
 					model.getData());
 			LineNetwork lineNetwork = builder.getGraph();
 			ViewConfig viewConfig = ModelUtil.viewConfig(lineNetwork);
-			model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
+			MapView view = new MapView("Test", lineNetwork, viewConfig);
+			CoordinateConversion.convertView(view);
+			model.getViews().add(view);
 		}
 
 		view = model.getViews().get(0);

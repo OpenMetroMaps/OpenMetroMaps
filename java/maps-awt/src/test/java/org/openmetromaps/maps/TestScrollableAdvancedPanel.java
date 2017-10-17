@@ -41,8 +41,6 @@ public class TestScrollableAdvancedPanel extends JPanel
 
 		TestDataUtil.ensureView(model);
 
-		CoordinateConversion.convertViews(model);
-
 		MapViewStatus mapViewStatus = new MapViewStatus();
 
 		ScrollableAdvancedPanel panel = new ScrollableAdvancedPanel(

@@ -145,7 +145,22 @@ public class XmlModelReader
 		NamedNodeMap attributes = eView.getAttributes();
 		String viewName = attributes.getNamedItem("name").getNodeValue();
 
-		XmlView view = new XmlView(viewName);
+		String valSceneWidth = attributes.getNamedItem("scene-width")
+				.getNodeValue();
+		String valSceneHeight = attributes.getNamedItem("scene-height")
+				.getNodeValue();
+
+		double sceneWidth = Double.parseDouble(valSceneWidth);
+		double sceneHeight = Double.parseDouble(valSceneHeight);
+
+		String valStartX = attributes.getNamedItem("start-x").getNodeValue();
+		String valStartY = attributes.getNamedItem("start-y").getNodeValue();
+
+		double startX = Double.parseDouble(valStartX);
+		double startY = Double.parseDouble(valStartY);
+
+		XmlView view = new XmlView(viewName, sceneWidth, sceneHeight, startX,
+				startY);
 
 		NodeList stationList = eView.getElementsByTagName("station");
 
@@ -162,12 +177,12 @@ public class XmlModelReader
 	{
 		NamedNodeMap attributes = eStation.getAttributes();
 		String stationName = attributes.getNamedItem("name").getNodeValue();
-		String valLon = attributes.getNamedItem("lon").getNodeValue();
-		String valLat = attributes.getNamedItem("lat").getNodeValue();
-		double lon = Double.parseDouble(valLon);
-		double lat = Double.parseDouble(valLat);
+		String valx = attributes.getNamedItem("x").getNodeValue();
+		String valY = attributes.getNamedItem("y").getNodeValue();
+		double x = Double.parseDouble(valx);
+		double y = Double.parseDouble(valY);
 
-		return new XmlStation(stationName, new Coordinate(lon, lat));
+		return new XmlStation(stationName, new Coordinate(x, y));
 	}
 
 }

@@ -39,8 +39,6 @@ public class TestSimplePanel extends JPanel
 
 		TestDataUtil.ensureView(model);
 
-		CoordinateConversion.convertViews(model);
-
 		SimplePanel panel = new SimplePanel(model.getData(),
 				model.getViews().get(0));
 

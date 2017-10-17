@@ -201,8 +201,6 @@ public class MapEditor
 	{
 		this.model = model;
 
-		CoordinateConversion.convertViews(model);
-
 		mapViewStatus = new MapViewStatus();
 
 		if (model.getViews().isEmpty()) {

@@ -24,11 +24,20 @@ public class XmlView
 {
 
 	private String name;
+	private double sceneWidth;
+	private double sceneHeight;
+	private double startX;
+	private double startY;
 	private List<XmlStation> stations = new ArrayList<>();
 
-	public XmlView(String name)
+	public XmlView(String name, double sceneWidth, double sceneHeight,
+			double startX, double startY)
 	{
 		this.name = name;
+		this.sceneWidth = sceneWidth;
+		this.sceneHeight = sceneHeight;
+		this.startX = startX;
+		this.startY = startY;
 	}
 
 	public String getName()
@@ -39,6 +48,46 @@ public class XmlView
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public double getSceneWidth()
+	{
+		return sceneWidth;
+	}
+
+	public void setSceneWidth(double sceneWidth)
+	{
+		this.sceneWidth = sceneWidth;
+	}
+
+	public double getSceneHeight()
+	{
+		return sceneHeight;
+	}
+
+	public void setSceneHeight(double sceneHeight)
+	{
+		this.sceneHeight = sceneHeight;
+	}
+
+	public double getStartX()
+	{
+		return startX;
+	}
+
+	public void setStartX(double startX)
+	{
+		this.startX = startX;
+	}
+
+	public double getStartY()
+	{
+		return startY;
+	}
+
+	public void setStartY(double startY)
+	{
+		this.startY = startY;
 	}
 
 	public List<XmlStation> getStations()

@@ -41,8 +41,6 @@ public class TestScrollableSimplePanel extends JPanel
 
 		TestDataUtil.ensureView(model);
 
-		CoordinateConversion.convertViews(model);
-
 		ScrollableSimplePanel panel = new ScrollableSimplePanel(model.getData(),
 				model.getViews().get(0), 10, 15);
 

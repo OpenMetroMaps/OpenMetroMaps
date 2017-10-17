@@ -26,7 +26,6 @@ import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
-import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
@@ -37,6 +36,9 @@ import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
+
+import de.topobyte.viewports.geometry.Coordinate;
+import de.topobyte.viewports.geometry.Rectangle;
 
 public class XmlModelConverter
 {
@@ -127,7 +129,13 @@ public class XmlModelConverter
 			LineNetworkBuilder builder = new LineNetworkBuilder(
 					model.getData());
 			LineNetwork lineNetwork = builder.getGraph();
-			ViewConfig viewConfig = ModelUtil.viewConfig(lineNetwork);
+
+			Rectangle scene = new Rectangle(0, 0, xmlView.getSceneWidth(),
+					xmlView.getSceneHeight());
+			Coordinate startPosition = new Coordinate(xmlView.getStartX(),
+					xmlView.getStartY());
+			ViewConfig viewConfig = new ViewConfig(scene, startPosition);
+
 			model.getViews().add(
 					new MapView(xmlView.getName(), lineNetwork, viewConfig));
 

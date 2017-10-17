@@ -101,6 +101,7 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 		Coordinate start = viewConfig.getStartPosition();
 		setPositionX(-start.getX() + getWidth() / 2);
 		setPositionY(-start.getY() + getHeight() / 2);
+		scene = viewConfig.getScene();
 	}
 
 	public PlanRenderer getPlanRenderer()

@@ -38,8 +38,12 @@ public class CoordinateConverter
 	private double width;
 	private double height;
 
-	public CoordinateConverter(BBox bbox, double size)
+	private double margin;
+
+	public CoordinateConverter(BBox bbox, double size, double margin)
 	{
+		this.margin = margin;
+
 		double x1 = WGS84.lon2merc(bbox.getLon1(), worldsize);
 		double x2 = WGS84.lon2merc(bbox.getLon2(), worldsize);
 
@@ -49,8 +53,15 @@ public class CoordinateConverter
 		double spanX = Math.abs(x1 - x2);
 		double spanY = Math.abs(y1 - y2);
 
+		double usedSize = size - margin * 2;
+
 		double biggerSpan = Math.max(spanX, spanY);
-		factor = size / biggerSpan;
+		factor = usedSize / biggerSpan;
+
+		logger.debug(String.format("Size: %.2f", size));
+		logger.debug(String.format("Margin: %.2f", margin));
+		logger.debug(String.format("Used size: %.2f", usedSize));
+		logger.debug(String.format("Factor: %.2f", factor));
 
 		minX = Math.min(x1, x2);
 		minY = Math.min(y1, y2);
@@ -58,8 +69,10 @@ public class CoordinateConverter
 		logger.debug(String.format("coordinates: %f,%f:%f,%f", x1, x2, y1, y2));
 		logger.debug(String.format("spanX: %f, spanY: %f", spanX, spanY));
 
-		width = spanX * factor;
-		height = spanY * factor;
+		width = spanX * factor + margin * 2;
+		height = spanY * factor + margin * 2;
+
+		logger.debug(String.format("width: %.2f, height: %.2f", width, height));
 	}
 
 	public double getWidth()
@@ -80,7 +93,7 @@ public class CoordinateConverter
 		double dy = y - minY;
 		double sx = dx * factor;
 		double sy = dy * factor;
-		return new Coordinate(sx, sy);
+		return new Coordinate(sx + margin, sy + margin);
 	}
 
 }

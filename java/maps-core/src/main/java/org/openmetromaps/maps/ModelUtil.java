@@ -88,4 +88,25 @@ public class ModelUtil
 						medianY));
 	}
 
+	public static ViewConfig viewConfig(LineNetwork lineNetwork, double width,
+			double height)
+	{
+		List<Coordinate> coords = new ArrayList<>();
+		for (Node node : lineNetwork.getNodes()) {
+			coords.add(node.location);
+		}
+
+		coords.sort(new CoordinateComparatorLongitude());
+		double medianX = coords.get(coords.size() / 2).getLongitude();
+
+		coords.sort(new CoordinateComparatorLatitude());
+		double medianY = coords.get(coords.size() / 2).getLatitude();
+
+		Rectangle scene = new Rectangle(0, 0, width, height);
+
+		return new ViewConfig(scene,
+				new de.topobyte.viewports.geometry.Coordinate(medianX,
+						medianY));
+	}
+
 }

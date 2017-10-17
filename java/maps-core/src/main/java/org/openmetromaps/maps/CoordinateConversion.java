@@ -49,7 +49,7 @@ public class CoordinateConversion
 		}
 
 		BBox bbox = BBoxHelper.minimumBoundingBox(coordinates);
-		CoordinateConverter converter = new CoordinateConverter(bbox, 1000);
+		CoordinateConverter converter = new CoordinateConverter(bbox, 1000, 50);
 
 		for (Node node : view.getLineNetwork().getNodes()) {
 			node.location = converter.convert(node.location);
@@ -64,7 +64,8 @@ public class CoordinateConversion
 			}
 		}
 
-		view.setConfig(ModelUtil.viewConfig(view.getLineNetwork()));
+		view.setConfig(ModelUtil.viewConfig(view.getLineNetwork(),
+				converter.getWidth(), converter.getHeight()));
 	}
 
 }

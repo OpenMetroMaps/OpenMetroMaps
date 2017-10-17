@@ -44,10 +44,11 @@ public class TestConvertCoordinates
 				.getResourceAsStream("berlin.xml");
 		XmlModel model = XmlModelReader.read(input);
 
-		convert(model.getStations(), 1000);
+		convert(model.getStations(), 1000, 50);
 	}
 
-	private static void convert(List<XmlStation> stations, double size)
+	private static void convert(List<XmlStation> stations, double size,
+			double margin)
 	{
 		List<Coordinate> coordinates = new ArrayList<>();
 		for (XmlStation station : stations) {
@@ -58,7 +59,8 @@ public class TestConvertCoordinates
 		BBox bbox = BBoxHelper.minimumBoundingBox(coordinates);
 		System.out.println("bbox: " + bbox);
 
-		CoordinateConverter converter = new CoordinateConverter(bbox, size);
+		CoordinateConverter converter = new CoordinateConverter(bbox, size,
+				margin);
 		System.out.println(String.format("size: %f x %f", converter.getWidth(),
 				converter.getHeight()));
 

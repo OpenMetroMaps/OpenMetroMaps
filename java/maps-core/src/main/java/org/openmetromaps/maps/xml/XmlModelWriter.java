@@ -34,6 +34,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
@@ -121,7 +122,16 @@ public class XmlModelWriter
 			Element eView = doc.createElement("view");
 			eMain.appendChild(eView);
 
+			ViewConfig config = view.getConfig();
 			eView.setAttribute("name", view.getName());
+			eView.setAttribute("scene-width",
+					String.format("%.6f", config.getScene().getWidth()));
+			eView.setAttribute("scene-height",
+					String.format("%.6f", config.getScene().getHeight()));
+			eView.setAttribute("start-x",
+					String.format("%.6f", config.getStartPosition().getX()));
+			eView.setAttribute("start-y",
+					String.format("%.6f", config.getStartPosition().getY()));
 
 			LineNetwork lineNetwork = view.getLineNetwork();
 			List<Node> nodes = new ArrayList<>(lineNetwork.getNodes());
@@ -144,9 +154,9 @@ public class XmlModelWriter
 				Coordinate location = node.location;
 
 				eStation.setAttribute("name", station.getName());
-				eStation.setAttribute("lon",
+				eStation.setAttribute("x",
 						String.format("%.6f", location.getLongitude()));
-				eStation.setAttribute("lat",
+				eStation.setAttribute("y",
 						String.format("%.6f", location.getLatitude()));
 			}
 		}

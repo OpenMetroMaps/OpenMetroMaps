@@ -23,19 +23,20 @@ import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EnumValueHolder<T extends Enum<T>>
+public class BooleanValueHolder
 {
 
-	final static Logger logger = LoggerFactory.getLogger(EnumValueHolder.class);
+	final static Logger logger = LoggerFactory
+			.getLogger(BooleanValueHolder.class);
 
 	private PropertyChangeSupport changeSupport;
 	private String propertyName;
-	private Consumer<T> changeAction;
+	private Consumer<Boolean> changeAction;
 
-	private T value;
+	private boolean value;
 
-	public EnumValueHolder(PropertyChangeSupport changeSupport,
-			String propertyName, Consumer<T> changeAction, T value)
+	public BooleanValueHolder(PropertyChangeSupport changeSupport,
+			String propertyName, Consumer<Boolean> changeAction, boolean value)
 	{
 		this.changeSupport = changeSupport;
 		this.propertyName = propertyName;
@@ -43,28 +44,18 @@ public class EnumValueHolder<T extends Enum<T>>
 		this.changeAction = changeAction;
 	}
 
-	public void setValue(T value)
+	public void setValue(boolean value)
 	{
-		T oldValue = this.value;
+		boolean oldValue = this.value;
 		this.value = value;
 
 		changeSupport.firePropertyChange(propertyName, oldValue, value);
 		changeAction.accept(value);
 	}
 
-	public T getValue()
+	public boolean getValue()
 	{
 		return value;
-	}
-
-	public PropertyChangeSupport getChangeSupport()
-	{
-		return changeSupport;
-	}
-
-	public String getPropertyName()
-	{
-		return propertyName;
 	}
 
 }

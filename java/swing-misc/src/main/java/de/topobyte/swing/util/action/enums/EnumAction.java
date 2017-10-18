@@ -20,7 +20,6 @@ package de.topobyte.swing.util.action.enums;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import javax.swing.Action;
 
@@ -39,17 +38,16 @@ public class EnumAction<T extends Enum<T>> extends SimpleAction
 	private EnumValueHolder<T> valueHolder;
 	private T value;
 
-	public EnumAction(PropertyChangeSupport changeSupport, String propertyName,
-			EnumValueHolder<T> valueHolder, EnumAppearance<T> appearance,
-			T value)
+	public EnumAction(EnumValueHolder<T> valueHolder,
+			EnumAppearance<T> appearance, T value)
 	{
 		this.valueHolder = valueHolder;
 		this.value = value;
 		setName(appearance.getName(value));
 		setIcon(appearance.getIcon(value));
 
-		changeSupport.addPropertyChangeListener(propertyName,
-				new PropertyChangeListener() {
+		valueHolder.getChangeSupport().addPropertyChangeListener(
+				valueHolder.getPropertyName(), new PropertyChangeListener() {
 
 					@Override
 					public void propertyChange(PropertyChangeEvent evt)

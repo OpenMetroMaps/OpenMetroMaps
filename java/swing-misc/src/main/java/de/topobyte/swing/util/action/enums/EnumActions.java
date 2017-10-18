@@ -39,8 +39,20 @@ public class EnumActions
 		EnumValueHolder<T> valueHolder = new EnumValueHolder<>(changeSupport,
 				propertyName, changeAction, value);
 		for (T constant : contants) {
-			EnumAction<T> action = new EnumAction<>(changeSupport, propertyName,
-					valueHolder, appearance, constant);
+			EnumAction<T> action = new EnumAction<>(valueHolder, appearance,
+					constant);
+			menu.add(new JCheckBoxMenuItem(action));
+		}
+	}
+
+	public static <T extends Enum<T>> void add(JMenu menu, Class<T> c,
+			EnumValueHolder<T> valueHolder, Consumer<T> changeAction,
+			EnumAppearance<T> appearance)
+	{
+		T[] contants = c.getEnumConstants();
+		for (T constant : contants) {
+			EnumAction<T> action = new EnumAction<>(valueHolder, appearance,
+					constant);
 			menu.add(new JCheckBoxMenuItem(action));
 		}
 	}

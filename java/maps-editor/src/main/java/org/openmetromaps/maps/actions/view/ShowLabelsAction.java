@@ -18,7 +18,6 @@
 package org.openmetromaps.maps.actions.view;
 
 import org.openmetromaps.maps.MapEditor;
-import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.ScrollableAdvancedPanel;
 import org.openmetromaps.maps.actions.MapEditorBooleanAction;
 
@@ -38,15 +37,14 @@ public class ShowLabelsAction extends MapEditorBooleanAction
 	@Override
 	public boolean getState()
 	{
-		return mapEditor.getMap().getPlanRenderer().isRenderLabels();
+		return mapEditor.isShowLabels();
 	}
 
 	@Override
 	public void toggleState()
 	{
 		ScrollableAdvancedPanel map = mapEditor.getMap();
-		PlanRenderer planRenderer = map.getPlanRenderer();
-		planRenderer.setRenderLabels(!planRenderer.isRenderLabels());
+		mapEditor.setShowLabels(!mapEditor.isShowLabels());
 		map.repaint();
 	}
 

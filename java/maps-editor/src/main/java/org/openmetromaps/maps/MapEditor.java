@@ -82,8 +82,10 @@ import de.topobyte.geomath.WGS84;
 import de.topobyte.melon.io.StreamUtil;
 import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.JMenus;
+import de.topobyte.swing.util.action.enums.BooleanValueHolder;
 import de.topobyte.swing.util.action.enums.DefaultAppearance;
 import de.topobyte.swing.util.action.enums.EnumActions;
+import de.topobyte.swing.util.action.enums.EnumValueHolder;
 import de.topobyte.viewports.scrolling.PanMouseAdapter;
 import de.topobyte.viewports.scrolling.ScrollableView;
 import de.topobyte.viewports.scrolling.ViewportUtil;
@@ -119,6 +121,20 @@ public class MapEditor
 	private DefaultSingleCDockable viewportPanelDockable;
 
 	private List<DataChangeListener> dataChangeListeners;
+
+	private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
+			this);
+
+	private BooleanValueHolder showLabels = new BooleanValueHolder(
+			changeSupport, "show-labels", x -> setShowLabelsInternal(), true);
+
+	private EnumValueHolder<StationMode> stationMode = new EnumValueHolder<>(
+			changeSupport, "station-mode", x -> setStationModeInternal(),
+			StationMode.CONVEX);
+
+	private EnumValueHolder<SegmentMode> segmentMode = new EnumValueHolder<>(
+			changeSupport, "segment-mode", x -> setSegmentModeInternal(),
+			SegmentMode.CURVE);
 
 	public MapEditor(MapModel model, Path source)
 	{
@@ -195,6 +211,45 @@ public class MapEditor
 		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
 		map.setViewConfig(viewConfig, Constants.DEFAULT_ZOOM);
 		selectNone();
+		syncMapState();
+	}
+
+	public StationPanel getStationPanel()
+	{
+		return stationPanel;
+	}
+
+	public void setStationPanel(StationPanel stationPanel)
+	{
+		this.stationPanel = stationPanel;
+	}
+
+	public boolean isShowLabels()
+	{
+		return showLabels.getValue();
+	}
+
+	public void setShowLabels(boolean showLabels)
+	{
+		this.showLabels.setValue(showLabels);
+	}
+
+	public void setShowLabelsInternal()
+	{
+		map.getPlanRenderer().setRenderLabels(showLabels.getValue());
+		map.repaint();
+	}
+
+	public StationMode getStationMode()
+	{
+		return stationMode.getValue();
+	}
+
+	private void syncMapState()
+	{
+		map.getPlanRenderer().setRenderLabels(showLabels.getValue());
+		map.getPlanRenderer().setStationMode(stationMode.getValue());
+		map.getPlanRenderer().setSegmentMode(segmentMode.getValue());
 	}
 
 	private void init(MapModel model)
@@ -289,6 +344,7 @@ public class MapEditor
 	{
 		setupContent();
 		setupMenu();
+		syncMapState();
 
 		MapEditorMouseEventProcessor mep = new MapEditorMouseEventProcessor(
 				this);
@@ -373,14 +429,10 @@ public class MapEditor
 		JMenus.addCheckbox(menuView, new DebugRanksAction(this),
 				KeyEvent.VK_F4);
 
-		PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
-
-		EnumActions.add(stationMode, StationMode.class, changeSupport,
-				"station-mode", StationMode.CONVEX, x -> setStationMode(x),
-				new DefaultAppearance<>());
-		EnumActions.add(segmentMode, SegmentMode.class, changeSupport,
-				"segment-mode", SegmentMode.CURVE, x -> setSegmentMode(x),
-				new DefaultAppearance<>());
+		EnumActions.add(stationMode, StationMode.class, this.stationMode,
+				x -> setStationMode(x), new DefaultAppearance<>());
+		EnumActions.add(segmentMode, SegmentMode.class, this.segmentMode,
+				x -> setSegmentMode(x), new DefaultAppearance<>());
 	}
 
 	private void setupMenuHelp(JMenu menuHelp)
@@ -391,13 +443,23 @@ public class MapEditor
 
 	private void setStationMode(StationMode mode)
 	{
-		map.getPlanRenderer().setStationMode(mode);
+		stationMode.setValue(mode);
+	}
+
+	private void setStationModeInternal()
+	{
+		map.getPlanRenderer().setStationMode(stationMode.getValue());
 		map.repaint();
 	}
 
 	private void setSegmentMode(SegmentMode mode)
 	{
-		map.getPlanRenderer().setSegmentMode(mode);
+		segmentMode.setValue(mode);
+	}
+
+	private void setSegmentModeInternal()
+	{
+		map.getPlanRenderer().setSegmentMode(segmentMode.getValue());
 		map.repaint();
 	}
 

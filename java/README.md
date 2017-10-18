@@ -60,3 +60,7 @@ two algorithms available:
   really axis-parallel afterwards. Have a look at `StraightenAxisParallelLinesAction`
   to see how the menu action can be set up and at
   `StraightenAxisParallelLinesOptimization` to see the actual optimization code.
+
+To write your own optimization algorithm, we recommend to copy and rename
+the classes `StraightenAxisParallelLinesAction` and
+`StraightenAxisParallelLinesOptimization` and start modifying the existing code.

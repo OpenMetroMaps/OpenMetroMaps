@@ -20,7 +20,6 @@ package org.openmetromaps.maps;
 import java.util.List;
 
 import javax.swing.JDialog;
-import javax.swing.JPanel;
 
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.LineSelectionDialog;
@@ -28,10 +27,8 @@ import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
-public class TestLineSelectionDialog extends JPanel
+public class TestLineSelectionDialog
 {
-
-	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) throws Exception
 	{

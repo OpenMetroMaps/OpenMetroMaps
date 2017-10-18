@@ -18,17 +18,14 @@
 package org.openmetromaps.maps;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import org.openmetromaps.maps.model.LinesPanel;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
-public class TestLinesPanel extends JPanel
+public class TestLinesPanel
 {
-
-	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) throws Exception
 	{

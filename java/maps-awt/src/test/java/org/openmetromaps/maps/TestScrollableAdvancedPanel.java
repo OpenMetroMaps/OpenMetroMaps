@@ -18,7 +18,6 @@
 package org.openmetromaps.maps;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
@@ -27,10 +26,8 @@ import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.scrolling.PanMouseAdapter;
 import de.topobyte.viewports.scrolling.ScrollableView;
 
-public class TestScrollableAdvancedPanel extends JPanel
+public class TestScrollableAdvancedPanel
 {
-
-	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) throws Exception
 	{

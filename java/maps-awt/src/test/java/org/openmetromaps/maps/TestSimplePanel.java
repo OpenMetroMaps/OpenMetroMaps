@@ -18,17 +18,14 @@
 package org.openmetromaps.maps;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
 import de.topobyte.adt.geo.BBox;
 
-public class TestSimplePanel extends JPanel
+public class TestSimplePanel
 {
-
-	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) throws Exception
 	{

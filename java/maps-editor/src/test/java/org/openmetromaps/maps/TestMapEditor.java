@@ -17,15 +17,11 @@
 
 package org.openmetromaps.maps;
 
-import javax.swing.JPanel;
-
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
-public class TestMapEditor extends JPanel
+public class TestMapEditor
 {
-
-	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) throws Exception
 	{

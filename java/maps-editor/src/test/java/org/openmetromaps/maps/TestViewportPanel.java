@@ -18,15 +18,12 @@
 package org.openmetromaps.maps;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
-public class TestViewportPanel extends JPanel
+public class TestViewportPanel
 {
-
-	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) throws Exception
 	{

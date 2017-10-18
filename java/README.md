@@ -43,3 +43,20 @@ from within the IDE. Navigate to the class `TestMapEditor` and run this class
 as a Java application (Right click class → Run As → Java Application). To easily
 find the class within the complex forrest of source trees, we recommend
 Eclipse's *Open Type* feature (Navigate → Open Type, shortcut Ctrl+Shift+T).
+
+### Writing an optimization algorithm
+
+The Map Editor provides an infrastructure for implementing algorithms for
+optimizing maps. When you run the editor, you can access the available
+optimization algorithms via the menu (Edit → Algorithms). Currently there's only
+two algorithms available:
+
+* Dummy Optimization: This is a placeholder algorithm that does nothing and only
+  exists in order to show how to add an algorithm to the menu. Have a look at
+  class `DummyOptimizationAction`.
+* StraightenAxisParallelLines: This is a very basic optimization algorithm that
+  strives to detect subway lines with almost axis-parallel sections. Sections
+  that are classified as quasi axis-parallel will be modified so that they are
+  really axis-parallel afterwards. Have a look at `StraightenAxisParallelLinesAction`
+  to see how the menu action can be set up and at
+  `StraightenAxisParallelLinesOptimization` to see the actual optimization code.

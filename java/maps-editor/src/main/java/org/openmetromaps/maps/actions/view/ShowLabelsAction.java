@@ -18,7 +18,6 @@
 package org.openmetromaps.maps.actions.view;
 
 import org.openmetromaps.maps.MapEditor;
-import org.openmetromaps.maps.ScrollableAdvancedPanel;
 import org.openmetromaps.maps.actions.MapEditorBooleanAction;
 
 import de.topobyte.swing.util.EmptyIcon;
@@ -43,9 +42,7 @@ public class ShowLabelsAction extends MapEditorBooleanAction
 	@Override
 	public void toggleState()
 	{
-		ScrollableAdvancedPanel map = mapEditor.getMap();
 		mapEditor.setShowLabels(!mapEditor.isShowLabels());
-		map.repaint();
 	}
 
 }

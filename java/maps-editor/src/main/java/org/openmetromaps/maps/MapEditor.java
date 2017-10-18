@@ -128,6 +128,13 @@ public class MapEditor
 	private BooleanValueHolder showLabels = new BooleanValueHolder(
 			changeSupport, "show-labels", x -> setShowLabelsInternal(), true);
 
+	private BooleanValueHolder debugTangents = new BooleanValueHolder(
+			changeSupport, "debug-tangents", x -> setDebugTangentsInternal(),
+			false);
+
+	private BooleanValueHolder debugRanks = new BooleanValueHolder(
+			changeSupport, "debug-ranks", x -> setDebugRanksInternal(), false);
+
 	private EnumValueHolder<StationMode> stationMode = new EnumValueHolder<>(
 			changeSupport, "station-mode", x -> setStationModeInternal(),
 			StationMode.CONVEX);
@@ -240,6 +247,38 @@ public class MapEditor
 		map.repaint();
 	}
 
+	public boolean isDebugTangents()
+	{
+		return debugTangents.getValue();
+	}
+
+	public void setDebugTangents(boolean debugTangents)
+	{
+		this.debugTangents.setValue(debugTangents);
+	}
+
+	public void setDebugTangentsInternal()
+	{
+		map.getPlanRenderer().setDebugTangents(debugTangents.getValue());
+		map.repaint();
+	}
+
+	public boolean isDebugRanks()
+	{
+		return debugRanks.getValue();
+	}
+
+	public void setDebugRanks(boolean debugRanks)
+	{
+		this.debugRanks.setValue(debugRanks);
+	}
+
+	public void setDebugRanksInternal()
+	{
+		map.getPlanRenderer().setDebugRanks(debugRanks.getValue());
+		map.repaint();
+	}
+
 	public StationMode getStationMode()
 	{
 		return stationMode.getValue();
@@ -247,9 +286,12 @@ public class MapEditor
 
 	private void syncMapState()
 	{
-		map.getPlanRenderer().setRenderLabels(showLabels.getValue());
-		map.getPlanRenderer().setStationMode(stationMode.getValue());
-		map.getPlanRenderer().setSegmentMode(segmentMode.getValue());
+		PlanRenderer planRenderer = map.getPlanRenderer();
+		planRenderer.setRenderLabels(showLabels.getValue());
+		planRenderer.setStationMode(stationMode.getValue());
+		planRenderer.setSegmentMode(segmentMode.getValue());
+		planRenderer.setDebugTangents(debugTangents.getValue());
+		planRenderer.setDebugRanks(debugRanks.getValue());
 	}
 
 	private void init(MapModel model)

@@ -18,8 +18,6 @@
 package org.openmetromaps.maps.actions.view;
 
 import org.openmetromaps.maps.MapEditor;
-import org.openmetromaps.maps.PlanRenderer;
-import org.openmetromaps.maps.ScrollableAdvancedPanel;
 import org.openmetromaps.maps.actions.MapEditorBooleanAction;
 
 import de.topobyte.swing.util.EmptyIcon;
@@ -38,16 +36,13 @@ public class DebugRanksAction extends MapEditorBooleanAction
 	@Override
 	public boolean getState()
 	{
-		return mapEditor.getMap().getPlanRenderer().isDebugRanks();
+		return mapEditor.isDebugRanks();
 	}
 
 	@Override
 	public void toggleState()
 	{
-		ScrollableAdvancedPanel map = mapEditor.getMap();
-		PlanRenderer planRenderer = map.getPlanRenderer();
-		planRenderer.setDebugRanks(!planRenderer.isDebugRanks());
-		map.repaint();
+		mapEditor.setDebugRanks(!mapEditor.isDebugRanks());
 	}
 
 }

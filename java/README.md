@@ -1,5 +1,10 @@
 # OpenMetroMaps Java project
 
+## Requirements
+
+In order to run the software from the development tree you need Java 8 and
+Gradle.
+
 ## Command line interface (CLI)
 
 This project has a main executable that can be executed like this:

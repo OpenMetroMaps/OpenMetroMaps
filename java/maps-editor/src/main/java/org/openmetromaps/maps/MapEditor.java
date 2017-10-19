@@ -572,7 +572,7 @@ public class MapEditor
 		double dy = Math.abs(sy - y);
 		double d = Math.sqrt(dx * dx + dy * dy);
 
-		if (d < 5) {
+		if (d < 8) {
 			return best;
 		}
 

@@ -43,7 +43,7 @@ public abstract class AbstractStationDrawer implements StationDrawer
 
 	protected final static boolean DEBUG = false;
 
-	public static final float STATION_OUTLINE_ICREASE = 1.4f;
+	public static final float STATION_OUTLINE_INCREASE = 1.4f;
 
 	protected LocationToPoint ltp;
 
@@ -122,10 +122,10 @@ public abstract class AbstractStationDrawer implements StationDrawer
 		this.lineWidth = lineWidth;
 
 		stationsSize = baseStationsSize * factor * scale;
-		circleRadius = stationsSize / 2 / STATION_OUTLINE_ICREASE;
+		circleRadius = stationsSize / 2 / STATION_OUTLINE_INCREASE;
 		circleRadiusOutline = stationsSize / 2;
 
-		paintStationsStroke.setWidth(stationsSize / STATION_OUTLINE_ICREASE);
+		paintStationsStroke.setWidth(stationsSize / STATION_OUTLINE_INCREASE);
 		paintStationsStrokeOutline.setWidth(stationsSize);
 		paintSelectedStationsStrokeOutline.setWidth(stationsSize);
 

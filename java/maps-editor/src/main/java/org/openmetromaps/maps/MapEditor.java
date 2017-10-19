@@ -201,6 +201,11 @@ public class MapEditor
 		dataChangeListeners = new ArrayList<>();
 	}
 
+	public void setSource(Path source)
+	{
+		this.source = source;
+	}
+
 	public Path getSource()
 	{
 		return source;

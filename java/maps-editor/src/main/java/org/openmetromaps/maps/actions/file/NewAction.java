@@ -71,6 +71,8 @@ public class NewAction extends MapEditorAction
 		model.getViews()
 				.add(new MapView("Test", edges, lineNetwork, viewConfig));
 
+		mapEditor.setSource(null);
+
 		mapEditor.setModel(model);
 		mapEditor.getMap().repaint();
 	}

@@ -76,8 +76,8 @@ import bibliothek.gui.dock.common.CControl;
 import bibliothek.gui.dock.common.CGrid;
 import bibliothek.gui.dock.common.DefaultSingleCDockable;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
-import de.topobyte.geomath.WGS84;
 import de.topobyte.lightgeom.lina.Point;
+import de.topobyte.lightgeom.lina.Vector2;
 import de.topobyte.melon.io.StreamUtil;
 import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.JMenus;
@@ -592,9 +592,9 @@ public class MapEditor
 		// TODO: use an index to speed this up
 		for (Node node : lineNetwork.nodes) {
 			Point location = node.location;
-			// TODO: don't use WGS84 anymore because of new coordinate system
-			double d = WGS84.haversineDistance(location.getX(), location.getY(),
-					x, y);
+			Vector2 v1 = new Vector2(location);
+			Vector2 v2 = new Vector2(x, y);
+			double d = v2.sub(v1).length2();
 			if (d < bestDistance) {
 				bestDistance = d;
 				best = node;

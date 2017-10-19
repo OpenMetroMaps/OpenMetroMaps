@@ -36,7 +36,6 @@ import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
 
 import de.topobyte.adt.geo.BBox;
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.lightgeom.lina.Point;
 
 public class SimplePanel extends JPanel
@@ -97,10 +96,9 @@ public class SimplePanel extends JPanel
 		for (Line line : data.lines) {
 			g.setColor(AwtUtil.getAwtColor(line));
 			List<Stop> stops = line.getStops();
-			Coordinate prev = stationToNode
-					.get(stops.get(0).getStation()).location;
+			Point prev = stationToNode.get(stops.get(0).getStation()).location;
 			for (int i = 1; i < stops.size(); i++) {
-				Coordinate next = stationToNode
+				Point next = stationToNode
 						.get(stops.get(i).getStation()).location;
 				Point a = getPoint(prev);
 				Point b = getPoint(next);
@@ -131,10 +129,10 @@ public class SimplePanel extends JPanel
 		}
 	}
 
-	private Point getPoint(Coordinate location)
+	private Point getPoint(Point location)
 	{
-		double x = (location.lon - mx) / w * getWidth();
-		double y = (location.lat - my) / h * getHeight();
+		double x = (location.x - mx) / w * getWidth();
+		double y = (location.y - my) / h * getHeight();
 		return new Point(x, y);
 	}
 

@@ -45,6 +45,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.lightgeom.lina.Point;
 
 public class XmlModelWriter
 {
@@ -151,13 +152,13 @@ public class XmlModelWriter
 				Element eStation = doc.createElement("station");
 				eView.appendChild(eStation);
 
-				Coordinate location = node.location;
+				Point location = node.location;
 
 				eStation.setAttribute("name", station.getName());
 				eStation.setAttribute("x",
-						String.format("%.6f", location.getLongitude()));
+						String.format("%.6f", location.getX()));
 				eStation.setAttribute("y",
-						String.format("%.6f", location.getLatitude()));
+						String.format("%.6f", location.getY()));
 			}
 		}
 

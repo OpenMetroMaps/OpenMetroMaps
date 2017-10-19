@@ -24,6 +24,7 @@ import java.util.Map;
 import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
@@ -36,8 +37,8 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Joiner;
 
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.collections.util.ListUtil;
+import de.topobyte.lightgeom.lina.Point;
 
 public class StraightenAxisParallelLinesOptimization
 {
@@ -94,17 +95,15 @@ public class StraightenAxisParallelLinesOptimization
 		for (int i = 0; i < nodes.size() - 1; i++) {
 			Node node1 = nodes.get(i);
 			Node node2 = nodes.get(i + 1);
-			Coordinate location1 = node1.location;
-			Coordinate location2 = node2.location;
+			Point location1 = node1.location;
+			Point location2 = node2.location;
 			if (direction == Direction.X) {
-				double dx = Math.abs(
-						location1.getLongitude() - location2.getLongitude());
+				double dx = Math.abs(location1.getX() - location2.getX());
 				if (dx <= tolerance) {
 					ids.add(i);
 				}
 			} else {
-				double dy = Math
-						.abs(location1.getLatitude() - location2.getLatitude());
+				double dy = Math.abs(location1.getY() - location2.getY());
 				if (dy <= tolerance) {
 					ids.add(i);
 				}
@@ -144,21 +143,19 @@ public class StraightenAxisParallelLinesOptimization
 
 	private void adjust(List<Node> nodes, Direction direction)
 	{
-		List<Coordinate> coordinates = new ArrayList<>();
+		List<Point> points = new ArrayList<>();
 		for (Node node : nodes) {
-			coordinates.add(node.location);
+			points.add(node.location);
 		}
 
-		Coordinate mean = Coordinate.mean(coordinates);
+		Point mean = Points.mean(points);
 
 		for (Node node : nodes) {
 			if (direction == Direction.X) {
-				node.location = new Coordinate(mean.getLongitude(),
-						node.location.getLatitude());
+				node.location = new Point(mean.getX(), node.location.getY());
 			}
 			if (direction == Direction.Y) {
-				node.location = new Coordinate(node.location.getLongitude(),
-						mean.getLatitude());
+				node.location = new Point(node.location.getX(), mean.getY());
 			}
 		}
 	}

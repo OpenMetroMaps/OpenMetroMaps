@@ -25,7 +25,7 @@ import org.openmetromaps.swing.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.viewports.scrolling.ViewportUtil;
 
 public class MapEditorMouseEventProcessor
@@ -123,12 +123,10 @@ public class MapEditorMouseEventProcessor
 
 	private void update(Node node, int dx, int dy)
 	{
-		Coordinate old = node.location;
+		Point old = node.location;
 
-		double oldX = ViewportUtil.getViewX(mapEditor.getMap(),
-				old.getLongitude());
-		double oldY = ViewportUtil.getViewY(mapEditor.getMap(),
-				old.getLatitude());
+		double oldX = ViewportUtil.getViewX(mapEditor.getMap(), old.getX());
+		double oldY = ViewportUtil.getViewY(mapEditor.getMap(), old.getY());
 
 		double newX = oldX + dx;
 		double newY = oldY + dy;
@@ -136,7 +134,7 @@ public class MapEditorMouseEventProcessor
 		double x = ViewportUtil.getRealX(mapEditor.getMap(), newX);
 		double y = ViewportUtil.getRealY(mapEditor.getMap(), newY);
 
-		node.location = new Coordinate(x, y);
+		node.location = new Point(x, y);
 	}
 
 }

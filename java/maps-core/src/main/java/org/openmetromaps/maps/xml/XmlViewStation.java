@@ -15,38 +15,40 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.graph;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openmetromaps.maps.model.Station;
+package org.openmetromaps.maps.xml;
 
 import de.topobyte.lightgeom.lina.Point;
 
-public class Node
+public class XmlViewStation
 {
 
-	public Point location;
-	public Station station;
-	public List<Edge> edges = new ArrayList<>();
+	private String name;
+	private Point location;
 
-	public boolean isLastStopOfALine;
-	public int rank;
-
-	public Node(Station station)
+	public XmlViewStation(String name, Point location)
 	{
-		this.station = station;
+		this.name = name;
+		this.location = location;
 	}
 
-	public void setIsLastStopOfALine(boolean isLastStop)
+	public String getName()
 	{
-		this.isLastStopOfALine = isLastStop;
+		return name;
 	}
 
-	public void setRank(int rank)
+	public void setName(String name)
 	{
-		this.rank = rank;
+		this.name = name;
+	}
+
+	public Point getLocation()
+	{
+		return location;
+	}
+
+	public void setLocation(Point location)
+	{
+		this.location = location;
 	}
 
 }

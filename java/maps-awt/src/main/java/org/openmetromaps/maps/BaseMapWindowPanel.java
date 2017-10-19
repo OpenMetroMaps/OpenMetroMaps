@@ -61,18 +61,18 @@ public class BaseMapWindowPanel extends BaseScenePanel
 	}
 
 	@Override
-	public Point getPoint(de.topobyte.adt.geo.Coordinate location)
+	public Point getPoint(Point location)
 	{
-		double x = ViewportUtil.getViewX(this, location.lon);
-		double y = ViewportUtil.getViewY(this, location.lat);
+		double x = ViewportUtil.getViewX(this, location.x);
+		double y = ViewportUtil.getViewY(this, location.y);
 		return new Point(x, y);
 	}
 
 	@Override
-	public Point getPoint(de.topobyte.adt.geo.Coordinate location, Point point)
+	public Point getPoint(Point location, Point point)
 	{
-		double x = ViewportUtil.getViewX(this, location.lon);
-		double y = ViewportUtil.getViewY(this, location.lat);
+		double x = ViewportUtil.getViewX(this, location.x);
+		double y = ViewportUtil.getViewY(this, location.y);
 		return point.set(x, y);
 	}
 

@@ -27,7 +27,6 @@ import java.util.Map;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.ViewConfig;
-import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
@@ -139,22 +138,20 @@ public class XmlModelConverter
 			model.getViews().add(
 					new MapView(xmlView.getName(), lineNetwork, viewConfig));
 
-			Map<String, XmlStation> nameToViewStation = new HashMap<>();
-			for (XmlStation station : xmlView.getStations()) {
+			Map<String, XmlViewStation> nameToViewStation = new HashMap<>();
+			for (XmlViewStation station : xmlView.getStations()) {
 				nameToViewStation.put(station.getName(), station);
 			}
 
 			for (Node node : lineNetwork.getNodes()) {
-				XmlStation station = nameToViewStation
+				XmlViewStation station = nameToViewStation
 						.get(node.station.getName());
 				if (station != null) {
 					node.location = station.getLocation();
 				}
 			}
 
-			for (Edge edge : lineNetwork.edges) {
-				LineNetworkUtil.calculateNeighborLocations(edge);
-			}
+			LineNetworkUtil.calculateAllNeighborLocations(lineNetwork);
 		}
 
 		return model;

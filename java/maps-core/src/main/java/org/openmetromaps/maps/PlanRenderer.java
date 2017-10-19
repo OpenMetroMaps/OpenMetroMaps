@@ -43,9 +43,6 @@ import org.slf4j.LoggerFactory;
 import com.infomatiq.jsi.Rectangle;
 import com.vividsolutions.jts.geom.Envelope;
 
-import de.topobyte.adt.geo.BBox;
-import de.topobyte.adt.geo.BBoxHelper;
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.jsi.intersectiontester.RTreeIntersectionTester;
 import de.topobyte.jsi.intersectiontester.RectangleIntersectionTester;
 import de.topobyte.lightgeom.curves.spline.CubicSpline;
@@ -266,26 +263,26 @@ public class PlanRenderer implements ViewportListener
 		 * Segments
 		 */
 
-		BBox edgeBox = new BBox(0, 0, 0, 0);
 		Envelope edgeEnvelope = new Envelope();
 
 		tm.start(LOG_SEGMENTS);
 		durationCurves = 0;
 		for (int i = 0; i < nEdges; i++) {
 			Edge edge = lineNetwork.edges.get(i);
-			Coordinate locationA = edge.n1.location;
-			Coordinate locationB = edge.n2.location;
+			Point locationA = edge.n1.location;
+			Point locationB = edge.n2.location;
 
-			BBoxHelper.minimumBoundingBox(edgeBox, locationA, locationB);
-			edgeBox.toEnvelope(edgeEnvelope);
+			edgeEnvelope.expandToInclude(locationA.x, locationA.y);
+			edgeEnvelope.expandToInclude(locationB.x, locationB.y);
+
 			if (!envelope.intersects(edgeEnvelope)) {
 				continue;
 			}
 
-			double ax = ltp.getX(locationA.lon);
-			double ay = ltp.getY(locationA.lat);
-			double bx = ltp.getX(locationB.lon);
-			double by = ltp.getY(locationB.lat);
+			double ax = ltp.getX(locationA.x);
+			double ay = ltp.getY(locationA.y);
+			double bx = ltp.getX(locationB.x);
+			double by = ltp.getY(locationB.y);
 
 			List<NetworkLine> lines = edge.lines;
 
@@ -308,9 +305,9 @@ public class PlanRenderer implements ViewportListener
 		Path path = g.createPath();
 		for (int i = 0; i < nNodes; i++) {
 			Node node = lineNetwork.nodes.get(i);
-			Coordinate location = node.location;
+			Point location = node.location;
 
-			if (!envelope.contains(location.lon, location.lat)) {
+			if (!envelope.contains(location.x, location.y)) {
 				continue;
 			}
 
@@ -370,9 +367,9 @@ public class PlanRenderer implements ViewportListener
 				continue;
 			}
 
-			Coordinate location = node.location;
+			Point location = node.location;
 
-			if (!envelope.contains(location.lon, location.lat)) {
+			if (!envelope.contains(location.x, location.y)) {
 				continue;
 			}
 
@@ -473,16 +470,16 @@ public class PlanRenderer implements ViewportListener
 		Vector2 d02 = null, d31 = null;
 
 		if (prev != null) {
-			double sp0x = ltp.getX(prev.location.lon);
-			double sp0y = ltp.getY(prev.location.lat);
+			double sp0x = ltp.getX(prev.location.x);
+			double sp0y = ltp.getY(prev.location.y);
 			d02 = v1;
 			d02.set(bx, by);
 			d02.sub(sp0x, sp0y);
 			d02.normalize();
 		}
 		if (next != null) {
-			double sp3x = ltp.getX(next.location.lon);
-			double sp3y = ltp.getY(next.location.lat);
+			double sp3x = ltp.getX(next.location.x);
+			double sp3y = ltp.getY(next.location.y);
 			d31 = v2;
 			d31.set(ax, ay);
 			d31.sub(sp3x, sp3y);
@@ -499,8 +496,8 @@ public class PlanRenderer implements ViewportListener
 	private void drawMultiLineEdgeCurved(Painter g, List<NetworkLine> lines,
 			Edge edge, double ax, double ay, double bx, double by)
 	{
-		Coordinate lp = edge.prev;
-		Coordinate ln = edge.next;
+		Point lp = edge.prev;
+		Point ln = edge.next;
 
 		EdgeUtil.segmentInfo(spiA, spiB, ax, ay, bx, by, lp, ln, ltp, lineWidth,
 				spreadFactor, lines.size());
@@ -518,13 +515,13 @@ public class PlanRenderer implements ViewportListener
 			Vector2 d02 = null, d31 = null;
 
 			if (lp != null) {
-				double sp0x = ltp.getX(lp.lon);
-				double sp0y = ltp.getY(lp.lat);
+				double sp0x = ltp.getX(lp.x);
+				double sp0y = ltp.getY(lp.y);
 				d02 = v1.set(bx, by).sub(sp0x, sp0y).normalize();
 			}
 			if (ln != null) {
-				double sp3x = ltp.getX(ln.lon);
-				double sp3y = ltp.getY(ln.lat);
+				double sp3x = ltp.getX(ln.x);
+				double sp3y = ltp.getY(ln.y);
 				d31 = v2.set(ax, ay).sub(sp3x, sp3y).normalize();
 			}
 

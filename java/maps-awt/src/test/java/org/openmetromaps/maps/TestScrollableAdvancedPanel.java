@@ -36,7 +36,7 @@ public class TestScrollableAdvancedPanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		TestDataUtil.ensureView(model);
+		ModelUtil.ensureView(model);
 
 		MapViewStatus mapViewStatus = new MapViewStatus();
 

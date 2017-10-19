@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.geomath.WGS84;
+import de.topobyte.lightgeom.lina.Point;
 
 public class CoordinateConverter
 {
@@ -85,7 +86,7 @@ public class CoordinateConverter
 		return height;
 	}
 
-	public Coordinate convert(Coordinate coordinate)
+	public Point convert(Coordinate coordinate)
 	{
 		double x = WGS84.lon2merc(coordinate.getLongitude(), worldsize);
 		double y = WGS84.lat2merc(coordinate.getLatitude(), worldsize);
@@ -93,7 +94,18 @@ public class CoordinateConverter
 		double dy = y - minY;
 		double sx = dx * factor;
 		double sy = dy * factor;
-		return new Coordinate(sx + margin, sy + margin);
+		return new Point(sx + margin, sy + margin);
+	}
+
+	public Point convert(Point point)
+	{
+		double x = WGS84.lon2merc(point.getX(), worldsize);
+		double y = WGS84.lat2merc(point.getY(), worldsize);
+		double dx = x - minX;
+		double dy = y - minY;
+		double sx = dx * factor;
+		double sy = dy * factor;
+		return new Point(sx + margin, sy + margin);
 	}
 
 }

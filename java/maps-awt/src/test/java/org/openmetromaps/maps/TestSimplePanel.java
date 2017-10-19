@@ -34,7 +34,7 @@ public class TestSimplePanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		TestDataUtil.ensureView(model);
+		ModelUtil.ensureView(model);
 
 		SimplePanel panel = new SimplePanel(model.getData(),
 				model.getViews().get(0));

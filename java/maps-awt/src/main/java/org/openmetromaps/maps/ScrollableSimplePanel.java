@@ -33,7 +33,6 @@ import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
 
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.lightgeom.lina.Point;
 
 public class ScrollableSimplePanel extends BaseMapWindowPanel
@@ -78,10 +77,9 @@ public class ScrollableSimplePanel extends BaseMapWindowPanel
 		for (Line line : data.lines) {
 			g.setColor(AwtUtil.getAwtColor(line));
 			List<Stop> stops = line.getStops();
-			Coordinate prev = stationToNode
-					.get(stops.get(0).getStation()).location;
+			Point prev = stationToNode.get(stops.get(0).getStation()).location;
 			for (int i = 1; i < stops.size(); i++) {
-				Coordinate next = stationToNode
+				Point next = stationToNode
 						.get(stops.get(i).getStation()).location;
 				Point a = getPoint(prev);
 				Point b = getPoint(next);

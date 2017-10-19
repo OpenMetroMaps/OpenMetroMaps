@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
@@ -31,7 +32,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
 
-import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.lightgeom.lina.Point;
 
 public class LineNetworkUtil
 {
@@ -80,8 +81,8 @@ public class LineNetworkUtil
 		if (lines.size() == 1) {
 			// Optimize anything here?
 		} else {
-			List<Coordinate> prevs = new ArrayList<>();
-			List<Coordinate> nexts = new ArrayList<>();
+			List<Point> prevs = new ArrayList<>();
+			List<Point> nexts = new ArrayList<>();
 			for (NetworkLine line : lines) {
 				NeighborInfo neighbors = line.getNeighbors(edge);
 
@@ -97,13 +98,20 @@ public class LineNetworkUtil
 			}
 
 			if (!prevs.isEmpty()) {
-				Coordinate lp = Coordinate.mean(prevs);
+				Point lp = Points.mean(prevs);
 				edge.setPrev(lp);
 			}
 			if (!nexts.isEmpty()) {
-				Coordinate ln = Coordinate.mean(nexts);
+				Point ln = Points.mean(nexts);
 				edge.setNext(ln);
 			}
+		}
+	}
+
+	public static void calculateAllNeighborLocations(LineNetwork lineNetwork)
+	{
+		for (Edge edge : lineNetwork.edges) {
+			LineNetworkUtil.calculateNeighborLocations(edge);
 		}
 	}
 

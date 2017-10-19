@@ -17,7 +17,6 @@
 
 package org.openmetromaps.maps;
 
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
 
@@ -36,8 +35,8 @@ public class EdgeUtil
 
 	public static void segmentInfo(SegmentEndPointPaintInfo spiA,
 			SegmentEndPointPaintInfo spiB, double ax, double ay, double bx,
-			double by, Coordinate lp, Coordinate ln, LocationToPoint ltp,
-			float lineWidth, float spreadFactor, int nLines)
+			double by, Point lp, Point ln, LocationToPoint ltp, float lineWidth,
+			float spreadFactor, int nLines)
 	{
 		if (lp != null) {
 			lpp = ltp.getPoint(lp, lpp);
@@ -63,7 +62,7 @@ public class EdgeUtil
 
 	public static SegmentEndPointPaintInfo endpointInfo(
 			SegmentEndPointPaintInfo spi, double ax, double ay, double bx,
-			double by, Coordinate lp, LocationToPoint ltp, float lineWidth,
+			double by, Point lp, LocationToPoint ltp, float lineWidth,
 			float spreadFactor, int nLines)
 	{
 		if (lp != null) {

@@ -28,7 +28,7 @@ public class XmlView
 	private double sceneHeight;
 	private double startX;
 	private double startY;
-	private List<XmlStation> stations = new ArrayList<>();
+	private List<XmlViewStation> stations = new ArrayList<>();
 
 	public XmlView(String name, double sceneWidth, double sceneHeight,
 			double startX, double startY)
@@ -90,12 +90,12 @@ public class XmlView
 		this.startY = startY;
 	}
 
-	public List<XmlStation> getStations()
+	public List<XmlViewStation> getStations()
 	{
 		return stations;
 	}
 
-	public void setStations(List<XmlStation> stations)
+	public void setStations(List<XmlViewStation> stations)
 	{
 		this.stations = stations;
 	}

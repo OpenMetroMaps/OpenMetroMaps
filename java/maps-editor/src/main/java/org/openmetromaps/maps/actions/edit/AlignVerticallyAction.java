@@ -23,13 +23,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.openmetromaps.maps.MapEditor;
+import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.actions.MapEditorAction;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.swing.util.EmptyIcon;
 
 public class AlignVerticallyAction extends MapEditorAction
@@ -52,15 +53,14 @@ public class AlignVerticallyAction extends MapEditorAction
 	{
 		Set<Node> nodes = mapEditor.getMapViewStatus().getSelectedNodes();
 
-		List<Coordinate> locations = new ArrayList<>();
+		List<Point> locations = new ArrayList<>();
 		for (Node node : nodes) {
 			locations.add(node.location);
 		}
-		Coordinate mean = Coordinate.mean(locations);
+		Point mean = Points.mean(locations);
 
 		for (Node node : nodes) {
-			node.location = new Coordinate(node.location.getLongitude(),
-					mean.getLatitude());
+			node.location = new Point(node.location.getX(), mean.getY());
 		}
 
 		for (Node node : nodes) {

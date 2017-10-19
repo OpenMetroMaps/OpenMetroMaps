@@ -15,38 +15,19 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.graph;
+package org.openmetromaps.maps;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openmetromaps.maps.model.Station;
+import java.util.Comparator;
 
 import de.topobyte.lightgeom.lina.Point;
 
-public class Node
+public class PointComparatorY implements Comparator<Point>
 {
 
-	public Point location;
-	public Station station;
-	public List<Edge> edges = new ArrayList<>();
-
-	public boolean isLastStopOfALine;
-	public int rank;
-
-	public Node(Station station)
+	@Override
+	public int compare(Point o1, Point o2)
 	{
-		this.station = station;
-	}
-
-	public void setIsLastStopOfALine(boolean isLastStop)
-	{
-		this.isLastStopOfALine = isLastStop;
-	}
-
-	public void setRank(int rank)
-	{
-		this.rank = rank;
+		return Double.compare(o1.getY(), o2.getY());
 	}
 
 }

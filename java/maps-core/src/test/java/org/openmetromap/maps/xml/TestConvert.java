@@ -23,7 +23,6 @@ import java.io.InputStream;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import org.openmetromaps.maps.CoordinateConversion;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
@@ -46,7 +45,8 @@ public class TestConvert
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		CoordinateConversion.convertViews(model);
+		// TODO: this is not available anymore
+		// CoordinateConversion.convertViews(model);
 
 		XmlModelWriter writer = new XmlModelWriter();
 

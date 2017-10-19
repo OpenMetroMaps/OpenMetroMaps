@@ -25,6 +25,7 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.CoordinateConverter;
+import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelReader;
 import org.openmetromaps.maps.xml.XmlStation;
@@ -33,6 +34,7 @@ import org.xml.sax.SAXException;
 import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.BBoxHelper;
 import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.lightgeom.lina.Point;
 
 public class TestConvertCoordinates
 {
@@ -64,20 +66,19 @@ public class TestConvertCoordinates
 		System.out.println(String.format("size: %f x %f", converter.getWidth(),
 				converter.getHeight()));
 
-		List<Coordinate> newCoordinates = new ArrayList<>();
+		List<Point> newCoordinates = new ArrayList<>();
 
 		for (XmlStation station : stations) {
-			Coordinate c = converter.convert(station.getLocation());
+			Point c = converter.convert(station.getLocation());
 			newCoordinates.add(c);
-			System.out.println(String.format("%f, %f: %s", c.getLongitude(),
-					c.getLatitude(), station.getName()));
+			System.out.println(String.format("%f, %f: %s", c.getX(), c.getY(),
+					station.getName()));
 		}
 
-		Coordinate minimum = Coordinate.minimum(newCoordinates);
-		Coordinate maximum = Coordinate.maximum(newCoordinates);
-		System.out.println(String.format("%f:%f,%f:%f", minimum.getLongitude(),
-				maximum.getLongitude(), minimum.getLatitude(),
-				maximum.getLatitude()));
+		Point minimum = Points.minimum(newCoordinates);
+		Point maximum = Points.maximum(newCoordinates);
+		System.out.println(String.format("%f:%f,%f:%f", minimum.getX(),
+				maximum.getX(), minimum.getY(), maximum.getY()));
 	}
 
 }

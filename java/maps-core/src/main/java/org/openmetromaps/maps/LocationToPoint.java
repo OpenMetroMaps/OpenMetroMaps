@@ -17,15 +17,14 @@
 
 package org.openmetromaps.maps;
 
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.lightgeom.lina.Point;
 
 public interface LocationToPoint
 {
 
-	public Point getPoint(Coordinate location);
+	public Point getPoint(Point location);
 
-	public Point getPoint(Coordinate location, Point point);
+	public Point getPoint(Point location, Point point);
 
 	public double getX(double lon);
 

@@ -52,8 +52,6 @@ public class LineNetworkBuilder
 
 		sortEdgeLines();
 
-		calculateEdgeNeighborLocations();
-
 		computeRanks();
 
 		sortNodesByRank();

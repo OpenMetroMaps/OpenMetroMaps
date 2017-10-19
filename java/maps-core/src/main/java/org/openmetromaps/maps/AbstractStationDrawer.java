@@ -33,7 +33,6 @@ import org.openmetromaps.maps.painting.core.PaintType;
 import org.openmetromaps.maps.painting.core.Painter;
 import org.openmetromaps.maps.painting.core.geom.Path;
 
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.lightgeom.convexhull.ConvexHull;
 import de.topobyte.lightgeom.convexhull.PointArray;
 import de.topobyte.lightgeom.lina.Point;
@@ -213,23 +212,23 @@ public abstract class AbstractStationDrawer implements StationDrawer
 			LocationToPoint ltp, float lineWidth, float spreadFactor,
 			int nLines)
 	{
-		Coordinate locationA = edge.n1.location;
-		Coordinate locationB = edge.n2.location;
+		Point locationA = edge.n1.location;
+		Point locationB = edge.n2.location;
 
-		double ax = ltp.getX(locationA.lon);
-		double ay = ltp.getY(locationA.lat);
-		double bx = ltp.getX(locationB.lon);
-		double by = ltp.getY(locationB.lat);
+		double ax = ltp.getX(locationA.x);
+		double ay = ltp.getY(locationA.y);
+		double bx = ltp.getX(locationB.x);
+		double by = ltp.getY(locationB.y);
 
 		boolean reverse = edge.n2 == node;
 
 		SegmentEndPointPaintInfo spi = spiPool.get();
 		if (!reverse) {
-			Coordinate lp = edge.prev;
+			Point lp = edge.prev;
 			spi = EdgeUtil.endpointInfo(spi, ax, ay, bx, by, lp, ltp, lineWidth,
 					spreadFactor, nLines);
 		} else {
-			Coordinate ln = edge.next;
+			Point ln = edge.next;
 			spi = EdgeUtil.endpointInfo(spi, bx, by, ax, ay, ln, ltp, lineWidth,
 					spreadFactor, nLines);
 		}

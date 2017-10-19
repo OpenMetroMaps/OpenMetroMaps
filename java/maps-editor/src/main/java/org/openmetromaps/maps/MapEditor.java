@@ -67,7 +67,6 @@ import org.openmetromaps.maps.config.VolatileConfigReader;
 import org.openmetromaps.maps.config.VolatileConfiguration;
 import org.openmetromaps.maps.dockables.DockableHelper;
 import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,9 +75,9 @@ import org.xml.sax.SAXException;
 import bibliothek.gui.dock.common.CControl;
 import bibliothek.gui.dock.common.CGrid;
 import bibliothek.gui.dock.common.DefaultSingleCDockable;
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.geomath.WGS84;
+import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.melon.io.StreamUtil;
 import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.JMenus;
@@ -300,15 +299,7 @@ public class MapEditor
 
 		mapViewStatus = new MapViewStatus();
 
-		if (model.getViews().isEmpty()) {
-			LineNetworkBuilder builder = new LineNetworkBuilder(
-					model.getData());
-			LineNetwork lineNetwork = builder.getGraph();
-			ViewConfig viewConfig = ModelUtil.viewConfig(lineNetwork);
-			MapView view = new MapView("Test", lineNetwork, viewConfig);
-			CoordinateConversion.convertView(view);
-			model.getViews().add(view);
-		}
+		ModelUtil.ensureView(model);
 
 		view = model.getViews().get(0);
 		viewConfig = view.getConfig();
@@ -574,8 +565,8 @@ public class MapEditor
 			return null;
 		}
 
-		double sx = ViewportUtil.getViewX(map, best.location.lon);
-		double sy = ViewportUtil.getViewY(map, best.location.lat);
+		double sx = ViewportUtil.getViewX(map, best.location.x);
+		double sy = ViewportUtil.getViewY(map, best.location.y);
 
 		double dx = Math.abs(sx - x);
 		double dy = Math.abs(sy - y);
@@ -600,9 +591,10 @@ public class MapEditor
 
 		// TODO: use an index to speed this up
 		for (Node node : lineNetwork.nodes) {
-			Coordinate location = node.location;
-			double d = WGS84.haversineDistance(location.getLongitude(),
-					location.getLatitude(), x, y);
+			Point location = node.location;
+			// TODO: don't use WGS84 anymore because of new coordinate system
+			double d = WGS84.haversineDistance(location.getX(), location.getY(),
+					x, y);
 			if (d < bestDistance) {
 				bestDistance = d;
 				best = node;

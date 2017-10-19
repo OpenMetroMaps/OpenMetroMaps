@@ -34,7 +34,7 @@ import org.openmetromaps.maps.painting.core.geom.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.lightgeom.lina.Point;
 
 public class StationDrawerSimple extends AbstractStationDrawer
 {
@@ -53,13 +53,13 @@ public class StationDrawerSimple extends AbstractStationDrawer
 	public void drawStation(Painter g, Node node, Path path, boolean selected)
 	{
 		List<Stop> stops = node.station.getStops();
-		Coordinate location = node.location;
+		Point location = node.location;
 
 		if (stops.size() == 1) {
 			Stop stop = stops.get(0);
 			IPaintInfo paint = lineToPaintForStations[stop.getLine().getId()];
-			double px = ltp.getX(location.lon);
-			double py = ltp.getY(location.lat);
+			double px = ltp.getX(location.x);
+			double py = ltp.getY(location.y);
 			drawSinglePuntal(g, px, py, paint, selected);
 			return;
 		}
@@ -70,8 +70,8 @@ public class StationDrawerSimple extends AbstractStationDrawer
 
 		List<List<NetworkLine>> done = new ArrayList<>();
 
-		double px = ltp.getX(location.lon);
-		double py = ltp.getY(location.lat);
+		double px = ltp.getX(location.x);
+		double py = ltp.getY(location.y);
 
 		path.reset();
 		for (Edge edge : edges) {

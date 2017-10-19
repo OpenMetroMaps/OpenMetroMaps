@@ -36,6 +36,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.lightgeom.lina.Point;
 
 public class XmlModelReader
 {
@@ -166,14 +167,14 @@ public class XmlModelReader
 
 		for (int i = 0; i < stationList.getLength(); i++) {
 			Element eStation = (Element) stationList.item(i);
-			XmlStation station = parseViewStation(eStation);
+			XmlViewStation station = parseViewStation(eStation);
 			view.getStations().add(station);
 		}
 
 		return view;
 	}
 
-	private XmlStation parseViewStation(Element eStation)
+	private XmlViewStation parseViewStation(Element eStation)
 	{
 		NamedNodeMap attributes = eStation.getAttributes();
 		String stationName = attributes.getNamedItem("name").getNodeValue();
@@ -182,7 +183,7 @@ public class XmlModelReader
 		double x = Double.parseDouble(valx);
 		double y = Double.parseDouble(valY);
 
-		return new XmlStation(stationName, new Coordinate(x, y));
+		return new XmlViewStation(stationName, new Point(x, y));
 	}
 
 }

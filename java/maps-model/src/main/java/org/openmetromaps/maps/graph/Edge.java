@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.lightgeom.lina.Point;
 
 public class Edge
 {
@@ -38,8 +38,8 @@ public class Edge
 	public Node n1;
 	public Node n2;
 
-	public Coordinate prev;
-	public Coordinate next;
+	public Point prev;
+	public Point next;
 
 	public List<NetworkLine> lines = new ArrayList<>();
 
@@ -54,12 +54,12 @@ public class Edge
 		lines.add(line);
 	}
 
-	public void setNext(Coordinate next)
+	public void setNext(Point next)
 	{
 		this.next = next;
 	}
 
-	public void setPrev(Coordinate prev)
+	public void setPrev(Point prev)
 	{
 		this.prev = prev;
 	}

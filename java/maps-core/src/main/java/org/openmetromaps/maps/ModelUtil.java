@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkBuilder;
+import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
@@ -31,6 +33,7 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.BBoxHelper;
 import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.viewports.geometry.Rectangle;
 
 public class ModelUtil
@@ -68,20 +71,20 @@ public class ModelUtil
 
 	public static ViewConfig viewConfig(LineNetwork lineNetwork)
 	{
-		List<Coordinate> coords = new ArrayList<>();
+		List<Point> points = new ArrayList<>();
 		for (Node node : lineNetwork.getNodes()) {
-			coords.add(node.location);
+			points.add(node.location);
 		}
-		Coordinate min = Coordinate.minimum(coords);
-		Coordinate max = Coordinate.maximum(coords);
+		Point min = Points.minimum(points);
+		Point max = Points.maximum(points);
 
-		coords.sort(new CoordinateComparatorLongitude());
-		double medianX = coords.get(coords.size() / 2).getLongitude();
+		points.sort(new PointComparatorX());
+		double medianX = points.get(points.size() / 2).getX();
 
-		coords.sort(new CoordinateComparatorLatitude());
-		double medianY = coords.get(coords.size() / 2).getLatitude();
+		points.sort(new PointComparatorY());
+		double medianY = points.get(points.size() / 2).getY();
 
-		Rectangle scene = new Rectangle(min.lon, min.lat, max.lon, max.lat);
+		Rectangle scene = new Rectangle(min.x, min.y, max.x, max.y);
 
 		return new ViewConfig(scene,
 				new de.topobyte.viewports.geometry.Coordinate(medianX,
@@ -91,22 +94,44 @@ public class ModelUtil
 	public static ViewConfig viewConfig(LineNetwork lineNetwork, double width,
 			double height)
 	{
-		List<Coordinate> coords = new ArrayList<>();
+		List<Point> points = new ArrayList<>();
 		for (Node node : lineNetwork.getNodes()) {
-			coords.add(node.location);
+			points.add(node.location);
 		}
 
-		coords.sort(new CoordinateComparatorLongitude());
-		double medianX = coords.get(coords.size() / 2).getLongitude();
+		points.sort(new PointComparatorX());
+		double medianX = points.get(points.size() / 2).getX();
 
-		coords.sort(new CoordinateComparatorLatitude());
-		double medianY = coords.get(coords.size() / 2).getLatitude();
+		points.sort(new PointComparatorY());
+		double medianY = points.get(points.size() / 2).getY();
 
 		Rectangle scene = new Rectangle(0, 0, width, height);
 
 		return new ViewConfig(scene,
 				new de.topobyte.viewports.geometry.Coordinate(medianX,
 						medianY));
+	}
+
+	public static void ensureView(MapModel model)
+	{
+		if (!model.getViews().isEmpty()) {
+			return;
+		}
+
+		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData());
+		LineNetwork lineNetwork = builder.getGraph();
+		List<Node> nodes = lineNetwork.getNodes();
+
+		for (Node node : nodes) {
+			Coordinate coord = node.station.getLocation();
+			node.location = new Point(coord.lon, coord.lat);
+		}
+		LineNetworkUtil.calculateAllNeighborLocations(lineNetwork);
+
+		ViewConfig viewConfig = ModelUtil.viewConfig(lineNetwork);
+		MapView view = new MapView("Test", lineNetwork, viewConfig);
+		CoordinateConversion.convertView(view);
+		model.getViews().add(view);
 	}
 
 }

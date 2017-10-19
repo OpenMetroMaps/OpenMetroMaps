@@ -41,7 +41,7 @@ public class CoordinateConversion
 	{
 		List<Coordinate> coordinates = new ArrayList<>();
 		for (Node node : view.getLineNetwork().getNodes()) {
-			coordinates.add(node.location);
+			coordinates.add(new Coordinate(node.location.x, node.location.y));
 		}
 
 		if (coordinates.isEmpty()) {

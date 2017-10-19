@@ -32,8 +32,8 @@ import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
+import de.topobyte.lightgeom.lina.Point;
 
 public class StationPanel extends JPanel
 {
@@ -140,8 +140,8 @@ public class StationPanel extends JPanel
 		}
 
 		inputName.setText(node.station.getName());
-		String x = String.format("%.4f", node.location.lon);
-		String y = String.format("%.4f", node.location.lat);
+		String x = String.format("%.4f", node.location.x);
+		String y = String.format("%.4f", node.location.y);
 		inputX.setText(x);
 		inputY.setText(y);
 	}
@@ -161,7 +161,7 @@ public class StationPanel extends JPanel
 		try {
 			double parsedX = Double.parseDouble(valX);
 			double parsedY = Double.parseDouble(valY);
-			node.location = new Coordinate(parsedX, parsedY);
+			node.location = new Point(parsedX, parsedY);
 			LineNetworkUtil.updateEdges(node);
 			mapEditor.getMap().repaint();
 		} catch (NumberFormatException e) {

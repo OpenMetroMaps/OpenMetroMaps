@@ -1,6 +1,7 @@
 dependencies {
     compile 'de.topobyte:adt-geo:0.0.4'
     compile 'de.topobyte:viewports-core:0.0.2'
+    compile 'de.topobyte:lightweight-geometry:1.0.0'
 
     compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
 

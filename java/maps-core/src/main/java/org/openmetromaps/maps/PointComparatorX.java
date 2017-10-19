@@ -17,22 +17,17 @@
 
 package org.openmetromaps.maps;
 
-import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.LineNetworkBuilder;
+import java.util.Comparator;
 
-public class TestDataUtil
+import de.topobyte.lightgeom.lina.Point;
+
+public class PointComparatorX implements Comparator<Point>
 {
 
-	public static void ensureView(MapModel model)
+	@Override
+	public int compare(Point o1, Point o2)
 	{
-		if (!model.getViews().isEmpty()) {
-			return;
-		}
-
-		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData());
-		LineNetwork lineNetwork = builder.getGraph();
-		ViewConfig viewConfig = ModelUtil.viewConfig(lineNetwork);
-		model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
+		return Double.compare(o1.getX(), o2.getX());
 	}
 
 }

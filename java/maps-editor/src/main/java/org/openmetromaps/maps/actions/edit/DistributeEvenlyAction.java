@@ -36,7 +36,7 @@ import org.openmetromaps.maps.model.Line;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.topobyte.adt.geo.Coordinate;
+import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.swing.util.EmptyIcon;
 
 public class DistributeEvenlyAction extends MapEditorAction
@@ -106,20 +106,20 @@ public class DistributeEvenlyAction extends MapEditorAction
 		List<Node> between = nodesBetween.getNodes();
 		int num = between.size();
 
-		Coordinate c1 = nodesBetween.getStart().location;
-		Coordinate c2 = nodesBetween.getEnd().location;
+		Point c1 = nodesBetween.getStart().location;
+		Point c2 = nodesBetween.getEnd().location;
 
-		double diffX = c2.getLongitude() - c1.getLongitude();
-		double diffY = c2.getLatitude() - c1.getLatitude();
+		double diffX = c2.getX() - c1.getX();
+		double diffY = c2.getY() - c1.getY();
 
 		double dx = diffX / num;
 		double dy = diffY / num;
 
 		for (int i = 0; i < num; i++) {
 			Node node = between.get(i);
-			double x = c1.lon + dx * (i + 1);
-			double y = c1.lat + dy * (i + 1);
-			node.location = new Coordinate(x, y);
+			double x = c1.x + dx * (i + 1);
+			double y = c1.y + dy * (i + 1);
+			node.location = new Point(x, y);
 		}
 
 		LineNetworkUtil.updateEdges(nodesBetween.getStart());

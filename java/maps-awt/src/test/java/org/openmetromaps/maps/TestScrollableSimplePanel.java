@@ -36,7 +36,7 @@ public class TestScrollableSimplePanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		TestDataUtil.ensureView(model);
+		ModelUtil.ensureView(model);
 
 		ScrollableSimplePanel panel = new ScrollableSimplePanel(model.getData(),
 				model.getViews().get(0), 10, 15);

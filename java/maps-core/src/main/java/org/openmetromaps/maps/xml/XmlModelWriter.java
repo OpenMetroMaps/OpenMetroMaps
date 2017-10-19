@@ -33,6 +33,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.openmetromaps.maps.Edges;
+import org.openmetromaps.maps.Interval;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.LineNetwork;
@@ -145,6 +147,20 @@ public class XmlModelWriter
 				}
 
 			});
+
+			List<Edges> edgesDefs = view.getEdges();
+			for (Edges edgesDef : edgesDefs) {
+				Element eEdges = doc.createElement("edges");
+				eView.appendChild(eEdges);
+				eEdges.setAttribute("line", edgesDef.getLine());
+
+				for (Interval interval : edgesDef.getIntervals()) {
+					Element eInterval = doc.createElement("interval");
+					eEdges.appendChild(eInterval);
+					eInterval.setAttribute("from", interval.getFrom());
+					eInterval.setAttribute("to", interval.getTo());
+				}
+			}
 
 			for (Node node : nodes) {
 				Station station = node.station;

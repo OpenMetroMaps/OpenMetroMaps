@@ -118,7 +118,13 @@ public class ModelUtil
 			return;
 		}
 
-		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData());
+		List<Edges> edges = new ArrayList<>();
+		for (Line line : model.getData().lines) {
+			edges.add(new Edges(line.getName()));
+		}
+
+		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData(),
+				edges);
 		LineNetwork lineNetwork = builder.getGraph();
 		List<Node> nodes = lineNetwork.getNodes();
 
@@ -129,7 +135,7 @@ public class ModelUtil
 		LineNetworkUtil.calculateAllNeighborLocations(lineNetwork);
 
 		ViewConfig viewConfig = ModelUtil.viewConfig(lineNetwork);
-		MapView view = new MapView("Test", lineNetwork, viewConfig);
+		MapView view = new MapView("Test", edges, lineNetwork, viewConfig);
 		CoordinateConversion.convertView(view);
 		model.getViews().add(view);
 	}

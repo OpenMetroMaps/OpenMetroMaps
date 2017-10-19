@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.openmetromaps.maps.Edges;
+import org.openmetromaps.maps.Interval;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.ViewConfig;
@@ -125,8 +127,19 @@ public class XmlModelConverter
 
 		List<XmlView> xmlViews = draftModel.getXmlViews();
 		for (XmlView xmlView : xmlViews) {
-			LineNetworkBuilder builder = new LineNetworkBuilder(
-					model.getData());
+			List<Edges> allEdges = new ArrayList<>();
+			for (XmlEdges xmlEdges : xmlView.getEdges()) {
+				Edges edges = new Edges(xmlEdges.getName());
+				allEdges.add(edges);
+
+				for (XmlInterval xmlInterval : xmlEdges.getIntervals()) {
+					edges.addInterval(new Interval(xmlInterval.getFrom(),
+							xmlInterval.getTo()));
+				}
+			}
+
+			LineNetworkBuilder builder = new LineNetworkBuilder(model.getData(),
+					allEdges);
 			LineNetwork lineNetwork = builder.getGraph();
 
 			Rectangle scene = new Rectangle(0, 0, xmlView.getSceneWidth(),
@@ -135,8 +148,8 @@ public class XmlModelConverter
 					xmlView.getStartY());
 			ViewConfig viewConfig = new ViewConfig(scene, startPosition);
 
-			model.getViews().add(
-					new MapView(xmlView.getName(), lineNetwork, viewConfig));
+			model.getViews().add(new MapView(xmlView.getName(), allEdges,
+					lineNetwork, viewConfig));
 
 			Map<String, XmlViewStation> nameToViewStation = new HashMap<>();
 			for (XmlViewStation station : xmlView.getStations()) {

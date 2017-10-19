@@ -24,12 +24,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.openmetromaps.maps.Edges;
+import org.openmetromaps.maps.Interval;
 import org.openmetromaps.maps.Segment;
 import org.openmetromaps.maps.StationUtil;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.slimjars.dist.gnu.trove.set.TIntSet;
 import com.slimjars.dist.gnu.trove.set.hash.TIntHashSet;
@@ -37,18 +41,21 @@ import com.slimjars.dist.gnu.trove.set.hash.TIntHashSet;
 public class LineNetworkBuilder
 {
 
+	final static Logger logger = LoggerFactory
+			.getLogger(LineNetworkBuilder.class);
+
 	private LineNetwork graph = new LineNetwork();
 
 	private Map<Station, Node> stationToNode = new HashMap<>();
 	private Map<Segment, Edge> segmentToEdge = new HashMap<>();
 
-	public LineNetworkBuilder(ModelData data)
+	public LineNetworkBuilder(ModelData data, List<Edges> edges)
 	{
 		graph.setStationToNode(stationToNode);
 
 		addStations(data);
 
-		addLines(data);
+		addLines(data, edges);
 
 		sortEdgeLines();
 
@@ -66,30 +73,109 @@ public class LineNetworkBuilder
 		}
 	}
 
-	private void addLines(ModelData data)
+	private void addLines(ModelData data, List<Edges> edgesDefs)
 	{
 		final int nLines = data.lines.size();
+
+		Map<String, Line> nameToLine = new HashMap<>();
+		Map<String, NetworkLine> nameToNetworkLine = new HashMap<>();
 		for (int i = 0; i < nLines; i++) {
 			Line line = data.lines.get(i);
+			nameToLine.put(line.getName(), line);
+
 			NetworkLine networkLine = new NetworkLine(line);
 			graph.lines.add(networkLine);
-
-			List<Stop> stops = line.getStops();
-			Stop prev = stops.get(0);
-			List<Edge> edges = new ArrayList<>();
-			for (int k = 1; k < stops.size(); k++) {
-				Stop next = stops.get(k);
-
-				edges.add(addSegment(networkLine, prev, next));
-
-				prev = next;
-			}
-			if (line.isCircular()) {
-				edges.add(addSegment(networkLine, prev, stops.get(0)));
-			}
-
-			networkLine.setEdges(edges);
+			nameToNetworkLine.put(line.getName(), networkLine);
 		}
+
+		for (Edges edgesDef : edgesDefs) {
+			String lineName = edgesDef.getLine();
+			NetworkLine networkLine = nameToNetworkLine.get(lineName);
+			graph.lines.add(networkLine);
+
+			if (edgesDef.getIntervals().isEmpty()) {
+				addAllEdges(networkLine);
+			} else {
+				addIntervalEdges(networkLine, edgesDef.getIntervals());
+			}
+		}
+	}
+
+	private void addAllEdges(NetworkLine networkLine)
+	{
+		List<Stop> stops = networkLine.line.getStops();
+		Stop prev = stops.get(0);
+		List<Edge> edges = new ArrayList<>();
+		for (int k = 1; k < stops.size(); k++) {
+			Stop next = stops.get(k);
+
+			edges.add(addSegment(networkLine, prev, next));
+
+			prev = next;
+		}
+		if (networkLine.line.isCircular()) {
+			edges.add(addSegment(networkLine, prev, stops.get(0)));
+		}
+		networkLine.setEdges(edges);
+	}
+
+	private void addIntervalEdges(NetworkLine networkLine,
+			List<Interval> intervals)
+	{
+		for (Interval interval : intervals) {
+			addIntervalEdges(networkLine, interval);
+		}
+	}
+
+	private void addIntervalEdges(NetworkLine networkLine, Interval interval)
+	{
+		String nameFrom = interval.getFrom();
+		String nameTo = interval.getTo();
+
+		int from = -1;
+		int to = -1;
+
+		List<Stop> stops = networkLine.line.getStops();
+		for (int i = 0; i < stops.size(); i++) {
+			String stopName = stops.get(i).getStation().getName();
+			if (stopName.equals(nameFrom)) {
+				from = i;
+			}
+			if (stopName.equals(nameTo)) {
+				to = i;
+			}
+		}
+
+		if (from < 0 || to < 0) {
+			return;
+		}
+
+		// make sure from <= to
+		if (from > to) {
+			int tmp = from;
+			from = to;
+			to = tmp;
+		}
+
+		logger.debug(String.format("Line %s, interval: %d - %d",
+				networkLine.line.getName(), from, to));
+
+		Stop prev = stops.get(from);
+		List<Edge> edges = new ArrayList<>();
+		for (int k = from + 1; k <= to; k++) {
+			Stop next = stops.get(k);
+
+			Node node1 = stationToNode.get(prev.getStation());
+			Node node2 = stationToNode.get(next.getStation());
+			logger.debug(String.format("Segment: %s - %s",
+					node1.station.getName(), node2.station.getName()));
+
+			edges.add(addSegment(networkLine, prev, next));
+
+			prev = next;
+		}
+
+		networkLine.setEdges(edges);
 	}
 
 	private void sortEdgeLines()

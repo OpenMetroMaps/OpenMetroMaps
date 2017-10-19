@@ -18,14 +18,15 @@
 package org.openmetromaps.maps;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
-import org.openmetromaps.maps.model.Stop;
 import org.openmetromaps.maps.painting.core.Cap;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.Colors;
@@ -96,12 +97,22 @@ public class StationDrawerConvex extends AbstractStationDrawer
 	public void drawStation(Painter g, Node node, Path path, boolean selected,
 			boolean renderCenter)
 	{
-		List<Stop> stops = node.station.getStops();
 		Point location = node.location;
+		List<Edge> nodeEdges = node.edges;
 
-		if (stops.size() == 1) {
-			Stop stop = stops.get(0);
-			IPaintInfo paint = lineToPaintForStations[stop.getLine().getId()];
+		Set<NetworkLine> nodeLines = new HashSet<>();
+		for (Edge edge : nodeEdges) {
+			nodeLines.addAll(edge.lines);
+		}
+
+		if (nodeLines.isEmpty()) {
+			return;
+		}
+
+		if (nodeLines.size() == 1) {
+			NetworkLine line = nodeLines.iterator().next();
+			int lineId = line.line.getId();
+			IPaintInfo paint = lineToPaintForStations[lineId];
 			double px = ltp.getX(location.x);
 			double py = ltp.getY(location.y);
 			drawSinglePuntal(g, px, py, paint, selected);

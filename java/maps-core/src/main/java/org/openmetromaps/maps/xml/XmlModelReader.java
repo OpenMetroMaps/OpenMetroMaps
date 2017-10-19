@@ -165,6 +165,8 @@ public class XmlModelReader
 
 		parseViewStations(view, eView);
 
+		parseViewEdges(view, eView);
+
 		return view;
 	}
 
@@ -189,6 +191,41 @@ public class XmlModelReader
 		double y = Double.parseDouble(valY);
 
 		return new XmlViewStation(stationName, new Point(x, y));
+	}
+
+	private void parseViewEdges(XmlView view, Element eView)
+	{
+		NodeList edgesList = eView.getElementsByTagName("edges");
+
+		for (int i = 0; i < edgesList.getLength(); i++) {
+			Element eEdges = (Element) edgesList.item(i);
+			XmlEdges edges = parseEdges(eEdges);
+			view.getEdges().add(edges);
+		}
+	}
+
+	private XmlEdges parseEdges(Element eEdges)
+	{
+		NamedNodeMap attributes = eEdges.getAttributes();
+		String line = attributes.getNamedItem("line").getNodeValue();
+
+		XmlEdges edges = new XmlEdges(line);
+
+		NodeList intervalList = eEdges.getElementsByTagName("interval");
+		for (int i = 0; i < intervalList.getLength(); i++) {
+			Element eInterval = (Element) intervalList.item(i);
+			parseInterval(edges, eInterval);
+		}
+
+		return edges;
+	}
+
+	private void parseInterval(XmlEdges edges, Element eInterval)
+	{
+		NamedNodeMap attributes = eInterval.getAttributes();
+		String from = attributes.getNamedItem("from").getNodeValue();
+		String to = attributes.getNamedItem("to").getNodeValue();
+		edges.addInterval(new XmlInterval(from, to));
 	}
 
 }

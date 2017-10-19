@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
@@ -59,12 +60,16 @@ public class NewAction extends MapEditorAction
 		ModelData data = new ModelData(lines, stations);
 		MapModel model = new MapModel(data);
 
-		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData());
+		List<Edges> edges = new ArrayList<>();
+
+		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData(),
+				edges);
 		LineNetwork lineNetwork = builder.getGraph();
 
 		ViewConfig viewConfig = new ViewConfig(new Rectangle(10, 10, 20, 20),
 				new Coordinate(15, 15));
-		model.getViews().add(new MapView("Test", lineNetwork, viewConfig));
+		model.getViews()
+				.add(new MapView("Test", edges, lineNetwork, viewConfig));
 
 		mapEditor.setModel(model);
 		mapEditor.getMap().repaint();

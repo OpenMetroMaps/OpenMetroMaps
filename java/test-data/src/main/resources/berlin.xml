@@ -909,6 +909,39 @@
     </line>
   </lines>
   <view name="Berlin" scene-height="904.137943" scene-width="1000.000000" start-x="386.178629" start-y="478.710910">
+    <edges line="S1"/>
+    <edges line="S2"/>
+    <edges line="S25"/>
+    <edges line="S3"/>
+    <edges line="S41"/>
+    <edges line="S42"/>
+    <edges line="S45">
+      <interval from="Adlershof" to="Flughafen Berlin-Schönefeld"/>
+    </edges>
+    <edges line="S46"/>
+    <edges line="S47">
+      <interval from="Schöneweide" to="Spindlersfeld"/>
+    </edges>
+    <edges line="S5"/>
+    <edges line="S7"/>
+    <edges line="S75">
+      <interval from="Springpfuhl" to="Wartenberg"/>
+    </edges>
+    <edges line="S8"/>
+    <edges line="S85">
+      <interval from="Waidmannslust" to="Bornholmer Straße"/>
+    </edges>
+    <edges line="S9"/>
+    <edges line="U1"/>
+    <edges line="U2"/>
+    <edges line="U3"/>
+    <edges line="U4"/>
+    <edges line="U5"/>
+    <edges line="U55"/>
+    <edges line="U6"/>
+    <edges line="U7"/>
+    <edges line="U8"/>
+    <edges line="U9"/>
     <station name="Adenauerplatz" x="306.971244" y="497.337772"/>
     <station name="Adlershof" x="557.257810" y="611.564773"/>
     <station name="Afrikanische Straße" x="334.874878" y="387.480046"/>

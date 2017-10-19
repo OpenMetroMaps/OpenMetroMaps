@@ -29,6 +29,7 @@ public class XmlView
 	private double startX;
 	private double startY;
 	private List<XmlViewStation> stations = new ArrayList<>();
+	private List<XmlEdges> edges = new ArrayList<>();
 
 	public XmlView(String name, double sceneWidth, double sceneHeight,
 			double startX, double startY)
@@ -98,6 +99,16 @@ public class XmlView
 	public void setStations(List<XmlViewStation> stations)
 	{
 		this.stations = stations;
+	}
+
+	public List<XmlEdges> getEdges()
+	{
+		return edges;
+	}
+
+	public void setEdges(List<XmlEdges> edges)
+	{
+		this.edges = edges;
 	}
 
 }

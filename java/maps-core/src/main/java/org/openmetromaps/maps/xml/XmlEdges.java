@@ -15,67 +15,40 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps;
+package org.openmetromaps.maps.xml;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.openmetromaps.maps.graph.LineNetwork;
-
-public class MapView
+public class XmlEdges
 {
 
-	private String name;
-	private List<Edges> edges;
-	private LineNetwork lineNetwork;
-	private ViewConfig config;
+	private String line;
+	private List<XmlInterval> intervals = new ArrayList<>();
 
-	public MapView(String name, List<Edges> edges, LineNetwork lineNetwork,
-			ViewConfig config)
+	public XmlEdges(String line)
 	{
-		this.name = name;
-		this.edges = edges;
-		this.lineNetwork = lineNetwork;
-		this.config = config;
+		this.line = line;
 	}
 
 	public String getName()
 	{
-		return name;
+		return line;
 	}
 
 	public void setName(String name)
 	{
-		this.name = name;
+		this.line = name;
 	}
 
-	public List<Edges> getEdges()
+	public void addInterval(XmlInterval interval)
 	{
-		return edges;
+		intervals.add(interval);
 	}
 
-	public void setEdges(List<Edges> edges)
+	public List<XmlInterval> getIntervals()
 	{
-		this.edges = edges;
-	}
-
-	public LineNetwork getLineNetwork()
-	{
-		return lineNetwork;
-	}
-
-	public void setLineNetwork(LineNetwork lineNetwork)
-	{
-		this.lineNetwork = lineNetwork;
-	}
-
-	public ViewConfig getConfig()
-	{
-		return config;
-	}
-
-	public void setConfig(ViewConfig config)
-	{
-		this.config = config;
+		return intervals;
 	}
 
 }

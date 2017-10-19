@@ -911,7 +911,10 @@
   <view name="Berlin" scene-height="904.137943" scene-width="1000.000000" start-x="386.178629" start-y="478.710910">
     <edges line="S1"/>
     <edges line="S2"/>
-    <edges line="S25"/>
+    <edges line="S25">
+      <interval from="Hennigsdorf (bei Berlin)" to="Bornholmer Straße"/>
+      <interval from="Priesterweg" to="Teltow Stadt"/>
+    </edges>
     <edges line="S3"/>
     <edges line="S41"/>
     <edges line="S42"/>

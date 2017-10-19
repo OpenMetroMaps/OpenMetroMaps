@@ -163,6 +163,13 @@ public class XmlModelReader
 		XmlView view = new XmlView(viewName, sceneWidth, sceneHeight, startX,
 				startY);
 
+		parseViewStations(view, eView);
+
+		return view;
+	}
+
+	private void parseViewStations(XmlView view, Element eView)
+	{
 		NodeList stationList = eView.getElementsByTagName("station");
 
 		for (int i = 0; i < stationList.getLength(); i++) {
@@ -170,8 +177,6 @@ public class XmlModelReader
 			XmlViewStation station = parseViewStation(eStation);
 			view.getStations().add(station);
 		}
-
-		return view;
 	}
 
 	private XmlViewStation parseViewStation(Element eStation)

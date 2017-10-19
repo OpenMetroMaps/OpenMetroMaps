@@ -15,18 +15,35 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps;
+package org.openmetromaps.maps.actions.view;
 
-import org.openmetromaps.maps.graph.Node;
-import org.openmetromaps.maps.painting.core.Painter;
-import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.MapEditor;
+import org.openmetromaps.maps.actions.MapEditorBooleanAction;
 
-public interface StationDrawer
+import de.topobyte.swing.util.EmptyIcon;
+
+public class ShowStationCentersAction extends MapEditorBooleanAction
 {
 
-	public void drawStation(Painter g, Node node, Path path, boolean selected,
-			boolean renderCenter);
+	private static final long serialVersionUID = 1L;
 
-	public void zoomChanged(float factor, float lineWidth);
+	public ShowStationCentersAction(MapEditor mapEditor)
+	{
+		super(mapEditor, "Show Station Centers",
+				"Toggle visibility of station centers");
+		setIcon(new EmptyIcon(24));
+	}
+
+	@Override
+	public boolean getState()
+	{
+		return mapEditor.isShowStationCenters();
+	}
+
+	@Override
+	public void toggleState()
+	{
+		mapEditor.setShowStationCenters(!mapEditor.isShowStationCenters());
+	}
 
 }

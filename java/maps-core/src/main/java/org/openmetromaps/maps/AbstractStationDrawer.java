@@ -58,6 +58,8 @@ public abstract class AbstractStationDrawer implements StationDrawer
 	protected IPaintInfo paintSelectedStationsStrokeOutline;
 	protected IPaintInfo paintSelectedStationsFillOutline;
 
+	protected IPaintInfo paintStationCenters;
+
 	protected float spreadFactor;
 	private float baseStationsSize = 8;
 	protected float stationsSize;
@@ -97,6 +99,11 @@ public abstract class AbstractStationDrawer implements StationDrawer
 		paintSelectedStationsStrokeOutline.setCap(Cap.ROUND);
 		paintSelectedStationsStrokeOutline.setJoin(Join.ROUND);
 		paintSelectedStationsStrokeOutline.setStyle(PaintType.STROKE);
+
+		paintStationCenters = pf.create(Colors.BLACK);
+		paintStationCenters.setCap(Cap.ROUND);
+		paintStationCenters.setJoin(Join.ROUND);
+		paintStationCenters.setStyle(PaintType.FILL);
 
 		lineToPaintForStations = new IPaintInfo[data.getLines().size()];
 
@@ -156,7 +163,8 @@ public abstract class AbstractStationDrawer implements StationDrawer
 	}
 
 	protected void drawLineal(Painter g, Path path, double px, double py,
-			SegmentEndPointPaintInfo spi, boolean selected)
+			SegmentEndPointPaintInfo spi, boolean selected,
+			boolean renderCenter)
 	{
 		path.reset();
 		path.moveTo(px + spi.sx, py + spi.sy);
@@ -171,6 +179,16 @@ public abstract class AbstractStationDrawer implements StationDrawer
 
 		g.setPaintInfo(paintStationsStroke);
 		g.draw(path);
+
+		if (renderCenter) {
+			renderCenter(g, px, py);
+		}
+	}
+
+	protected void renderCenter(Painter g, double px, double py)
+	{
+		g.setPaintInfo(paintStationCenters);
+		g.drawCircle(px, py, 1);
 	}
 
 	protected void addIfNonNull(PointArray points, Point p)

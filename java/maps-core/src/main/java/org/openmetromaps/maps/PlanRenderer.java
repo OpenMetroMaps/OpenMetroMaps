@@ -73,6 +73,7 @@ public class PlanRenderer implements ViewportListener
 	private boolean debugTangents = false;
 
 	private boolean isRenderLabels = true;
+	private boolean renderStationCenters = false;
 
 	private StationMode stationMode;
 	private SegmentMode segmentMode;
@@ -148,6 +149,16 @@ public class PlanRenderer implements ViewportListener
 	public void setRenderLabels(boolean isRenderLabels)
 	{
 		this.isRenderLabels = isRenderLabels;
+	}
+
+	public boolean isRenderStationCenters()
+	{
+		return renderStationCenters;
+	}
+
+	public void setRenderStationCenters(boolean renderStationCenters)
+	{
+		this.renderStationCenters = renderStationCenters;
 	}
 
 	public boolean isDebugRanks()
@@ -313,7 +324,8 @@ public class PlanRenderer implements ViewportListener
 
 			boolean selected = mapViewStatus.isNodeSelected(node);
 
-			stationDrawer.drawStation(g, node, path, selected);
+			stationDrawer.drawStation(g, node, path, selected,
+					renderStationCenters);
 		}
 		tm.stop(LOG_STATIONS);
 

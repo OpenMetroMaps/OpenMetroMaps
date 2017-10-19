@@ -60,6 +60,7 @@ import org.openmetromaps.maps.actions.help.LicenseAction;
 import org.openmetromaps.maps.actions.view.DebugRanksAction;
 import org.openmetromaps.maps.actions.view.DebugTangentsAction;
 import org.openmetromaps.maps.actions.view.ShowLabelsAction;
+import org.openmetromaps.maps.actions.view.ShowStationCentersAction;
 import org.openmetromaps.maps.config.ConfigurationHelper;
 import org.openmetromaps.maps.config.PermanentConfigReader;
 import org.openmetromaps.maps.config.PermanentConfiguration;
@@ -126,6 +127,10 @@ public class MapEditor
 
 	private BooleanValueHolder showLabels = new BooleanValueHolder(
 			changeSupport, "show-labels", x -> setShowLabelsInternal(), true);
+
+	private BooleanValueHolder showStationCenters = new BooleanValueHolder(
+			changeSupport, "show-station-centers",
+			x -> setShowStationCentersInternal(), false);
 
 	private BooleanValueHolder debugTangents = new BooleanValueHolder(
 			changeSupport, "debug-tangents", x -> setDebugTangentsInternal(),
@@ -246,6 +251,23 @@ public class MapEditor
 		map.repaint();
 	}
 
+	public boolean isShowStationCenters()
+	{
+		return showStationCenters.getValue();
+	}
+
+	public void setShowStationCenters(boolean showStationCenters)
+	{
+		this.showStationCenters.setValue(showStationCenters);
+	}
+
+	public void setShowStationCentersInternal()
+	{
+		map.getPlanRenderer()
+				.setRenderStationCenters(showStationCenters.getValue());
+		map.repaint();
+	}
+
 	public boolean isDebugTangents()
 	{
 		return debugTangents.getValue();
@@ -287,6 +309,7 @@ public class MapEditor
 	{
 		PlanRenderer planRenderer = map.getPlanRenderer();
 		planRenderer.setRenderLabels(showLabels.getValue());
+		planRenderer.setRenderStationCenters(showStationCenters.getValue());
 		planRenderer.setStationMode(stationMode.getValue());
 		planRenderer.setSegmentMode(segmentMode.getValue());
 		planRenderer.setDebugTangents(debugTangents.getValue());
@@ -453,14 +476,16 @@ public class MapEditor
 	{
 		JMenus.addCheckbox(menuView, new ShowLabelsAction(this),
 				KeyEvent.VK_F2);
+		JMenus.addCheckbox(menuView, new ShowStationCentersAction(this),
+				KeyEvent.VK_F3);
 		JMenu stationMode = submenu("Station mode");
 		JMenu segmentMode = submenu("Segment mode");
 		menuView.add(stationMode);
 		menuView.add(segmentMode);
 		JMenus.addCheckbox(menuView, new DebugTangentsAction(this),
-				KeyEvent.VK_F3);
-		JMenus.addCheckbox(menuView, new DebugRanksAction(this),
 				KeyEvent.VK_F4);
+		JMenus.addCheckbox(menuView, new DebugRanksAction(this),
+				KeyEvent.VK_F5);
 
 		EnumActions.add(stationMode, StationMode.class, this.stationMode,
 				x -> setStationMode(x), new DefaultAppearance<>());

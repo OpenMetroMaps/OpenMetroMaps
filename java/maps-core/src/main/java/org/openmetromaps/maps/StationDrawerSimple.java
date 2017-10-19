@@ -50,7 +50,8 @@ public class StationDrawerSimple extends AbstractStationDrawer
 	}
 
 	@Override
-	public void drawStation(Painter g, Node node, Path path, boolean selected)
+	public void drawStation(Painter g, Node node, Path path, boolean selected,
+			boolean renderCenter)
 	{
 		List<Stop> stops = node.station.getStops();
 		Point location = node.location;
@@ -105,6 +106,9 @@ public class StationDrawerSimple extends AbstractStationDrawer
 			g.draw(path);
 			g.setPaintInfo(paintStationsStroke);
 			g.draw(path);
+			if (renderCenter) {
+				renderCenter(g, px, py);
+			}
 		} else {
 			drawMultiPuntal(g, px, py, selected);
 		}

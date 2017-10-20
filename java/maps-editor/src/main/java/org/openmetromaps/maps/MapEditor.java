@@ -47,6 +47,7 @@ import org.openmetromaps.maps.actions.algorithms.StraightenAxisParallelLinesActi
 import org.openmetromaps.maps.actions.edit.AlignHorizontallyAction;
 import org.openmetromaps.maps.actions.edit.AlignVerticallyAction;
 import org.openmetromaps.maps.actions.edit.DistributeEvenlyAction;
+import org.openmetromaps.maps.actions.edit.DocumentPropertiesAction;
 import org.openmetromaps.maps.actions.edit.SelectAllAction;
 import org.openmetromaps.maps.actions.edit.SelectLinesAction;
 import org.openmetromaps.maps.actions.edit.SelectNodesInBetweenAction;
@@ -455,6 +456,8 @@ public class MapEditor
 
 	private void setupMenuEdit(JMenu menuEdit)
 	{
+		JMenus.addItem(menuEdit, new DocumentPropertiesAction(this),
+				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_P);
 		JMenus.addItem(menuEdit, new SelectAllAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_A);
 		JMenus.addItem(menuEdit, new SelectLinesAction(this),

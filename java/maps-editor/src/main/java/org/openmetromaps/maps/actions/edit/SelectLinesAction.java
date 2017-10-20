@@ -18,7 +18,6 @@
 package org.openmetromaps.maps.actions.edit;
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JDialog;
@@ -68,14 +67,6 @@ public class SelectLinesAction extends MapEditorAction
 		dialog.setSize(400, 300);
 		dialog.setLocationRelativeTo(mapEditor.getFrame());
 		dialog.setVisible(true);
-
-		List<Node> nodes = new ArrayList<>();
-
-		for (Node node : nodes) {
-			mapEditor.getMapViewStatus().selectNode(node);
-		}
-		mapEditor.updateStationPanel();
-		mapEditor.getMap().repaint();
 	}
 
 	private void dialogDone(LineSelectionDialog dialog, boolean positive)

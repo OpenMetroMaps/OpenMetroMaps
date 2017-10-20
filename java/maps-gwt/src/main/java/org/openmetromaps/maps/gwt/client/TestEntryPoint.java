@@ -30,7 +30,9 @@ public class TestEntryPoint implements EntryPoint {
 		DockLayoutPanel dock = new DockLayoutPanel(Unit.EM);
 		RootLayoutPanel.get().add(dock);
 
-		dock.addNorth(new Label("Hello World"), 2);
+		Label title = new Label("Below is a simple panel");
+		title.getElement().getStyle().setMargin(1, Unit.EM);
+		dock.addNorth(title, 2);
 
 		TestPanel test = new TestPanel();
 		dock.add(test);

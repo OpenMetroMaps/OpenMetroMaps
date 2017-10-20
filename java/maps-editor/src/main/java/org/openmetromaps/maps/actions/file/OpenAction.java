@@ -76,6 +76,7 @@ public class OpenAction extends MapEditorAction
 				MapModel model = new XmlModelConverter().convert(xmlModel);
 				mapEditor.setModel(model);
 				mapEditor.getMap().repaint();
+				mapEditor.setSource(file.toPath());
 			} catch (ParserConfigurationException | SAXException
 					| IOException e) {
 				logger.error("Error while loading file", e);

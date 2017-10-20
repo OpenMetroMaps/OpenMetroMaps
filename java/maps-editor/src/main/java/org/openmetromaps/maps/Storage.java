@@ -75,6 +75,7 @@ public class Storage
 			File file = chooser.getSelectedFile();
 			logger.debug("attempting to save document to file: " + file);
 			save(file, mapEditor);
+			mapEditor.setSource(file.toPath());
 
 			Path newLastUsed = file.toPath().getParent();
 			config.setLastUsedDirectory(newLastUsed);

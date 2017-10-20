@@ -18,14 +18,22 @@
 package org.openmetromaps.maps.gwt.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 public class TestEntryPoint implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		RootPanel.get().add(new Label("Hello World"));
+		DockLayoutPanel dock = new DockLayoutPanel(Unit.EM);
+		RootLayoutPanel.get().add(dock);
+
+		dock.addNorth(new Label("Hello World"), 2);
+
+		TestPanel test = new TestPanel();
+		dock.add(test);
 	}
 
 }

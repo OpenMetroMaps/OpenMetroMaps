@@ -31,6 +31,7 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 
 	private static Logger logger = Logger.getLogger("");
 	static {
+		// Is this necessary? Proably not. TODO: get logging to work
 		logger.addHandler(new SystemLogHandler());
 	}
 
@@ -43,6 +44,8 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 		canvas = Canvas.createIfSupported();
 		add(canvas);
 
+		// This is very important to initialize the size of the canvas after the
+		// widget has loaded.
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 
 			@Override

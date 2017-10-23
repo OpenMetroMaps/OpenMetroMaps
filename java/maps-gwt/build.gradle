@@ -26,3 +26,25 @@ gwt {
         disableCastChecking = true;
     }
 }
+
+dependencies {
+    compile project(':openmetromaps-maps-model')
+}
+
+task depfiles {
+    doLast {
+        project.configurations.compile.each { println it.name }
+    }
+}
+
+task depcoords {
+    doLast {
+        project.configurations.compile.resolvedConfiguration.resolvedArtifacts.each {
+            ComponentIdentifier ci = it.artifactId.componentIdentifier
+            if (ci instanceof ModuleComponentIdentifier) {
+                ModuleComponentIdentifier mci = ci
+                println String.format("%s:%s:%s", mci.group, mci.module, mci.version)
+            }
+        }
+    }
+}

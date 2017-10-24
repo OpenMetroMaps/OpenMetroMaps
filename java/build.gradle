@@ -42,9 +42,12 @@ configure([project(':openmetromaps-model'),
     def local = new File(project.projectDir, 'info.pom');
 
     def pomInfo = new XmlSlurper().parse(global);
+    def projName = pomInfo.name
+    def projDesc = pomInfo.description
     if (local.exists()) {
         def pomInfoL = new XmlSlurper().parse(local);
-        pomInfo.name = pomInfoL.name
+        projName = pomInfoL.name
+        projDesc= pomInfoL.description
     }
 
     afterEvaluate { project ->
@@ -52,8 +55,8 @@ configure([project(':openmetromaps-model'),
             repositories {
                 mavenDeployer {
                     pom.project {
-                        name pomInfo.name
-                        description pomInfo.description
+                        name projName
+                        description projDesc
                         url pomInfo.url
                         licenses {
                             license {

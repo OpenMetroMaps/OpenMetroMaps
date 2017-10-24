@@ -1,0 +1,22 @@
+<html>
+<body>
+
+<p>
+Hello, Canvas
+</p>
+
+<canvas id="canvas" width="400" height="300"></canvas>
+
+<script>
+var c = document.getElementById("canvas");
+var ctx = c.getContext("2d");
+ctx.moveTo(0,0);
+ctx.lineTo(c.width,0);
+ctx.lineTo(c.width,c.height);
+ctx.lineTo(0,c.height);
+ctx.closePath();
+ctx.stroke();
+</script>
+
+</body>
+</html>

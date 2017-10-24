@@ -38,7 +38,7 @@ configure([project(':openmetromaps-model'),
         archives sourcesJar
     }
 
-    def global = new File('info.pom');
+    def global = new File(rootProject.projectDir, 'info.pom');
     def local = new File(project.projectDir, 'info.pom');
 
     def pomInfo = new XmlSlurper().parse(global);

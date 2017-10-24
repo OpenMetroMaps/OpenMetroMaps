@@ -1,21 +1,66 @@
 <html>
+<head>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+}
+canvas {
+    display: block;
+}
+</style>
+</head>
 <body>
 
-<p>
-Hello, Canvas
+<p id="top">
+OpenMetroMaps Javascript viewer
 </p>
 
 <canvas id="canvas" width="400" height="300"></canvas>
 
 <script>
-var c = document.getElementById("canvas");
-var ctx = c.getContext("2d");
-ctx.moveTo(0,0);
-ctx.lineTo(c.width,0);
-ctx.lineTo(c.width,c.height);
-ctx.lineTo(0,c.height);
-ctx.closePath();
-ctx.stroke();
+(function() {
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var top = $("#top");
+
+    window.addEventListener('resize', resizeCanvas, false);
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight - top.height();
+        draw();
+    }
+
+    resizeCanvas();
+
+    function draw() {
+        var c = document.getElementById("canvas");
+        var ctx = c.getContext("2d");
+        ctx.lineWidth = 3;
+        rect(ctx, 0, 0, c.width, c.height);
+        ctx.lineWidth = 1;
+        rect(ctx, 10, 10, c.width - 20, c.height - 20);
+    }
+
+    function rect(ctx, x, y, width, height) {
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + width, y);
+        ctx.lineTo(x + width, y + height);
+        ctx.lineTo(x, y + height);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+})();
 </script>
 
 </body>

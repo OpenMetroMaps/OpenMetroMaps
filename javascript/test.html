@@ -28,9 +28,19 @@ OpenMetroMaps Javascript viewer
 
 <script>
 (function() {
+
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var top = $("#top");
+
+    $.get({url: 'berlin.xml', dataType: 'xml', success: function( data ) {
+      var $xml = $(data)
+      var station = $xml.find('station');
+      top.text('station: ' + station.attr('name'));
+      $xml.find('station').each(function(){
+        top.text('station: ' + $(this).attr('name'));
+      });
+    }});
 
     window.addEventListener('resize', resizeCanvas, false);
 

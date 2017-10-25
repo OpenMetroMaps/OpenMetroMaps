@@ -4,6 +4,7 @@
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
+<script src="drawer.js"></script>
 <style>
 * {
     margin: 0;
@@ -30,7 +31,6 @@ OpenMetroMaps Javascript viewer
 (function() {
 
     var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
     var top = $("#top");
 
     $.get({url: 'berlin.xml', dataType: 'xml', success: function( data ) {
@@ -47,28 +47,11 @@ OpenMetroMaps Javascript viewer
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight - top.height();
-        draw();
+        var drawer = new Drawer(canvas);
+        drawer.draw();
     }
 
     resizeCanvas();
-
-    function draw() {
-        var c = document.getElementById("canvas");
-        var ctx = c.getContext("2d");
-        ctx.lineWidth = 3;
-        rect(ctx, 0, 0, c.width, c.height);
-        ctx.lineWidth = 1;
-        rect(ctx, 10, 10, c.width - 20, c.height - 20);
-    }
-
-    function rect(ctx, x, y, width, height) {
-        ctx.moveTo(x, y);
-        ctx.lineTo(x + width, y);
-        ctx.lineTo(x + width, y + height);
-        ctx.lineTo(x, y + height);
-        ctx.closePath();
-        ctx.stroke();
-    }
 
 })();
 </script>

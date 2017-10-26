@@ -5,6 +5,7 @@
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
 <script src="drawer.js"></script>
+<script src="parser.js"></script>
 <style>
 * {
     margin: 0;
@@ -34,12 +35,10 @@ OpenMetroMaps Javascript viewer
     var top = $("#top");
 
     $.get({url: 'berlin.xml', dataType: 'xml', success: function( data ) {
-      var $xml = $(data)
-      var station = $xml.find('station');
+      var parser = new Parser();
+      parser.parse(data);
+      var station = parser.station;
       top.text('station: ' + station.attr('name'));
-      $xml.find('station').each(function(){
-        top.text('station: ' + $(this).attr('name'));
-      });
     }});
 
     window.addEventListener('resize', resizeCanvas, false);

@@ -37,8 +37,7 @@ OpenMetroMaps Javascript viewer
     $.get({url: 'berlin.xml', dataType: 'xml', success: function( data ) {
       var parser = new Parser();
       parser.parse(data);
-      var station = parser.station;
-      top.text('station: ' + station.attr('name'));
+      top.text('stations: ' + parser.stations.length);
     }});
 
     window.addEventListener('resize', resizeCanvas, false);

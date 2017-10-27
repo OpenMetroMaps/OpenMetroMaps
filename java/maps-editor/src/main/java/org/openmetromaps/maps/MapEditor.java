@@ -23,6 +23,7 @@ import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +32,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -400,6 +402,17 @@ public class MapEditor
 		build();
 
 		frame.setVisible(true);
+
+		String filename = "res/images/24/system-run.png";
+		BufferedImage bi = null;
+		try (InputStream is = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream(filename)) {
+			bi = ImageIO.read(is);
+			frame.setIconImage(bi);
+		} catch (Exception e) {
+			logger.debug(String.format("unable to load image: '%s'", filename),
+					e);
+		}
 	}
 
 	private void build()

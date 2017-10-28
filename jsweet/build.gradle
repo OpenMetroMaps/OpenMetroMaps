@@ -51,5 +51,8 @@ jsweet {
     tsOut = new File('build/target/.ts')
     candiesJsOut = new File('build/target/candies')
     targetVersion = 'ES3'
-    includes = ['org/openmetromaps/js/*.java', '**/Interval.java']
+    includes = ['org/openmetromaps/js/*.java',
+        '**/Coordinate.java', '**/BBox.java',
+        '**/Interval.java', '**/Edges.java', '**/Segment.java',
+        '**/Station.java', '**/Stop.java', '**/Line.java', '**/Entity.java']
 }

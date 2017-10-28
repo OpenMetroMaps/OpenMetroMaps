@@ -17,47 +17,40 @@
 
 package org.openmetromaps.maps.model;
 
-public class Stop
+public class Coordinate
 {
 
-	private Coordinate location;
-	private Station station;
-	private Line line;
+	private double lon;
+	private double lat;
 
-	public Stop(Station station, Line line)
+	/**
+	 * Create a new Coordinate.
+	 * 
+	 * @param lon
+	 *            the longitude.
+	 * @param lat
+	 *            the latitude.
+	 */
+	public Coordinate(double lon, double lat)
 	{
-		this.station = station;
-		this.line = line;
+		this.lon = lon;
+		this.lat = lat;
 	}
 
-	public Coordinate getLocation()
+	/**
+	 * @return this coordinate's longitude.
+	 */
+	public double getLongitude()
 	{
-		return location;
+		return lon;
 	}
 
-	public void setLocation(Coordinate location)
+	/**
+	 * @return this coordinate's latitude.
+	 */
+	public double getLatitude()
 	{
-		this.location = location;
-	}
-
-	public Station getStation()
-	{
-		return station;
-	}
-
-	public void setStation(Station station)
-	{
-		this.station = station;
-	}
-
-	public Line getLine()
-	{
-		return line;
-	}
-
-	public void setLine(Line line)
-	{
-		this.line = line;
+		return lat;
 	}
 
 }

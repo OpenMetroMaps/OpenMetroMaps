@@ -19,8 +19,6 @@ package org.openmetromaps.maps.model;
 
 import java.util.List;
 
-import de.topobyte.adt.geo.Coordinate;
-
 public class Station extends Entity
 {
 

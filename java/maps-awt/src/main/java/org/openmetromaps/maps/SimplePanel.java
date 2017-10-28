@@ -30,12 +30,12 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.BBox;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
 
-import de.topobyte.adt.geo.BBox;
 import de.topobyte.lightgeom.lina.Point;
 
 public class SimplePanel extends JPanel

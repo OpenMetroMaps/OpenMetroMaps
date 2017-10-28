@@ -20,11 +20,10 @@ package org.openmetromaps.maps;
 import java.util.Collection;
 import java.util.List;
 
+import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
-
-import de.topobyte.adt.geo.Coordinate;
 
 public class StationUtil
 {
@@ -64,8 +63,8 @@ public class StationUtil
 		final int nStops = stops.size();
 		for (int i = 0; i < nStops; i++) {
 			Stop stop = stops.get(i);
-			x += stop.getLocation().lon;
-			y += stop.getLocation().lat;
+			x += stop.getLocation().getLongitude();
+			y += stop.getLocation().getLatitude();
 			n++;
 		}
 		if (n == 1) {
@@ -84,8 +83,8 @@ public class StationUtil
 			final int nStops = stops.size();
 			for (int i = 0; i < nStops; i++) {
 				Stop stop = stops.get(i);
-				x += stop.getLocation().lon;
-				y += stop.getLocation().lat;
+				x += stop.getLocation().getLongitude();
+				y += stop.getLocation().getLatitude();
 				n++;
 			}
 		}

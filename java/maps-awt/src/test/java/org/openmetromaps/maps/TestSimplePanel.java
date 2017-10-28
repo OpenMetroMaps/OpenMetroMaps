@@ -19,10 +19,9 @@ package org.openmetromaps.maps;
 
 import javax.swing.JFrame;
 
+import org.openmetromaps.maps.model.BBox;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
-
-import de.topobyte.adt.geo.BBox;
 
 public class TestSimplePanel
 {

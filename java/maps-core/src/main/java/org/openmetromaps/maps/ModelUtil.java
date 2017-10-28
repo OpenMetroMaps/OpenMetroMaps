@@ -24,6 +24,7 @@ import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
@@ -32,7 +33,6 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 
 import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.BBoxHelper;
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.viewports.geometry.Rectangle;
 
@@ -47,12 +47,12 @@ public class ModelUtil
 
 	public static DataConfig dataConfig(ModelData model)
 	{
-		List<Coordinate> coords = new ArrayList<>();
+		List<de.topobyte.adt.geo.Coordinate> coords = new ArrayList<>();
 		for (Station station : model.stations) {
-			coords.add(station.getLocation());
+			coords.add(coord(station.getLocation()));
 			for (Stop stop : station.getStops()) {
 				if (stop.getLocation() != null) {
-					coords.add(stop.getLocation());
+					coords.add(coord(stop.getLocation()));
 				}
 			}
 		}
@@ -66,7 +66,19 @@ public class ModelUtil
 
 		Coordinate startPosition = new Coordinate(medianLon, medianLat);
 
-		return new DataConfig(bbox, startPosition);
+		return new DataConfig(bbox(bbox), startPosition);
+	}
+
+	private static org.openmetromaps.maps.model.BBox bbox(BBox bbox)
+	{
+		return new org.openmetromaps.maps.model.BBox(bbox.getLon1(),
+				bbox.getLat1(), bbox.getLon2(), bbox.getLat2());
+	}
+
+	private static de.topobyte.adt.geo.Coordinate coord(Coordinate location)
+	{
+		return new de.topobyte.adt.geo.Coordinate(location.getLongitude(),
+				location.getLatitude());
 	}
 
 	public static ViewConfig viewConfig(LineNetwork lineNetwork)
@@ -130,7 +142,8 @@ public class ModelUtil
 
 		for (Node node : nodes) {
 			Coordinate coord = node.station.getLocation();
-			node.location = new Point(coord.lon, coord.lat);
+			node.location = new Point(coord.getLongitude(),
+					coord.getLatitude());
 		}
 		LineNetworkUtil.calculateAllNeighborLocations(lineNetwork);
 

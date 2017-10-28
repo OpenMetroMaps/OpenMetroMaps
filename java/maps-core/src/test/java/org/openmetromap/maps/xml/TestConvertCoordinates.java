@@ -26,6 +26,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.CoordinateConverter;
 import org.openmetromaps.maps.Points;
+import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelReader;
 import org.openmetromaps.maps.xml.XmlStation;
@@ -33,7 +34,6 @@ import org.xml.sax.SAXException;
 
 import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.BBoxHelper;
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.lightgeom.lina.Point;
 
 public class TestConvertCoordinates
@@ -52,10 +52,11 @@ public class TestConvertCoordinates
 	private static void convert(List<XmlStation> stations, double size,
 			double margin)
 	{
-		List<Coordinate> coordinates = new ArrayList<>();
+		List<de.topobyte.adt.geo.Coordinate> coordinates = new ArrayList<>();
 		for (XmlStation station : stations) {
 			Coordinate location = station.getLocation();
-			coordinates.add(location);
+			coordinates.add(new de.topobyte.adt.geo.Coordinate(
+					location.getLongitude(), location.getLatitude()));
 		}
 
 		BBox bbox = BBoxHelper.minimumBoundingBox(coordinates);

@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
@@ -32,7 +33,6 @@ import org.openmetromaps.model.DraftLine;
 import org.openmetromaps.model.DraftModel;
 import org.openmetromaps.model.DraftStation;
 
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.osm4j.core.model.iface.OsmNode;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 

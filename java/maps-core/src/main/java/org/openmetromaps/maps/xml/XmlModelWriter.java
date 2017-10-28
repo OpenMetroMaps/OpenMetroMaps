@@ -39,6 +39,7 @@ import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
@@ -46,7 +47,6 @@ import org.openmetromaps.maps.model.Stop;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.lightgeom.lina.Point;
 
 public class XmlModelWriter

@@ -17,11 +17,11 @@
 
 package org.openmetromaps.maps;
 
+import org.openmetromaps.maps.model.Coordinate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.topobyte.adt.geo.BBox;
-import de.topobyte.adt.geo.Coordinate;
 import de.topobyte.geomath.WGS84;
 import de.topobyte.lightgeom.lina.Point;
 

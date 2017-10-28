@@ -17,8 +17,8 @@
 
 package org.openmetromaps.maps;
 
-import de.topobyte.adt.geo.BBox;
-import de.topobyte.adt.geo.Coordinate;
+import org.openmetromaps.maps.model.BBox;
+import org.openmetromaps.maps.model.Coordinate;
 
 public class DataConfig
 {

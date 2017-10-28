@@ -17,7 +17,7 @@
 
 package org.openmetromaps.maps.xml;
 
-import de.topobyte.adt.geo.Coordinate;
+import org.openmetromaps.maps.model.Coordinate;
 
 public class XmlStation
 {

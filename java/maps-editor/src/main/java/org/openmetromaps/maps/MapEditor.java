@@ -19,11 +19,11 @@ package org.openmetromaps.maps;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.InputStream;
@@ -403,16 +403,20 @@ public class MapEditor
 
 		frame.setVisible(true);
 
-		String filename = "res/images/24/system-run.png";
-		BufferedImage bi = null;
-		try (InputStream is = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream(filename)) {
-			bi = ImageIO.read(is);
-			frame.setIconImage(bi);
-		} catch (Exception e) {
-			logger.debug(String.format("unable to load image: '%s'", filename),
-					e);
+		List<Image> images = new ArrayList<>();
+		for (int size : new int[] { 16, 20, 22, 24, 32, 48, 64, 72, 96, 144 }) {
+			String filename = String.format("res/images/icon/icon-%d.png",
+					size);
+			try (InputStream is = Thread.currentThread().getContextClassLoader()
+					.getResourceAsStream(filename)) {
+				images.add(ImageIO.read(is));
+			} catch (Exception e) {
+				logger.debug(
+						String.format("unable to load image: '%s'", filename),
+						e);
+			}
 		}
+		frame.setIconImages(images);
 	}
 
 	private void build()

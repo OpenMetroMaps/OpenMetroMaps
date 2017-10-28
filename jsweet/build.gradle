@@ -26,6 +26,7 @@ sourceSets {
     main {
         java {
             srcDirs 'src'
+            srcDirs '../java/maps-model/src'
         }
     }
  }
@@ -49,5 +50,5 @@ jsweet {
     outDir = new File('target/javascript')
     candiesJsOut = new File('target/candies')
     targetVersion = 'ES3'
-    includes = ['**/*.java']
+    includes = ['org/openmetromaps/js/*.java', '**/Interval.java']
 }

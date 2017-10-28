@@ -48,6 +48,7 @@ jsweet {
     encoding = 'UTF-8'
     sourceMap = true
     outDir = new File('build/target/javascript')
+    tsOut = new File('build/target/.ts')
     candiesJsOut = new File('build/target/candies')
     targetVersion = 'ES3'
     includes = ['org/openmetromaps/js/*.java', '**/Interval.java']

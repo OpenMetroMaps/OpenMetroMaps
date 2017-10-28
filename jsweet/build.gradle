@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "http://repository.jsweet.org/artifactory/libs-release-local" }
+        maven { url "http://repository.jsweet.org/artifactory/libs-snapshot-local" }
+        maven { url "http://repository.jsweet.org/artifactory/plugins-release-local" }
+        maven { url "http://repository.jsweet.org/artifactory/plugins-snapshot-local" }
+        maven { url "http://google-diff-match-patch.googlecode.com/svn/trunk/maven" }
+    }
+    dependencies {
+        classpath('org.jsweet:jsweet-gradle-plugin:2.0.0-SNAPSHOT') { //
+            transitive = true }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repository.jsweet.org/artifactory/libs-release-local" }
+    maven { url "http://repository.jsweet.org/artifactory/libs-snapshot-local" }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.jsweet.jsweet-gradle-plugin'
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src'
+        }
+    }
+ }
+
+compileJava {
+    enabled = false
+}
+
+dependencies {
+    compile group: 'org.jsweet', name: 'jsweet-core', version:'5-SNAPSHOT'
+    compile group: 'org.jsweet.candies.ext', name: 'angular', version:'1.4.0-SNAPSHOT'
+    compile group: 'org.jsweet.candies.ext', name: 'angular-route', version:'1.2.0-SNAPSHOT'
+    compile group: 'org.jsweet.candies.trusted', name: 'es6-promise', version:'0.0.0-SNAPSHOT'
+    compile group: 'org.jsweet', name: 'jsweet-transpiler', version:'2.0.0-SNAPSHOT'
+}
+
+jsweet {
+    verbose = true
+    encoding = 'UTF-8'
+    sourceMap = true
+    outDir = new File('target/javascript')
+    candiesJsOut = new File('target/candies')
+    targetVersion = 'ES3'
+    includes = ['**/*.java']
+}

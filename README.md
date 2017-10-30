@@ -44,3 +44,12 @@ a look at the relevant
 We would also like to build a Javascript-based Web Viewer for the file format to
 allow for easy presentation of results in a browser without the need to install
 any desktop software.
+
+## Other ideas
+
+* It would be nice to be able to create morping animations from two views
+  of the same network. Inpired by
+  [this article](http://mymodernmet.com/animated-subway-maps) about
+  a number of posts on reddit.
+* Build something like [this](http://jannisr.de/vbb-map-routing) using
+  the Javascript viewer component.

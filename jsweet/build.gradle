@@ -29,7 +29,7 @@ sourceSets {
             srcDirs '../java/maps-model/src'
         }
     }
- }
+}
 
 compileJava {
     enabled = false

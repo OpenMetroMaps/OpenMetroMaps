@@ -42,6 +42,11 @@ public class Drawing
 	private HTMLCanvasElement canvas;
 	private CanvasRenderingContext2D ctx;
 
+	private boolean initialized = false;
+
+	private double x = 100;
+	private double y = 100;
+
 	public Drawing()
 	{
 		console.info("constructor");
@@ -71,6 +76,12 @@ public class Drawing
 		canvas.style.top = (body.clientHeight / 2 - height / 2 + 10) + "px";
 		canvas.style.left = (body.clientWidth / 2 - width / 2 + 10) + "px";
 
+		if (!initialized) {
+			initialized = true;
+			x = canvas.width / 2;
+			y = canvas.height / 2;
+		}
+
 		ctx = canvas.getContext(StringTypes._2d);
 		draw();
 	}
@@ -81,6 +92,16 @@ public class Drawing
 		ctx.beginPath();
 		ctx.moveTo(0, 0);
 		ctx.lineTo(canvas.width, canvas.height);
+		ctx.stroke();
+
+		double radius = 5;
+		ctx.beginPath();
+		ctx.arc(x, y, radius, 0, Math.PI * 2);
+		ctx.fill();
+
+		radius = 10;
+		ctx.beginPath();
+		ctx.arc(x, y, radius, 0, Math.PI * 2);
 		ctx.stroke();
 	}
 

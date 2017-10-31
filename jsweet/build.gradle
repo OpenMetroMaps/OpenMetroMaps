@@ -29,8 +29,8 @@ apply plugin: 'org.jsweet.jsweet-gradle-plugin'
 sourceSets {
     main {
         java {
-            srcDirs 'src'
-            srcDirs '../java/maps-model/src'
+            srcDirs 'src/main/java'
+            //srcDirs '../java/maps-model/src'
         }
     }
 }

@@ -32,7 +32,7 @@ public class Drawing
 
 	public static void main(String[] args)
 	{
-		window.onload = (e) -> {
+		window.onload = e -> {
 			return new Drawing();
 		};
 	}

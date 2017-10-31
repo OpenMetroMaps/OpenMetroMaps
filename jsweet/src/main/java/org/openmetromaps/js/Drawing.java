@@ -21,13 +21,10 @@ import static def.dom.Globals.console;
 import static def.dom.Globals.document;
 import static def.dom.Globals.window;
 
-import java.util.function.Function;
-
 import def.dom.CanvasRenderingContext2D;
 import def.dom.Element;
 import def.dom.HTMLCanvasElement;
 import def.dom.MouseEvent;
-import def.dom.UIEvent;
 import jsweet.util.StringTypes;
 
 public class Drawing
@@ -59,15 +56,9 @@ public class Drawing
 
 		updateCanvasSize();
 
-		window.onresize = new Function<UIEvent, Object>() {
-
-			@Override
-			public Object apply(UIEvent t)
-			{
-				updateCanvasSize();
-				return null;
-			}
-
+		window.onresize = e -> {
+			updateCanvasSize();
+			return null;
 		};
 
 		canvas.onmousedown = e -> {

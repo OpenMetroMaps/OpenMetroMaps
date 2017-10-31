@@ -1,3 +1,7 @@
-.gradle
-.jsweet
+/.classpath
+/.project
+/.settings
 /build
+/bin/
+/.gradle
+/.jsweet

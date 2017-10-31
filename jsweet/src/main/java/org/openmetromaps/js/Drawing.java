@@ -20,11 +20,17 @@ package org.openmetromaps.js;
 import static def.dom.Globals.console;
 import static def.dom.Globals.document;
 import static def.dom.Globals.window;
+import static def.jquery.Globals.$;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import def.dom.CanvasRenderingContext2D;
 import def.dom.Element;
 import def.dom.HTMLCanvasElement;
 import def.dom.MouseEvent;
+import def.dom.NodeListOf;
+import def.dom.XMLDocument;
 import jsweet.util.StringTypes;
 
 public class Drawing
@@ -75,6 +81,16 @@ public class Drawing
 			mouseMove(e);
 			return null;
 		};
+
+		String url = "berlin.xml";
+		$.get(url, null, (data, result, query) -> {
+
+			XMLDocument doc = (XMLDocument) data;
+			parse(doc);
+			draw();
+			return null;
+
+		}, "xml");
 	}
 
 	protected void mouseDown(MouseEvent t)
@@ -145,8 +161,25 @@ public class Drawing
 		ctx.arc(x, y, radius, 0, Math.PI * 2);
 		ctx.stroke();
 
-		String text = x + " " + y;
+		String text = "dot: " + x + " " + y + ", stations: " + names.size();
 		ctx.fillText(text, 2, 10);
+	}
+
+	private List<String> names = new ArrayList<>();
+
+	private void parse(XMLDocument doc)
+	{
+		NodeListOf<Element> stationss = doc.getElementsByTagName("stations");
+
+		Element stations0 = stationss.item(0);
+
+		NodeListOf<Element> stations = stations0
+				.getElementsByTagName("station");
+
+		for (Element station : stations) {
+			String name = station.getAttribute("name");
+			names.add(name);
+		}
 	}
 
 }

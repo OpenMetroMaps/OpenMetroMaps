@@ -26,6 +26,7 @@ import java.util.function.Function;
 import def.dom.CanvasRenderingContext2D;
 import def.dom.Element;
 import def.dom.HTMLCanvasElement;
+import def.dom.MouseEvent;
 import def.dom.UIEvent;
 import jsweet.util.StringTypes;
 
@@ -47,6 +48,10 @@ public class Drawing
 	private double x = 100;
 	private double y = 100;
 
+	private boolean mouseDown = false;
+	private double lastX = 0;
+	private double lastY = 0;
+
 	public Drawing()
 	{
 		console.info("constructor");
@@ -64,6 +69,51 @@ public class Drawing
 			}
 
 		};
+
+		canvas.onmousedown = e -> {
+			mouseDown(e);
+			return null;
+		};
+
+		canvas.onmouseout = canvas.onmouseup = e -> {
+			mouseUp();
+			return null;
+		};
+
+		canvas.onmousemove = e -> {
+			mouseMove(e);
+			return null;
+		};
+	}
+
+	protected void mouseDown(MouseEvent t)
+	{
+		mouseDown = true;
+
+		lastX = t.clientX;
+		lastY = t.clientY;
+
+		draw();
+	}
+
+	protected void mouseUp()
+	{
+		mouseDown = false;
+	}
+
+	protected void mouseMove(MouseEvent t)
+	{
+		if (mouseDown) {
+			double diffX = t.clientX - lastX;
+			x += diffX;
+			lastX = t.clientX;
+
+			double diffY = t.clientY - lastY;
+			y += diffY;
+			lastY = t.clientY;
+
+			draw();
+		}
 	}
 
 	private void updateCanvasSize()
@@ -103,6 +153,9 @@ public class Drawing
 		ctx.beginPath();
 		ctx.arc(x, y, radius, 0, Math.PI * 2);
 		ctx.stroke();
+
+		String text = x + " " + y;
+		ctx.fillText(text, 2, 10);
 	}
 
 }

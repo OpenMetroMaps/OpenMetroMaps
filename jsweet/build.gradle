@@ -15,6 +15,7 @@ buildscript {
 
 repositories {
     mavenCentral()
+    maven { url "http://mvn.topobyte.de" }
     maven { url "http://repository.jsweet.org/artifactory/libs-release-local" }
     maven { url "http://repository.jsweet.org/artifactory/libs-snapshot-local" }
 }
@@ -30,7 +31,7 @@ sourceSets {
     main {
         java {
             srcDirs 'src/main/java'
-            //srcDirs '../java/maps-model/src'
+            srcDirs '../java/maps-model/src/main/java'
         }
     }
 }
@@ -45,6 +46,10 @@ dependencies {
     compile group: 'org.jsweet.candies.ext', name: 'angular-route', version:'1.2.0-SNAPSHOT'
     compile group: 'org.jsweet.candies.trusted', name: 'es6-promise', version:'0.0.0-SNAPSHOT'
     compile group: 'org.jsweet', name: 'jsweet-transpiler', version:'2.0.0-SNAPSHOT'
+
+    compile 'de.topobyte:viewports-core:0.0.2'
+    compile 'de.topobyte:lightweight-geometry:1.0.0'
+    compile 'org.slf4j:slf4j-api:1.6.1'
 }
 
 jsweet {

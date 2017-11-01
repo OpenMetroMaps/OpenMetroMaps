@@ -22,7 +22,6 @@ import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openmetromap.maps.xml.TestReadXmlModel;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelReader;
 import org.xml.sax.SAXException;
@@ -33,7 +32,7 @@ public class TestData
 	public static XmlModel berlinXml()
 			throws ParserConfigurationException, SAXException, IOException
 	{
-		InputStream input = TestReadXmlModel.class.getClassLoader()
+		InputStream input = TestData.class.getClassLoader()
 				.getResourceAsStream("berlin.xml");
 		XmlModel model = XmlModelReader.read(input);
 		return model;

@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromap.maps.xml;
+package org.openmetromaps.maps.xml;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,9 +27,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.openmetromaps.maps.CoordinateConverter;
 import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.model.Coordinate;
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelReader;
-import org.openmetromaps.maps.xml.XmlStation;
 import org.xml.sax.SAXException;
 
 import de.topobyte.adt.geo.BBox;

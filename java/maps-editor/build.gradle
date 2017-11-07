@@ -1,5 +1,6 @@
 dependencies {
     compile project(':openmetromaps-maps-awt')
+    compile project(':openmetromaps-maps-model-xml')
     compile project(':openmetromaps-ui-resources')
     compile project(':openmetromaps-swing-misc')
 

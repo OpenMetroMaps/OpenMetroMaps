@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':openmetromaps-maps-model-xml')
+
+    testCompile project(':openmetromaps-test-data')
+}

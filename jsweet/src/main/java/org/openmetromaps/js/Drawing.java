@@ -17,6 +17,7 @@
 
 package org.openmetromaps.js;
 
+import static def.dom.Globals.alert;
 import static def.dom.Globals.console;
 import static def.dom.Globals.document;
 import static def.dom.Globals.window;
@@ -25,11 +26,18 @@ import static def.jquery.Globals.$;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.maps.xml.XmlModel;
+import org.openmetromaps.maps.xml.XmlModelConverter;
+import org.openmetromaps.maps.xml.XmlModelReader;
+
+import de.topobyte.xml.domabstraction.iface.ParsingException;
+import de.topobyte.xml.domabstraction.jqueryimpl.JQDocument;
 import def.dom.CanvasRenderingContext2D;
 import def.dom.Element;
 import def.dom.HTMLCanvasElement;
 import def.dom.MouseEvent;
-import def.dom.NodeListOf;
 import def.dom.XMLDocument;
 import jsweet.util.StringTypes;
 
@@ -86,7 +94,11 @@ public class Drawing
 		$.get(url, null, (data, result, query) -> {
 
 			XMLDocument doc = (XMLDocument) data;
-			parse(doc);
+			try {
+				parse(doc);
+			} catch (ParsingException e) {
+				alert("Error while parsing model: " + e.getMessage());
+			}
 			draw();
 			return null;
 
@@ -167,18 +179,14 @@ public class Drawing
 
 	private List<String> names = new ArrayList<>();
 
-	private void parse(XMLDocument doc)
+	private void parse(XMLDocument doc) throws ParsingException
 	{
-		NodeListOf<Element> stationss = doc.getElementsByTagName("stations");
+		JQDocument jqdoc = new JQDocument(doc);
+		XmlModel xmlModel = XmlModelReader.read(jqdoc);
+		MapModel model = new XmlModelConverter().convert(xmlModel);
 
-		Element stations0 = stationss.item(0);
-
-		NodeListOf<Element> stations = stations0
-				.getElementsByTagName("station");
-
-		for (Element station : stations) {
-			String name = station.getAttribute("name");
-			names.add(name);
+		for (Station station : model.getData().stations) {
+			names.add(station.getName());
 		}
 	}
 

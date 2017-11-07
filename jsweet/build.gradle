@@ -16,6 +16,7 @@ buildscript {
 repositories {
     mavenCentral()
     maven { url 'http://mvn.topobyte.de' }
+    maven { url 'http://mvn.slimjars.com' }
     maven { url 'http://repository.jsweet.org/artifactory/libs-release-local' }
     maven { url 'http://repository.jsweet.org/artifactory/libs-snapshot-local' }
 }
@@ -31,7 +32,10 @@ sourceSets {
     main {
         java {
             srcDirs 'src/main/java'
+            srcDirs '../java/xml-dom-abstraction/src/main/java'
             srcDirs '../java/maps-model/src/main/java'
+            srcDirs '../java/maps-model-xml/src/main/java'
+            srcDirs '../java/maps-core/src/main/java'
         }
     }
 }
@@ -48,7 +52,10 @@ dependencies {
 
     compile 'de.topobyte:viewports-core:0.0.2'
     compile 'de.topobyte:lightweight-geometry:1.0.0'
+    compile 'de.topobyte:lightweight-geometry-convex-hull:1.0.0'
     compile 'org.slf4j:slf4j-api:1.6.1'
+
+    compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
 }
 
 jsweet {
@@ -60,7 +67,19 @@ jsweet {
     candiesJsOut = new File('build/target/candies')
     targetVersion = 'ES3'
     includes = ['org/openmetromaps/js/*.java',
+        'org/openmetromaps/maps/xml/*.java',
+        'org/openmetromaps/maps/**/*.java',
+        'de/topobyte/xml/domabstraction/**/*.java',
+        'de/topobyte/**/*.java',
         '**/Coordinate.java', '**/BBox.java',
         '**/Interval.java', '**/Edges.java', '**/Segment.java',
         '**/Station.java', '**/Stop.java', '**/Line.java', '**/Entity.java']
+    excludes = ['org/openmetromaps/maps/DraftModelConverter.java',
+        'org/openmetromaps/maps/CoordinateConverter.java',
+        'org/openmetromaps/maps/CoordinateConversion.java',
+        'org/openmetromaps/maps/CoordinateComparator*.java',
+        'org/openmetromaps/maps/ModelUtil.java',
+        'org/openmetromaps/maps/graph/LineNetworkUtil.java',
+        'org/openmetromaps/maps/graph/NodeConnectionResult.java',
+        'org/openmetromaps/maps/PlanRenderer.java']
 }

@@ -17,15 +17,15 @@
 
 package org.openmetromaps.maps.graph;
 
-import org.openmetromaps.maps.model.Line;
+import java.util.Set;
 
-import com.google.common.collect.Sets.SetView;
+import org.openmetromaps.maps.model.Line;
 
 public class NodeConnectionResult
 {
 
 	private boolean connected;
-	private SetView<Line> commonLines;
+	private Set<Line> commonLines;
 
 	public void setConnected(boolean connected)
 	{
@@ -37,12 +37,12 @@ public class NodeConnectionResult
 		return connected;
 	}
 
-	public void setCommonLines(SetView<Line> commonLines)
+	public void setCommonLines(Set<Line> commonLines)
 	{
 		this.commonLines = commonLines;
 	}
 
-	public SetView<Line> getCommonLines()
+	public Set<Line> getCommonLines()
 	{
 		return commonLines;
 	}

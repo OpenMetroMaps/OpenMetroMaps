@@ -15,28 +15,13 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.xml;
+package de.topobyte.xml.domabstraction.iface;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import de.topobyte.xml.domabstraction.iface.ParsingException;
-
-public class TestReadXmlModel
+public interface INodeList
 {
 
-	public static void main(String[] args)
-			throws ParserConfigurationException, IOException, ParsingException
-	{
-		InputStream input = TestReadXmlModel.class.getClassLoader()
-				.getResourceAsStream("berlin.xml");
-		XmlModel model = DesktopXmlModelReader.read(input);
-		for (XmlLine line : model.getLines()) {
-			System.out.println(String.format("line %s, %d stops, color: %s",
-					line.getName(), line.getStops().size(), line.getColor()));
-		}
-	}
+	int getLength();
+
+	IElement element(int i);
 
 }

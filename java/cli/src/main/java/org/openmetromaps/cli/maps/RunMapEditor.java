@@ -26,9 +26,9 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
-import org.openmetromaps.maps.xml.XmlModelReader;
 
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
@@ -65,7 +65,7 @@ public class RunMapEditor
 
 		InputStream input = Files.newInputStream(pathInput);
 
-		XmlModel xmlModel = XmlModelReader.read(input);
+		XmlModel xmlModel = DesktopXmlModelReader.read(input);
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);

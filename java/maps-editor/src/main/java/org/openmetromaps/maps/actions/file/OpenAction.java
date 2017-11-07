@@ -25,19 +25,19 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import javax.swing.JFileChooser;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.MapEditor;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.actions.MapEditorAction;
 import org.openmetromaps.maps.config.ConfigurationHelper;
 import org.openmetromaps.maps.config.VolatileConfiguration;
+import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
-import org.openmetromaps.maps.xml.XmlModelReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
+
+import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class OpenAction extends MapEditorAction
 {
@@ -70,15 +70,14 @@ public class OpenAction extends MapEditorAction
 
 			try {
 				FileInputStream is = new FileInputStream(file);
-				XmlModel xmlModel = XmlModelReader.read(is);
+				XmlModel xmlModel = DesktopXmlModelReader.read(is);
 				is.close();
 
 				MapModel model = new XmlModelConverter().convert(xmlModel);
 				mapEditor.setModel(model);
 				mapEditor.getMap().repaint();
 				mapEditor.setSource(file.toPath());
-			} catch (ParserConfigurationException | SAXException
-					| IOException e) {
+			} catch (IOException | ParsingException e) {
 				logger.error("Error while loading file", e);
 				// TODO: display an error dialog
 			}

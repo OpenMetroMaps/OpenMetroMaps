@@ -17,24 +17,21 @@
 
 package org.openmetromaps.maps;
 
-import java.io.IOException;
 import java.io.InputStream;
 
-import javax.xml.parsers.ParserConfigurationException;
-
+import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelReader;
-import org.xml.sax.SAXException;
+
+import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class TestData
 {
 
-	public static XmlModel berlinXml()
-			throws ParserConfigurationException, SAXException, IOException
+	public static XmlModel berlinXml() throws ParsingException
 	{
 		InputStream input = TestData.class.getClassLoader()
 				.getResourceAsStream("berlin.xml");
-		XmlModel model = XmlModelReader.read(input);
+		XmlModel model = DesktopXmlModelReader.read(input);
 		return model;
 	}
 

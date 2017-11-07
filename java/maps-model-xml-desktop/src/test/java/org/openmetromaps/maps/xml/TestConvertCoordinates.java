@@ -27,21 +27,21 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.openmetromaps.maps.CoordinateConverter;
 import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.model.Coordinate;
-import org.xml.sax.SAXException;
 
 import de.topobyte.adt.geo.BBox;
 import de.topobyte.adt.geo.BBoxHelper;
 import de.topobyte.lightgeom.lina.Point;
+import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class TestConvertCoordinates
 {
 
 	public static void main(String[] args)
-			throws ParserConfigurationException, SAXException, IOException
+			throws ParserConfigurationException, IOException, ParsingException
 	{
 		InputStream input = TestConvertCoordinates.class.getClassLoader()
 				.getResourceAsStream("berlin.xml");
-		XmlModel model = XmlModelReader.read(input);
+		XmlModel model = DesktopXmlModelReader.read(input);
 
 		convert(model.getStations(), 1000, 50);
 	}

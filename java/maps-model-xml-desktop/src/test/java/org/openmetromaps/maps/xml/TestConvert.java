@@ -24,18 +24,19 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.openmetromaps.maps.MapModel;
-import org.xml.sax.SAXException;
+
+import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class TestConvert
 {
 
 	public static void main(String[] args) throws ParserConfigurationException,
-			SAXException, IOException, TransformerException
+			ParsingException, IOException, TransformerException
 	{
 		InputStream input = TestConvert.class.getClassLoader()
 				.getResourceAsStream("berlin.xml");
 
-		XmlModel xmlModel = XmlModelReader.read(input);
+		XmlModel xmlModel = DesktopXmlModelReader.read(input);
 		input.close();
 
 		XmlModelConverter modelConverter = new XmlModelConverter();

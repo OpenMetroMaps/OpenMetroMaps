@@ -31,9 +31,9 @@ import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapViewStatus;
 import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.ScrollableAdvancedPanel;
+import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
-import org.openmetromaps.maps.xml.XmlModelReader;
 
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
@@ -73,7 +73,7 @@ public class RunMapViewer
 
 		InputStream input = Files.newInputStream(pathInput);
 
-		XmlModel xmlModel = XmlModelReader.read(input);
+		XmlModel xmlModel = DesktopXmlModelReader.read(input);
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);

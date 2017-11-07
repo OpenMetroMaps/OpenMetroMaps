@@ -17,20 +17,16 @@
 
 package org.openmetromaps.maps;
 
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.openmetromaps.maps.xml.XmlLine;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlStation;
-import org.xml.sax.SAXException;
+
+import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class PrintTestData
 {
 
-	public static void main(String[] args)
-			throws ParserConfigurationException, SAXException, IOException
+	public static void main(String[] args) throws ParsingException
 	{
 		XmlModel model = TestData.berlinXml();
 		for (XmlStation station : model.getStations()) {

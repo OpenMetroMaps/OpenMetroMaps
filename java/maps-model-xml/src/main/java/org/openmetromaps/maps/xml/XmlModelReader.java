@@ -42,6 +42,12 @@ public class XmlModelReader
 		return reader.readModel(factory, is);
 	}
 
+	public static XmlModel read(IDocument document) throws ParsingException
+	{
+		XmlModelReader reader = new XmlModelReader();
+		return reader.readModel(document);
+	}
+
 	private List<XmlStation> xmlStations = new ArrayList<>();
 	private List<XmlLine> xmlLines = new ArrayList<>();
 	private List<XmlView> xmlViews = new ArrayList<>();
@@ -57,7 +63,11 @@ public class XmlModelReader
 			throws ParsingException
 	{
 		IDocument doc = factory.parse(is);
+		return readModel(doc);
+	}
 
+	private XmlModel readModel(IDocument doc) throws ParsingException
+	{
 		parseStations(doc);
 		parseLines(doc);
 		parseViews(doc);

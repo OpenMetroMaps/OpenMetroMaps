@@ -52,10 +52,10 @@ public class XmlModelConverter
 	protected Map<Station, Integer> stationToIndex = new HashMap<>();
 	protected Map<Stop, Integer> stopToIndex = new HashMap<>();
 
-	public MapModel convert(XmlModel draftModel)
+	public MapModel convert(XmlModel xmlModel)
 	{
-		List<XmlStation> xmlStations = draftModel.getStations();
-		List<XmlLine> xmlLines = draftModel.getLines();
+		List<XmlStation> xmlStations = xmlModel.getStations();
+		List<XmlLine> xmlLines = xmlModel.getLines();
 
 		Map<XmlLine, Line> draftToLine = new HashMap<>();
 		Map<String, Station> nameToStation = new HashMap<>();
@@ -125,7 +125,7 @@ public class XmlModelConverter
 
 		MapModel model = new MapModel(data);
 
-		List<XmlView> xmlViews = draftModel.getXmlViews();
+		List<XmlView> xmlViews = xmlModel.getXmlViews();
 		for (XmlView xmlView : xmlViews) {
 			List<Edges> allEdges = new ArrayList<>();
 			for (XmlEdges xmlEdges : xmlView.getEdges()) {

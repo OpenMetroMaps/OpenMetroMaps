@@ -20,11 +20,19 @@ package org.openmetromaps.maps.gwt.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestBuilder;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.xml.client.Document;
+import com.google.gwt.xml.client.XMLParser;
 
 public class TestEntryPoint implements EntryPoint {
 
@@ -53,6 +61,40 @@ public class TestEntryPoint implements EntryPoint {
 
 		TestPanel test = new TestPanel();
 		dock.add(test);
+
+		String filename = "berlin.xml";
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, filename);
+
+		try {
+			builder.sendRequest(null, new RequestCallback() {
+
+				@Override
+				public void onResponseReceived(Request req, Response resp) {
+					if (resp.getStatusCode() == Response.SC_OK) {
+						String text = resp.getText();
+						Window.alert("request succeeded: " + text.length());
+						parseXml(text);
+					} else {
+						Window.alert("request failed: " + resp.getStatusCode());
+					}
+				}
+
+				@Override
+				public void onError(Request res, Throwable throwable) {
+					System.out.println("Error occurred while fetching data");
+					Window.alert("request failed");
+				}
+
+			});
+		} catch (RequestException e) {
+			System.out.println("Error while fetching data");
+			e.printStackTrace();
+		}
+	}
+
+	protected void parseXml(String xml) {
+		Document doc = XMLParser.parse(xml);
+		// TODO: actually parse document
 	}
 
 }

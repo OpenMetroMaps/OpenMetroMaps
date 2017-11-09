@@ -3,4 +3,6 @@ build
 .project
 .classpath
 .settings
-src/main/gwt-unitCache
+/src/main/gwt-unitCache
+/src/main/webapp/WEB-INF/lib/
+/src/main/webapp/app/

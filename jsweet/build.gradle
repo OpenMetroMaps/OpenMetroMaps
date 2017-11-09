@@ -63,6 +63,7 @@ configurations {
 
 jsweet {
     verbose = true
+    bundle = true
     encoding = 'UTF-8'
     sourceMap = true
     outDir = new File('build/target/javascript')

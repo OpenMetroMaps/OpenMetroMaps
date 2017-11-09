@@ -17,6 +17,8 @@
 
 package org.openmetromaps.maps.painting.core;
 
+import de.topobyte.formatting.Formatting;
+
 public class ColorCode
 {
 
@@ -55,7 +57,7 @@ public class ColorCode
 	@Override
 	public String toString()
 	{
-		return String.format("0x%X", value);
+		return Formatting.format("0x%X", value);
 	}
 
 	public int getAlpha()

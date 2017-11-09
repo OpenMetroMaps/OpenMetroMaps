@@ -43,6 +43,7 @@ import org.slf4j.LoggerFactory;
 import com.infomatiq.jsi.Rectangle;
 import com.vividsolutions.jts.geom.Envelope;
 
+import de.topobyte.formatting.Formatting;
 import de.topobyte.jsi.intersectiontester.RTreeIntersectionTester;
 import de.topobyte.jsi.intersectiontester.RectangleIntersectionTester;
 import de.topobyte.lightgeom.curves.spline.CubicSpline;
@@ -364,8 +365,8 @@ public class PlanRenderer implements ViewportListener
 		tm.log(LOG_SEGMENTS, "Time for segments: %d");
 		tm.log(LOG_STATIONS, "Time for stations: %d");
 		tm.log(LOG_LABELS, "Time for labels: %d");
-		logger.info(
-				String.format("Time for curve drawing: %d", durationCurves));
+		logger.info(Formatting.format("Time for curve drawing: %d",
+				durationCurves));
 	}
 
 	private void renderLabels(Painter g, Envelope envelope, int nNodes,

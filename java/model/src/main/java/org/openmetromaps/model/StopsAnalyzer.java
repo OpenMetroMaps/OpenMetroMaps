@@ -24,6 +24,7 @@ import java.util.List;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 
+import de.topobyte.formatting.Formatting;
 import de.topobyte.lineprinter.LinePrinter;
 import de.topobyte.osm4j.core.model.iface.EntityType;
 import de.topobyte.osm4j.core.model.iface.OsmRelation;
@@ -60,7 +61,7 @@ public class StopsAnalyzer
 		Collections.sort(roles);
 		for (String role : roles) {
 			output.println(
-					String.format("%s: %d", role, nodeRoles.count(role)));
+					Formatting.format("%s: %d", role, nodeRoles.count(role)));
 		}
 	}
 

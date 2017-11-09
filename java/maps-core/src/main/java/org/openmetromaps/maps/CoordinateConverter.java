@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.topobyte.adt.geo.BBox;
+import de.topobyte.formatting.Formatting;
 import de.topobyte.geomath.WGS84;
 import de.topobyte.lightgeom.lina.Point;
 
@@ -59,21 +60,23 @@ public class CoordinateConverter
 		double biggerSpan = Math.max(spanX, spanY);
 		factor = usedSize / biggerSpan;
 
-		logger.debug(String.format("Size: %.2f", size));
-		logger.debug(String.format("Margin: %.2f", margin));
-		logger.debug(String.format("Used size: %.2f", usedSize));
-		logger.debug(String.format("Factor: %.2f", factor));
+		logger.debug(Formatting.format("Size: %.2f", size));
+		logger.debug(Formatting.format("Margin: %.2f", margin));
+		logger.debug(Formatting.format("Used size: %.2f", usedSize));
+		logger.debug(Formatting.format("Factor: %.2f", factor));
 
 		minX = Math.min(x1, x2);
 		minY = Math.min(y1, y2);
 
-		logger.debug(String.format("coordinates: %f,%f:%f,%f", x1, x2, y1, y2));
-		logger.debug(String.format("spanX: %f, spanY: %f", spanX, spanY));
+		logger.debug(
+				Formatting.format("coordinates: %f,%f:%f,%f", x1, x2, y1, y2));
+		logger.debug(Formatting.format("spanX: %f, spanY: %f", spanX, spanY));
 
 		width = spanX * factor + margin * 2;
 		height = spanY * factor + margin * 2;
 
-		logger.debug(String.format("width: %.2f, height: %.2f", width, height));
+		logger.debug(
+				Formatting.format("width: %.2f, height: %.2f", width, height));
 	}
 
 	public double getWidth()

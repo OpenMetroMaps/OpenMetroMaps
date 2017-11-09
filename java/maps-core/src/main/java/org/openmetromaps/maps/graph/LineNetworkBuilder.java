@@ -38,6 +38,8 @@ import org.slf4j.LoggerFactory;
 import com.slimjars.dist.gnu.trove.set.TIntSet;
 import com.slimjars.dist.gnu.trove.set.hash.TIntHashSet;
 
+import de.topobyte.formatting.Formatting;
+
 public class LineNetworkBuilder
 {
 
@@ -157,7 +159,7 @@ public class LineNetworkBuilder
 			to = tmp;
 		}
 
-		logger.debug(String.format("Line %s, interval: %d - %d",
+		logger.debug(Formatting.format("Line %s, interval: %d - %d",
 				networkLine.line.getName(), from, to));
 
 		Stop prev = stops.get(from);
@@ -167,7 +169,7 @@ public class LineNetworkBuilder
 
 			Node node1 = stationToNode.get(prev.getStation());
 			Node node2 = stationToNode.get(next.getStation());
-			logger.debug(String.format("Segment: %s - %s",
+			logger.debug(Formatting.format("Segment: %s - %s",
 					node1.station.getName(), node2.station.getName()));
 
 			edges.add(addSegment(networkLine, prev, next));

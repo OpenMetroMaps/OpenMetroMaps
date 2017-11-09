@@ -40,6 +40,7 @@ import org.openmetromaps.maps.painting.core.geom.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.formatting.Formatting;
 import de.topobyte.lightgeom.convexhull.PointArray;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
@@ -243,7 +244,7 @@ public class StationDrawerConvex extends AbstractStationDrawer
 			}
 		}
 
-		logger.info(String.format("Station (%d edges): %s", spis.size(),
+		logger.info(Formatting.format("Station (%d edges): %s", spis.size(),
 				node.station.getName()));
 
 		logger.info("number of points: " + coords.numPoints());

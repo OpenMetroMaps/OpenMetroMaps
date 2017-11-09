@@ -22,6 +22,8 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 
+import de.topobyte.formatting.Formatting;
+
 public class TimeMeasuring
 {
 
@@ -50,7 +52,7 @@ public class TimeMeasuring
 		long start = starts.get(key);
 		long stop = stops.get(key);
 		long interval = stop - start;
-		logger.info(String.format(message, interval));
+		logger.info(Formatting.format(message, interval));
 	}
 
 }

@@ -29,6 +29,7 @@ import org.openmetromaps.maps.model.Stop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.formatting.Formatting;
 import de.topobyte.lightgeom.lina.Point;
 
 public class LineNetworkUtil
@@ -126,7 +127,7 @@ public class LineNetworkUtil
 		}
 		for (Node n : neighbors) {
 			for (Edge edge : n.edges) {
-				logger.info(String.format("Updating edge: %s - %s",
+				logger.info(Formatting.format("Updating edge: %s - %s",
 						edge.n1.station.getName(), edge.n2.station.getName()));
 				LineNetworkUtil.calculateNeighborLocations(edge);
 			}
@@ -230,8 +231,8 @@ public class LineNetworkUtil
 
 		int num = max - min;
 
-		logger.debug(String.format("Stops min: %d, max: %d, num: %d", min, max,
-				num));
+		logger.debug(Formatting.format("Stops min: %d, max: %d, num: %d", min,
+				max, num));
 
 		List<Node> nodes = new ArrayList<>();
 		for (int i = 1; i <= num; i++) {

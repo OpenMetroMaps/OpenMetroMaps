@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import com.slimjars.dist.gnu.trove.iterator.TLongObjectIterator;
 
+import de.topobyte.formatting.Formatting;
 import de.topobyte.geomath.WGS84;
 import de.topobyte.lineprinter.sfl4j.LogLevel;
 import de.topobyte.lineprinter.sfl4j.LoggerPrinter;
@@ -125,7 +126,7 @@ public class ModelBuilder
 			}
 			String name = rTags.get("name");
 			String ref = rTags.get("ref");
-			logger.info(String.format("Name: '%s', Ref: '%s'", name, ref));
+			logger.info(Formatting.format("Name: '%s', Ref: '%s'", name, ref));
 
 			List<DraftStation> stations = new ArrayList<>();
 
@@ -199,7 +200,7 @@ public class ModelBuilder
 	{
 		for (Fix fix : fixes) {
 			double distance = distance(node, fix);
-			logger.debug(String.format("distance to %.6f,%.6f: %.2f",
+			logger.debug(Formatting.format("distance to %.6f,%.6f: %.2f",
 					node.getLatitude(), node.getLongitude(), distance));
 			if (distance < 200) {
 				return fix.getName();

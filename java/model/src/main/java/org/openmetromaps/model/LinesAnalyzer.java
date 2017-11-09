@@ -27,6 +27,7 @@ import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multiset;
 
+import de.topobyte.formatting.Formatting;
 import de.topobyte.lineprinter.LinePrinter;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 
@@ -57,7 +58,7 @@ public class LinesAnalyzer
 			nameToLines.put(ref, line);
 		}
 
-		output.println(String.format("Found %d lines", lines.size()));
+		output.println(Formatting.format("Found %d lines", lines.size()));
 
 		output.println("Line names:");
 		for (DraftLine line : lines) {
@@ -75,7 +76,7 @@ public class LinesAnalyzer
 			if (count == 2) {
 				continue;
 			}
-			output.println(String.format("%s: %d", name, count));
+			output.println(Formatting.format("%s: %d", name, count));
 		}
 
 		output.println("Comparing lines with 2 occurrences...");
@@ -96,7 +97,7 @@ public class LinesAnalyzer
 		List<DraftStation> stations1 = line1.getStations();
 		List<DraftStation> stations2 = line2.getStations();
 		if (stations1.size() != stations2.size()) {
-			output.println(String.format("Line: %s, %d vs. %d", name,
+			output.println(Formatting.format("Line: %s, %d vs. %d", name,
 					stations1.size(), stations2.size()));
 			return;
 		}
@@ -110,17 +111,17 @@ public class LinesAnalyzer
 			}
 		}
 		if (different == 0) {
-			output.println(
-					String.format("Line: %s, %d stations, all clear", name, n));
+			output.println(Formatting.format("Line: %s, %d stations, all clear",
+					name, n));
 		} else {
-			output.println(String.format("Line: %s, %d stations, %d different",
-					name, n, different));
+			output.println(Formatting.format(
+					"Line: %s, %d stations, %d different", name, n, different));
 			for (int i = 0; i < n; i++) {
 				DraftStation station1 = stations1.get(i);
 				DraftStation station2 = stations2.get(n - i - 1);
 				if (!station1.getName().equals(station2.getName())) {
-					output.println(String.format("%s - %s", station1.getName(),
-							station2.getName()));
+					output.println(Formatting.format("%s - %s",
+							station1.getName(), station2.getName()));
 				}
 			}
 		}

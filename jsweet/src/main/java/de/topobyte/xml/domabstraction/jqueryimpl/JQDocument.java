@@ -36,7 +36,7 @@ public class JQDocument implements IDocument
 	@Override
 	public INodeList getElementsByTagName(String name)
 	{
-		NodeListOf<Element> list = doc.getElementsByName(name);
+		NodeListOf<Element> list = doc.getElementsByTagName(name);
 		return new JQNodeList(list);
 	}
 

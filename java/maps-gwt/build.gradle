@@ -29,6 +29,7 @@ gwt {
 
 dependencies {
     compile project(':openmetromaps-maps-model')
+    compile project(':openmetromaps-maps-model-xml')
 }
 
 task depfiles {

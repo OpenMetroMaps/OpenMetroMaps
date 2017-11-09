@@ -34,6 +34,8 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.XMLParser;
 
+import de.topobyte.xml.domabstraction.gwtimpl.GwtDocument;
+
 public class TestEntryPoint implements EntryPoint {
 
 	@Override
@@ -72,7 +74,6 @@ public class TestEntryPoint implements EntryPoint {
 				public void onResponseReceived(Request req, Response resp) {
 					if (resp.getStatusCode() == Response.SC_OK) {
 						String text = resp.getText();
-						Window.alert("request succeeded: " + text.length());
 						parseXml(text);
 					} else {
 						Window.alert("request failed: " + resp.getStatusCode());
@@ -94,6 +95,7 @@ public class TestEntryPoint implements EntryPoint {
 
 	protected void parseXml(String xml) {
 		Document doc = XMLParser.parse(xml);
+		GwtDocument gwtDoc = new GwtDocument(doc);
 		// TODO: actually parse document
 	}
 

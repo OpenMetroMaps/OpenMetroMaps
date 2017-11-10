@@ -4,6 +4,8 @@
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="com.google.gwt.logging.Logging" />
 	<inherits name="com.google.gwt.xml.XML" />
+	<inherits name="UnpackedJars" />
+	<inherits name="MapsXml" />
 	<source path="client" />
 	<entry-point class="org.openmetromaps.maps.gwt.client.TestEntryPoint" />
 	<set-property name="gwt.logging.logLevel" value="INFO" />

@@ -8,11 +8,15 @@ buildscript {
     }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
+        classpath('de.topobyte:gradle-dependency-info-plugin:0.0.1');
+        classpath('de.topobyte:gradle-dependency-unpack-plugin:0.0.1');
     }
 }
 
 apply plugin: 'war'
 apply plugin: 'gwt'
+apply plugin: 'de.topobyte.dependency-info-gradle-plugin'
+apply plugin: 'de.topobyte.dependency-unpack-gradle-plugin'
 
 gwt {
     gwtVersion='2.7.0'
@@ -28,8 +32,37 @@ gwt {
 }
 
 dependencies {
-    compile project(':openmetromaps-maps-model')
-    compile project(':openmetromaps-maps-model-xml')
+    compile 'de.topobyte:viewports-core:0.0.2'
+    compile 'de.topobyte:lightweight-geometry:1.0.0'
+    compile 'de.topobyte:adt-geo:0.0.4'
+    compile 'de.topobyte:adt-misc:0.0.2'
+    compile 'de.topobyte:jsi-rectangle-intersection-tester:0.0.1'
+    compile 'de.topobyte:lightweight-geometry:1.0.0'
+    compile 'de.topobyte:lightweight-geometry-convex-hull:1.0.0'
+    compile 'de.topobyte:geomath:0.0.2'
+    compile 'de.topobyte:line-printer-core:0.0.1'
+    compile 'de.topobyte:line-printer-slf4j:0.0.1'
+    compile 'de.topobyte:simple-formatting:0.0.1'
+    compile 'de.topobyte:system-utils:0.0.1'
+    compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
+    compile 'org.slf4j:slf4j-api:1.6.1'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java'
+        }
+    }
+    main {
+        java {
+            srcDir 'src/modules/maps-core/java'
+            srcDir 'src/modules/maps-model/java'
+            srcDir 'src/modules/maps-model-xml/java'
+            srcDir 'src/modules/xml-dom-abstraction/java'
+            srcDir 'build/unpackedJars/'
+        }
+    }
 }
 
 task depfiles {

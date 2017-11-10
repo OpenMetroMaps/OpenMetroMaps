@@ -42,6 +42,8 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class TestEntryPoint implements EntryPoint {
 
+	private Label status;
+
 	@Override
 	public void onModuleLoad() {
 		DockLayoutPanel dock = new DockLayoutPanel(Unit.EM);
@@ -49,6 +51,7 @@ public class TestEntryPoint implements EntryPoint {
 
 		Label title = new Label("Below is a simple panel");
 		Anchor linkOMM = new Anchor("OpenMetroMaps", false, "http://www.openmetromaps.org");
+		status = new Label("Initializing...");
 
 		FlowPanel headline = new FlowPanel();
 		headline.getElement().getStyle().setMarginTop(1, Unit.EM);
@@ -58,10 +61,12 @@ public class TestEntryPoint implements EntryPoint {
 
 		headline.add(linkOMM);
 		headline.add(title);
+		headline.add(status);
 
 		linkOMM.getElement().getStyle().setMarginLeft(10, Unit.PX);
 
 		title.getElement().getStyle().setFloat(Float.LEFT);
+		status.getElement().getStyle().setFloat(Float.RIGHT);
 
 		dock.addNorth(headline, 2);
 
@@ -102,7 +107,7 @@ public class TestEntryPoint implements EntryPoint {
 		GwtDocument gwtDoc = new GwtDocument(doc);
 		try {
 			XmlModel model = XmlModelReader.read(gwtDoc);
-			Window.alert("stations: " + model.getStations().size());
+			status.setText("stations: " + model.getStations().size());
 		} catch (ParsingException e) {
 			Window.alert("error while parsing document");
 		}

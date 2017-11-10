@@ -45,6 +45,7 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class TestEntryPoint implements EntryPoint {
 
+	private TestPanel panel;
 	private Label status;
 
 	@Override
@@ -73,8 +74,8 @@ public class TestEntryPoint implements EntryPoint {
 
 		dock.addNorth(headline, 2);
 
-		TestPanel test = new TestPanel();
-		dock.add(test);
+		panel = new TestPanel();
+		dock.add(panel);
 
 		String filename = "berlin.xml";
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, filename);
@@ -115,6 +116,8 @@ public class TestEntryPoint implements EntryPoint {
 			MapView view = mapModel.getViews().get(0);
 			String name = view.getName();
 			status.setText("view: " + name);
+			panel.setModel(mapModel);
+			panel.render();
 		} catch (ParsingException e) {
 			Window.alert("error while parsing document");
 		}

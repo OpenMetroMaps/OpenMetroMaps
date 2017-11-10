@@ -19,6 +19,9 @@ package org.openmetromaps.maps.gwt.client;
 
 import java.util.logging.Logger;
 
+import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.MapView;
+
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.core.client.Scheduler;
@@ -40,6 +43,9 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 	private int width = 0;
 	private int height = 0;
 
+	private MapModel mapModel;
+	private MapView mapView;
+
 	public TestPanel() {
 		canvas = Canvas.createIfSupported();
 		add(canvas);
@@ -54,6 +60,11 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 			}
 
 		});
+	}
+
+	public void setModel(MapModel mapModel) {
+		this.mapModel = mapModel;
+		mapView = mapModel.getViews().get(0);
 	}
 
 	@Override
@@ -77,13 +88,16 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 	public void render() {
 		Context2d c = canvas.getContext2d();
 
-		// draw a simple line
-		c.setStrokeStyle("#000000");
-		c.beginPath();
-		c.moveTo(20, 20);
-		c.lineTo(100, 30);
-		c.stroke();
+		c.clearRect(0, 0, width, height);
+		renderFrame(c);
+		if (mapView == null) {
+			renderTestContent(c);
+		} else {
+			renderView(c);
+		}
+	}
 
+	private void renderFrame(Context2d c) {
 		// draw a frame around the whole canvas
 		c.beginPath();
 		c.moveTo(10, 10);
@@ -92,6 +106,19 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 		c.lineTo(10, height - 10);
 		c.closePath();
 		c.stroke();
+	}
+
+	private void renderTestContent(Context2d c) {
+		// draw a simple line
+		c.setStrokeStyle("#000000");
+		c.beginPath();
+		c.moveTo(20, 20);
+		c.lineTo(100, 30);
+		c.stroke();
+	}
+
+	private void renderView(Context2d c) {
+		// TODO: implement this
 	}
 
 }

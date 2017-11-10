@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
 <module>
-	<source path="com/infomatiq" />
-	<source path="com/slimjars" />
-	<source path="com/vividsolutions" />
-	<source path="de" />
-	<source path="Jama" />
-	<source path="java" />
-	<source path="org" />
+	<source path="de/topobyte/xml" />
+	<source path="java/io" />
+	<source path="java/lang" />
 </module>

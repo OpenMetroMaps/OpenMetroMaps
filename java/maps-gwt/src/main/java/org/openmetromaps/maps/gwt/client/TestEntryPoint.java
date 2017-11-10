@@ -17,7 +17,10 @@
 
 package org.openmetromaps.maps.gwt.client;
 
+import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.xml.XmlModel;
+import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -106,8 +109,12 @@ public class TestEntryPoint implements EntryPoint {
 		Document doc = XMLParser.parse(xml);
 		GwtDocument gwtDoc = new GwtDocument(doc);
 		try {
-			XmlModel model = XmlModelReader.read(gwtDoc);
-			status.setText("stations: " + model.getStations().size());
+			XmlModel xmlModel = XmlModelReader.read(gwtDoc);
+			status.setText("stations: " + xmlModel.getStations().size());
+			MapModel mapModel = new XmlModelConverter().convert(xmlModel);
+			MapView view = mapModel.getViews().get(0);
+			String name = view.getName();
+			status.setText("view: " + name);
 		} catch (ParsingException e) {
 			Window.alert("error while parsing document");
 		}

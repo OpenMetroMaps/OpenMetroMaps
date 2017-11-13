@@ -19,6 +19,7 @@ package org.openmetromaps.maps.gwt.client;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.model.BBox;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
@@ -117,6 +118,8 @@ public class TestEntryPoint implements EntryPoint {
 			String name = view.getName();
 			status.setText("view: " + name);
 			panel.setModel(mapModel);
+			BBox box = new BBox(150, 280, 650, 680);
+			panel.setViewport(box);
 			panel.render();
 		} catch (ParsingException e) {
 			Window.alert("error while parsing document");

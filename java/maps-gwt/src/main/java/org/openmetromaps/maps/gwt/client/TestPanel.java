@@ -17,18 +17,31 @@
 
 package org.openmetromaps.maps.gwt.client;
 
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
+import org.openmetromaps.maps.DataConfig;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.ModelUtil;
+import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.BBox;
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.maps.model.Stop;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
+import com.google.gwt.canvas.dom.client.CssColor;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.logging.client.SystemLogHandler;
 import com.google.gwt.user.client.ui.RequiresResize;
 import com.google.gwt.user.client.ui.SimplePanel;
+
+import de.topobyte.lightgeom.lina.Point;
 
 public class TestPanel extends SimplePanel implements RequiresResize {
 
@@ -45,6 +58,13 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 
 	private MapModel mapModel;
 	private MapView mapView;
+
+	private BBox box;
+
+	private double mx;
+	private double my;
+	private double w;
+	private double h;
 
 	public TestPanel() {
 		canvas = Canvas.createIfSupported();
@@ -65,6 +85,23 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 	public void setModel(MapModel mapModel) {
 		this.mapModel = mapModel;
 		mapView = mapModel.getViews().get(0);
+
+		DataConfig viewConfig = ModelUtil.dataConfig(mapModel.getData());
+		box = viewConfig.getBbox();
+
+		initInternalValues();
+	}
+
+	public void setViewport(BBox box) {
+		this.box = box;
+		initInternalValues();
+	}
+
+	private void initInternalValues() {
+		mx = box.getLon1();
+		my = box.getLat2();
+		w = box.getLon2() - box.getLon1();
+		h = box.getLat1() - box.getLat2();
 	}
 
 	@Override
@@ -89,12 +126,19 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 		Context2d c = canvas.getContext2d();
 
 		c.clearRect(0, 0, width, height);
+		logger.info("foo");
 		renderFrame(c);
 		if (mapView == null) {
 			renderTestContent(c);
 		} else {
+			fillBackground(c);
 			renderView(c);
 		}
+	}
+
+	private void fillBackground(Context2d c) {
+		c.setFillStyle(CssColor.make("#eeeeee"));
+		c.fillRect(0, 0, width, height);
 	}
 
 	private void renderFrame(Context2d c) {
@@ -118,7 +162,55 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 	}
 
 	private void renderView(Context2d c) {
-		// TODO: implement this
+		float s = 5;
+		float w = 3;
+
+		ModelData data = mapModel.getData();
+
+		Map<Station, Node> stationToNode = mapView.getLineNetwork().getStationToNode();
+
+		c.setLineWidth(w);
+		for (Line line : data.lines) {
+			c.setStrokeStyle(CssColor.make(line.getColor()));
+			List<Stop> stops = line.getStops();
+			Point prev = stationToNode.get(stops.get(0).getStation()).location;
+			for (int i = 1; i < stops.size(); i++) {
+				Point next = stationToNode.get(stops.get(i).getStation()).location;
+				Point a = getPoint(prev);
+				Point b = getPoint(next);
+				c.beginPath();
+				c.moveTo(a.x, a.y);
+				c.lineTo(b.x, b.y);
+				c.stroke();
+				prev = next;
+			}
+		}
+
+		for (Station station : data.stations) {
+			List<Stop> stops = station.getStops();
+			if (stops.isEmpty()) {
+				continue;
+			} else if (stops.size() > 1) {
+				c.setFillStyle(CssColor.make("#ffffff"));
+				Point p = getPoint(stationToNode.get(station).location);
+				c.beginPath();
+				c.arc(p.x, p.y, s, 0, 360);
+				c.fill();
+			} else {
+				Stop stop = stops.iterator().next();
+				c.setFillStyle(CssColor.make(stop.getLine().getColor()));
+				Point p = getPoint(stationToNode.get(station).location);
+				c.beginPath();
+				c.arc(p.x, p.y, s, 0, 360);
+				c.fill();
+			}
+		}
+	}
+
+	private Point getPoint(Point location) {
+		double x = (location.x - mx) / w * width;
+		double y = (location.y - my) / h * height;
+		return new Point(x, y);
 	}
 
 }

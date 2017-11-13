@@ -18,6 +18,7 @@
 package org.openmetromaps.maps;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.openmetromaps.maps.graph.LineNetwork;
@@ -58,10 +59,10 @@ public class ModelUtil
 		}
 		BBox bbox = BBoxHelper.minimumBoundingBox(coords);
 
-		coords.sort(new CoordinateComparatorLongitude());
+		Collections.sort(coords, new CoordinateComparatorLongitude());
 		double medianLon = coords.get(coords.size() / 2).getLongitude();
 
-		coords.sort(new CoordinateComparatorLatitude());
+		Collections.sort(coords, new CoordinateComparatorLatitude());
 		double medianLat = coords.get(coords.size() / 2).getLatitude();
 
 		Coordinate startPosition = new Coordinate(medianLon, medianLat);
@@ -90,10 +91,10 @@ public class ModelUtil
 		Point min = Points.minimum(points);
 		Point max = Points.maximum(points);
 
-		points.sort(new PointComparatorX());
+		Collections.sort(points, new PointComparatorX());
 		double medianX = points.get(points.size() / 2).getX();
 
-		points.sort(new PointComparatorY());
+		Collections.sort(points, new PointComparatorY());
 		double medianY = points.get(points.size() / 2).getY();
 
 		Rectangle scene = new Rectangle(min.x, min.y, max.x, max.y);
@@ -111,10 +112,10 @@ public class ModelUtil
 			points.add(node.location);
 		}
 
-		points.sort(new PointComparatorX());
+		Collections.sort(points, new PointComparatorX());
 		double medianX = points.get(points.size() / 2).getX();
 
-		points.sort(new PointComparatorY());
+		Collections.sort(points, new PointComparatorY());
 		double medianY = points.get(points.size() / 2).getY();
 
 		Rectangle scene = new Rectangle(0, 0, width, height);

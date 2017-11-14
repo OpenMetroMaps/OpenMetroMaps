@@ -7,5 +7,5 @@
 	<source path="de" />
 	<source path="Jama" />
 	<source path="java" />
-	<source path="org" />
+	<source path="org/slf4j" />
 </module>

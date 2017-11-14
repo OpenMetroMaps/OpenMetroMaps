@@ -171,13 +171,11 @@ public class TestPanel extends SimplePanel implements RequiresResize
 		Context2d c = canvas.getContext2d();
 
 		c.clearRect(0, 0, width, height);
-		logger.info("foo");
+		fillBackground(c);
 		renderFrame(c);
 		if (mapView == null) {
-			fillBackground(c);
 			renderTestContent(c);
 		} else {
-			fillBackground(c);
 			renderView(c);
 		}
 	}
@@ -191,6 +189,8 @@ public class TestPanel extends SimplePanel implements RequiresResize
 	private void renderFrame(Context2d c)
 	{
 		// draw a frame around the whole canvas
+		c.setStrokeStyle("#000000");
+		c.setLineWidth(1);
 		c.beginPath();
 		c.moveTo(10, 10);
 		c.lineTo(width - 10, 10);

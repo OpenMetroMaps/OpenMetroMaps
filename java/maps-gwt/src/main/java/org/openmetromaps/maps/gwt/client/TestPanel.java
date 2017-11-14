@@ -34,6 +34,7 @@ import org.openmetromaps.maps.model.Stop;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
+import com.google.gwt.canvas.dom.client.Context2d.TextAlign;
 import com.google.gwt.canvas.dom.client.CssColor;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -138,6 +139,7 @@ public class TestPanel extends SimplePanel implements RequiresResize
 		logger.info("foo");
 		renderFrame(c);
 		if (mapView == null) {
+			fillBackground(c);
 			renderTestContent(c);
 		} else {
 			fillBackground(c);
@@ -166,11 +168,11 @@ public class TestPanel extends SimplePanel implements RequiresResize
 	private void renderTestContent(Context2d c)
 	{
 		// draw a simple line
-		c.setStrokeStyle("#000000");
-		c.beginPath();
-		c.moveTo(20, 20);
-		c.lineTo(100, 30);
-		c.stroke();
+		c.setFillStyle("#000000");
+		int size = 40;
+		c.setFont(size + "pt Times");
+		c.setTextAlign(TextAlign.CENTER);
+		c.fillText("Loading data...", width / 2, height / 2 + size / 2);
 	}
 
 	private void renderView(Context2d c)

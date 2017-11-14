@@ -17,7 +17,8 @@
 
 package java.lang;
 
-public class ClassNotFoundException extends Exception {
+public class ClassNotFoundException extends Exception
+{
 
 	private static final long serialVersionUID = 1L;
 

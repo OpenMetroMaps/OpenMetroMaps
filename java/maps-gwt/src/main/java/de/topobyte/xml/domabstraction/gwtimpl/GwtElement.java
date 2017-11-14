@@ -23,22 +23,26 @@ import com.google.gwt.xml.client.NodeList;
 import de.topobyte.xml.domabstraction.iface.IElement;
 import de.topobyte.xml.domabstraction.iface.INodeList;
 
-public class GwtElement implements IElement {
+public class GwtElement implements IElement
+{
 
 	private Element element;
 
-	public GwtElement(Element element) {
+	public GwtElement(Element element)
+	{
 		this.element = element;
 	}
 
 	@Override
-	public INodeList getElementsByTagName(String name) {
+	public INodeList getElementsByTagName(String name)
+	{
 		NodeList list = element.getElementsByTagName(name);
 		return new GwtNodeList(list);
 	}
 
 	@Override
-	public String getAttribute(String name) {
+	public String getAttribute(String name)
+	{
 		return element.getAttribute(name);
 	}
 

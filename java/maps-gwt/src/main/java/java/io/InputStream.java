@@ -17,9 +17,11 @@
 
 package java.io;
 
-public class InputStream {
+public class InputStream
+{
 
-	public void read(byte[] buf) {
+	public void read(byte[] buf)
+	{
 		// NOP
 	}
 

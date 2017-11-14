@@ -17,6 +17,7 @@
 
 package java.io;
 
-public interface Externalizable {
+public interface Externalizable
+{
 
 }

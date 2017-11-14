@@ -23,16 +23,19 @@ import com.google.gwt.xml.client.NodeList;
 import de.topobyte.xml.domabstraction.iface.IDocument;
 import de.topobyte.xml.domabstraction.iface.INodeList;
 
-public class GwtDocument implements IDocument {
+public class GwtDocument implements IDocument
+{
 
 	private Document doc;
 
-	public GwtDocument(Document doc) {
+	public GwtDocument(Document doc)
+	{
 		this.doc = doc;
 	}
 
 	@Override
-	public INodeList getElementsByTagName(String name) {
+	public INodeList getElementsByTagName(String name)
+	{
 		NodeList list = doc.getElementsByTagName(name);
 		return new GwtNodeList(list);
 	}

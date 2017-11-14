@@ -43,7 +43,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 
 import de.topobyte.lightgeom.lina.Point;
 
-public class TestPanel extends SimplePanel implements RequiresResize {
+public class TestPanel extends SimplePanel implements RequiresResize
+{
 
 	private static Logger logger = Logger.getLogger("");
 	static {
@@ -66,7 +67,8 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 	private double w;
 	private double h;
 
-	public TestPanel() {
+	public TestPanel()
+	{
 		canvas = Canvas.createIfSupported();
 		add(canvas);
 
@@ -75,14 +77,16 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 
 			@Override
-			public void execute() {
+			public void execute()
+			{
 				onResize();
 			}
 
 		});
 	}
 
-	public void setModel(MapModel mapModel) {
+	public void setModel(MapModel mapModel)
+	{
 		this.mapModel = mapModel;
 		mapView = mapModel.getViews().get(0);
 
@@ -92,12 +96,14 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 		initInternalValues();
 	}
 
-	public void setViewport(BBox box) {
+	public void setViewport(BBox box)
+	{
 		this.box = box;
 		initInternalValues();
 	}
 
-	private void initInternalValues() {
+	private void initInternalValues()
+	{
 		mx = box.getLon1();
 		my = box.getLat2();
 		w = box.getLon2() - box.getLon1();
@@ -105,14 +111,16 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 	}
 
 	@Override
-	public void onResize() {
+	public void onResize()
+	{
 		int width = getElement().getClientWidth();
 		int height = getElement().getClientHeight();
 		setSize(width, height);
 		render();
 	}
 
-	private void setSize(int width, int height) {
+	private void setSize(int width, int height)
+	{
 		this.width = width;
 		this.height = height;
 
@@ -122,7 +130,8 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 		canvas.setCoordinateSpaceHeight(height);
 	}
 
-	public void render() {
+	public void render()
+	{
 		Context2d c = canvas.getContext2d();
 
 		c.clearRect(0, 0, width, height);
@@ -136,12 +145,14 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 		}
 	}
 
-	private void fillBackground(Context2d c) {
+	private void fillBackground(Context2d c)
+	{
 		c.setFillStyle(CssColor.make("#eeeeee"));
 		c.fillRect(0, 0, width, height);
 	}
 
-	private void renderFrame(Context2d c) {
+	private void renderFrame(Context2d c)
+	{
 		// draw a frame around the whole canvas
 		c.beginPath();
 		c.moveTo(10, 10);
@@ -152,7 +163,8 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 		c.stroke();
 	}
 
-	private void renderTestContent(Context2d c) {
+	private void renderTestContent(Context2d c)
+	{
 		// draw a simple line
 		c.setStrokeStyle("#000000");
 		c.beginPath();
@@ -161,13 +173,15 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 		c.stroke();
 	}
 
-	private void renderView(Context2d c) {
+	private void renderView(Context2d c)
+	{
 		float s = 5;
 		float w = 3;
 
 		ModelData data = mapModel.getData();
 
-		Map<Station, Node> stationToNode = mapView.getLineNetwork().getStationToNode();
+		Map<Station, Node> stationToNode = mapView.getLineNetwork()
+				.getStationToNode();
 
 		c.setLineWidth(w);
 		for (Line line : data.lines) {
@@ -175,7 +189,8 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 			List<Stop> stops = line.getStops();
 			Point prev = stationToNode.get(stops.get(0).getStation()).location;
 			for (int i = 1; i < stops.size(); i++) {
-				Point next = stationToNode.get(stops.get(i).getStation()).location;
+				Point next = stationToNode
+						.get(stops.get(i).getStation()).location;
 				Point a = getPoint(prev);
 				Point b = getPoint(next);
 				c.beginPath();
@@ -207,7 +222,8 @@ public class TestPanel extends SimplePanel implements RequiresResize {
 		}
 	}
 
-	private Point getPoint(Point location) {
+	private Point getPoint(Point location)
+	{
 		double x = (location.x - mx) / w * width;
 		double y = (location.y - my) / h * height;
 		return new Point(x, y);

@@ -44,18 +44,21 @@ import com.google.gwt.xml.client.XMLParser;
 import de.topobyte.xml.domabstraction.gwtimpl.GwtDocument;
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
-public class TestEntryPoint implements EntryPoint {
+public class TestEntryPoint implements EntryPoint
+{
 
 	private TestPanel panel;
 	private Label status;
 
 	@Override
-	public void onModuleLoad() {
+	public void onModuleLoad()
+	{
 		DockLayoutPanel dock = new DockLayoutPanel(Unit.EM);
 		RootLayoutPanel.get().add(dock);
 
 		Label title = new Label("Below is a simple panel");
-		Anchor linkOMM = new Anchor("OpenMetroMaps", false, "http://www.openmetromaps.org");
+		Anchor linkOMM = new Anchor("OpenMetroMaps", false,
+				"http://www.openmetromaps.org");
 		status = new Label("Initializing...");
 
 		FlowPanel headline = new FlowPanel();
@@ -79,13 +82,15 @@ public class TestEntryPoint implements EntryPoint {
 		dock.add(panel);
 
 		String filename = "berlin.xml";
-		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, filename);
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET,
+				filename);
 
 		try {
 			builder.sendRequest(null, new RequestCallback() {
 
 				@Override
-				public void onResponseReceived(Request req, Response resp) {
+				public void onResponseReceived(Request req, Response resp)
+				{
 					if (resp.getStatusCode() == Response.SC_OK) {
 						String text = resp.getText();
 						parseXml(text);
@@ -95,7 +100,8 @@ public class TestEntryPoint implements EntryPoint {
 				}
 
 				@Override
-				public void onError(Request res, Throwable throwable) {
+				public void onError(Request res, Throwable throwable)
+				{
 					System.out.println("Error occurred while fetching data");
 					Window.alert("request failed");
 				}
@@ -107,7 +113,8 @@ public class TestEntryPoint implements EntryPoint {
 		}
 	}
 
-	protected void parseXml(String xml) {
+	protected void parseXml(String xml)
+	{
 		Document doc = XMLParser.parse(xml);
 		GwtDocument gwtDoc = new GwtDocument(doc);
 		try {

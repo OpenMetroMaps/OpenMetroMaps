@@ -17,7 +17,8 @@
 
 package java.lang;
 
-public class SecurityException extends RuntimeException {
+public class SecurityException extends RuntimeException
+{
 
 	private static final long serialVersionUID = 1L;
 

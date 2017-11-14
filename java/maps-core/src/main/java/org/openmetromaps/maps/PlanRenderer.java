@@ -41,7 +41,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.infomatiq.jsi.Rectangle;
-import com.vividsolutions.jts.geom.Envelope;
 
 import de.topobyte.formatting.Formatting;
 import de.topobyte.jsi.intersectiontester.RTreeIntersectionTester;
@@ -51,6 +50,7 @@ import de.topobyte.lightgeom.curves.spline.CubicSplineB;
 import de.topobyte.lightgeom.curves.spline.SplineUtil;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
+import de.topobyte.viewports.geometry.Envelope;
 import de.topobyte.viewports.scrolling.ViewportListener;
 import de.topobyte.viewports.scrolling.ViewportUtil;
 import de.topobyte.viewports.scrolling.ViewportWithSignals;

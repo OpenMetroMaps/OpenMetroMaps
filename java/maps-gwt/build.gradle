@@ -50,6 +50,7 @@ dependencies {
 
 configurations {
     compile.exclude group: "org.slf4j", module: "slf4j-api"
+    compile.exclude group: "com.vividsolutions", module: "jts"
 }
 
 sourceSets {

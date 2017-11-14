@@ -1,5 +1,6 @@
 dependencies {
     compile 'de.topobyte:viewports-core:0.0.2'
+    compile 'de.topobyte:linear-algebra:0.0.2'
     compile 'de.topobyte:lightweight-geometry:1.0.0'
 
     compile 'org.slf4j:slf4j-api:1.6.1'

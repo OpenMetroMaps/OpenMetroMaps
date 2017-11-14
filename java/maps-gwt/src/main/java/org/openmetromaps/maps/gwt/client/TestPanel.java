@@ -38,6 +38,12 @@ import com.google.gwt.canvas.dom.client.Context2d.TextAlign;
 import com.google.gwt.canvas.dom.client.CssColor;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.logging.client.SystemLogHandler;
 import com.google.gwt.user.client.ui.RequiresResize;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -73,6 +79,11 @@ public class TestPanel extends SimplePanel implements RequiresResize
 		canvas = Canvas.createIfSupported();
 		add(canvas);
 
+		MouseHandler mouseHandler = new MouseHandler();
+		canvas.addMouseUpHandler(mouseHandler);
+		canvas.addMouseDownHandler(mouseHandler);
+		canvas.addMouseMoveHandler(mouseHandler);
+
 		// This is very important to initialize the size of the canvas after the
 		// widget has loaded.
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
@@ -84,6 +95,30 @@ public class TestPanel extends SimplePanel implements RequiresResize
 			}
 
 		});
+	}
+
+	private class MouseHandler
+			implements MouseUpHandler, MouseDownHandler, MouseMoveHandler
+	{
+
+		@Override
+		public void onMouseDown(MouseDownEvent event)
+		{
+			event.preventDefault();
+		}
+
+		@Override
+		public void onMouseUp(MouseUpEvent event)
+		{
+			event.preventDefault();
+		}
+
+		@Override
+		public void onMouseMove(MouseMoveEvent event)
+		{
+			event.preventDefault();
+		}
+
 	}
 
 	public void setModel(MapModel mapModel)

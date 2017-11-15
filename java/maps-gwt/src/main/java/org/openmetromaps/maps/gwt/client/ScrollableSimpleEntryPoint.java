@@ -47,7 +47,7 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class ScrollableSimpleEntryPoint implements EntryPoint
 {
 
-	private TestPanel panel;
+	private SimplePlanPanel panel;
 	private Label status;
 
 	@Override
@@ -78,7 +78,7 @@ public class ScrollableSimpleEntryPoint implements EntryPoint
 
 		dock.addNorth(headline, 2);
 
-		panel = new TestPanel();
+		panel = new SimplePlanPanel();
 		dock.add(panel);
 
 		String filename = "berlin.xml";

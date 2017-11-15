@@ -50,7 +50,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 
 import de.topobyte.lightgeom.lina.Point;
 
-public class TestPanel extends SimplePanel implements RequiresResize
+public class SimplePlanPanel extends SimplePanel implements RequiresResize
 {
 
 	private static Logger logger = Logger.getLogger("");
@@ -74,7 +74,7 @@ public class TestPanel extends SimplePanel implements RequiresResize
 	private double w;
 	private double h;
 
-	public TestPanel()
+	public SimplePlanPanel()
 	{
 		canvas = Canvas.createIfSupported();
 		add(canvas);

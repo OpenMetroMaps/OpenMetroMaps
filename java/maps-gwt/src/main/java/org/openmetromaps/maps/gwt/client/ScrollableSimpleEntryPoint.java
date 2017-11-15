@@ -27,11 +27,6 @@ import org.openmetromaps.maps.xml.XmlModelReader;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.http.client.Request;
-import com.google.gwt.http.client.RequestBuilder;
-import com.google.gwt.http.client.RequestCallback;
-import com.google.gwt.http.client.RequestException;
-import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -56,7 +51,7 @@ public class ScrollableSimpleEntryPoint implements EntryPoint
 		DockLayoutPanel dock = new DockLayoutPanel(Unit.EM);
 		RootLayoutPanel.get().add(dock);
 
-		Label title = new Label("Below is a simple panel");
+		Label title = new Label("Below is a scrollable simple panel");
 		Anchor linkOMM = new Anchor("OpenMetroMaps", false,
 				"http://www.openmetromaps.org");
 		status = new Label("Initializing...");
@@ -82,35 +77,7 @@ public class ScrollableSimpleEntryPoint implements EntryPoint
 		dock.add(panel);
 
 		String filename = "berlin.xml";
-		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET,
-				filename);
-
-		try {
-			builder.sendRequest(null, new RequestCallback() {
-
-				@Override
-				public void onResponseReceived(Request req, Response resp)
-				{
-					if (resp.getStatusCode() == Response.SC_OK) {
-						String text = resp.getText();
-						parseXml(text);
-					} else {
-						Window.alert("request failed: " + resp.getStatusCode());
-					}
-				}
-
-				@Override
-				public void onError(Request res, Throwable throwable)
-				{
-					System.out.println("Error occurred while fetching data");
-					Window.alert("request failed");
-				}
-
-			});
-		} catch (RequestException e) {
-			System.out.println("Error while fetching data");
-			e.printStackTrace();
-		}
+		Util.load(filename, xml -> parseXml(xml));
 	}
 
 	protected void parseXml(String xml)

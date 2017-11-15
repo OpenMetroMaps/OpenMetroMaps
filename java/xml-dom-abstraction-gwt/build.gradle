@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':openmetromaps-xml-dom-abstraction')
+
+    compile 'com.google.gwt:gwt-servlet:2.7.0'
+}

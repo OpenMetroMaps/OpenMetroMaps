@@ -19,7 +19,7 @@ apply plugin: 'de.topobyte.dependency-info-gradle-plugin'
 apply plugin: 'de.topobyte.dependency-unpack-gradle-plugin'
 
 gwt {
-    gwtVersion='2.7.0'
+    gwtVersion='2.8.1'
 
     modules 'org.openmetromaps.maps.gwt.Simple'
     modules 'org.openmetromaps.maps.gwt.ScrollableSimple'

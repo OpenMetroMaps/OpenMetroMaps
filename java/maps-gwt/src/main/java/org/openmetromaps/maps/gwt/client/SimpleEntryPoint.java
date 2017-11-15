@@ -44,7 +44,7 @@ import com.google.gwt.xml.client.XMLParser;
 import de.topobyte.xml.domabstraction.gwtimpl.GwtDocument;
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
-public class TestEntryPoint implements EntryPoint
+public class SimpleEntryPoint implements EntryPoint
 {
 
 	private TestPanel panel;

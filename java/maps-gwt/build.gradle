@@ -21,7 +21,7 @@ apply plugin: 'de.topobyte.dependency-unpack-gradle-plugin'
 gwt {
     gwtVersion='2.7.0'
 
-    modules 'org.openmetromaps.maps.gwt.Test'
+    modules 'org.openmetromaps.maps.gwt.Simple'
 
     compiler {
         strict = true;

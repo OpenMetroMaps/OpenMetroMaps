@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
-<module rename-to="app">
+<module rename-to="simple">
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="com.google.gwt.logging.Logging" />
 	<inherits name="com.google.gwt.xml.XML" />
 	<inherits name="GwtSource" />
 	<inherits name="UnpackedJars" />
 	<source path="client" />
-	<entry-point class="org.openmetromaps.maps.gwt.client.TestEntryPoint" />
+	<entry-point class="org.openmetromaps.maps.gwt.client.SimpleEntryPoint" />
 	<set-property name="gwt.logging.logLevel" value="INFO" />
 </module>

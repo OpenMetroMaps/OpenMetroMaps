@@ -22,6 +22,7 @@ gwt {
     gwtVersion='2.7.0'
 
     modules 'org.openmetromaps.maps.gwt.Simple'
+    modules 'org.openmetromaps.maps.gwt.ScrollableSimple'
 
     compiler {
         strict = true;

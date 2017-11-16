@@ -5,4 +5,6 @@ build
 .settings
 /src/main/gwt-unitCache
 /src/main/webapp/WEB-INF/lib/
-/src/main/webapp/app/
+/src/main/webapp/simple/
+/src/main/webapp/scrollable_simple/
+/src/main/webapp/scrollable_advanced/

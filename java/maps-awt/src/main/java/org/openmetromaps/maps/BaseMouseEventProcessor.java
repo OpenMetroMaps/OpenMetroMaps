@@ -24,6 +24,7 @@ import javax.swing.JComponent;
 
 import org.openmetromaps.swing.Util;
 
+import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.scrolling.ViewportMouseListener;
 import de.topobyte.viewports.scrolling.ViewportUtil;
 import de.topobyte.viewports.scrolling.ViewportWithSignals;
@@ -49,19 +50,20 @@ public class BaseMouseEventProcessor<T extends JComponent & ViewportWithSignals>
 	{
 		c.grabFocus();
 
+		Coordinate point = new Coordinate(e.getX(), e.getY());
 		boolean control = Util.isControlPressed(e);
 
 		if (e.getClickCount() == 2) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
 				if (!control) {
-					zoomFixed(e.getPoint(), true, zoomStep);
+					ViewportUtil.zoomFixed(c, point, true, zoomStep);
 				} else {
 					// TODO: re-enable zoom-and-center
 					// mapWindow.zoomInToPosition(e.getX(), e.getY(), zoomStep);
 				}
 			} else if (e.getButton() == MouseEvent.BUTTON3) {
 				if (!control) {
-					zoomFixed(e.getPoint(), false, zoomStep);
+					ViewportUtil.zoomFixed(c, point, false, zoomStep);
 				} else {
 					// TODO: re-enable zoom-and-center
 					// mapWindow.zoomOutToPosition(e.getX(), e.getY(),
@@ -126,36 +128,13 @@ public class BaseMouseEventProcessor<T extends JComponent & ViewportWithSignals>
 	public void mouseWheelMoved(MouseWheelEvent e)
 	{
 		int rotation = e.getWheelRotation();
+		Coordinate point = new Coordinate(e.getX(), e.getY());
 		if (rotation < 0) {
-			zoomFixed(e.getPoint(), true, zoomStep);
+			ViewportUtil.zoomFixed(c, point, true, zoomStep);
 		} else {
-			zoomFixed(e.getPoint(), false, zoomStep);
+			ViewportUtil.zoomFixed(c, point, false, zoomStep);
 		}
 		c.repaint();
-	}
-
-	private void zoomFixed(java.awt.Point point, boolean in, double zoomStep)
-	{
-		// (x, y) that we want to keep fixed at the screen point (x, y)
-		double frx = ViewportUtil.getRealX(c, point.x);
-		double fry = ViewportUtil.getRealY(c, point.y);
-
-		if (in) {
-			c.setZoom(c.getZoom() * (1 + zoomStep));
-		} else {
-			c.setZoom(c.getZoom() / (1 + zoomStep));
-		}
-
-		// (x, y) of the (lon, lat) after applying the zoom change
-		double fx = ViewportUtil.getViewX(c, frx);
-		double fy = ViewportUtil.getViewY(c, fry);
-
-		// shift the map to keep the (lon, lat) fixed
-		double dx = fx - point.x;
-		double dy = fy - point.y;
-
-		c.setPositionX(c.getPositionX() - dx / c.getZoom());
-		c.setPositionY(c.getPositionY() - dy / c.getZoom());
 	}
 
 }

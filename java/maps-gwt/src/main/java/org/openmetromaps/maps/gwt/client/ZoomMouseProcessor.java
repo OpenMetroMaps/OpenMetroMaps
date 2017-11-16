@@ -48,33 +48,9 @@ public class ZoomMouseProcessor<T extends HasSize & Renderable & Viewport & HasS
 		boolean in = e.getDeltaY() < 0;
 
 		Coordinate point = new Coordinate(e.getX(), e.getY());
-		zoomFixed(point, in);
+		ViewportUtil.zoomFixed(view, point, in, zoomStep);
 
 		view.render();
-	}
-
-	private void zoomFixed(Coordinate point, boolean in)
-	{
-		// (x, y) that we want to keep fixed at the screen point (x, y)
-		double frx = ViewportUtil.getRealX(view, point.getX());
-		double fry = ViewportUtil.getRealY(view, point.getY());
-
-		if (in) {
-			view.setZoom(view.getZoom() * (1 + zoomStep));
-		} else {
-			view.setZoom(view.getZoom() / (1 + zoomStep));
-		}
-
-		// (x, y) of the (lon, lat) after applying the zoom change
-		double fx = ViewportUtil.getViewX(view, frx);
-		double fy = ViewportUtil.getViewY(view, fry);
-
-		// shift the map to keep the (lon, lat) fixed
-		double dx = fx - point.getX();
-		double dy = fy - point.getY();
-
-		view.setPositionX(view.getPositionX() - dx / view.getZoom());
-		view.setPositionY(view.getPositionY() - dy / view.getZoom());
 	}
 
 }

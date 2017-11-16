@@ -29,6 +29,7 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.Label;
 
 public class Util
@@ -94,6 +95,15 @@ public class Util
 		status.getElement().getStyle().setFloat(Float.RIGHT);
 
 		return headline;
+	}
+
+	public static void addHandler(FocusWidget widget,
+			MouseProcessor mouseProcessor)
+	{
+		widget.addMouseUpHandler(mouseProcessor);
+		widget.addMouseDownHandler(mouseProcessor);
+		widget.addMouseMoveHandler(mouseProcessor);
+		widget.addMouseWheelHandler(mouseProcessor);
 	}
 
 }

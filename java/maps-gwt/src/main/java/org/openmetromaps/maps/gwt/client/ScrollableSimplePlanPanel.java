@@ -45,6 +45,9 @@ public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
 
 		// ViewActions.setupMovementActions(getInputMap(), getActionMap(),
 		// this);
+
+		BaseMouseProcessor mouseHandler = new BaseMouseProcessor();
+		Util.addHandler(canvas, mouseHandler);
 	}
 
 	public void setModel(MapModel mapModel)

@@ -46,7 +46,8 @@ public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
 		// ViewActions.setupMovementActions(getInputMap(), getActionMap(),
 		// this);
 
-		BaseMouseProcessor mouseHandler = new BaseMouseProcessor();
+		PanMouseProcessor<ScrollableSimplePlanPanel> mouseHandler = new PanMouseProcessor<>(
+				this);
 		Util.addHandler(canvas, mouseHandler);
 	}
 
@@ -59,7 +60,7 @@ public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
 	}
 
 	@Override
-	protected void render()
+	public void render()
 	{
 		// g.setColor(Color.WHITE);
 		// fillRect(g, scene.getX1(), scene.getY1(), scene.getX2(),

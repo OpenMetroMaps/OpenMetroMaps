@@ -22,12 +22,13 @@ import org.openmetromaps.maps.LocationToPoint;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lina.Matrix;
 import de.topobyte.viewports.BaseScenePanel;
+import de.topobyte.viewports.Renderable;
 import de.topobyte.viewports.geometry.CoordinateTransformer;
 import de.topobyte.viewports.scrolling.TransformHelper;
 import de.topobyte.viewports.scrolling.ViewportUtil;
 
 public class BaseMapWindowPanel extends BaseScenePanel
-		implements LocationToPoint
+		implements LocationToPoint, Renderable
 {
 
 	// TODO: implement mouse processing
@@ -91,7 +92,7 @@ public class BaseMapWindowPanel extends BaseScenePanel
 	private CoordinateTransformer transformer;
 
 	@Override
-	protected void render()
+	public void render()
 	{
 		Matrix matrix = TransformHelper.createMatrix(scene, this);
 		transformer = new CoordinateTransformer(matrix);

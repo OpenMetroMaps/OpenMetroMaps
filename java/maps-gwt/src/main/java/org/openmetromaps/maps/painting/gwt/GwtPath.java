@@ -17,7 +17,15 @@
 
 package org.openmetromaps.maps.painting.gwt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.painting.gwt.path.LineTo;
+import org.openmetromaps.maps.painting.gwt.path.MoveTo;
+import org.openmetromaps.maps.painting.gwt.path.PathOperation;
+
+import com.google.gwt.canvas.dom.client.Context2d;
 
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
@@ -25,46 +33,55 @@ import de.topobyte.lightgeom.lina.Vector2;
 public class GwtPath implements Path
 {
 
+	private List<PathOperation> operations = new ArrayList<>();
+
+	public void render(Context2d c)
+	{
+		for (PathOperation operation : operations) {
+			operation.render(c);
+		}
+	}
+
 	@Override
 	public void reset()
 	{
-		// TODO Auto-generated method stub
+		operations.clear();
 	}
 
 	@Override
 	public void moveTo(double x, double y)
 	{
-		// TODO Auto-generated method stub
+		operations.add(new MoveTo(x, y));
 	}
 
 	@Override
 	public void lineTo(double x, double y)
 	{
-		// TODO Auto-generated method stub
+		operations.add(new LineTo(x, y));
 	}
 
 	@Override
 	public void moveTo(Point p)
 	{
-		// TODO Auto-generated method stub
+		operations.add(new MoveTo(p.getX(), p.getY()));
 	}
 
 	@Override
 	public void lineTo(Point p)
 	{
-		// TODO Auto-generated method stub
+		operations.add(new LineTo(p.getX(), p.getY()));
 	}
 
 	@Override
 	public void moveTo(Vector2 p)
 	{
-		// TODO Auto-generated method stub
+		operations.add(new MoveTo(p.getX(), p.getY()));
 	}
 
 	@Override
 	public void lineTo(Vector2 p)
 	{
-		// TODO Auto-generated method stub
+		operations.add(new LineTo(p.getX(), p.getY()));
 	}
 
 }

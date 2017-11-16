@@ -63,7 +63,9 @@ public class GwtPainter implements Painter
 	@Override
 	public void draw(Path path)
 	{
-		// TODO Auto-generated method stub
+		GwtPath gwtPath = (GwtPath) path;
+		gwtPath.render(c);
+		fillOrStroke();
 	}
 
 	@Override

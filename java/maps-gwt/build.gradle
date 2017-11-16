@@ -33,6 +33,11 @@ gwt {
     }
 }
 
+compileGwt {
+    minHeapSize = "512M";
+    maxHeapSize = "1024M";
+}
+
 dependencies {
     compile 'de.topobyte:viewports-core:0.0.3'
     compile 'de.topobyte:lightweight-geometry:1.0.0'

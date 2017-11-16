@@ -5,7 +5,7 @@
 	<source path="com/slimjars" />
 	<source path="com/vividsolutions" />
 	<source path="de" />
-	<source path="Jama" />
+	<source path="jama" />
 	<source path="java" />
 	<source path="org/slf4j" />
 </module>

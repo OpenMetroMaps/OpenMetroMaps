@@ -150,6 +150,7 @@ public class GwtPainter implements Painter
 		LineCap cap = GwtPaintInfo.getCap(paint.getCap());
 		c.setLineJoin(join);
 		c.setLineCap(cap);
+		c.setLineWidth(paint.getWidth());
 
 		int colorValue = color.getValue() & 0xFFFFFF;
 		String colorCode = Formatting.format("#%X", colorValue);

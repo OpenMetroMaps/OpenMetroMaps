@@ -35,8 +35,8 @@ import de.topobyte.viewports.scrolling.HasScene;
 import de.topobyte.viewports.scrolling.ViewportListener;
 import de.topobyte.viewports.scrolling.ViewportWithSignals;
 
-public abstract class BaseScenePanel extends SimplePanel
-		implements ViewportWithSignals, HasScene, HasMargin, RequiresResize
+public abstract class BaseScenePanel extends SimplePanel implements
+		ViewportWithSignals, HasScene, HasMargin, HasSize, RequiresResize
 {
 
 	final static Logger logger = LoggerFactory.getLogger(BaseScenePanel.class);
@@ -74,11 +74,13 @@ public abstract class BaseScenePanel extends SimplePanel
 
 	protected abstract void render();
 
+	@Override
 	public int getWidth()
 	{
 		return width;
 	}
 
+	@Override
 	public int getHeight()
 	{
 		return height;

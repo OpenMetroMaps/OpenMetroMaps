@@ -85,13 +85,21 @@ public class GwtPainter implements Painter
 	@Override
 	public void draw(QuadraticSpline spline)
 	{
-		// TODO Auto-generated method stub
+		c.beginPath();
+		c.moveTo(spline.getP1X(), spline.getP1Y());
+		c.quadraticCurveTo(spline.getCX(), spline.getCY(), spline.getP2X(),
+				spline.getP2Y());
+		fillOrStroke();
 	}
 
 	@Override
 	public void draw(CubicSpline spline)
 	{
-		// TODO Auto-generated method stub
+		c.beginPath();
+		c.moveTo(spline.getP1X(), spline.getP1Y());
+		c.bezierCurveTo(spline.getC1X(), spline.getC1Y(), spline.getC2X(),
+				spline.getC2Y(), spline.getP2X(), spline.getP2Y());
+		fillOrStroke();
 	}
 
 	@Override

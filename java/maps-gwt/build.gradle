@@ -23,6 +23,7 @@ gwt {
 
     modules 'org.openmetromaps.maps.gwt.Simple'
     modules 'org.openmetromaps.maps.gwt.ScrollableSimple'
+    modules 'org.openmetromaps.maps.gwt.ScrollableAdvanced'
 
     compiler {
         strict = true;

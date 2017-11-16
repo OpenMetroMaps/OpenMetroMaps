@@ -19,12 +19,17 @@ package org.openmetromaps.maps.gwt.client;
 
 import java.util.function.Consumer;
 
+import com.google.gwt.dom.client.Style.Float;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
 
 public class Util
 {
@@ -60,6 +65,35 @@ public class Util
 			System.out.println("Error while fetching data");
 			e.printStackTrace();
 		}
+	}
+
+	public static FlowPanel headline(String titleText, Label status)
+	{
+		Anchor linkIndex = new Anchor("Home", false, "index.html");
+		Label title = new Label(titleText);
+		Anchor linkOMM = new Anchor("OpenMetroMaps", false,
+				"http://www.openmetromaps.org");
+
+		FlowPanel headline = new FlowPanel();
+		headline.getElement().getStyle().setMarginTop(0.5, Unit.EM);
+		headline.getElement().getStyle().setMarginBottom(0.5, Unit.EM);
+		headline.getElement().getStyle().setMarginLeft(10, Unit.PX);
+		headline.getElement().getStyle().setMarginRight(10, Unit.PX);
+
+		headline.add(linkIndex);
+		headline.add(title);
+		headline.add(linkOMM);
+		headline.add(status);
+
+		title.getElement().getStyle().setMarginLeft(10, Unit.PX);
+		linkOMM.getElement().getStyle().setMarginLeft(10, Unit.PX);
+
+		linkIndex.getElement().getStyle().setFloat(Float.LEFT);
+		title.getElement().getStyle().setFloat(Float.LEFT);
+		linkOMM.getElement().getStyle().setFloat(Float.LEFT);
+		status.getElement().getStyle().setFloat(Float.RIGHT);
+
+		return headline;
 	}
 
 }

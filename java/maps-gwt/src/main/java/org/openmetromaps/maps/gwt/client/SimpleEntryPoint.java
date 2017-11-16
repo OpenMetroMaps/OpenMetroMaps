@@ -25,10 +25,8 @@ import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -51,30 +49,8 @@ public class SimpleEntryPoint implements EntryPoint
 		DockLayoutPanel dock = new DockLayoutPanel(Unit.EM);
 		RootLayoutPanel.get().add(dock);
 
-		Anchor linkIndex = new Anchor("Home", false, "index.html");
-		Label title = new Label("Below is a simple panel");
-		Anchor linkOMM = new Anchor("OpenMetroMaps", false,
-				"http://www.openmetromaps.org");
 		status = new Label("Initializing...");
-
-		FlowPanel headline = new FlowPanel();
-		headline.getElement().getStyle().setMarginTop(0.5, Unit.EM);
-		headline.getElement().getStyle().setMarginBottom(0.5, Unit.EM);
-		headline.getElement().getStyle().setMarginLeft(10, Unit.PX);
-		headline.getElement().getStyle().setMarginRight(10, Unit.PX);
-
-		headline.add(linkIndex);
-		headline.add(title);
-		headline.add(linkOMM);
-		headline.add(status);
-
-		title.getElement().getStyle().setMarginLeft(10, Unit.PX);
-		linkOMM.getElement().getStyle().setMarginLeft(10, Unit.PX);
-
-		linkIndex.getElement().getStyle().setFloat(Float.LEFT);
-		title.getElement().getStyle().setFloat(Float.LEFT);
-		linkOMM.getElement().getStyle().setFloat(Float.LEFT);
-		status.getElement().getStyle().setFloat(Float.RIGHT);
+		FlowPanel headline = Util.headline("Below is a simple panel", status);
 
 		dock.addNorth(headline, 2);
 

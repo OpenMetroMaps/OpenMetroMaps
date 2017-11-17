@@ -29,6 +29,7 @@ import org.openmetromaps.maps.painting.core.geom.Path;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.canvas.dom.client.Context2d.LineCap;
 import com.google.gwt.canvas.dom.client.Context2d.LineJoin;
+import com.google.gwt.canvas.dom.client.TextMetrics;
 
 import de.topobyte.formatting.IntHexFormatter;
 import de.topobyte.lightgeom.curves.spline.CubicSpline;
@@ -126,20 +127,20 @@ public class GwtPainter implements Painter
 	@Override
 	public void drawString(String string, float x, float y)
 	{
-		// TODO Auto-generated method stub
+		c.fillText(string, x, y);
 	}
 
 	@Override
 	public void outlineString(String string, float x, float y)
 	{
-		// TODO Auto-generated method stub
+		c.strokeText(string, x, y);
 	}
 
 	@Override
 	public int getStringWidth(String string)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		TextMetrics metrics = c.measureText(string);
+		return (int) metrics.getWidth();
 	}
 
 	private IntHexFormatter hex = new IntHexFormatter();
@@ -167,7 +168,8 @@ public class GwtPainter implements Painter
 		c.setFillStyle(colorCode);
 		c.setStrokeStyle(colorCode);
 
-		// TODO: apply font properties
+		int fontSize = paint.getFontSize();
+		c.setFont(fontSize + "px Arial");
 	}
 
 }

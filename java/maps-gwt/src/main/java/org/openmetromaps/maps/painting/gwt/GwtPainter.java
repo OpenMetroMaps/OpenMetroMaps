@@ -64,6 +64,7 @@ public class GwtPainter implements Painter
 	public void draw(Path path)
 	{
 		GwtPath gwtPath = (GwtPath) path;
+		c.beginPath();
 		gwtPath.render(c);
 		fillOrStroke();
 	}

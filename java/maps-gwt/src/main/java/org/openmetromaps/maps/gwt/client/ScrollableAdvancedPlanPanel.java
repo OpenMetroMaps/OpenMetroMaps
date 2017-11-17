@@ -38,7 +38,7 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	private MapView mapView;
 	private LineNetwork lineNetwork;
 
-	private MapViewStatus mapViewStatus;
+	private MapViewStatus mapViewStatus = new MapViewStatus();
 	private StationMode stationMode = StationMode.SIMPLE;
 	private SegmentMode segmentMode = SegmentMode.STRAIGHT;
 

@@ -77,12 +77,14 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	@Override
 	public void render()
 	{
+		Context2d c = canvas.getContext2d();
+
 		// g.setColor(Color.WHITE);
 		// fillRect(g, scene.getX1(), scene.getY1(), scene.getX2(),
 		// scene.getY2());
 
-		Context2d c = canvas.getContext2d();
 		fillBackground(c);
+
 		renderContent(c);
 	}
 
@@ -95,8 +97,6 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	private void renderContent(Context2d c)
 	{
 		Painter painter = new GwtPainter(c);
-
-		fillBackground(c);
 
 		renderer.paint(painter);
 	}

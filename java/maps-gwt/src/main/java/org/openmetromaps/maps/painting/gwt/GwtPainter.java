@@ -30,7 +30,7 @@ import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.canvas.dom.client.Context2d.LineCap;
 import com.google.gwt.canvas.dom.client.Context2d.LineJoin;
 
-import de.topobyte.formatting.Formatting;
+import de.topobyte.formatting.IntHexFormatter;
 import de.topobyte.lightgeom.curves.spline.CubicSpline;
 import de.topobyte.lightgeom.curves.spline.QuadraticSpline;
 
@@ -141,6 +141,12 @@ public class GwtPainter implements Painter
 		return 0;
 	}
 
+	private IntHexFormatter hex = new IntHexFormatter();
+	{
+		hex.setMinWidth(6);
+		hex.setPadChar('0');
+	}
+
 	@Override
 	public void setPaintInfo(IPaintInfo paintInfo)
 	{
@@ -155,7 +161,7 @@ public class GwtPainter implements Painter
 		c.setLineWidth(paint.getWidth());
 
 		int colorValue = color.getValue() & 0xFFFFFF;
-		String colorCode = Formatting.format("#%X", colorValue);
+		String colorCode = "#" + hex.format(colorValue);
 
 		c.setFillStyle(colorCode);
 		c.setStrokeStyle(colorCode);

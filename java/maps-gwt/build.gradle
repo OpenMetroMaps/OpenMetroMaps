@@ -27,7 +27,6 @@ gwt {
 
     compiler {
         strict = true;
-        enableClosureCompiler = true;
         disableClassMetadata = true;
         disableCastChecking = true;
     }

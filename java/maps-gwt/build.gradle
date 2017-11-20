@@ -58,6 +58,7 @@ dependencies {
 configurations {
     compile.exclude group: "org.slf4j", module: "slf4j-api"
     compile.exclude group: "com.vividsolutions", module: "jts"
+    compile.exclude group: "com.slimjars.trove4j", module: "trove4j-object-int-hash-map"
 }
 
 sourceSets {

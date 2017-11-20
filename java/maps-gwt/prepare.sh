@@ -8,6 +8,10 @@ DIR="build/unpackedJars"
 cp UnpackedJars.gwt.xml "$DIR"
 
 rm "$DIR/jama/MatrixIO.java"
+rm "$DIR/de/topobyte/system/utils/SystemPaths.java"
+rm "$DIR/de/topobyte/jsi/GenericRTree.java"
+rm "$DIR/de/topobyte/jsi/TreeTraverser.java"
+rm "$DIR/de/topobyte/jsi/TraversalAdapter.java"
 
 "$JT/remove-externalizable.sh" "$DIR"
 "$JT/replace-string-format.sh" "$DIR"

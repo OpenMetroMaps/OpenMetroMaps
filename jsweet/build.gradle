@@ -36,6 +36,7 @@ sourceSets {
             srcDirs '../java/maps-model/src/main/java'
             srcDirs '../java/maps-model-xml/src/main/java'
             srcDirs '../java/maps-core/src/main/java'
+            srcDir 'build/unpackedJars'
         }
     }
 }
@@ -50,11 +51,21 @@ dependencies {
 
     compile 'org.jsweet.candies.ext:jquery:1.10.0-SNAPSHOT'
 
-    compile 'de.topobyte:simple-formatting:0.0.1'
-    compile 'de.topobyte:jsweet-slf4j-console:0.0.1'
-    compile 'de.topobyte:viewports-core:0.0.2'
+    compile 'de.topobyte:viewports-core:0.0.3'
+    compile 'de.topobyte:lightweight-geometry:1.0.0'
+    compile 'de.topobyte:adt-geo:0.0.4'
+    compile 'de.topobyte:adt-misc:0.0.2'
+    compile 'de.topobyte:jsi-rectangle-intersection-tester:0.0.1'
     compile 'de.topobyte:lightweight-geometry:1.0.0'
     compile 'de.topobyte:lightweight-geometry-convex-hull:1.0.0'
+    compile 'de.topobyte:geomath:0.0.2'
+    compile 'de.topobyte:line-printer-core:0.0.1'
+    compile 'de.topobyte:line-printer-slf4j:0.0.1'
+    compile 'de.topobyte:simple-formatting:0.0.3'
+    compile 'de.topobyte:system-utils:0.0.1'
+    compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
+    compile 'de.topobyte:jsweet-slf4j-console:0.0.1'
+    compile 'de.topobyte:jsweet-slf4j-nop:0.0.2'
 }
 
 configurations {
@@ -76,6 +87,7 @@ jsweet {
         'de/topobyte/xml/domabstraction/**/*.java',
         'de/topobyte/**/*.java',
         'org/slf4j/**/*.java',
+        'jama/**/*.java',
         '**/Coordinate.java', '**/BBox.java',
         '**/Interval.java', '**/Edges.java', '**/Segment.java',
         '**/Station.java', '**/Stop.java', '**/Line.java', '**/Entity.java']

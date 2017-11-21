@@ -1,7 +1,9 @@
 #!/bin/bash
 
+DIR=$(dirname $0)
+
 rm -rf test
-gradle compileGwt
+"$DIR/../gradlew" compileGwt
 mkdir test
 
 OUT="build/gwt/out"

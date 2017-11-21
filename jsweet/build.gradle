@@ -36,7 +36,6 @@ sourceSets {
             srcDirs '../java/maps-model/src/main/java'
             srcDirs '../java/maps-model-xml/src/main/java'
             srcDirs '../java/maps-core/src/main/java'
-            srcDir 'build/unpackedJars'
         }
     }
 }

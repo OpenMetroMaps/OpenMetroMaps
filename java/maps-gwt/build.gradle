@@ -69,7 +69,6 @@ sourceSets {
             srcDir 'src/modules/maps-model-xml/java'
             srcDir 'src/modules/xml-dom-abstraction/java'
             srcDir 'src/modules/xml-dom-abstraction-gwt/java'
-            srcDir 'build/unpackedJars'
         }
     }
 }

@@ -1,6 +1,8 @@
 #!/bin/bash
 
-gradle depunpack
+DIR=$(dirname $0)
+
+"$DIR/../gradlew" depunpack
 
 JT="$HOME/github/sebkur/javaparser-transforms/scripts"
 DIR="build/unpackedJars"

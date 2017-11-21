@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven { url 'http://mvn.topobyte.de' }
         maven { url 'http://repository.jsweet.org/artifactory/libs-release-local' }
         maven { url 'http://repository.jsweet.org/artifactory/libs-snapshot-local' }
         maven { url 'http://repository.jsweet.org/artifactory/plugins-release-local' }
@@ -10,6 +11,8 @@ buildscript {
     dependencies {
         classpath('org.jsweet:jsweet-gradle-plugin:2.0.0-SNAPSHOT') { //
             transitive = true }
+        classpath('de.topobyte:gradle-dependency-info-plugin:0.0.1');
+        classpath('de.topobyte:gradle-dependency-unpack-plugin:0.0.1');
     }
 }
 
@@ -27,6 +30,8 @@ version = pVersion
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.jsweet.jsweet-gradle-plugin'
+apply plugin: 'de.topobyte.dependency-info-gradle-plugin'
+apply plugin: 'de.topobyte.dependency-unpack-gradle-plugin'
 
 sourceSets {
     main {

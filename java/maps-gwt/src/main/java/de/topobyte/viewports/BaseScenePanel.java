@@ -204,6 +204,9 @@ public abstract class BaseScenePanel extends SimplePanel implements
 
 	protected void checkBounds()
 	{
+		if (getScene() == null) {
+			return;
+		}
 		boolean update = false;
 		if (-positionX + getWidth() / zoom > getScene().getWidth() + margin) {
 			logger.debug("Moved out of viewport at right");

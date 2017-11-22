@@ -98,6 +98,9 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	{
 		Painter painter = new GwtPainter(c);
 
+		if (renderer == null) {
+			return;
+		}
 		renderer.paint(painter);
 	}
 

@@ -48,7 +48,7 @@ dependencies {
     compile 'de.topobyte:simple-formatting:0.0.3'
     compile 'de.topobyte:system-utils:0.0.1'
     compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
-    compile 'de.topobyte:jsweet-slf4j-nop:0.0.2'
+    compile 'de.topobyte:slf4j-transpilable-binding-jdk:0.0.3'
 }
 
 configurations {

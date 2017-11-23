@@ -47,8 +47,8 @@ any desktop software.
 
 ## Other ideas
 
-* It would be nice to be able to create morping animations from two views
-  of the same network. Inpired by
+* It would be nice to be able to create morphing animations from two views
+  of the same network. Inspired by
   [this article](http://mymodernmet.com/animated-subway-maps) about
   a number of posts on reddit.
 * Build something like [this](http://jannisr.de/vbb-map-routing) using

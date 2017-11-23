@@ -80,6 +80,10 @@ public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
 
 	private void renderContent(Context2d c)
 	{
+		if (mapView == null) {
+			return;
+		}
+
 		float s = 5;
 		float w = 3;
 

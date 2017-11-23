@@ -17,8 +17,12 @@
 
 package org.openmetromaps.maps.gwt.client;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.http.client.Request;
@@ -26,6 +30,7 @@ import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -104,6 +109,23 @@ public class Util
 		widget.addMouseDownHandler(mouseProcessor);
 		widget.addMouseMoveHandler(mouseProcessor);
 		widget.addMouseWheelHandler(mouseProcessor);
+	}
+
+	public static Map<String, String> loadParameters(String parameterElementId)
+	{
+		Map<String, String> map = new HashMap<>();
+		Element params = DOM.getElementById(parameterElementId);
+		if (params == null) {
+			return map;
+		}
+		NodeList<Element> paramList = params.getElementsByTagName("div");
+		for (int i = 0; i < paramList.getLength(); i++) {
+			Element element = paramList.getItem(i);
+			String id = element.getId();
+			String text = element.getInnerText();
+			map.put(id, text);
+		}
+		return map;
 	}
 
 }

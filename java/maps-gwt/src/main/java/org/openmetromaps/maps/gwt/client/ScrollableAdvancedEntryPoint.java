@@ -17,6 +17,8 @@
 
 package org.openmetromaps.maps.gwt.client;
 
+import java.util.Map;
+
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.xml.XmlModel;
@@ -57,7 +59,9 @@ public class ScrollableAdvancedEntryPoint implements EntryPoint
 		panel = new ScrollableAdvancedPlanPanel();
 		dock.add(panel);
 
-		String filename = "berlin.xml";
+		Map<String, String> params = Util.loadParameters("parameters");
+
+		String filename = params.get("file");
 		Util.load(filename, xml -> parseXml(xml));
 	}
 

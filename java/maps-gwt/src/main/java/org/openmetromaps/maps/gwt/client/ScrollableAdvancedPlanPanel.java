@@ -31,6 +31,8 @@ import org.openmetromaps.maps.painting.gwt.GwtPainter;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.canvas.dom.client.CssColor;
 
+import de.topobyte.formatting.Formatting;
+
 public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 {
 
@@ -102,6 +104,9 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 			return;
 		}
 		renderer.paint(painter);
+
+		c.setFont("20px Arial");
+		c.fillText(Formatting.format("%dx%d", getWidth(), getHeight()), 10, 22);
 	}
 
 }

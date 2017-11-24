@@ -48,9 +48,6 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	{
 		// TODO: use start position
 
-		// ViewActions.setupMovementActions(getInputMap(), getActionMap(),
-		// this);
-
 		MouseProcessor panMouseHandler = new PanMouseProcessor<>(this);
 		MouseProcessor zoomMouseHandler = new ZoomMouseProcessor<>(this);
 		Util.addHandler(canvas, panMouseHandler);

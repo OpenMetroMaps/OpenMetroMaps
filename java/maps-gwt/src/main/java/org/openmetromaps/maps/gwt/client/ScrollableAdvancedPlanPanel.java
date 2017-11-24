@@ -55,6 +55,9 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 		MouseProcessor zoomMouseHandler = new ZoomMouseProcessor<>(this);
 		Util.addHandler(canvas, panMouseHandler);
 		Util.addHandler(canvas, zoomMouseHandler);
+
+		TouchProcessor panTouchHandler = new PanTouchProcessor<>(this);
+		Util.addHandler(canvas, panTouchHandler);
 	}
 
 	public void setModel(MapModel mapModel)

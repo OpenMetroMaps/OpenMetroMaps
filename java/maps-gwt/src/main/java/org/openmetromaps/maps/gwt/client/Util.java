@@ -111,6 +111,15 @@ public class Util
 		widget.addMouseWheelHandler(mouseProcessor);
 	}
 
+	public static void addHandler(FocusWidget widget,
+			TouchProcessor touchProcessor)
+	{
+		widget.addTouchStartHandler(touchProcessor);
+		widget.addTouchEndHandler(touchProcessor);
+		widget.addTouchCancelHandler(touchProcessor);
+		widget.addTouchMoveHandler(touchProcessor);
+	}
+
 	public static Map<String, String> loadParameters(String parameterElementId)
 	{
 		Map<String, String> map = new HashMap<>();

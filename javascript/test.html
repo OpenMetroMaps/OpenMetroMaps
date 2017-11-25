@@ -45,8 +45,12 @@ OpenMetroMaps Javascript viewer
     window.addEventListener('resize', resizeCanvas, false);
 
     function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight - top.height();
+        var w = window.innerWidth;
+        var h = window.innerHeight - top.height();
+        canvas.width = w * window.devicePixelRatio;
+        canvas.height = h * window.devicePixelRatio;
+        canvas.style.width = w;
+        canvas.style.height = h;
         var drawer = new Drawer(canvas);
         drawer.draw();
     }

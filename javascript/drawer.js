@@ -8,6 +8,10 @@ function Drawer(canvas) {
         this.rect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.lineWidth = 1;
         this.rect(10, 10, this.canvas.width - 20, this.canvas.height - 20);
+
+	this.ctx.font="20px Arial";
+	var text = this.canvas.width + " x " + this.canvas.height;
+	this.ctx.fillText(text, 15, 30);
     }
 
     this.rect = function(x, y, width, height) {

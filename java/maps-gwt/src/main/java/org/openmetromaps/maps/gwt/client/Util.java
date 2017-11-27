@@ -137,4 +137,14 @@ public class Util
 		return map;
 	}
 
+	public static boolean getBoolean(Map<String, String> params, String name,
+			boolean defaultValue)
+	{
+		String value = params.get(name);
+		if (value == null) {
+			return defaultValue;
+		}
+		return value.equals("true");
+	}
+
 }

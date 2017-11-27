@@ -42,6 +42,7 @@ import com.google.gwt.logging.client.SystemLogHandler;
 import com.google.gwt.user.client.ui.RequiresResize;
 import com.google.gwt.user.client.ui.SimplePanel;
 
+import de.topobyte.formatting.Formatting;
 import de.topobyte.lightgeom.lina.Point;
 
 public class SimplePlanPanel extends SimplePanel implements RequiresResize
@@ -67,6 +68,8 @@ public class SimplePlanPanel extends SimplePanel implements RequiresResize
 	private double my;
 	private double w;
 	private double h;
+
+	private boolean debugSize = false;
 
 	public SimplePlanPanel()
 	{
@@ -106,6 +109,16 @@ public class SimplePlanPanel extends SimplePanel implements RequiresResize
 		initInternalValues();
 	}
 
+	public boolean isDebugSize()
+	{
+		return debugSize;
+	}
+
+	public void setDebugSize(boolean debugSize)
+	{
+		this.debugSize = debugSize;
+	}
+
 	private void initInternalValues()
 	{
 		mx = box.getLon1();
@@ -137,14 +150,21 @@ public class SimplePlanPanel extends SimplePanel implements RequiresResize
 	public void render()
 	{
 		Context2d c = canvas.getContext2d();
-
 		c.clearRect(0, 0, width, height);
 		fillBackground(c);
+
 		renderFrame(c);
 		if (mapView == null) {
 			renderTestContent(c);
 		} else {
 			renderView(c);
+		}
+
+		if (debugSize) {
+			c.setFont("16px Arial");
+			c.setTextAlign(TextAlign.LEFT);
+			c.setFillStyle("#000000");
+			c.fillText(Formatting.format("%dx%d", width, height), 15, 31);
 		}
 	}
 

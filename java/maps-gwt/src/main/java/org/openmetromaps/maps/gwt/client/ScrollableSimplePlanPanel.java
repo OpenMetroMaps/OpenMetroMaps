@@ -29,8 +29,10 @@ import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
 
 import com.google.gwt.canvas.dom.client.Context2d;
+import com.google.gwt.canvas.dom.client.Context2d.TextAlign;
 import com.google.gwt.canvas.dom.client.CssColor;
 
+import de.topobyte.formatting.Formatting;
 import de.topobyte.lightgeom.lina.Point;
 
 public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
@@ -38,6 +40,8 @@ public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
 
 	private MapModel mapModel;
 	private MapView mapView;
+
+	private boolean debugSize = false;
 
 	public ScrollableSimplePlanPanel()
 	{
@@ -60,6 +64,16 @@ public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
 		setScene(mapView.getConfig().getScene());
 	}
 
+	public boolean isDebugSize()
+	{
+		return debugSize;
+	}
+
+	public void setDebugSize(boolean debugSize)
+	{
+		this.debugSize = debugSize;
+	}
+
 	@Override
 	public void render()
 	{
@@ -70,6 +84,14 @@ public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
 		Context2d c = canvas.getContext2d();
 		fillBackground(c);
 		renderContent(c);
+
+		if (debugSize) {
+			c.setFont("16px Arial");
+			c.setTextAlign(TextAlign.LEFT);
+			c.setFillStyle("#000000");
+			c.fillText(Formatting.format("%dx%d %.2f", getWidth(), getHeight(),
+					getDevicePixelRatio()), 5, 21);
+		}
 	}
 
 	private void fillBackground(Context2d c)

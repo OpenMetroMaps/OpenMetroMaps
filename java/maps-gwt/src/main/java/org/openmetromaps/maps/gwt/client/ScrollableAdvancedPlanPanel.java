@@ -29,6 +29,7 @@ import org.openmetromaps.maps.painting.core.Painter;
 import org.openmetromaps.maps.painting.gwt.GwtPainter;
 
 import com.google.gwt.canvas.dom.client.Context2d;
+import com.google.gwt.canvas.dom.client.Context2d.TextAlign;
 import com.google.gwt.canvas.dom.client.CssColor;
 
 import de.topobyte.formatting.Formatting;
@@ -45,6 +46,8 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	private SegmentMode segmentMode = SegmentMode.CURVE;
 
 	private PlanRenderer renderer;
+
+	private boolean debugSize = false;
 
 	public ScrollableAdvancedPlanPanel()
 	{
@@ -68,6 +71,16 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 		setScene(mapView.getConfig().getScene());
 
 		initRenderer();
+	}
+
+	public boolean isDebugSize()
+	{
+		return debugSize;
+	}
+
+	public void setDebugSize(boolean debugSize)
+	{
+		this.debugSize = debugSize;
 	}
 
 	private void initRenderer()
@@ -105,9 +118,13 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 		}
 		renderer.paint(painter);
 
-		c.setFont("20px Arial");
-		c.fillText(Formatting.format("%dx%d %.2f", getWidth(), getHeight(),
-				getDevicePixelRatio()), 10, 22);
+		if (debugSize) {
+			c.setFont("16px Arial");
+			c.setTextAlign(TextAlign.LEFT);
+			c.setFillStyle("#000000");
+			c.fillText(Formatting.format("%dx%d %.2f", getWidth(), getHeight(),
+					getDevicePixelRatio()), 5, 21);
+		}
 	}
 
 }

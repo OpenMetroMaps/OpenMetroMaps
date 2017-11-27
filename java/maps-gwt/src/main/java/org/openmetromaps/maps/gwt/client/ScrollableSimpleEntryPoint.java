@@ -61,6 +61,8 @@ public class ScrollableSimpleEntryPoint implements EntryPoint
 
 		Map<String, String> params = Util.loadParameters("parameters");
 
+		panel.setDebugSize(Util.getBoolean(params, "debug-size", false));
+
 		String filename = params.get("file");
 		Util.load(filename, xml -> parseXml(xml));
 	}

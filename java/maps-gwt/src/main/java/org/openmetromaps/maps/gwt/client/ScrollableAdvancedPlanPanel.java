@@ -106,7 +106,8 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 		renderer.paint(painter);
 
 		c.setFont("20px Arial");
-		c.fillText(Formatting.format("%dx%d", getWidth(), getHeight()), 10, 22);
+		c.fillText(Formatting.format("%dx%d %.2f", getWidth(), getHeight(),
+				getDevicePixelRatio()), 10, 22);
 	}
 
 }

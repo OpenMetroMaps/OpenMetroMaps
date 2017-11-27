@@ -26,6 +26,8 @@ import org.slf4j.LoggerFactory;
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.RequiresResize;
 import com.google.gwt.user.client.ui.SimplePanel;
 
@@ -95,15 +97,25 @@ public abstract class BaseScenePanel extends SimplePanel implements
 		render();
 	}
 
+	protected final native double getDevicePixelRatio() /*-{
+		return window.devicePixelRatio;
+	}-*/;
+
 	private void setSize(int width, int height)
 	{
-		this.width = width;
-		this.height = height;
+		double ratio = getDevicePixelRatio();
 
-		canvas.setWidth(width + "px");
-		canvas.setHeight(height + "px");
-		canvas.setCoordinateSpaceWidth(width);
-		canvas.setCoordinateSpaceHeight(height);
+		this.width = (int) (width * ratio);
+		this.height = (int) (height * ratio);
+
+		canvas.setWidth(this.width + "px");
+		canvas.setHeight(this.height + "px");
+		canvas.setCoordinateSpaceWidth(this.width);
+		canvas.setCoordinateSpaceHeight(this.height);
+
+		Style style = canvas.getElement().getStyle();
+		style.setWidth(width, Unit.PX);
+		style.setHeight(height, Unit.PX);
 	}
 
 	@Override

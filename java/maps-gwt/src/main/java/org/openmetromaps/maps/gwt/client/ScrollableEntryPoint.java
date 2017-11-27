@@ -97,7 +97,6 @@ public abstract class ScrollableEntryPoint implements EntryPoint
 		buttons.add(buttonOut);
 
 		StyleUtil.marginTop(buttonOut, 0.5, Unit.EM);
-		buttonOut.getElement().getStyle().setMarginTop(0.5, Unit.EM);
 
 		buttonIn.addClickHandler(e -> {
 			zoomIn();

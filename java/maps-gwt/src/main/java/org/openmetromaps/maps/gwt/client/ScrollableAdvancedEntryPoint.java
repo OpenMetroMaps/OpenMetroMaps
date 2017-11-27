@@ -50,7 +50,7 @@ public class ScrollableAdvancedEntryPoint implements EntryPoint
 	@Override
 	public void onModuleLoad()
 	{
-		AbsolutePanel main = new AbsolutePanel();
+		ResizingAbsolutePanel main = new ResizingAbsolutePanel();
 		RootLayoutPanel.get().add(main);
 
 		DockLayoutPanel dock = new DockLayoutPanel(Unit.EM);

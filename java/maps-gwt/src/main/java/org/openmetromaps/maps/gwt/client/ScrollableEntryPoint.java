@@ -89,11 +89,13 @@ public abstract class ScrollableEntryPoint implements EntryPoint
 		main.add(buttons);
 
 		Button buttonIn = new Button("zoom in");
-		StyleUtil.setSize(buttonIn, 50, 50, Unit.PX);
+		StyleUtil.setHeight(buttonIn, 3, Unit.EM);
+		StyleUtil.setWidth(buttonIn, 100, Unit.PCT);
 		buttons.add(buttonIn);
 
 		Button buttonOut = new Button("zoom out");
-		StyleUtil.setSize(buttonOut, 50, 50, Unit.PX);
+		StyleUtil.setHeight(buttonOut, 3, Unit.EM);
+		StyleUtil.setWidth(buttonOut, 100, Unit.PCT);
 		buttons.add(buttonOut);
 
 		StyleUtil.marginTop(buttonOut, 0.5, Unit.EM);

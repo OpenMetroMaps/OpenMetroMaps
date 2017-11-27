@@ -45,6 +45,36 @@ public class StyleUtil
 		style.setHeight(height, unit);
 	}
 
+	public static void setWidth(UIObject object, double width, Unit unit)
+	{
+		setWidth(object.getElement(), width, unit);
+	}
+
+	public static void setWidth(Element element, double width, Unit unit)
+	{
+		setWidth(element.getStyle(), width, unit);
+	}
+
+	public static void setWidth(Style style, double width, Unit unit)
+	{
+		style.setWidth(width, unit);
+	}
+
+	public static void setHeight(UIObject object, double height, Unit unit)
+	{
+		setHeight(object.getElement(), height, unit);
+	}
+
+	public static void setHeight(Element element, double height, Unit unit)
+	{
+		setHeight(element.getStyle(), height, unit);
+	}
+
+	public static void setHeight(Style style, double height, Unit unit)
+	{
+		style.setHeight(height, unit);
+	}
+
 	public static void absoluteTopRight(UIObject object, double top,
 			double right, Unit unit)
 	{

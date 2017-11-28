@@ -75,6 +75,24 @@ public class StyleUtil
 		style.setHeight(height, unit);
 	}
 
+	public static void setProperty(UIObject object, String name, double value,
+			Unit unit)
+	{
+		setProperty(object.getElement(), name, value, unit);
+	}
+
+	public static void setProperty(Element element, String name, double value,
+			Unit unit)
+	{
+		setProperty(element.getStyle(), name, value, unit);
+	}
+
+	public static void setProperty(Style style, String name, double value,
+			Unit unit)
+	{
+		style.setProperty(name, value, unit);
+	}
+
 	public static void absoluteTopRight(UIObject object, double top,
 			double right, Unit unit)
 	{

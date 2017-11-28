@@ -88,14 +88,16 @@ public abstract class ScrollableEntryPoint implements EntryPoint
 		StyleUtil.absoluteTopRight(buttons, 3, 1, Unit.EM);
 		main.add(buttons);
 
-		Button buttonIn = new Button("zoom in");
+		Button buttonIn = new Button("+");
 		StyleUtil.setHeight(buttonIn, 3, Unit.EM);
 		StyleUtil.setWidth(buttonIn, 100, Unit.PCT);
+		StyleUtil.setProperty(buttonIn, "minWidth", 3, Unit.EM);
 		buttons.add(buttonIn);
 
-		Button buttonOut = new Button("zoom out");
+		Button buttonOut = new Button("-");
 		StyleUtil.setHeight(buttonOut, 3, Unit.EM);
 		StyleUtil.setWidth(buttonOut, 100, Unit.PCT);
+		StyleUtil.setProperty(buttonOut, "minWidth", 3, Unit.EM);
 		buttons.add(buttonOut);
 
 		StyleUtil.marginTop(buttonOut, 0.5, Unit.EM);

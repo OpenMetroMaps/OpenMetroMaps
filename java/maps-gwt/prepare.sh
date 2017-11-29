@@ -43,9 +43,9 @@ MATRIX="$DIR/de/topobyte/lina/Matrix.java"
 TINTOBJECTHASHMAP="$DIR/com/slimjars/dist/gnu/trove/map/hash/TIntObjectHashMap.java"
 "$JT/substitute.sh" \
     "dest = (V[]) java.lang.reflect.Array.newInstance(dest.getClass().getComponentType(), _size);" \
-    "dest = (V[]) new Object[_size];" \
+    "dest = javaemul.internal.ArrayHelper.createFrom(dest, _size);"\
     "$TINTOBJECTHASHMAP"
 "$JT/substitute.sh" \
     "a = (T[]) java.lang.reflect.Array.newInstance(a.getClass().getComponentType(), size);" \
-    "a = (T[]) new Object[size];" \
+    "a = javaemul.internal.ArrayHelper.createFrom(a, size);"\
     "$TINTOBJECTHASHMAP"

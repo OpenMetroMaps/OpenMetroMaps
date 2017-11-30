@@ -60,3 +60,5 @@ solution doesn't work quite yet, but the technology certainly has potential.
   a number of posts on reddit.
 * Build something like [this](http://jannisr.de/vbb-map-routing) using
   the Javascript viewer component.
+* Integrate the Android component into
+  [Transportr](https://github.com/grote/Transportr).

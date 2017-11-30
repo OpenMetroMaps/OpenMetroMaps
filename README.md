@@ -41,9 +41,16 @@ a look at the relevant
 
 ## Web Viewer
 
-We would also like to build a Javascript-based Web Viewer for the file format to
+We're also building a Javascript-based Web Viewer for the file format to
 allow for easy presentation of results in a browser without the need to install
-any desktop software.
+any desktop software. Although it would also be nice to have a native Javascript
+implementation of a web viewer, we're eager to maximize code reuse and try to
+use the main Java source via transpilation to Javascript. In order to do that
+we experimented with both GWT and JSweet based approaches. Currently the
+[GWT](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/java/maps-gwt)
+solution looks more promising and is close-to-usable. The
+[JSweet](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/jsweet)
+solution doesn't work quite yet, but the technology certainly has potential.
 
 ## Other ideas
 

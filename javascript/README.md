@@ -1,3 +1,14 @@
+# OpenMetroMaps JavaScript project
+
+This is the native JavaScript implementation of a viewer for the map files.
+Up to now, this implementation is merely a stub with basic setup of a HTML
+Canvas element, JQuery XML request to retrieve a data file, but not much
+more: No actual parsing, no actual rendering of stations and lines.
+The focus is currently on the [GWT-based
+approach](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/java/maps-gwt),
+which provides an in-browser component, too and allows code reuse with
+the main Java modules.
+
 To run the application, start a server:
 
     http-server ./ -p 9010

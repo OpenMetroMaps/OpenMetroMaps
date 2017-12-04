@@ -12,6 +12,11 @@ Also, we tried to get a [JSweet-based
 approach](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/jsweet)
 to work.
 
+## Hacking
+
+In order to work on this sub-module you'll need to serve the contents of this
+directory with a HTTP server. Below is one way to achieve this.
+
 To run the application, start a server:
 
     http-server ./ -p 9010

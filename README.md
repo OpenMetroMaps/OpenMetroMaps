@@ -37,7 +37,7 @@ OpenStreetMap data or from scratch and lets you manipulate existing maps.
 
 If you want to run the editor or start hacking on the desktop tools, please have
 a look at the relevant
-[REAMDE file](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/java/README.md).
+[README file](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/java/README.md).
 
 ## Web Viewer
 

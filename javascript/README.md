@@ -8,6 +8,9 @@ The focus is currently on the [GWT-based
 approach](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/java/maps-gwt),
 which provides an in-browser component, too and allows code reuse with
 the main Java modules.
+Also, we tried to get a [JSweet-based
+approach](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/jsweet)
+to work.
 
 To run the application, start a server:
 

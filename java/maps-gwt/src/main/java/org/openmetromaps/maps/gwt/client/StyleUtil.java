@@ -109,8 +109,8 @@ public class StyleUtil
 			Unit unit)
 	{
 		style.setPosition(Position.ABSOLUTE);
-		style.setTop(3, Unit.EM);
-		style.setRight(1, Unit.EM);
+		style.setTop(top, Unit.EM);
+		style.setRight(right, Unit.EM);
 	}
 
 	public static void marginTop(UIObject object, double value, Unit unit)
@@ -144,10 +144,10 @@ public class StyleUtil
 			double bottom, double left, Unit unit)
 	{
 		style.setPosition(Position.ABSOLUTE);
-		style.setLeft(0, unit);
-		style.setRight(0, unit);
-		style.setTop(0, unit);
-		style.setBottom(0, unit);
+		style.setLeft(left, unit);
+		style.setRight(right, unit);
+		style.setTop(top, unit);
+		style.setBottom(bottom, unit);
 	}
 
 }

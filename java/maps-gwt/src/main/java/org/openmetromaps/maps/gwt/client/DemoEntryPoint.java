@@ -65,6 +65,9 @@ public class DemoEntryPoint implements EntryPoint
 		root.add(main);
 		StyleUtil.absolute(main, 0, 0, 0, 0, Unit.PX);
 
+		// This is required because RootPanel does not implement ProvidesResize
+		Window.addResizeHandler(e -> main.onResize());
+
 		DockLayoutPanel dock = new DockLayoutPanel(Unit.EM);
 		StyleUtil.absolute(dock, 0, 0, 0, 0, Unit.PX);
 		main.add(dock);

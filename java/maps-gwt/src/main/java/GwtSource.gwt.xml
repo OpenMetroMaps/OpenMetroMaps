@@ -4,5 +4,4 @@
 	<source path="de/topobyte/xml" />
 	<source path="org/openmetromaps" />
 	<source path="java/io" />
-	<source path="java/lang" />
 </module>

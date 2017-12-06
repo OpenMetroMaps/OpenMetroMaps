@@ -62,3 +62,11 @@ solution doesn't work quite yet, but the technology certainly has potential.
   the Javascript viewer component.
 * Integrate the Android component into
   [Transportr](https://github.com/grote/Transportr).
+* Implement different optimization algorithms to transform geographic
+  maps into schematic maps automatically. Some hints on how to get started
+  with that are
+  [already available](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/java#writing-an-optimization-algorithm).
+  Also, there is an
+  [implementation](https://github.com/dirkschumacher/TransitmapSolver.jl)
+  available which could possibly be built upon (although the license changed
+  from MIT to GPL, which makes it impossible to integrate easily).

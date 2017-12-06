@@ -58,7 +58,7 @@ solution doesn't work quite yet, but the technology certainly has potential.
   of the same network. Inspired by
   [this article](http://mymodernmet.com/animated-subway-maps) about
   a number of posts on reddit.
-* Build something like [this](http://jannisr.de/vbb-map-routing) using
+* Build something like [this interactive route planner](http://jannisr.de/vbb-map-routing) using
   the Javascript viewer component.
 * Integrate the Android component into
   [Transportr](https://github.com/grote/Transportr).

@@ -53,3 +53,12 @@ The [pMetro](http://pmetro.su) project provides a map file and editor.
 Software seems to be Windows only and not open source. The website is in
 russian only. Map data appears to be outdated and map data sources indicate
 that the maps are not free.
+
+## Optimization algorithms
+
+* Nollenburg, M., & Wolff, A. (2011). Drawing and labeling high-quality metro maps
+by mixed-integer programming. IEEE Transactions on Visualization and Computer
+Graphics, 17(5), 626-641.
+
+* Nollenburg, M. (2005). Automated Drawing of Metro Maps (Master thesis, Technical
+University of Karlsruhe). [PDF](http://i11www.iti.kit.edu/extra/publications/n-admm-05da.pdf)

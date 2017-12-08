@@ -70,3 +70,5 @@ solution doesn't work quite yet, but the technology certainly has potential.
   [implementation](https://github.com/dirkschumacher/TransitmapSolver.jl)
   available which could possibly be built upon (although the license changed
   from MIT to GPL, which makes it impossible to integrate easily).
+  We collect a [list of papers](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/research/Research.md#optimization-algorithms)
+  about possible algorithms.

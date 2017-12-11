@@ -7,12 +7,6 @@ Data projects for cities/regions are stored within the
 the namespaces for data and code projects separated. Also see the
 [list of data projects](data-projects.md).
 
-## Research
-
-We're also gathering material about transit maps in general on the
-[Research](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/research/Research.md)
-page.
-
 ## File format
 
 A major goal of this project is to develop a file format for storing schematic
@@ -47,6 +41,12 @@ we experimented with both GWT and JSweet based approaches. Currently the
 solution looks more promising and is close-to-usable. The
 [JSweet](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/jsweet)
 solution doesn't work quite yet, but the technology certainly has potential.
+
+## Research
+
+We're also gathering material about transit maps in general on the
+[Research](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/research/Research.md)
+page.
 
 ## Other ideas
 

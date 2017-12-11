@@ -1,3 +1,5 @@
+# OpenMetroMaps JSweet project
+
 To build the application, run:
 
     ./update.sh

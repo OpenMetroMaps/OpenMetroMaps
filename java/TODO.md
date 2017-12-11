@@ -20,3 +20,7 @@
 * simpler non-geographic coordinate system
 * Save action should store to current file instead of asking
   for a location
+
+# File format
+
+* regions (for zones or suburb display)

@@ -25,7 +25,7 @@
   [Tram](http://www.urbanrail.net/eu/de/b/tram/berlin-tram.htm).
   According to the [FAQ](http://www.urbanrail.net/about.htm) he makes the maps using Paint Shop Pro 5.
 * Ralf Reineke collects historical transit maps for Berlin on
-  [one of his webistes](http://hauptstrasse83f.de/liniennetz/alte-netzspinnen/).
+  [one of his websites](http://hauptstrasse83f.de/liniennetz/alte-netzspinnen/).
 * Gordon Charles has several own works on
   [his homepage](http://www.berlinfahrplan.de/), including a
   [minute map](http://www.berlinfahrplan.de/minnetz.htm)

@@ -40,6 +40,12 @@
   [his own interactive map](http://www.stadtschnellbahn-berlin.de/strecken/index.php)
   for the S-Bahn system.
 
+#### Vienna, Wiener Linien
+
+* [Netzpläne](https://www.wienerlinien.at/eportal3/ep/channelView.do/pageTypeId/66526/channelId/-47187)
+* [Schnellverbindungen](https://www.wienerlinien.at/media/files/2017/svp-2017_217934.pdf)
+* [Gesamtnetz](https://www.wienerlinien.at/media/files/2017/gesamtnetzplan-wien_220628.pdf)
+
 ## Other projects
 
 ### aMetro

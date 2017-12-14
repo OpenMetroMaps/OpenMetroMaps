@@ -22,6 +22,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
@@ -31,9 +32,12 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -129,6 +133,8 @@ public class ModelInspector
 		JScrollPane jspLines = new JScrollPane(listLines);
 		listLines.setCellRenderer(new LinesCellRenderer());
 
+		addPopupListener();
+
 		linePanel = new LinePanel();
 
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
@@ -204,6 +210,50 @@ public class ModelInspector
 		for (DraftStation station : line.getStations()) {
 			System.out.println(station.getName());
 		}
+	}
+
+	private void addPopupListener()
+	{
+		final JPopupMenu popup = new JPopupMenu();
+		JMenuItem delete = new JMenuItem("delete");
+		popup.add(delete);
+
+		delete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				deleteSelected();
+			}
+
+		});
+
+		listLines.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent event)
+			{
+				if (SwingUtilities.isRightMouseButton(event)) {
+					if (listLines.isSelectionEmpty()) {
+						return;
+					}
+					popup.show(listLines, event.getX(), event.getY());
+				}
+			}
+
+		});
+	}
+
+	protected void deleteSelected()
+	{
+		int[] indexes = listLines.getSelectedIndices();
+		int removed = 0;
+		for (int index : indexes) {
+			DraftLine line = linesModel.remove(index - removed++);
+			model.getLines().remove(line);
+		}
+		listLines.clearSelection();
+		listLines.repaint();
 	}
 
 }

@@ -66,4 +66,9 @@ public class LinesListModel extends AbstractListModel<DraftLine>
 		return lines.get(index);
 	}
 
+	public DraftLine remove(int index)
+	{
+		return lines.remove(index);
+	}
+
 }

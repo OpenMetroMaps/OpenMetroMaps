@@ -44,6 +44,7 @@ import org.openmetromaps.model.inspector.actions.AboutAction;
 import org.openmetromaps.model.inspector.actions.AnalyzeLinesAction;
 import org.openmetromaps.model.inspector.actions.AnalyzeStopsAction;
 import org.openmetromaps.model.inspector.actions.ExitAction;
+import org.openmetromaps.model.inspector.actions.ExportModelAction;
 import org.openmetromaps.model.inspector.actions.LicenseAction;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
@@ -108,6 +109,7 @@ public class ModelInspector
 		JMenu menuHelp = new JMenu("Help");
 		menuBar.add(menuHelp);
 
+		menuFile.add(new ExportModelAction(this));
 		menuFile.add(new ExitAction());
 
 		menuAnalyze.add(new AnalyzeStopsAction(this));

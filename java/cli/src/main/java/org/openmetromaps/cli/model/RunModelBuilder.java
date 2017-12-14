@@ -91,7 +91,7 @@ public class RunModelBuilder
 		prefixes.add("S+U ");
 		prefixes.add("U-Bhf ");
 
-		ArrayList<Fix> fixes = new ArrayList<>();
+		List<Fix> fixes = new ArrayList<>();
 
 		ModelBuilder modelBuilder = new ModelBuilder(fileInput, prefixes,
 				fixes);

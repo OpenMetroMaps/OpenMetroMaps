@@ -31,14 +31,22 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Lists;
 
 import de.topobyte.collections.util.ListUtil;
+import de.topobyte.webpaths.NioPaths;
+import de.topobyte.webpaths.WebPath;
+import de.topobyte.webpaths.WebPaths;
 
 public class MarkdownViewCreator
 {
+
+	// TODO: line lists: stations should be links
 
 	final static Logger logger = LoggerFactory
 			.getLogger(MarkdownViewCreator.class);
 
 	private XmlModel model;
+
+	private static final WebPath subpathLines = WebPaths.get("lines");
+	private static final WebPath subpathStations = WebPaths.get("stations");
 
 	public MarkdownViewCreator(XmlModel model)
 	{
@@ -49,10 +57,39 @@ public class MarkdownViewCreator
 	{
 		Files.createDirectories(pathOutput);
 
+		Path dirLines = NioPaths.resolve(pathOutput, subpathLines);
+		Path dirStations = NioPaths.resolve(pathOutput, subpathStations);
+		Files.createDirectories(dirLines);
+		Files.createDirectories(dirStations);
+
 		for (XmlLine line : model.getLines()) {
-			Path pathLine = pathOutput.resolve(line.getName() + ".md");
+			Path pathLine = dirLines.resolve(sane(line.getName()) + ".md");
 			createLine(pathLine, line);
 		}
+
+		for (XmlStation station : model.getStations()) {
+			Path pathStation = dirStations
+					.resolve(sane(station.getName()) + ".md");
+			createStation(pathStation, station);
+		}
+	}
+
+	private String sane(String name)
+	{
+		return name.replaceAll("/", "-");
+	}
+
+	private void createStation(Path file, XmlStation station) throws IOException
+	{
+		logger.info("creating file : " + file);
+		BufferedWriter output = Files.newBufferedWriter(file);
+
+		output.write("# " + station.getName());
+		output.newLine();
+
+		// TODO: add links to lines
+
+		output.close();
 	}
 
 	private void createLine(Path file, XmlLine line) throws IOException

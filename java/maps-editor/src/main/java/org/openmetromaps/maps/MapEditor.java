@@ -58,6 +58,7 @@ import org.openmetromaps.maps.actions.file.NewAction;
 import org.openmetromaps.maps.actions.file.OpenAction;
 import org.openmetromaps.maps.actions.file.SaveAction;
 import org.openmetromaps.maps.actions.file.SaveAsAction;
+import org.openmetromaps.maps.actions.file.SettingsAction;
 import org.openmetromaps.maps.actions.help.AboutAction;
 import org.openmetromaps.maps.actions.help.LicenseAction;
 import org.openmetromaps.maps.actions.view.DebugRanksAction;
@@ -467,6 +468,8 @@ public class MapEditor
 		JMenus.addItem(menuFile, new SaveAsAction(this),
 				KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK,
 				KeyEvent.VK_S);
+		JMenus.addItem(menuFile, new SettingsAction(this),
+				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_P);
 		JMenus.addItem(menuFile, new ExitAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_Q);
 	}
@@ -474,7 +477,8 @@ public class MapEditor
 	private void setupMenuEdit(JMenu menuEdit)
 	{
 		JMenus.addItem(menuEdit, new DocumentPropertiesAction(this),
-				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_P);
+				KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK,
+				KeyEvent.VK_P);
 		JMenus.addItem(menuEdit, new SelectAllAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_A);
 		JMenus.addItem(menuEdit, new SelectLinesAction(this),

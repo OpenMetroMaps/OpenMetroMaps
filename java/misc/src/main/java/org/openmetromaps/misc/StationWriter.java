@@ -29,6 +29,8 @@ import org.openmetromaps.maps.xml.XmlStation;
 
 import com.google.common.collect.Multimap;
 
+import de.topobyte.webpaths.WebPath;
+
 public class StationWriter
 {
 
@@ -64,9 +66,14 @@ public class StationWriter
 			}
 
 		});
+
+		WebPath path = context.path(station);
+
 		for (XmlLine line : lines) {
-			// TODO: make links
-			output.unordered(line.getName());
+			WebPath relative = path.relativize(context.path(line));
+			String link = String.format("[%s](%s)", line.getName(),
+					relative.toString());
+			output.unordered(link);
 		}
 
 		output.close();

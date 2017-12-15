@@ -26,6 +26,7 @@ import org.openmetromaps.maps.xml.XmlStation;
 import com.google.common.collect.Lists;
 
 import de.topobyte.collections.util.ListUtil;
+import de.topobyte.webpaths.WebPath;
 
 public class NormalLineWriter
 {
@@ -48,16 +49,24 @@ public class NormalLineWriter
 		XmlStation first = line.getStops().get(0);
 		XmlStation last = ListUtil.last(line.getStops());
 
+		WebPath path = context.path(line);
+
 		output.heading(1, "→ " + last.getName());
 		for (XmlStation station : line.getStops()) {
-			output.unordered(station.getName());
+			WebPath relative = path.relativize(context.path(station));
+			String link = String.format("[%s](%s)", station.getName(),
+					relative.toString());
+			output.unordered(link);
 		}
 
 		output.newLine();
 
 		output.heading(1, "→ " + first.getName());
 		for (XmlStation station : Lists.reverse(line.getStops())) {
-			output.unordered(station.getName());
+			WebPath relative = path.relativize(context.path(station));
+			String link = String.format("[%s](%s)", station.getName(),
+					relative.toString());
+			output.unordered(link);
 		}
 
 		output.close();

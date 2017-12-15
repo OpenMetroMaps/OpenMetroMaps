@@ -37,8 +37,6 @@ import de.topobyte.webpaths.WebPath;
 public class MarkdownViewCreator
 {
 
-	// TODO: line lists: stations should be links
-
 	final static Logger logger = LoggerFactory
 			.getLogger(MarkdownViewCreator.class);
 

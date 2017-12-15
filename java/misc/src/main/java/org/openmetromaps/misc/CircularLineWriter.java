@@ -23,6 +23,8 @@ import java.nio.file.Path;
 import org.openmetromaps.maps.xml.XmlLine;
 import org.openmetromaps.maps.xml.XmlStation;
 
+import de.topobyte.webpaths.WebPath;
+
 public class CircularLineWriter
 {
 
@@ -41,8 +43,13 @@ public class CircularLineWriter
 	{
 		MarkdownWriter output = new MarkdownWriter(file);
 
+		WebPath path = context.path(line);
+
 		for (XmlStation station : line.getStops()) {
-			output.unordered(station.getName());
+			WebPath relative = path.relativize(context.path(station));
+			String link = String.format("[%s](%s)", station.getName(),
+					relative.toString());
+			output.unordered(link);
 		}
 
 		output.close();

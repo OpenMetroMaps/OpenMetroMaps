@@ -21,6 +21,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.openmetromaps.maps.xml.XmlLine;
 import org.openmetromaps.maps.xml.XmlModel;
@@ -28,7 +32,9 @@ import org.openmetromaps.maps.xml.XmlStation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 
 import de.topobyte.collections.util.ListUtil;
 import de.topobyte.webpaths.NioPaths;
@@ -48,6 +54,9 @@ public class MarkdownViewCreator
 	private static final WebPath subpathLines = WebPaths.get("lines/");
 	private static final WebPath subpathStations = WebPaths.get("stations/");
 
+	private Multimap<XmlStation, XmlLine> stationToLines = HashMultimap
+			.create();
+
 	public MarkdownViewCreator(XmlModel model)
 	{
 		this.model = model;
@@ -61,6 +70,13 @@ public class MarkdownViewCreator
 		Path dirStations = NioPaths.resolve(pathOutput, subpathStations);
 		Files.createDirectories(dirLines);
 		Files.createDirectories(dirStations);
+
+		for (XmlLine line : model.getLines()) {
+			List<XmlStation> stops = line.getStops();
+			for (XmlStation station : stops) {
+				stationToLines.put(station, line);
+			}
+		}
 
 		for (XmlLine line : model.getLines()) {
 			WebPath pathLine = path(line);
@@ -98,7 +114,23 @@ public class MarkdownViewCreator
 		output.write("# " + station.getName());
 		output.newLine();
 
-		// TODO: add links to lines
+		List<XmlLine> lines = new ArrayList<>(stationToLines.get(station));
+		Collections.sort(lines, new Comparator<XmlLine>() {
+
+			@Override
+			public int compare(XmlLine o1, XmlLine o2)
+			{
+				String name1 = o1.getName();
+				String name2 = o2.getName();
+				return name1.compareTo(name2);
+			}
+
+		});
+		for (XmlLine line : lines) {
+			// TODO: make links
+			output.write("* " + line.getName());
+			output.newLine();
+		}
 
 		output.close();
 	}

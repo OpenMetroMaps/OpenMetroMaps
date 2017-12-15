@@ -51,7 +51,7 @@ public class Context
 
 	private String sane(String name)
 	{
-		return name.replaceAll("/", "-");
+		return name.replaceAll("/", "-").replaceAll(" ", "-");
 	}
 
 }

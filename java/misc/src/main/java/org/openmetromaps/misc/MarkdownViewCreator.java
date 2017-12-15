@@ -45,8 +45,8 @@ public class MarkdownViewCreator
 
 	private XmlModel model;
 
-	private static final WebPath subpathLines = WebPaths.get("lines");
-	private static final WebPath subpathStations = WebPaths.get("stations");
+	private static final WebPath subpathLines = WebPaths.get("lines/");
+	private static final WebPath subpathStations = WebPaths.get("stations/");
 
 	public MarkdownViewCreator(XmlModel model)
 	{
@@ -63,15 +63,26 @@ public class MarkdownViewCreator
 		Files.createDirectories(dirStations);
 
 		for (XmlLine line : model.getLines()) {
-			Path pathLine = dirLines.resolve(sane(line.getName()) + ".md");
-			createLine(pathLine, line);
+			WebPath pathLine = path(line);
+			Path path = NioPaths.resolve(pathOutput, pathLine);
+			createLine(path, line);
 		}
 
 		for (XmlStation station : model.getStations()) {
-			Path pathStation = dirStations
-					.resolve(sane(station.getName()) + ".md");
-			createStation(pathStation, station);
+			WebPath pathStation = path(station);
+			Path path = NioPaths.resolve(pathOutput, pathStation);
+			createStation(path, station);
 		}
+	}
+
+	private WebPath path(XmlLine line)
+	{
+		return subpathLines.resolve(sane(line.getName()) + ".md");
+	}
+
+	private WebPath path(XmlStation station)
+	{
+		return subpathStations.resolve(sane(station.getName()) + ".md");
 	}
 
 	private String sane(String name)

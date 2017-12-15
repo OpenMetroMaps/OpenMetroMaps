@@ -17,13 +17,24 @@
 
 package org.openmetromaps.misc;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.openmetromaps.maps.xml.XmlLine;
 import org.openmetromaps.maps.xml.XmlModel;
+import org.openmetromaps.maps.xml.XmlStation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import de.topobyte.collections.util.ListUtil;
 
 public class MarkdownViewCreator
 {
+
+	final static Logger logger = LoggerFactory
+			.getLogger(MarkdownViewCreator.class);
 
 	private XmlModel model;
 
@@ -32,12 +43,37 @@ public class MarkdownViewCreator
 		this.model = model;
 	}
 
-	public void create(Path pathOutput)
+	public void create(Path pathOutput) throws IOException
 	{
-		// TODO: do useful stuff instead
+		Files.createDirectories(pathOutput);
+
 		for (XmlLine line : model.getLines()) {
-			System.out.println(line.getName());
+			Path pathLine = pathOutput.resolve(line.getName() + ".md");
+			createLine(pathLine, line);
 		}
+	}
+
+	private void createLine(Path file, XmlLine line) throws IOException
+	{
+		logger.info("creating file : " + file);
+		BufferedWriter output = Files.newBufferedWriter(file);
+
+		XmlStation first = line.getStops().get(0);
+		XmlStation last = ListUtil.last(line.getStops());
+
+		output.write("# → " + first.getName());
+		output.newLine();
+		output.write("* ...");
+		output.newLine();
+
+		output.newLine();
+
+		output.write("# → " + last.getName());
+		output.newLine();
+		output.write("* ...");
+		output.newLine();
+
+		output.close();
 	}
 
 }

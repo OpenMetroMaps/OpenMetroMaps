@@ -28,6 +28,8 @@ import org.openmetromaps.maps.xml.XmlStation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Lists;
+
 import de.topobyte.collections.util.ListUtil;
 
 public class MarkdownViewCreator
@@ -58,22 +60,45 @@ public class MarkdownViewCreator
 		logger.info("creating file : " + file);
 		BufferedWriter output = Files.newBufferedWriter(file);
 
+		if (line.isCircular()) {
+			writeCircular(output, line);
+		} else {
+			writeNormal(output, line);
+		}
+
+		output.close();
+	}
+
+	private void writeNormal(BufferedWriter output, XmlLine line)
+			throws IOException
+	{
 		XmlStation first = line.getStops().get(0);
 		XmlStation last = ListUtil.last(line.getStops());
 
-		output.write("# → " + first.getName());
-		output.newLine();
-		output.write("* ...");
-		output.newLine();
-
-		output.newLine();
-
 		output.write("# → " + last.getName());
 		output.newLine();
-		output.write("* ...");
+		for (XmlStation station : line.getStops()) {
+			output.write("* " + station.getName());
+			output.newLine();
+		}
+
 		output.newLine();
 
-		output.close();
+		output.write("# → " + first.getName());
+		output.newLine();
+		for (XmlStation station : Lists.reverse(line.getStops())) {
+			output.write("* " + station.getName());
+			output.newLine();
+		}
+	}
+
+	private void writeCircular(BufferedWriter output, XmlLine line)
+			throws IOException
+	{
+		for (XmlStation station : line.getStops()) {
+			output.write("* " + station.getName());
+			output.newLine();
+		}
 	}
 
 }

@@ -62,7 +62,7 @@ public class DocumentPropertiesDialog extends JDialog
 		JPanel panel = new JPanel(new BorderLayout());
 		add(panel);
 
-		setTitle("Line Selection");
+		setTitle("Document Properties");
 		documentPropertiesPanel = new DocumentPropertiesPanel(view);
 		panel.add(documentPropertiesPanel, BorderLayout.CENTER);
 

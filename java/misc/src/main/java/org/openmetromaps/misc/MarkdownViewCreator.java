@@ -17,7 +17,6 @@
 
 package org.openmetromaps.misc;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -109,10 +108,9 @@ public class MarkdownViewCreator
 	private void createStation(Path file, XmlStation station) throws IOException
 	{
 		logger.info("creating file : " + file);
-		BufferedWriter output = Files.newBufferedWriter(file);
+		MarkdownWriter output = new MarkdownWriter(file);
 
-		output.write("# " + station.getName());
-		output.newLine();
+		output.heading(1, station.getName());
 
 		List<XmlLine> lines = new ArrayList<>(stationToLines.get(station));
 		Collections.sort(lines, new Comparator<XmlLine>() {
@@ -128,8 +126,7 @@ public class MarkdownViewCreator
 		});
 		for (XmlLine line : lines) {
 			// TODO: make links
-			output.write("* " + line.getName());
-			output.newLine();
+			output.unordered(line.getName());
 		}
 
 		output.close();
@@ -138,7 +135,7 @@ public class MarkdownViewCreator
 	private void createLine(Path file, XmlLine line) throws IOException
 	{
 		logger.info("creating file : " + file);
-		BufferedWriter output = Files.newBufferedWriter(file);
+		MarkdownWriter output = new MarkdownWriter(file);
 
 		if (line.isCircular()) {
 			writeCircular(output, line);
@@ -149,35 +146,30 @@ public class MarkdownViewCreator
 		output.close();
 	}
 
-	private void writeNormal(BufferedWriter output, XmlLine line)
+	private void writeNormal(MarkdownWriter output, XmlLine line)
 			throws IOException
 	{
 		XmlStation first = line.getStops().get(0);
 		XmlStation last = ListUtil.last(line.getStops());
 
-		output.write("# → " + last.getName());
-		output.newLine();
+		output.heading(1, "→ " + last.getName());
 		for (XmlStation station : line.getStops()) {
-			output.write("* " + station.getName());
-			output.newLine();
+			output.unordered(station.getName());
 		}
 
 		output.newLine();
 
-		output.write("# → " + first.getName());
-		output.newLine();
+		output.heading(1, "→ " + first.getName());
 		for (XmlStation station : Lists.reverse(line.getStops())) {
-			output.write("* " + station.getName());
-			output.newLine();
+			output.unordered(station.getName());
 		}
 	}
 
-	private void writeCircular(BufferedWriter output, XmlLine line)
+	private void writeCircular(MarkdownWriter output, XmlLine line)
 			throws IOException
 	{
 		for (XmlStation station : line.getStops()) {
-			output.write("* " + station.getName());
-			output.newLine();
+			output.unordered(station.getName());
 		}
 	}
 

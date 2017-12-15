@@ -20,9 +20,6 @@ package org.openmetromaps.misc;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.openmetromaps.maps.xml.XmlLine;
@@ -32,10 +29,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
-import de.topobyte.collections.util.ListUtil;
 import de.topobyte.webpaths.NioPaths;
 import de.topobyte.webpaths.WebPath;
 import de.topobyte.webpaths.WebPaths;
@@ -108,68 +103,19 @@ public class MarkdownViewCreator
 	private void createStation(Path file, XmlStation station) throws IOException
 	{
 		logger.info("creating file : " + file);
-		MarkdownWriter output = new MarkdownWriter(file);
-
-		output.heading(1, station.getName());
-
-		List<XmlLine> lines = new ArrayList<>(stationToLines.get(station));
-		Collections.sort(lines, new Comparator<XmlLine>() {
-
-			@Override
-			public int compare(XmlLine o1, XmlLine o2)
-			{
-				String name1 = o1.getName();
-				String name2 = o2.getName();
-				return name1.compareTo(name2);
-			}
-
-		});
-		for (XmlLine line : lines) {
-			// TODO: make links
-			output.unordered(line.getName());
-		}
-
-		output.close();
+		StationWriter writer = new StationWriter(file, station, stationToLines);
+		writer.write();
 	}
 
 	private void createLine(Path file, XmlLine line) throws IOException
 	{
 		logger.info("creating file : " + file);
-		MarkdownWriter output = new MarkdownWriter(file);
-
 		if (line.isCircular()) {
-			writeCircular(output, line);
+			CircularLineWriter writer = new CircularLineWriter(file, line);
+			writer.write();
 		} else {
-			writeNormal(output, line);
-		}
-
-		output.close();
-	}
-
-	private void writeNormal(MarkdownWriter output, XmlLine line)
-			throws IOException
-	{
-		XmlStation first = line.getStops().get(0);
-		XmlStation last = ListUtil.last(line.getStops());
-
-		output.heading(1, "→ " + last.getName());
-		for (XmlStation station : line.getStops()) {
-			output.unordered(station.getName());
-		}
-
-		output.newLine();
-
-		output.heading(1, "→ " + first.getName());
-		for (XmlStation station : Lists.reverse(line.getStops())) {
-			output.unordered(station.getName());
-		}
-	}
-
-	private void writeCircular(MarkdownWriter output, XmlLine line)
-			throws IOException
-	{
-		for (XmlStation station : line.getStops()) {
-			output.unordered(station.getName());
+			NormalLineWriter writer = new NormalLineWriter(file, line);
+			writer.write();
 		}
 	}
 

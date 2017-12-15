@@ -17,35 +17,41 @@
 
 package org.openmetromaps.misc;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
 import org.openmetromaps.maps.xml.XmlLine;
 import org.openmetromaps.maps.xml.XmlStation;
 
-public class CircularLineWriter
+import de.topobyte.webpaths.WebPath;
+import de.topobyte.webpaths.WebPaths;
+
+public class Context
 {
 
-	private Context context;
-	private Path file;
-	private XmlLine line;
+	private final WebPath subpathLines = WebPaths.get("lines/");
+	private final WebPath subpathStations = WebPaths.get("stations/");
 
-	public CircularLineWriter(Context context, Path file, XmlLine line)
+	public WebPath getSubpathLines()
 	{
-		this.context = context;
-		this.file = file;
-		this.line = line;
+		return subpathLines;
 	}
 
-	public void write() throws IOException
+	public WebPath getSubpathStations()
 	{
-		MarkdownWriter output = new MarkdownWriter(file);
+		return subpathStations;
+	}
 
-		for (XmlStation station : line.getStops()) {
-			output.unordered(station.getName());
-		}
+	public WebPath path(XmlLine line)
+	{
+		return subpathLines.resolve(sane(line.getName()) + ".md");
+	}
 
-		output.close();
+	public WebPath path(XmlStation station)
+	{
+		return subpathStations.resolve(sane(station.getName()) + ".md");
+	}
+
+	private String sane(String name)
+	{
+		return name.replaceAll("/", "-");
 	}
 
 }

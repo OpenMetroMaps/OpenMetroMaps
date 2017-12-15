@@ -30,11 +30,13 @@ import de.topobyte.collections.util.ListUtil;
 public class NormalLineWriter
 {
 
+	private Context context;
 	private Path file;
 	private XmlLine line;
 
-	public NormalLineWriter(Path file, XmlLine line)
+	public NormalLineWriter(Context context, Path file, XmlLine line)
 	{
+		this.context = context;
 		this.file = file;
 		this.line = line;
 	}

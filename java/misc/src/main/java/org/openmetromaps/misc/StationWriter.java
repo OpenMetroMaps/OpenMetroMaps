@@ -32,13 +32,15 @@ import com.google.common.collect.Multimap;
 public class StationWriter
 {
 
+	private Context context;
 	private Path file;
 	private XmlStation station;
 	private Multimap<XmlStation, XmlLine> stationToLines;
 
-	public StationWriter(Path file, XmlStation station,
+	public StationWriter(Context context, Path file, XmlStation station,
 			Multimap<XmlStation, XmlLine> stationToLines)
 	{
+		this.context = context;
 		this.file = file;
 		this.station = station;
 		this.stationToLines = stationToLines;

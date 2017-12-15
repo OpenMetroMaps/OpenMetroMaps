@@ -33,7 +33,6 @@ import com.google.common.collect.Multimap;
 
 import de.topobyte.webpaths.NioPaths;
 import de.topobyte.webpaths.WebPath;
-import de.topobyte.webpaths.WebPaths;
 
 public class MarkdownViewCreator
 {
@@ -43,10 +42,8 @@ public class MarkdownViewCreator
 	final static Logger logger = LoggerFactory
 			.getLogger(MarkdownViewCreator.class);
 
+	private Context context = new Context();
 	private XmlModel model;
-
-	private static final WebPath subpathLines = WebPaths.get("lines/");
-	private static final WebPath subpathStations = WebPaths.get("stations/");
 
 	private Multimap<XmlStation, XmlLine> stationToLines = HashMultimap
 			.create();
@@ -60,8 +57,9 @@ public class MarkdownViewCreator
 	{
 		Files.createDirectories(pathOutput);
 
-		Path dirLines = NioPaths.resolve(pathOutput, subpathLines);
-		Path dirStations = NioPaths.resolve(pathOutput, subpathStations);
+		Path dirLines = NioPaths.resolve(pathOutput, context.getSubpathLines());
+		Path dirStations = NioPaths.resolve(pathOutput,
+				context.getSubpathStations());
 		Files.createDirectories(dirLines);
 		Files.createDirectories(dirStations);
 
@@ -73,37 +71,23 @@ public class MarkdownViewCreator
 		}
 
 		for (XmlLine line : model.getLines()) {
-			WebPath pathLine = path(line);
+			WebPath pathLine = context.path(line);
 			Path path = NioPaths.resolve(pathOutput, pathLine);
 			createLine(path, line);
 		}
 
 		for (XmlStation station : model.getStations()) {
-			WebPath pathStation = path(station);
+			WebPath pathStation = context.path(station);
 			Path path = NioPaths.resolve(pathOutput, pathStation);
 			createStation(path, station);
 		}
 	}
 
-	private WebPath path(XmlLine line)
-	{
-		return subpathLines.resolve(sane(line.getName()) + ".md");
-	}
-
-	private WebPath path(XmlStation station)
-	{
-		return subpathStations.resolve(sane(station.getName()) + ".md");
-	}
-
-	private String sane(String name)
-	{
-		return name.replaceAll("/", "-");
-	}
-
 	private void createStation(Path file, XmlStation station) throws IOException
 	{
 		logger.info("creating file : " + file);
-		StationWriter writer = new StationWriter(file, station, stationToLines);
+		StationWriter writer = new StationWriter(context, file, station,
+				stationToLines);
 		writer.write();
 	}
 
@@ -111,10 +95,11 @@ public class MarkdownViewCreator
 	{
 		logger.info("creating file : " + file);
 		if (line.isCircular()) {
-			CircularLineWriter writer = new CircularLineWriter(file, line);
+			CircularLineWriter writer = new CircularLineWriter(context, file,
+					line);
 			writer.write();
 		} else {
-			NormalLineWriter writer = new NormalLineWriter(file, line);
+			NormalLineWriter writer = new NormalLineWriter(context, file, line);
 			writer.write();
 		}
 	}

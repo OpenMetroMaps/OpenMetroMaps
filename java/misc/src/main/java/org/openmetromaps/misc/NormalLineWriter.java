@@ -51,7 +51,7 @@ public class NormalLineWriter
 
 		WebPath path = context.path(line);
 
-		output.heading(1, "→ " + last.getName());
+		output.heading(1, line.getName() + " → " + last.getName());
 		for (XmlStation station : line.getStops()) {
 			WebPath relative = path.relativize(context.path(station));
 			String link = String.format("[%s](%s)", station.getName(),
@@ -61,7 +61,7 @@ public class NormalLineWriter
 
 		output.newLine();
 
-		output.heading(1, "→ " + first.getName());
+		output.heading(1, line.getName() + " → " + first.getName());
 		for (XmlStation station : Lists.reverse(line.getStops())) {
 			WebPath relative = path.relativize(context.path(station));
 			String link = String.format("[%s](%s)", station.getName(),

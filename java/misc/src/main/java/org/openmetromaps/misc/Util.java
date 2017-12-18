@@ -18,7 +18,9 @@
 package org.openmetromaps.misc;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.graph.Edge;
@@ -32,6 +34,8 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
+import com.google.common.collect.Sets.SetView;
 
 public class Util
 {
@@ -54,6 +58,7 @@ public class Util
 		}
 
 		List<Edge> edges = node.edges;
+		List<Edge> relevant = new ArrayList<>();
 		for (Edge edge : edges) {
 			boolean useEdge = false;
 			for (NetworkLine netLine : edge.lines) {
@@ -61,15 +66,26 @@ public class Util
 					useEdge = true;
 				}
 			}
-			if (!useEdge) {
-				continue;
+			if (useEdge) {
+				relevant.add(edge);
 			}
-			if (edge.n1 != node) {
-				remove(lines, edge.n1);
+		}
+
+		logger.debug("relevant edges: " + relevant.size());
+		if (relevant.size() == 2) {
+			List<List<Line>> results = new ArrayList<>();
+			for (Edge edge : relevant) {
+				if (edge.n1 != node) {
+					results.add(collect(edge.n1));
+				}
+				if (edge.n2 != node) {
+					results.add(collect(edge.n2));
+				}
 			}
-			if (edge.n2 != node) {
-				remove(lines, edge.n2);
-			}
+			Set<Line> lines1 = new HashSet<>(results.get(0));
+			Set<Line> lines2 = new HashSet<>(results.get(1));
+			SetView<Line> common = Sets.intersection(lines1, lines2);
+			lines.removeAll(common);
 		}
 
 		if (logger.isDebugEnabled()) {
@@ -80,13 +96,15 @@ public class Util
 		return lines;
 	}
 
-	private static void remove(List<Line> lines, Node node)
+	private static List<Line> collect(Node node)
 	{
+		List<Line> result = new ArrayList<>();
 		List<Stop> stops = node.station.getStops();
 		for (Stop stop : stops) {
 			logger.debug("remove: " + stop.getLine().getName());
-			lines.remove(stop.getLine());
+			result.add(stop.getLine());
 		}
+		return result;
 	}
 
 	public static void fillStationToLines(

@@ -67,6 +67,12 @@ public class TestShowChange
 		test(context, network, "S41", "Schöneberg");
 		test(context, network, "S41", "Südkreuz");
 		test(context, network, "S41", "Hermannstraße");
+		test(context, network, "S41", "Neukölln");
+		test(context, network, "U7", "Rudow");
+		test(context, network, "S8", "Eichwalde");
+		test(context, network, "S8", "Zeuthen");
+		test(context, network, "U1", "Nollendorfplatz");
+		test(context, network, "U1", "Wittenbergplatz");
 	}
 
 	private static void test(Context context, LineNetwork network,

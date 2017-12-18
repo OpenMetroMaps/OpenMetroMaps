@@ -19,9 +19,6 @@ package org.openmetromaps.misc;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
@@ -30,27 +27,16 @@ import org.openmetromaps.maps.model.Stop;
 import com.google.common.collect.Lists;
 
 import de.topobyte.collections.util.ListUtil;
-import de.topobyte.webpaths.WebPath;
 
-public class NormalLineWriter
+public class NormalLineWriter extends LineWriter
 {
-
-	private Context context;
-	private Path file;
-	private Line line;
-
-	private WebPath path;
-	private MarkdownWriter output;
 
 	public NormalLineWriter(Context context, Path file, Line line)
 	{
-		this.context = context;
-		this.file = file;
-		this.line = line;
-
-		path = context.path(line);
+		super(context, file, line);
 	}
 
+	@Override
 	public void write() throws IOException
 	{
 		output = new MarkdownWriter(file);
@@ -70,33 +56,6 @@ public class NormalLineWriter
 		writeStops(Lists.reverse(line.getStops()));
 
 		output.close();
-	}
-
-	private void writeStops(List<Stop> stops) throws IOException
-	{
-		for (Stop stop : stops) {
-			Station station = stop.getStation();
-			WebPath relative = path.relativize(context.path(station));
-			String link = String.format("[%s](%s)", station.getName(),
-					relative.toString());
-
-			List<Line> lines = new ArrayList<>(
-					context.getStationToLines().get(station));
-
-			StringBuilder text = new StringBuilder();
-			text.append(link);
-			text.append(" ");
-			lines.remove(line);
-			Iterator<Line> iterator = lines.iterator();
-			while (iterator.hasNext()) {
-				Line other = iterator.next();
-				text.append(other.getName());
-				if (iterator.hasNext()) {
-					text.append(", ");
-				}
-			}
-			output.unordered(text.toString());
-		}
 	}
 
 }

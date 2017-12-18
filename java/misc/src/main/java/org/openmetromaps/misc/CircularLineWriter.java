@@ -21,38 +21,21 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import org.openmetromaps.maps.model.Line;
-import org.openmetromaps.maps.model.Station;
-import org.openmetromaps.maps.model.Stop;
 
-import de.topobyte.webpaths.WebPath;
-
-public class CircularLineWriter
+public class CircularLineWriter extends LineWriter
 {
-
-	private Context context;
-	private Path file;
-	private Line line;
 
 	public CircularLineWriter(Context context, Path file, Line line)
 	{
-		this.context = context;
-		this.file = file;
-		this.line = line;
+		super(context, file, line);
 	}
 
+	@Override
 	public void write() throws IOException
 	{
-		MarkdownWriter output = new MarkdownWriter(file);
+		output = new MarkdownWriter(file);
 
-		WebPath path = context.path(line);
-
-		for (Stop stop : line.getStops()) {
-			Station station = stop.getStation();
-			WebPath relative = path.relativize(context.path(station));
-			String link = String.format("[%s](%s)", station.getName(),
-					relative.toString());
-			output.unordered(link);
-		}
+		writeStops(line.getStops());
 
 		output.close();
 	}

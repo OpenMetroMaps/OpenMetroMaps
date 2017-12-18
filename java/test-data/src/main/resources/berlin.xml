@@ -676,11 +676,7 @@
       <stop station="Zeuthen"/>
     </line>
     <line circular="false" color="#65BD00" name="S85">
-      <stop station="Waidmannslust"/>
-      <stop station="Wittenau"/>
-      <stop station="Wilhelmsruh"/>
-      <stop station="Schönholz"/>
-      <stop station="Wollankstraße"/>
+      <stop station="Pankow"/>
       <stop station="Bornholmer Straße"/>
       <stop station="Schönhauser Allee"/>
       <stop station="Prenzlauer Allee"/>
@@ -969,9 +965,6 @@
       <interval from="Springpfuhl" to="Wartenberg"/>
     </edges>
     <edges line="S8"/>
-    <edges line="S85">
-      <interval from="Waidmannslust" to="Bornholmer Straße"/>
-    </edges>
     <edges line="S9"/>
     <edges line="U1"/>
     <edges line="U2"/>

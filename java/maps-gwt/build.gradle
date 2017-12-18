@@ -69,6 +69,10 @@ sourceSets {
             srcDir 'src/modules/maps-core/java'
             srcDir 'src/modules/maps-model/java'
             srcDir 'src/modules/maps-model-xml/java'
+            srcDir 'src/modules/maps-model-xml-converter/java'
+            srcDir 'src/modules/maps-model-util/java'
+            srcDir 'src/modules/line-network-util/java'
+            srcDir 'src/modules/lightgeom/java'
             srcDir 'src/modules/xml-dom-abstraction/java'
             srcDir 'src/modules/xml-dom-abstraction-gwt/java'
         }

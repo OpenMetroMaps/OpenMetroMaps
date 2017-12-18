@@ -27,8 +27,6 @@ import java.util.List;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 
-import com.google.common.collect.Multimap;
-
 import de.topobyte.webpaths.WebPath;
 
 public class StationWriter
@@ -37,15 +35,12 @@ public class StationWriter
 	private Context context;
 	private Path file;
 	private Station station;
-	private Multimap<Station, Line> stationToLines;
 
-	public StationWriter(Context context, Path file, Station station,
-			Multimap<Station, Line> stationToLines)
+	public StationWriter(Context context, Path file, Station station)
 	{
 		this.context = context;
 		this.file = file;
 		this.station = station;
-		this.stationToLines = stationToLines;
 	}
 
 	public void write() throws IOException
@@ -54,7 +49,8 @@ public class StationWriter
 
 		output.heading(1, station.getName());
 
-		List<Line> lines = new ArrayList<>(stationToLines.get(station));
+		List<Line> lines = new ArrayList<>(
+				context.getStationToLines().get(station));
 		Collections.sort(lines, new Comparator<Line>() {
 
 			@Override

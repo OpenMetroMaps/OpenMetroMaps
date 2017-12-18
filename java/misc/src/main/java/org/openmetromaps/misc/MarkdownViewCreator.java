@@ -20,9 +20,13 @@ package org.openmetromaps.misc;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
@@ -43,16 +47,28 @@ public class MarkdownViewCreator
 	final static Logger logger = LoggerFactory
 			.getLogger(MarkdownViewCreator.class);
 
-	private Context context = new Context();
+	private Context context;
 
 	private Multimap<Station, Line> stationToLines = HashMultimap.create();
 
 	private MapModel model;
+	private LineNetwork lineNetwork;
 
 	public MarkdownViewCreator(XmlModel xmlModel)
 	{
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		model = modelConverter.convert(xmlModel);
+
+		List<Edges> edges = new ArrayList<>();
+		for (Line line : model.getData().lines) {
+			edges.add(new Edges(line.getName()));
+		}
+
+		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData(),
+				edges);
+		lineNetwork = builder.getGraph();
+
+		context = new Context(stationToLines, lineNetwork);
 	}
 
 	public void create(Path pathOutput) throws IOException
@@ -88,8 +104,7 @@ public class MarkdownViewCreator
 	private void createStation(Path file, Station station) throws IOException
 	{
 		logger.info("creating file : " + file);
-		StationWriter writer = new StationWriter(context, file, station,
-				stationToLines);
+		StationWriter writer = new StationWriter(context, file, station);
 		writer.write();
 	}
 

@@ -17,8 +17,11 @@
 
 package org.openmetromaps.misc;
 
+import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
+
+import com.google.common.collect.Multimap;
 
 import de.topobyte.webpaths.WebPath;
 import de.topobyte.webpaths.WebPaths;
@@ -28,6 +31,16 @@ public class Context
 
 	private final WebPath subpathLines = WebPaths.get("lines/");
 	private final WebPath subpathStations = WebPaths.get("stations/");
+
+	private Multimap<Station, Line> stationToLines;
+	private LineNetwork lineNetwork;
+
+	public Context(Multimap<Station, Line> stationToLines,
+			LineNetwork lineNetwork)
+	{
+		this.stationToLines = stationToLines;
+		this.lineNetwork = lineNetwork;
+	}
 
 	public WebPath getSubpathLines()
 	{
@@ -52,6 +65,16 @@ public class Context
 	private String sane(String name)
 	{
 		return name.replaceAll("/", "-").replaceAll(" ", "-");
+	}
+
+	public Multimap<Station, Line> getStationToLines()
+	{
+		return stationToLines;
+	}
+
+	public LineNetwork getLineNetwork()
+	{
+		return lineNetwork;
 	}
 
 }

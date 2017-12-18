@@ -29,7 +29,6 @@ import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
-import org.openmetromaps.maps.model.Stop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,12 +77,7 @@ public class MarkdownViewCreator
 		Files.createDirectories(dirLines);
 		Files.createDirectories(dirStations);
 
-		for (Line line : model.getData().lines) {
-			List<Stop> stops = line.getStops();
-			for (Stop stop : stops) {
-				stationToLines.put(stop.getStation(), line);
-			}
-		}
+		Util.fillStationToLines(stationToLines, model);
 
 		for (Line line : model.getData().lines) {
 			WebPath pathLine = context.path(line);

@@ -19,7 +19,6 @@ package org.openmetromaps.misc;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -61,9 +60,8 @@ public abstract class LineWriter
 			StringBuilder text = new StringBuilder();
 			text.append(linkStation);
 
-			List<Line> lines = new ArrayList<>(
-					context.getStationToLines().get(station));
-			lines.remove(line);
+			List<Line> lines = Util.determineInterestingLines(context, line,
+					station);
 
 			if (!lines.isEmpty()) {
 				text.append(" ");

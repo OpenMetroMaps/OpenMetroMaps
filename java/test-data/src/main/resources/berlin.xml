@@ -410,6 +410,31 @@
       <stop station="Lichterfelde Süd"/>
       <stop station="Teltow Stadt"/>
     </line>
+    <line circular="false" color="#00844A" name="S26">
+      <stop station="Waidmannslust"/>
+      <stop station="Wittenau"/>
+      <stop station="Wilhelmsruh"/>
+      <stop station="Schönholz"/>
+      <stop station="Wollankstraße"/>
+      <stop station="Bornholmer Straße"/>
+      <stop station="Gesundbrunnen"/>
+      <stop station="Humboldthain"/>
+      <stop station="Nordbahnhof"/>
+      <stop station="Oranienburger Straße"/>
+      <stop station="Friedrichstraße"/>
+      <stop station="Brandenburger Tor"/>
+      <stop station="Potsdamer Platz"/>
+      <stop station="Anhalter Bahnhof"/>
+      <stop station="Yorckstraße"/>
+      <stop station="Südkreuz"/>
+      <stop station="Priesterweg"/>
+      <stop station="Südende"/>
+      <stop station="Lankwitz"/>
+      <stop station="Lichterfelde Ost"/>
+      <stop station="Osdorfer Straße"/>
+      <stop station="Lichterfelde Süd"/>
+      <stop station="Teltow Stadt"/>
+    </line>
     <line circular="false" color="#006CB3" name="S3">
       <stop station="Erkner"/>
       <stop station="Wilhelmshagen"/>
@@ -435,6 +460,12 @@
       <stop station="Savignyplatz"/>
       <stop station="Charlottenburg"/>
       <stop station="Westkreuz"/>
+      <stop station="Messe Süd (Eichkamp)"/>
+      <stop station="Heerstraße"/>
+      <stop station="Olympiastadion"/>
+      <stop station="Pichelsberg"/>
+      <stop station="Stresow"/>
+      <stop station="Spandau"/>
     </line>
     <line circular="true" color="#A74B38" name="S41">
       <stop station="Gesundbrunnen"/>
@@ -573,12 +604,6 @@
       <stop station="Savignyplatz"/>
       <stop station="Charlottenburg"/>
       <stop station="Westkreuz"/>
-      <stop station="Messe Süd (Eichkamp)"/>
-      <stop station="Heerstraße"/>
-      <stop station="Olympiastadion"/>
-      <stop station="Pichelsberg"/>
-      <stop station="Stresow"/>
-      <stop station="Spandau"/>
     </line>
     <line circular="false" color="#7B6DAC" name="S7">
       <stop station="Potsdam Hbf"/>
@@ -673,15 +698,25 @@
       <stop station="Grünau"/>
     </line>
     <line circular="false" color="#973050" name="S9">
-      <stop station="Pankow"/>
-      <stop station="Bornholmer Straße"/>
-      <stop station="Schönhauser Allee"/>
-      <stop station="Prenzlauer Allee"/>
-      <stop station="Greifswalder Straße"/>
-      <stop station="Landsberger Allee"/>
-      <stop station="Storkower Straße"/>
-      <stop station="Frankfurter Allee"/>
-      <stop station="Ostkreuz"/>
+      <stop station="Spandau"/>
+      <stop station="Stresow"/>
+      <stop station="Pichelsberg"/>
+      <stop station="Olympiastadion"/>
+      <stop station="Heerstraße"/>
+      <stop station="Messe Süd (Eichkamp)"/>
+      <stop station="Westkreuz"/>
+      <stop station="Charlottenburg"/>
+      <stop station="Savignyplatz"/>
+      <stop station="Zoologischer Garten"/>
+      <stop station="Tiergarten"/>
+      <stop station="Bellevue"/>
+      <stop station="Hauptbahnhof"/>
+      <stop station="Friedrichstraße"/>
+      <stop station="Hackescher Markt"/>
+      <stop station="Alexanderplatz"/>
+      <stop station="Jannowitzbrücke"/>
+      <stop station="Ostbahnhof"/>
+      <stop station="Warschauer Straße"/>
       <stop station="Treptower Park"/>
       <stop station="Plänterwald"/>
       <stop station="Baumschulenweg"/>
@@ -914,6 +949,9 @@
     <edges line="S25">
       <interval from="Hennigsdorf (bei Berlin)" to="Bornholmer Straße"/>
       <interval from="Priesterweg" to="Teltow Stadt"/>
+    </edges>
+    <edges line="S26">
+      <interval from="Waidmannslust" to="Schönholz"/>
     </edges>
     <edges line="S3"/>
     <edges line="S41"/>

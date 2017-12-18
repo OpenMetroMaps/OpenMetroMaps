@@ -1,7 +1,4 @@
 dependencies {
     compile project(':openmetromaps-maps-model-xml')
     compile project(':openmetromaps-xml-dom-abstraction-desktop')
-
-    testCompile project(':openmetromaps-maps-core')
-    testCompile project(':openmetromaps-maps-model-xml-converter')
 }

@@ -20,8 +20,9 @@ package org.openmetromaps.misc;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.openmetromaps.maps.xml.XmlLine;
-import org.openmetromaps.maps.xml.XmlStation;
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.maps.model.Stop;
 
 import de.topobyte.webpaths.WebPath;
 
@@ -30,9 +31,9 @@ public class CircularLineWriter
 
 	private Context context;
 	private Path file;
-	private XmlLine line;
+	private Line line;
 
-	public CircularLineWriter(Context context, Path file, XmlLine line)
+	public CircularLineWriter(Context context, Path file, Line line)
 	{
 		this.context = context;
 		this.file = file;
@@ -45,7 +46,8 @@ public class CircularLineWriter
 
 		WebPath path = context.path(line);
 
-		for (XmlStation station : line.getStops()) {
+		for (Stop stop : line.getStops()) {
+			Station station = stop.getStation();
 			WebPath relative = path.relativize(context.path(station));
 			String link = String.format("[%s](%s)", station.getName(),
 					relative.toString());

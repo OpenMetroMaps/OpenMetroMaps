@@ -20,8 +20,9 @@ package org.openmetromaps.misc;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.openmetromaps.maps.xml.XmlLine;
-import org.openmetromaps.maps.xml.XmlStation;
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.maps.model.Stop;
 
 import com.google.common.collect.Lists;
 
@@ -33,9 +34,9 @@ public class NormalLineWriter
 
 	private Context context;
 	private Path file;
-	private XmlLine line;
+	private Line line;
 
-	public NormalLineWriter(Context context, Path file, XmlLine line)
+	public NormalLineWriter(Context context, Path file, Line line)
 	{
 		this.context = context;
 		this.file = file;
@@ -46,23 +47,29 @@ public class NormalLineWriter
 	{
 		MarkdownWriter output = new MarkdownWriter(file);
 
-		XmlStation first = line.getStops().get(0);
-		XmlStation last = ListUtil.last(line.getStops());
+		Stop firstStop = line.getStops().get(0);
+		Stop lastStop = ListUtil.last(line.getStops());
+
+		Station first = firstStop.getStation();
+		Station last = lastStop.getStation();
 
 		WebPath path = context.path(line);
 
 		output.heading(1, line.getName() + " → " + last.getName());
-		for (XmlStation station : line.getStops()) {
+		for (Stop stop : line.getStops()) {
+			Station station = stop.getStation();
 			WebPath relative = path.relativize(context.path(station));
 			String link = String.format("[%s](%s)", station.getName(),
 					relative.toString());
 			output.unordered(link);
+
 		}
 
 		output.newLine();
 
 		output.heading(1, line.getName() + " → " + first.getName());
-		for (XmlStation station : Lists.reverse(line.getStops())) {
+		for (Stop stop : Lists.reverse(line.getStops())) {
+			Station station = stop.getStation();
 			WebPath relative = path.relativize(context.path(station));
 			String link = String.format("[%s](%s)", station.getName(),
 					relative.toString());

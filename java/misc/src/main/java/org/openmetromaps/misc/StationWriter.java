@@ -24,8 +24,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.openmetromaps.maps.xml.XmlLine;
-import org.openmetromaps.maps.xml.XmlStation;
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.Station;
 
 import com.google.common.collect.Multimap;
 
@@ -36,11 +36,11 @@ public class StationWriter
 
 	private Context context;
 	private Path file;
-	private XmlStation station;
-	private Multimap<XmlStation, XmlLine> stationToLines;
+	private Station station;
+	private Multimap<Station, Line> stationToLines;
 
-	public StationWriter(Context context, Path file, XmlStation station,
-			Multimap<XmlStation, XmlLine> stationToLines)
+	public StationWriter(Context context, Path file, Station station,
+			Multimap<Station, Line> stationToLines)
 	{
 		this.context = context;
 		this.file = file;
@@ -54,11 +54,11 @@ public class StationWriter
 
 		output.heading(1, station.getName());
 
-		List<XmlLine> lines = new ArrayList<>(stationToLines.get(station));
-		Collections.sort(lines, new Comparator<XmlLine>() {
+		List<Line> lines = new ArrayList<>(stationToLines.get(station));
+		Collections.sort(lines, new Comparator<Line>() {
 
 			@Override
-			public int compare(XmlLine o1, XmlLine o2)
+			public int compare(Line o1, Line o2)
 			{
 				String name1 = o1.getName();
 				String name2 = o2.getName();
@@ -69,7 +69,7 @@ public class StationWriter
 
 		WebPath path = context.path(station);
 
-		for (XmlLine line : lines) {
+		for (Line line : lines) {
 			WebPath relative = path.relativize(context.path(line));
 			String link = String.format("[%s](%s)", line.getName(),
 					relative.toString());

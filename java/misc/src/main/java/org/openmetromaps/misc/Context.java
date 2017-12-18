@@ -17,8 +17,8 @@
 
 package org.openmetromaps.misc;
 
-import org.openmetromaps.maps.xml.XmlLine;
-import org.openmetromaps.maps.xml.XmlStation;
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.Station;
 
 import de.topobyte.webpaths.WebPath;
 import de.topobyte.webpaths.WebPaths;
@@ -39,12 +39,12 @@ public class Context
 		return subpathStations;
 	}
 
-	public WebPath path(XmlLine line)
+	public WebPath path(Line line)
 	{
 		return subpathLines.resolve(sane(line.getName()) + ".md");
 	}
 
-	public WebPath path(XmlStation station)
+	public WebPath path(Station station)
 	{
 		return subpathStations.resolve(sane(station.getName()) + ".md");
 	}

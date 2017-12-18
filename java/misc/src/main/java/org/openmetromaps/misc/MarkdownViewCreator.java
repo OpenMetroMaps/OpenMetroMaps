@@ -22,9 +22,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.openmetromaps.maps.xml.XmlLine;
+import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.maps.model.Stop;
 import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlStation;
+import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,14 +44,15 @@ public class MarkdownViewCreator
 			.getLogger(MarkdownViewCreator.class);
 
 	private Context context = new Context();
-	private XmlModel model;
 
-	private Multimap<XmlStation, XmlLine> stationToLines = HashMultimap
-			.create();
+	private Multimap<Station, Line> stationToLines = HashMultimap.create();
 
-	public MarkdownViewCreator(XmlModel model)
+	private MapModel model;
+
+	public MarkdownViewCreator(XmlModel xmlModel)
 	{
-		this.model = model;
+		XmlModelConverter modelConverter = new XmlModelConverter();
+		model = modelConverter.convert(xmlModel);
 	}
 
 	public void create(Path pathOutput) throws IOException
@@ -61,27 +65,27 @@ public class MarkdownViewCreator
 		Files.createDirectories(dirLines);
 		Files.createDirectories(dirStations);
 
-		for (XmlLine line : model.getLines()) {
-			List<XmlStation> stops = line.getStops();
-			for (XmlStation station : stops) {
-				stationToLines.put(station, line);
+		for (Line line : model.getData().lines) {
+			List<Stop> stops = line.getStops();
+			for (Stop stop : stops) {
+				stationToLines.put(stop.getStation(), line);
 			}
 		}
 
-		for (XmlLine line : model.getLines()) {
+		for (Line line : model.getData().lines) {
 			WebPath pathLine = context.path(line);
 			Path path = NioPaths.resolve(pathOutput, pathLine);
 			createLine(path, line);
 		}
 
-		for (XmlStation station : model.getStations()) {
+		for (Station station : model.getData().stations) {
 			WebPath pathStation = context.path(station);
 			Path path = NioPaths.resolve(pathOutput, pathStation);
 			createStation(path, station);
 		}
 	}
 
-	private void createStation(Path file, XmlStation station) throws IOException
+	private void createStation(Path file, Station station) throws IOException
 	{
 		logger.info("creating file : " + file);
 		StationWriter writer = new StationWriter(context, file, station,
@@ -89,7 +93,7 @@ public class MarkdownViewCreator
 		writer.write();
 	}
 
-	private void createLine(Path file, XmlLine line) throws IOException
+	private void createLine(Path file, Line line) throws IOException
 	{
 		logger.info("creating file : " + file);
 		if (line.isCircular()) {

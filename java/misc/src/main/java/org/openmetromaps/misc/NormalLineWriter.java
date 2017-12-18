@@ -19,6 +19,7 @@ package org.openmetromaps.misc;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
@@ -36,16 +37,21 @@ public class NormalLineWriter
 	private Path file;
 	private Line line;
 
+	private WebPath path;
+	private MarkdownWriter output;
+
 	public NormalLineWriter(Context context, Path file, Line line)
 	{
 		this.context = context;
 		this.file = file;
 		this.line = line;
+
+		path = context.path(line);
 	}
 
 	public void write() throws IOException
 	{
-		MarkdownWriter output = new MarkdownWriter(file);
+		output = new MarkdownWriter(file);
 
 		Stop firstStop = line.getStops().get(0);
 		Stop lastStop = ListUtil.last(line.getStops());
@@ -53,30 +59,26 @@ public class NormalLineWriter
 		Station first = firstStop.getStation();
 		Station last = lastStop.getStation();
 
-		WebPath path = context.path(line);
-
 		output.heading(1, line.getName() + " → " + last.getName());
-		for (Stop stop : line.getStops()) {
-			Station station = stop.getStation();
-			WebPath relative = path.relativize(context.path(station));
-			String link = String.format("[%s](%s)", station.getName(),
-					relative.toString());
-			output.unordered(link);
-
-		}
+		writeStops(line.getStops());
 
 		output.newLine();
 
 		output.heading(1, line.getName() + " → " + first.getName());
-		for (Stop stop : Lists.reverse(line.getStops())) {
+		writeStops(Lists.reverse(line.getStops()));
+
+		output.close();
+	}
+
+	private void writeStops(List<Stop> stops) throws IOException
+	{
+		for (Stop stop : stops) {
 			Station station = stop.getStation();
 			WebPath relative = path.relativize(context.path(station));
 			String link = String.format("[%s](%s)", station.getName(),
 					relative.toString());
 			output.unordered(link);
 		}
-
-		output.close();
 	}
 
 }

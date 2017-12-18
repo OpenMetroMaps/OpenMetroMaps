@@ -19,6 +19,8 @@ package org.openmetromaps.misc;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.openmetromaps.maps.Edges;
@@ -84,6 +86,15 @@ public class TestShowChange
 		Node node = findStation(network, nameStation);
 
 		List<Line> lines = Util.determineInterestingLines(context, line, node);
+		Collections.sort(lines, new Comparator<Line>() {
+
+			@Override
+			public int compare(Line o1, Line o2)
+			{
+				return o1.getName().compareTo(o2.getName());
+			}
+
+		});
 		System.out.println(
 				"found: " + Collections2.transform(lines, e -> e.getName()));
 	}

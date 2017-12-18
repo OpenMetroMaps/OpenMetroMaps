@@ -19,6 +19,8 @@ package org.openmetromaps.misc;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.openmetromaps.maps.model.Line;
@@ -77,7 +79,23 @@ public class NormalLineWriter
 			WebPath relative = path.relativize(context.path(station));
 			String link = String.format("[%s](%s)", station.getName(),
 					relative.toString());
-			output.unordered(link);
+
+			List<Line> lines = new ArrayList<>(
+					context.getStationToLines().get(station));
+
+			StringBuilder text = new StringBuilder();
+			text.append(link);
+			text.append(" ");
+			lines.remove(line);
+			Iterator<Line> iterator = lines.iterator();
+			while (iterator.hasNext()) {
+				Line other = iterator.next();
+				text.append(other.getName());
+				if (iterator.hasNext()) {
+					text.append(", ");
+				}
+			}
+			output.unordered(text.toString());
 		}
 	}
 

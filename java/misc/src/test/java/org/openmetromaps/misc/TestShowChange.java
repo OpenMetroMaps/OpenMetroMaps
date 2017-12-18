@@ -64,6 +64,7 @@ public class TestShowChange
 		test(context, model, "U8", "Hermannplatz");
 		test(context, model, "S41", "Schöneberg");
 		test(context, model, "S41", "Südkreuz");
+		test(context, model, "S41", "Hermannstraße");
 	}
 
 	private static void test(Context context, MapModel model, String nameLine,

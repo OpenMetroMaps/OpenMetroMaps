@@ -1,12 +1,16 @@
 dependencies {
     compile project(':openmetromaps-maps-awt')
     compile project(':openmetromaps-maps-model-xml-desktop')
+    compile project(':openmetromaps-maps-model-xml-converter')
     compile project(':openmetromaps-ui-resources')
     compile project(':openmetromaps-swing-misc')
 
     compile 'de.topobyte:swing-utils:0.0.11'
     compile 'de.topobyte:awt-utils:0.0.3'
     compile 'de.topobyte:collections-utils:0.0.4'
+    compile 'de.topobyte:melon-io:0.0.1'
+
+    compile 'com.google.guava:guava:19.0'
 
     compile 'org.dockingframes:docking-frames-core:1.1.1'
     compile 'org.dockingframes:docking-frames-common:1.1.1'

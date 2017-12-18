@@ -6,5 +6,6 @@ dependencies {
     compile 'de.topobyte:viewports-swing:0.0.3'
 
     testCompile project(':openmetromaps-maps-model-xml-desktop')
+    testCompile project(':openmetromaps-maps-model-xml-converter')
     testCompile project(':openmetromaps-test-data')
 }

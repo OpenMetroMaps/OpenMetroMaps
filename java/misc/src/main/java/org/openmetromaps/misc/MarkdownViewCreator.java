@@ -30,8 +30,6 @@ import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,10 +52,9 @@ public class MarkdownViewCreator
 	private MapModel model;
 	private LineNetwork lineNetwork;
 
-	public MarkdownViewCreator(XmlModel xmlModel)
+	public MarkdownViewCreator(MapModel model)
 	{
-		XmlModelConverter modelConverter = new XmlModelConverter();
-		model = modelConverter.convert(xmlModel);
+		this.model = model;
 
 		List<Edges> edges = new ArrayList<>();
 		for (Line line : model.getData().lines) {

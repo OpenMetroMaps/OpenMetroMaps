@@ -4,6 +4,10 @@ DIRS=(
     'maps-core'
     'maps-model'
     'maps-model-xml'
+    'maps-model-xml-converter'
+    'maps-model-util'
+    'line-network-util'
+    'lightgeom'
     'xml-dom-abstraction'
     'xml-dom-abstraction-gwt'
 )

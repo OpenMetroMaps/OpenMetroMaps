@@ -1,6 +1,5 @@
 dependencies {
     compile project(':openmetromaps-maps-model')
-    compile project(':openmetromaps-maps-model-util')
     compile project(':openmetromaps-lightgeom')
 
     compile 'de.topobyte:adt-geo:0.0.4'

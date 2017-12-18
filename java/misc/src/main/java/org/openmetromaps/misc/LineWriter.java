@@ -19,6 +19,8 @@ package org.openmetromaps.misc;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,6 +64,16 @@ public abstract class LineWriter
 
 			List<Line> lines = Util.determineInterestingLines(context, line,
 					station);
+
+			Collections.sort(lines, new Comparator<Line>() {
+
+				@Override
+				public int compare(Line o1, Line o2)
+				{
+					return o1.getName().compareTo(o2.getName());
+				}
+
+			});
 
 			if (!lines.isEmpty()) {
 				text.append(" ");

@@ -24,6 +24,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import org.openmetromaps.maps.graph.NetworkLine;
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
@@ -35,18 +37,18 @@ public abstract class LineWriter
 
 	protected Context context;
 	protected Path file;
-	protected Line line;
+	protected NetworkLine line;
 
 	protected WebPath path;
 	protected MarkdownWriter output;
 
-	public LineWriter(Context context, Path file, Line line)
+	public LineWriter(Context context, Path file, NetworkLine line)
 	{
 		this.context = context;
 		this.file = file;
 		this.line = line;
 
-		path = context.path(line);
+		path = context.path(line.line);
 	}
 
 	public abstract void write() throws IOException;
@@ -55,6 +57,8 @@ public abstract class LineWriter
 	{
 		for (Stop stop : stops) {
 			Station station = stop.getStation();
+			Node node = context.getLineNetwork().getStationToNode()
+					.get(station);
 			WebPath relStation = path.relativize(context.path(station));
 			String linkStation = String.format("[%s](%s)", station.getName(),
 					relStation.toString());
@@ -63,7 +67,7 @@ public abstract class LineWriter
 			text.append(linkStation);
 
 			List<Line> lines = Util.determineInterestingLines(context, line,
-					station);
+					node);
 
 			Collections.sort(lines, new Comparator<Line>() {
 

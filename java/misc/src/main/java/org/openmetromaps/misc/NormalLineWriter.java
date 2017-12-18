@@ -20,7 +20,7 @@ package org.openmetromaps.misc;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
 
@@ -31,7 +31,7 @@ import de.topobyte.collections.util.ListUtil;
 public class NormalLineWriter extends LineWriter
 {
 
-	public NormalLineWriter(Context context, Path file, Line line)
+	public NormalLineWriter(Context context, Path file, NetworkLine line)
 	{
 		super(context, file, line);
 	}
@@ -41,19 +41,19 @@ public class NormalLineWriter extends LineWriter
 	{
 		output = new MarkdownWriter(file);
 
-		Stop firstStop = line.getStops().get(0);
-		Stop lastStop = ListUtil.last(line.getStops());
+		Stop firstStop = line.line.getStops().get(0);
+		Stop lastStop = ListUtil.last(line.line.getStops());
 
 		Station first = firstStop.getStation();
 		Station last = lastStop.getStation();
 
-		output.heading(1, line.getName() + " → " + last.getName());
-		writeStops(line.getStops());
+		output.heading(1, line.line.getName() + " → " + last.getName());
+		writeStops(line.line.getStops());
 
 		output.newLine();
 
-		output.heading(1, line.getName() + " → " + first.getName());
-		writeStops(Lists.reverse(line.getStops()));
+		output.heading(1, line.line.getName() + " → " + first.getName());
+		writeStops(Lists.reverse(line.line.getStops()));
 
 		output.close();
 	}

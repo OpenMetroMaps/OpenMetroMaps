@@ -26,6 +26,8 @@ import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.TestData;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
+import org.openmetromaps.maps.graph.NetworkLine;
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.xml.XmlModel;
@@ -54,48 +56,47 @@ public class TestShowChange
 
 		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData(),
 				edges);
-		LineNetwork lineNetwork = builder.getGraph();
+		LineNetwork network = builder.getGraph();
 
 		Multimap<Station, Line> stationToLines = HashMultimap.create();
 		Util.fillStationToLines(stationToLines, model);
 
-		Context context = new Context(stationToLines, lineNetwork);
+		Context context = new Context(stationToLines, network);
 
-		test(context, model, "U8", "Hermannplatz");
-		test(context, model, "S41", "Schöneberg");
-		test(context, model, "S41", "Südkreuz");
-		test(context, model, "S41", "Hermannstraße");
+		test(context, network, "U8", "Hermannplatz");
+		test(context, network, "S41", "Schöneberg");
+		test(context, network, "S41", "Südkreuz");
+		test(context, network, "S41", "Hermannstraße");
 	}
 
-	private static void test(Context context, MapModel model, String nameLine,
-			String nameStation)
+	private static void test(Context context, LineNetwork network,
+			String nameLine, String nameStation)
 	{
 		System.out.println(String.format("%s %s", nameLine, nameStation));
 
-		Line line = findLine(model, nameLine);
-		Station station = findStation(model, nameStation);
+		NetworkLine line = findLine(network, nameLine);
+		Node node = findStation(network, nameStation);
 
-		List<Line> lines = Util.determineInterestingLines(context, line,
-				station);
+		List<Line> lines = Util.determineInterestingLines(context, line, node);
 		System.out.println(
 				"found: " + Collections2.transform(lines, e -> e.getName()));
 	}
 
-	private static Line findLine(MapModel model, String name)
+	private static NetworkLine findLine(LineNetwork network, String name)
 	{
-		for (Line line : model.getData().lines) {
-			if (line.getName().equals(name)) {
+		for (NetworkLine line : network.lines) {
+			if (line.line.getName().equals(name)) {
 				return line;
 			}
 		}
 		return null;
 	}
 
-	private static Station findStation(MapModel model, String name)
+	private static Node findStation(LineNetwork network, String name)
 	{
-		for (Station station : model.getData().stations) {
-			if (station.getName().equals(name)) {
-				return station;
+		for (Node node : network.nodes) {
+			if (node.station.getName().equals(name)) {
+				return node;
 			}
 		}
 		return null;

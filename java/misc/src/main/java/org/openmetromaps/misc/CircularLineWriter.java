@@ -20,12 +20,12 @@ package org.openmetromaps.misc;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.graph.NetworkLine;
 
 public class CircularLineWriter extends LineWriter
 {
 
-	public CircularLineWriter(Context context, Path file, Line line)
+	public CircularLineWriter(Context context, Path file, NetworkLine line)
 	{
 		super(context, file, line);
 	}
@@ -35,7 +35,7 @@ public class CircularLineWriter extends LineWriter
 	{
 		output = new MarkdownWriter(file);
 
-		writeStops(line.getStops());
+		writeStops(line.line.getStops());
 
 		output.close();
 	}

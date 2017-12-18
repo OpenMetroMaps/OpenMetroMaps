@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.graph.Edge;
-import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
@@ -40,26 +39,25 @@ public class Util
 	final static Logger logger = LoggerFactory.getLogger(Util.class);
 
 	public static List<Line> determineInterestingLines(Context context,
-			Line line, Station station)
+			NetworkLine line, Node node)
 	{
+		Station station = node.station;
 		logger.debug("station: " + station.getName());
 
 		List<Line> lines = new ArrayList<>(
 				context.getStationToLines().get(station));
-		lines.remove(line);
+		lines.remove(line.line);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug(
 					"old: " + Collections2.transform(lines, e -> e.getName()));
 		}
 
-		LineNetwork network = context.getLineNetwork();
-		Node node = network.getStationToNode().get(station);
 		List<Edge> edges = node.edges;
 		for (Edge edge : edges) {
 			boolean useEdge = false;
 			for (NetworkLine netLine : edge.lines) {
-				if (netLine.line == line) {
+				if (netLine.line == line.line) {
 					useEdge = true;
 				}
 			}

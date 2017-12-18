@@ -27,6 +27,7 @@ import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
+import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.slf4j.Logger;
@@ -79,8 +80,8 @@ public class MarkdownViewCreator
 
 		Util.fillStationToLines(stationToLines, model);
 
-		for (Line line : model.getData().lines) {
-			WebPath pathLine = context.path(line);
+		for (NetworkLine line : lineNetwork.lines) {
+			WebPath pathLine = context.path(line.line);
 			Path path = NioPaths.resolve(pathOutput, pathLine);
 			createLine(path, line);
 		}
@@ -99,10 +100,10 @@ public class MarkdownViewCreator
 		writer.write();
 	}
 
-	private void createLine(Path file, Line line) throws IOException
+	private void createLine(Path file, NetworkLine line) throws IOException
 	{
 		logger.info("creating file : " + file);
-		if (line.isCircular()) {
+		if (line.line.isCircular()) {
 			CircularLineWriter writer = new CircularLineWriter(context, file,
 					line);
 			writer.write();

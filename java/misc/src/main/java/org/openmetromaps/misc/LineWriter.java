@@ -54,26 +54,40 @@ public abstract class LineWriter
 	{
 		for (Stop stop : stops) {
 			Station station = stop.getStation();
-			WebPath relative = path.relativize(context.path(station));
-			String link = String.format("[%s](%s)", station.getName(),
-					relative.toString());
+			WebPath relStation = path.relativize(context.path(station));
+			String linkStation = String.format("[%s](%s)", station.getName(),
+					relStation.toString());
+
+			StringBuilder text = new StringBuilder();
+			text.append(linkStation);
 
 			List<Line> lines = new ArrayList<>(
 					context.getStationToLines().get(station));
-
-			StringBuilder text = new StringBuilder();
-			text.append(link);
-			text.append(" ");
 			lines.remove(line);
-			Iterator<Line> iterator = lines.iterator();
-			while (iterator.hasNext()) {
-				Line other = iterator.next();
-				text.append(other.getName());
-				if (iterator.hasNext()) {
-					text.append(", ");
-				}
+
+			if (!lines.isEmpty()) {
+				text.append(" ");
+				text.append("(");
+				otherLines(text, lines);
+				text.append(")");
 			}
+
 			output.unordered(text.toString());
+		}
+	}
+
+	private void otherLines(StringBuilder text, List<Line> lines)
+	{
+		Iterator<Line> iterator = lines.iterator();
+		while (iterator.hasNext()) {
+			Line other = iterator.next();
+			WebPath relOther = path.relativize(context.path(other));
+			String linkOther = String.format("[%s](%s)", other.getName(),
+					relOther.toString());
+			text.append(linkOther);
+			if (iterator.hasNext()) {
+				text.append(", ");
+			}
 		}
 	}
 

@@ -89,8 +89,6 @@ public class GtfsImporter
 		analyzeRoutes();
 
 		// TODO:
-		// * for each route, pick the one with most stops
-		// * validate other routes against the picked one and do some reporting
 		// * produce model and make available via getter
 
 		zip.close();
@@ -217,15 +215,42 @@ public class GtfsImporter
 			}
 
 			List<String> stopsLongest = getStopNameList(longest);
+			List<String> stopsReverse = Lists.reverse(stopsLongest);
 			System.out.println("longest: " + stopInfo(stopsLongest));
 
 			for (StopIdList stopIds : histogram.elementSet()) {
 				int count = stopIdListSet.count(stopIds);
 				List<String> stops = getStopNameList(stopIds);
+
+				if (isPart(stops, stopsLongest)) {
+					continue;
+				} else if (isPart(stops, stopsReverse)) {
+					continue;
+				}
+
 				System.out.println(
 						String.format("%dx: %s", count, stopInfo(stops)));
 			}
 		}
+	}
+
+	// Determine if 'stops' is a subsequence of 'reference'
+	private boolean isPart(List<String> stops, List<String> reference)
+	{
+		String first = stops.get(0);
+		int pos = reference.indexOf(first);
+		if (pos < 0) {
+			return false;
+		}
+
+		int nStops = stops.size();
+		int nReference = reference.size();
+		if (pos + nStops > nReference) {
+			return false;
+		}
+
+		List<String> sub = reference.subList(pos, pos + nStops);
+		return stops.equals(sub);
 	}
 
 	private String stopInfo(List<String> stops)

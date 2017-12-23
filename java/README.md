@@ -11,6 +11,13 @@ This project has a main executable that can be executed like this:
 
     ./scripts/openmetromaps-cli <task>
 
+Alternatively, add the `scripts` directory to your `PATH` environment
+variable in order to run `openmetromaps-cli` without specifying its location
+each time. The following examples assume you have done that.
+Then invoke the main executable like this:
+
+    openmetromaps-cli <task>
+
 Where task can be any of the following:
 
     osm-filter
@@ -24,11 +31,11 @@ Where task can be any of the following:
 Each task accepts its own set of command line parameters. To run the Map Viewer
 you would type:
 
-    ./scripts/openmetromaps-cli map-viewer --input test-data/src/main/resources/berlin.xml
+    openmetromaps-cli map-viewer --input test-data/src/main/resources/berlin.xml
 
 To run the Map Editor, type:
 
-    ./scripts/openmetromaps-cli map-editor --input test-data/src/main/resources/berlin.xml
+    openmetromaps-cli map-editor --input test-data/src/main/resources/berlin.xml
 
 ## To-Do
 

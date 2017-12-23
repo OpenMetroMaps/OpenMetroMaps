@@ -15,5 +15,5 @@ routes from the Berlin GTFS file from VBB, use this:
 Afterwards, use the `gtfs-import` task of the main CLI to run the import
 utility:
 
-    ./scripts/openmetromaps-cli gtfs-import
+    openmetromaps-cli gtfs-import
         --input /tmp/gtfs/vbb-lightrail.zip --output /tmp/gtfs/berlin.xml

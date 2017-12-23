@@ -33,6 +33,7 @@ import org.openmetromaps.gtfs4j.model.Route;
 import org.openmetromaps.gtfs4j.model.Stop;
 import org.openmetromaps.gtfs4j.model.StopTime;
 import org.openmetromaps.gtfs4j.model.Trip;
+import org.openmetromaps.misc.NameUtil;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.HashMultiset;
@@ -214,9 +215,18 @@ public class GtfsImporter
 	{
 		List<String> stops = new ArrayList<>(stopIds.size());
 		for (String id : stopIds) {
-			stops.add(stopIdToStop.get(id).getName());
+			Stop stop = stopIdToStop.get(id);
+			String name = stop.getName();
+			String fixed = applyNameFixes(name);
+			stops.add(fixed);
 		}
 		return stops;
+	}
+
+	private String applyNameFixes(String name)
+	{
+		String fixedName = NameUtil.stripPrefix(name, prefixes);
+		return fixedName;
 	}
 
 }

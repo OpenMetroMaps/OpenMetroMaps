@@ -1,4 +1,6 @@
 dependencies {
+    compile project(':openmetromaps-misc-util')
+
     compile 'org.openmetromaps.gtfs4j:gtfs4j-csv-util:0.0.1'
     compile 'de.topobyte:collections-utils:0.0.4'
     compile 'com.google.guava:guava:19.0'

@@ -48,6 +48,9 @@ public class GtfsImporter
 {
 
 	private Path path;
+	private List<String> prefixes;
+	private List<String> suffixes;
+
 	private GtfsZip zip;
 
 	private Multimap<String, Route> nameToRoute = HashMultimap.create();
@@ -57,9 +60,11 @@ public class GtfsImporter
 	private Map<String, StopIdList> tripIdToStopList = Maps.newHashMap();
 	private Map<String, Stop> stopIdToStop = Maps.newHashMap();
 
-	public GtfsImporter(Path path)
+	public GtfsImporter(Path path, List<String> prefixes, List<String> suffixes)
 	{
 		this.path = path;
+		this.prefixes = prefixes;
+		this.suffixes = suffixes;
 	}
 
 	public void execute() throws ZipException, IOException

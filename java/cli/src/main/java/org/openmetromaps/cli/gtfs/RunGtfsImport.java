@@ -25,7 +25,6 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.gtfs.GtfsImporter;
-import org.openmetromaps.model.Fix;
 
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
@@ -73,9 +72,9 @@ public class RunGtfsImport
 		prefixes.add("S+U ");
 		prefixes.add("U-Bhf ");
 
-		List<Fix> fixes = new ArrayList<>();
+		List<String> suffixes = new ArrayList<>();
 
-		GtfsImporter importer = new GtfsImporter(pathInput);
+		GtfsImporter importer = new GtfsImporter(pathInput, prefixes, suffixes);
 		importer.execute();
 
 		// TODO: write to output

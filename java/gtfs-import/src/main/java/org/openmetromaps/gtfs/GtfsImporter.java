@@ -72,13 +72,13 @@ public class GtfsImporter
 
 		printRouteInfo();
 
+		readStops();
+
 		readTrips();
 
 		readStopTimes();
 
 		buildTripStopLists();
-
-		readStops();
 
 		analyzeRoutes();
 
@@ -141,7 +141,13 @@ public class GtfsImporter
 			String valSeq = stopTime.getStopSequence();
 			int seq = Integer.parseInt(valSeq);
 			String stopId = stopTime.getStopId();
-			StopRef stopRef = new StopRef(seq, stopId);
+			Stop stop = stopIdToStop.get(stopId);
+			String parentStation = stop.getParentStation();
+			String stationId = stop.getId();
+			if (!parentStation.isEmpty()) {
+				stationId = parentStation;
+			}
+			StopRef stopRef = new StopRef(seq, stationId);
 			tripIdToStopRefs.put(tripId, stopRef);
 		}
 	}

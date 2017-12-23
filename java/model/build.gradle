@@ -4,6 +4,8 @@ if (project.hasProperty("topobyte")) {
 }
 
 dependencies {
+    compile project(':openmetromaps-misc-util')
+
     compile 'de.topobyte:osm4j-utils:0.1.1'
     compile 'de.topobyte:adt-geo:0.0.4'
     compile 'de.topobyte:geomath:0.0.2'

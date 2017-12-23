@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.openmetromaps.misc.NameUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,7 +100,7 @@ public class ModelBuilder
 			if (stationName == null) {
 				continue;
 			}
-			stationName = stripPrefix(stationName, prefixes);
+			stationName = NameUtil.stripPrefix(stationName, prefixes);
 			if (!stationMap.containsKey(stationName)) {
 				stationMap.put(stationName, node);
 			}
@@ -168,7 +169,7 @@ public class ModelBuilder
 					continue;
 				}
 
-				sName = stripPrefix(sName, prefixes);
+				sName = NameUtil.stripPrefix(sName, prefixes);
 
 				logger.info(sName);
 				DraftStation station = new DraftStation(sName, node);
@@ -183,17 +184,6 @@ public class ModelBuilder
 
 		LinesAnalyzer linesAnalyzer = new LinesAnalyzer(model);
 		linesAnalyzer.analyze(new LoggerPrinter(logger, LogLevel.INFO));
-	}
-
-	public String stripPrefix(String sName, List<String> prefixes)
-	{
-		for (String prefix : prefixes) {
-			if (sName.startsWith(prefix)) {
-				sName = sName.substring(prefix.length());
-				break;
-			}
-		}
-		return sName;
 	}
 
 	private String determineFix(OsmNode node)

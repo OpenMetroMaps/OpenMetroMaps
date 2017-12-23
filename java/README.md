@@ -19,6 +19,7 @@ Where task can be any of the following:
     inspect-model
     map-editor
     map-viewer
+    gtfs-import
 
 Each task accepts its own set of command line parameters. To run the Map Viewer
 you would type:

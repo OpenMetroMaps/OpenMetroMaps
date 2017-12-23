@@ -24,7 +24,7 @@ subprojects {
     task allDeps(type: DependencyReportTask) {}
 }
 
-configure([project(':openmetromaps-model'),
+configure([project(':openmetromaps-osm-model'),
         project(':openmetromaps-osm')]) {
 
     apply plugin: 'maven'

@@ -1,6 +1,6 @@
 dependencies {
-    compile project(':openmetromaps-model')
-    compile project(':openmetromaps-model-inspector')
+    compile project(':openmetromaps-osm-model')
+    compile project(':openmetromaps-osm-model-inspector')
     compile project(':openmetromaps-osm')
     compile project(':openmetromaps-maps-editor')
     compile project(':openmetromaps-maps-model-xml-converter')

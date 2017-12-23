@@ -1,6 +1,6 @@
 dependencies {
-    compile project(':openmetromaps-model')
-    compile project(':openmetromaps-model-converter')
+    compile project(':openmetromaps-osm-model')
+    compile project(':openmetromaps-osm-model-converter')
     compile project(':openmetromaps-ui-resources')
     compile project(':openmetromaps-swing-misc')
     compile project(':openmetromaps-maps-model-xml-desktop')

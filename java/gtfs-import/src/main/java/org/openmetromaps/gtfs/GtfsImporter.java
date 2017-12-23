@@ -37,6 +37,8 @@ public class GtfsImporter
 
 	private Path path;
 	private GtfsZip zip;
+	private Multimap<String, Route> nameToRoute;
+	private List<String> routeNames;
 
 	public GtfsImporter(Path path)
 	{
@@ -47,13 +49,27 @@ public class GtfsImporter
 	{
 		zip = new GtfsZip(path);
 
+		printAgencyInfo();
+
+		readRoutes();
+
+		printRouteInfo();
+
+		zip.close();
+	}
+
+	private void printAgencyInfo() throws IOException
+	{
 		List<Agency> agencies = zip.readAgency();
 		for (Agency agency : agencies) {
 			System.out.println(String.format("agency: %s, %s", agency.getId(),
 					agency.getName()));
 		}
+	}
 
-		Multimap<String, Route> nameToRoute = HashMultimap.create();
+	private void readRoutes() throws IOException
+	{
+		nameToRoute = HashMultimap.create();
 
 		List<Route> routes = zip.readRoutes();
 		for (Route route : routes) {
@@ -61,17 +77,8 @@ public class GtfsImporter
 			nameToRoute.put(name, route);
 		}
 
-		List<String> names = new ArrayList<>(nameToRoute.keySet());
-		Collections.sort(names);
-
-		System.out.println("route: <name> (<versions>)");
-		for (String name : names) {
-			Collection<Route> versions = nameToRoute.get(name);
-			System.out.println(
-					String.format("route: %s (%d)", name, versions.size()));
-		}
-
-		zip.close();
+		routeNames = new ArrayList<>(nameToRoute.keySet());
+		Collections.sort(routeNames);
 	}
 
 	private String getName(Route route)
@@ -80,6 +87,16 @@ public class GtfsImporter
 			return route.getShortName();
 		}
 		return route.getLongName();
+	}
+
+	private void printRouteInfo()
+	{
+		System.out.println("route: <name> (<versions>)");
+		for (String name : routeNames) {
+			Collection<Route> versions = nameToRoute.get(name);
+			System.out.println(
+					String.format("route: %s (%d)", name, versions.size()));
+		}
 	}
 
 }

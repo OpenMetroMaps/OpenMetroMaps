@@ -88,6 +88,11 @@ public class GtfsImporter
 
 		analyzeRoutes();
 
+		// TODO:
+		// * for each route, pick the one with most stops
+		// * validate other routes against the picked one and do some reporting
+		// * produce model and make available via getter
+
 		zip.close();
 	}
 

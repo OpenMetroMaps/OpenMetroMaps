@@ -23,22 +23,39 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.zip.ZipException;
 
 import org.openmetromaps.gtfs4j.csv.GtfsZip;
 import org.openmetromaps.gtfs4j.model.Agency;
 import org.openmetromaps.gtfs4j.model.Route;
+import org.openmetromaps.gtfs4j.model.Stop;
+import org.openmetromaps.gtfs4j.model.StopTime;
+import org.openmetromaps.gtfs4j.model.Trip;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Multiset;
+import com.google.common.collect.Multisets;
+
+import de.topobyte.collections.util.ListUtil;
 
 public class GtfsImporter
 {
 
 	private Path path;
 	private GtfsZip zip;
-	private Multimap<String, Route> nameToRoute;
+
+	private Multimap<String, Route> nameToRoute = HashMultimap.create();
 	private List<String> routeNames;
+	private Multimap<String, Trip> routeIdToTrips = HashMultimap.create();
+	private Multimap<String, StopRef> tripIdToStopRefs = HashMultimap.create();
+	private Map<String, StopIdList> tripIdToStopList = Maps.newHashMap();
+	private Map<String, Stop> stopIdToStop = Maps.newHashMap();
 
 	public GtfsImporter(Path path)
 	{
@@ -55,6 +72,16 @@ public class GtfsImporter
 
 		printRouteInfo();
 
+		readTrips();
+
+		readStopTimes();
+
+		buildTripStopLists();
+
+		readStops();
+
+		analyzeRoutes();
+
 		zip.close();
 	}
 
@@ -69,8 +96,6 @@ public class GtfsImporter
 
 	private void readRoutes() throws IOException
 	{
-		nameToRoute = HashMultimap.create();
-
 		List<Route> routes = zip.readRoutes();
 		for (Route route : routes) {
 			String name = getName(route);
@@ -97,6 +122,88 @@ public class GtfsImporter
 			System.out.println(
 					String.format("route: %s (%d)", name, versions.size()));
 		}
+	}
+
+	private void readTrips() throws IOException
+	{
+		List<Trip> trips = zip.readTrips();
+
+		for (Trip trip : trips) {
+			routeIdToTrips.put(trip.getRouteId(), trip);
+		}
+	}
+
+	private void readStopTimes() throws IOException
+	{
+		List<StopTime> stopTimes = zip.readStopTimes();
+		for (StopTime stopTime : stopTimes) {
+			String tripId = stopTime.getTripId();
+			String valSeq = stopTime.getStopSequence();
+			int seq = Integer.parseInt(valSeq);
+			String stopId = stopTime.getStopId();
+			StopRef stopRef = new StopRef(seq, stopId);
+			tripIdToStopRefs.put(tripId, stopRef);
+		}
+	}
+
+	private void buildTripStopLists()
+	{
+		Set<String> tripIds = tripIdToStopRefs.keySet();
+		for (String tripId : tripIds) {
+			List<StopRef> refs = Lists
+					.newArrayList(tripIdToStopRefs.get(tripId));
+			Collections.sort(refs);
+			StopIdList stops = new StopIdList(refs.size());
+			for (StopRef ref : refs) {
+				stops.add(ref.getStopId());
+			}
+			tripIdToStopList.put(tripId, stops);
+		}
+		tripIdToStopRefs.clear();
+	}
+
+	private void readStops() throws IOException
+	{
+		List<Stop> stops = zip.readStops();
+
+		for (Stop stop : stops) {
+			stopIdToStop.put(stop.getId(), stop);
+		}
+	}
+
+	private void analyzeRoutes()
+	{
+		for (String routeName : routeNames) {
+			Collection<Route> versions = nameToRoute.get(routeName);
+			Route route = versions.iterator().next();
+			Collection<Trip> trips = routeIdToTrips.get(route.getId());
+			System.out.println(
+					String.format("%s: %d trips", routeName, trips.size()));
+			Multiset<StopIdList> stopIdListSet = HashMultiset.create();
+			for (Trip trip : trips) {
+				StopIdList stopsIds = tripIdToStopList.get(trip.getId());
+				stopIdListSet.add(stopsIds);
+			}
+			Multiset<StopIdList> histogram = Multisets
+					.copyHighestCountFirst(stopIdListSet);
+			for (StopIdList stopIds : histogram.elementSet()) {
+				int count = stopIdListSet.count(stopIds);
+				List<String> stops = getStopNameList(stopIds);
+				String first = stops.get(0);
+				String last = ListUtil.last(stops);
+				System.out.println(String.format("%dx: %s to %s via %d stops",
+						count, first, last, stops.size() - 2));
+			}
+		}
+	}
+
+	private List<String> getStopNameList(StopIdList stopIds)
+	{
+		List<String> stops = new ArrayList<>(stopIds.size());
+		for (String id : stopIds) {
+			stops.add(stopIdToStop.get(id).getName());
+		}
+		return stops;
 	}
 
 }

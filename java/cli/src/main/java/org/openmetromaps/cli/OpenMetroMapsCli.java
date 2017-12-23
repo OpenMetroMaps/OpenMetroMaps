@@ -17,6 +17,7 @@
 
 package org.openmetromaps.cli;
 
+import org.openmetromaps.cli.gtfs.RunGtfsImport;
 import org.openmetromaps.cli.maps.RunMapEditor;
 import org.openmetromaps.cli.maps.RunMapViewer;
 import org.openmetromaps.cli.model.RunModelBuilder;
@@ -54,6 +55,8 @@ public class OpenMetroMapsCli
 					RunMapEditor.class);
 			options.addCommand("map-viewer", RunMapViewer.OPTIONS_FACTORY,
 					RunMapViewer.class);
+			options.addCommand("gtfs-import", RunGtfsImport.OPTIONS_FACTORY,
+					RunGtfsImport.class);
 			return options;
 		}
 

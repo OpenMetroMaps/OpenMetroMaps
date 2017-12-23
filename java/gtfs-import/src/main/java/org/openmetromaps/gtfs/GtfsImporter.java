@@ -175,8 +175,10 @@ public class GtfsImporter
 	{
 		for (String routeName : routeNames) {
 			Collection<Route> versions = nameToRoute.get(routeName);
-			Route route = versions.iterator().next();
-			Collection<Trip> trips = routeIdToTrips.get(route.getId());
+			List<Trip> trips = new ArrayList<>();
+			for (Route route : versions) {
+				trips.addAll(routeIdToTrips.get(route.getId()));
+			}
 			System.out.println(
 					String.format("%s: %d trips", routeName, trips.size()));
 			Multiset<StopIdList> stopIdListSet = HashMultiset.create();

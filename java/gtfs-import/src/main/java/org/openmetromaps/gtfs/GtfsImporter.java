@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -60,6 +61,7 @@ public class GtfsImporter
 	private Multimap<String, StopRef> tripIdToStopRefs = HashMultimap.create();
 	private Map<String, StopIdList> tripIdToStopList = Maps.newHashMap();
 	private Map<String, Stop> stopIdToStop = Maps.newHashMap();
+	private Map<String, StopIdList> selectedStopLists = Maps.newHashMap();
 
 	public GtfsImporter(Path path, List<String> prefixes, List<String> suffixes)
 	{
@@ -87,6 +89,8 @@ public class GtfsImporter
 		buildTripStopLists();
 
 		analyzeRoutes();
+
+		createModel();
 
 		// TODO:
 		// * produce model and make available via getter
@@ -214,6 +218,8 @@ public class GtfsImporter
 				}
 			}
 
+			selectedStopLists.put(routeName, longest);
+
 			List<String> stopsLongest = getStopNameList(longest);
 			List<String> stopsReverse = Lists.reverse(stopsLongest);
 			System.out.println("longest: " + stopInfo(stopsLongest));
@@ -279,6 +285,18 @@ public class GtfsImporter
 		fixed = NameUtil.stripPrefix(fixed, prefixes);
 		fixed = NameUtil.stripSuffix(fixed, suffixes);
 		return fixed;
+	}
+
+	private void createModel()
+	{
+		Set<String> allStopIds = new HashSet<>();
+		for (String routeName : routeNames) {
+			StopIdList stopIds = selectedStopLists.get(routeName);
+			System.out.println(
+					String.format("%s: %d", routeName, stopIds.size()));
+			allStopIds.addAll(stopIds);
+		}
+		System.out.println("Total number of stations: " + allStopIds.size());
 	}
 
 }

@@ -39,8 +39,12 @@ sourceSets {
             srcDirs 'src/main/java'
             srcDirs '../java/xml-dom-abstraction/src/main/java'
             srcDirs '../java/maps-model/src/main/java'
+            srcDirs '../java/maps-model-util/src/main/java'
             srcDirs '../java/maps-model-xml/src/main/java'
+            srcDirs '../java/maps-model-xml-converter/src/main/java'
             srcDirs '../java/maps-core/src/main/java'
+            srcDirs '../java/line-network-util/src/main/java'
+            srcDirs '../java/lightgeom/src/main/java'
         }
     }
 }

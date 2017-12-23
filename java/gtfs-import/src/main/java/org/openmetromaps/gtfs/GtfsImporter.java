@@ -19,11 +19,18 @@ package org.openmetromaps.gtfs;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.ZipException;
 
 import org.openmetromaps.gtfs4j.csv.GtfsZip;
 import org.openmetromaps.gtfs4j.model.Agency;
+import org.openmetromaps.gtfs4j.model.Route;
+
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 
 public class GtfsImporter
 {
@@ -42,10 +49,37 @@ public class GtfsImporter
 
 		List<Agency> agencies = zip.readAgency();
 		for (Agency agency : agencies) {
-			System.out.println(agency.getName());
+			System.out.println(String.format("agency: %s, %s", agency.getId(),
+					agency.getName()));
+		}
+
+		Multimap<String, Route> nameToRoute = HashMultimap.create();
+
+		List<Route> routes = zip.readRoutes();
+		for (Route route : routes) {
+			String name = getName(route);
+			nameToRoute.put(name, route);
+		}
+
+		List<String> names = new ArrayList<>(nameToRoute.keySet());
+		Collections.sort(names);
+
+		System.out.println("route: <name> (<versions>)");
+		for (String name : names) {
+			Collection<Route> versions = nameToRoute.get(name);
+			System.out.println(
+					String.format("route: %s (%d)", name, versions.size()));
 		}
 
 		zip.close();
+	}
+
+	private String getName(Route route)
+	{
+		if (!route.getShortName().isEmpty()) {
+			return route.getShortName();
+		}
+		return route.getLongName();
 	}
 
 }

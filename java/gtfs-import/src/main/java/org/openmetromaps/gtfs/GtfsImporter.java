@@ -28,9 +28,17 @@ import org.openmetromaps.gtfs4j.model.Agency;
 public class GtfsImporter
 {
 
-	public GtfsImporter(Path path) throws ZipException, IOException
+	private Path path;
+	private GtfsZip zip;
+
+	public GtfsImporter(Path path)
 	{
-		GtfsZip zip = new GtfsZip(path);
+		this.path = path;
+	}
+
+	public void execute() throws ZipException, IOException
+	{
+		zip = new GtfsZip(path);
 
 		List<Agency> agencies = zip.readAgency();
 		for (Agency agency : agencies) {

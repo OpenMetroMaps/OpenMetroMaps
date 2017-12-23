@@ -76,6 +76,7 @@ public class RunGtfsImport
 		List<Fix> fixes = new ArrayList<>();
 
 		GtfsImporter importer = new GtfsImporter(pathInput);
+		importer.execute();
 
 		// TODO: write to output
 	}

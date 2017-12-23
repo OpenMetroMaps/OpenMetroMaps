@@ -225,8 +225,10 @@ public class GtfsImporter
 
 	private String applyNameFixes(String name)
 	{
-		String fixedName = NameUtil.stripPrefix(name, prefixes);
-		return fixedName;
+		String fixed = name;
+		fixed = NameUtil.stripPrefix(fixed, prefixes);
+		fixed = NameUtil.stripSuffix(fixed, suffixes);
+		return fixed;
 	}
 
 }

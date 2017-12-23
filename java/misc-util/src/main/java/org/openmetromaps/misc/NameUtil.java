@@ -22,15 +22,27 @@ import java.util.List;
 public class NameUtil
 {
 
-	public static String stripPrefix(String sName, List<String> prefixes)
+	public static String stripPrefix(String name, List<String> prefixes)
 	{
 		for (String prefix : prefixes) {
-			if (sName.startsWith(prefix)) {
-				sName = sName.substring(prefix.length());
+			if (name.startsWith(prefix)) {
+				name = name.substring(prefix.length());
 				break;
 			}
 		}
-		return sName;
+		return name;
+	}
+
+	public static String stripSuffix(String name, List<String> suffixes)
+	{
+		for (String suffix : suffixes) {
+			if (name.endsWith(suffix)) {
+				int len = name.length() - suffix.length();
+				name = name.substring(0, len);
+				break;
+			}
+		}
+		return name;
 	}
 
 }

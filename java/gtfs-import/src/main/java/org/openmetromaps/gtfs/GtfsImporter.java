@@ -203,17 +203,37 @@ public class GtfsImporter
 				StopIdList stopsIds = tripIdToStopList.get(trip.getId());
 				stopIdListSet.add(stopsIds);
 			}
+
 			Multiset<StopIdList> histogram = Multisets
 					.copyHighestCountFirst(stopIdListSet);
+
+			StopIdList longest = null;
+			int maxStops = -1;
+			for (StopIdList stopIds : histogram.elementSet()) {
+				if (stopIds.size() > maxStops) {
+					maxStops = stopIds.size();
+					longest = stopIds;
+				}
+			}
+
+			List<String> stopsLongest = getStopNameList(longest);
+			System.out.println("longest: " + stopInfo(stopsLongest));
+
 			for (StopIdList stopIds : histogram.elementSet()) {
 				int count = stopIdListSet.count(stopIds);
 				List<String> stops = getStopNameList(stopIds);
-				String first = stops.get(0);
-				String last = ListUtil.last(stops);
-				System.out.println(String.format("%dx: %s to %s via %d stops",
-						count, first, last, stops.size() - 2));
+				System.out.println(
+						String.format("%dx: %s", count, stopInfo(stops)));
 			}
 		}
+	}
+
+	private String stopInfo(List<String> stops)
+	{
+		String first = stops.get(0);
+		String last = ListUtil.last(stops);
+		return String.format("%s to %s via %d stops", first, last,
+				stops.size() - 2);
 	}
 
 	private List<String> getStopNameList(StopIdList stopIds)

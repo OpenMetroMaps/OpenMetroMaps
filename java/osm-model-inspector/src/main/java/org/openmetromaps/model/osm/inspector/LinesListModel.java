@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model.inspector;
+package org.openmetromaps.model.osm.inspector;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import java.util.List;
 
 import javax.swing.AbstractListModel;
 
-import org.openmetromaps.model.DraftLine;
-import org.openmetromaps.model.DraftModel;
+import org.openmetromaps.model.osm.DraftLine;
+import org.openmetromaps.model.osm.DraftModel;
 
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 

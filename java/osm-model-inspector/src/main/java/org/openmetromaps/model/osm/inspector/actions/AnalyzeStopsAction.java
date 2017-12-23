@@ -15,28 +15,29 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model.inspector.actions;
+package org.openmetromaps.model.osm.inspector.actions;
 
 import java.awt.event.ActionEvent;
 
-import org.openmetromaps.model.LinesAnalyzer;
-import org.openmetromaps.model.inspector.ModelInspector;
-import org.openmetromaps.model.inspector.TextDialog;
+import org.openmetromaps.model.osm.StopsAnalyzer;
+import org.openmetromaps.model.osm.inspector.ModelInspector;
+import org.openmetromaps.model.osm.inspector.TextDialog;
 import org.openmetromaps.swing.Util;
 
 import de.topobyte.lineprinter.LineBufferPrinter;
 import de.topobyte.swing.util.action.SimpleAction;
 
-public class AnalyzeLinesAction extends SimpleAction
+public class AnalyzeStopsAction extends SimpleAction
 {
 
 	private static final long serialVersionUID = 1L;
 
 	private ModelInspector modelInpector;
 
-	public AnalyzeLinesAction(ModelInspector modelInpector)
+	public AnalyzeStopsAction(ModelInspector modelInpector)
 	{
-		super("Analyze Lines", "Analyze lines");
+		super("Analyze Stops",
+				"Analyze the roles of public transport relations");
 		this.modelInpector = modelInpector;
 		setIcon("res/images/24/system-run.png");
 	}
@@ -44,12 +45,12 @@ public class AnalyzeLinesAction extends SimpleAction
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		LinesAnalyzer analyzer = new LinesAnalyzer(modelInpector.getModel());
+		StopsAnalyzer analyzer = new StopsAnalyzer(modelInpector.getModel());
 		LineBufferPrinter buffer = new LineBufferPrinter();
 		analyzer.analyze(buffer);
 
 		TextDialog dialog = new TextDialog(modelInpector.getFrame(),
-				"Line Analyis", buffer.getLines());
+				"Stops Analyis", buffer.getLines());
 		Util.showRelativeToOwner(dialog, 400, 300);
 	}
 

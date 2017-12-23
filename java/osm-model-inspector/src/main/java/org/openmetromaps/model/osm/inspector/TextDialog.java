@@ -15,34 +15,35 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model.inspector.actions;
+package org.openmetromaps.model.osm.inspector;
 
-import java.awt.event.ActionEvent;
+import java.awt.Window;
+import java.util.List;
 
-import javax.swing.JFrame;
+import javax.swing.JDialog;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
-import org.openmetromaps.model.inspector.about.AboutDialog;
+import com.google.common.base.Joiner;
 
-import de.topobyte.swing.util.action.SimpleAction;
-
-public class AboutAction extends SimpleAction
+public class TextDialog extends JDialog
 {
 
 	private static final long serialVersionUID = 1L;
 
-	private JFrame frame;
-
-	public AboutAction(JFrame frame)
+	public TextDialog(Window window, String title, String text)
 	{
-		super("About", "Show information about this software");
-		this.frame = frame;
-		setIcon("res/images/24/help-about.png");
+		super(window);
+
+		setTitle(title);
+		JTextArea textField = new JTextArea(text);
+		JScrollPane jsp = new JScrollPane(textField);
+		setContentPane(jsp);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e)
+	public TextDialog(Window window, String title, List<String> lines)
 	{
-		AboutDialog.showDialog(frame, AboutDialog.Page.ABOUT);
+		this(window, title, Joiner.on("\n").join(lines));
 	}
 
 }

@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model.inspector;
+package org.openmetromaps.model.osm.inspector;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -41,15 +41,15 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.openmetromaps.model.DraftLine;
-import org.openmetromaps.model.DraftModel;
-import org.openmetromaps.model.DraftStation;
-import org.openmetromaps.model.inspector.actions.AboutAction;
-import org.openmetromaps.model.inspector.actions.AnalyzeLinesAction;
-import org.openmetromaps.model.inspector.actions.AnalyzeStopsAction;
-import org.openmetromaps.model.inspector.actions.ExitAction;
-import org.openmetromaps.model.inspector.actions.ExportModelAction;
-import org.openmetromaps.model.inspector.actions.LicenseAction;
+import org.openmetromaps.model.osm.DraftLine;
+import org.openmetromaps.model.osm.DraftModel;
+import org.openmetromaps.model.osm.DraftStation;
+import org.openmetromaps.model.osm.inspector.actions.AboutAction;
+import org.openmetromaps.model.osm.inspector.actions.AnalyzeLinesAction;
+import org.openmetromaps.model.osm.inspector.actions.AnalyzeStopsAction;
+import org.openmetromaps.model.osm.inspector.actions.ExitAction;
+import org.openmetromaps.model.osm.inspector.actions.ExportModelAction;
+import org.openmetromaps.model.osm.inspector.actions.LicenseAction;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;

@@ -15,30 +15,32 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model;
+package org.openmetromaps.model.osm;
 
-import de.topobyte.osm4j.core.model.iface.OsmNode;
+import java.util.List;
 
-public class DraftStation
+import de.topobyte.osm4j.core.model.iface.OsmRelation;
+
+public class DraftLine
 {
 
-	private String name;
-	private OsmNode source;
+	private OsmRelation source;
+	private List<DraftStation> stations;
 
-	public DraftStation(String name, OsmNode source)
+	public DraftLine(OsmRelation source, List<DraftStation> stations)
 	{
-		this.name = name;
 		this.source = source;
+		this.stations = stations;
 	}
 
-	public String getName()
-	{
-		return name;
-	}
-
-	public OsmNode getSource()
+	public OsmRelation getSource()
 	{
 		return source;
+	}
+
+	public List<DraftStation> getStations()
+	{
+		return stations;
 	}
 
 }

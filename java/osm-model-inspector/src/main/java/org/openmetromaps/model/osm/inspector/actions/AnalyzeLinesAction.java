@@ -15,27 +15,42 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model.inspector.actions;
+package org.openmetromaps.model.osm.inspector.actions;
 
 import java.awt.event.ActionEvent;
 
+import org.openmetromaps.model.osm.LinesAnalyzer;
+import org.openmetromaps.model.osm.inspector.ModelInspector;
+import org.openmetromaps.model.osm.inspector.TextDialog;
+import org.openmetromaps.swing.Util;
+
+import de.topobyte.lineprinter.LineBufferPrinter;
 import de.topobyte.swing.util.action.SimpleAction;
 
-public class ExitAction extends SimpleAction
+public class AnalyzeLinesAction extends SimpleAction
 {
 
 	private static final long serialVersionUID = 1L;
 
-	public ExitAction()
+	private ModelInspector modelInpector;
+
+	public AnalyzeLinesAction(ModelInspector modelInpector)
 	{
-		super("Exit", "Quit the application");
-		setIcon("res/images/24/gtk-quit.png");
+		super("Analyze Lines", "Analyze lines");
+		this.modelInpector = modelInpector;
+		setIcon("res/images/24/system-run.png");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		System.exit(0);
+		LinesAnalyzer analyzer = new LinesAnalyzer(modelInpector.getModel());
+		LineBufferPrinter buffer = new LineBufferPrinter();
+		analyzer.analyze(buffer);
+
+		TextDialog dialog = new TextDialog(modelInpector.getFrame(),
+				"Line Analyis", buffer.getLines());
+		Util.showRelativeToOwner(dialog, 400, 300);
 	}
 
 }

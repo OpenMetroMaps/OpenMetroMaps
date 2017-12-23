@@ -15,35 +15,30 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model.inspector;
+package org.openmetromaps.model.osm;
 
-import java.awt.Window;
-import java.util.List;
+import de.topobyte.osm4j.core.model.iface.OsmNode;
 
-import javax.swing.JDialog;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
-import com.google.common.base.Joiner;
-
-public class TextDialog extends JDialog
+public class DraftStation
 {
 
-	private static final long serialVersionUID = 1L;
+	private String name;
+	private OsmNode source;
 
-	public TextDialog(Window window, String title, String text)
+	public DraftStation(String name, OsmNode source)
 	{
-		super(window);
-
-		setTitle(title);
-		JTextArea textField = new JTextArea(text);
-		JScrollPane jsp = new JScrollPane(textField);
-		setContentPane(jsp);
+		this.name = name;
+		this.source = source;
 	}
 
-	public TextDialog(Window window, String title, List<String> lines)
+	public String getName()
 	{
-		this(window, title, Joiner.on("\n").join(lines));
+		return name;
+	}
+
+	public OsmNode getSource()
+	{
+		return source;
 	}
 
 }

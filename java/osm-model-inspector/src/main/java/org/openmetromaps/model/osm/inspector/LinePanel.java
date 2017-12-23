@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model.inspector;
+package org.openmetromaps.model.osm.inspector;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -33,8 +33,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import org.openmetromaps.model.DraftLine;
-import org.openmetromaps.model.DraftStation;
+import org.openmetromaps.model.osm.DraftLine;
+import org.openmetromaps.model.osm.DraftStation;
 import org.openmetromaps.swing.Util;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;

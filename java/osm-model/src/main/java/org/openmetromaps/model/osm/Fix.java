@@ -15,39 +15,35 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model;
+package org.openmetromaps.model.osm;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import de.topobyte.osm4j.core.model.iface.OsmNode;
-
-public class DraftModel
+public class Fix
 {
 
-	private Map<String, OsmNode> stationMap = new HashMap<>();
-	private List<DraftLine> lines = new ArrayList<>();
+	private String name;
+	private double lon;
+	private double lat;
 
-	public Map<String, OsmNode> getStationMap()
+	public Fix(String name, double lat, double lon)
 	{
-		return stationMap;
+		this.name = name;
+		this.lon = lon;
+		this.lat = lat;
 	}
 
-	public void setStationMap(Map<String, OsmNode> stationMap)
+	public String getName()
 	{
-		this.stationMap = stationMap;
+		return name;
 	}
 
-	public List<DraftLine> getLines()
+	public double getLon()
 	{
-		return lines;
+		return lon;
 	}
 
-	public void setLines(List<DraftLine> lines)
+	public double getLat()
 	{
-		this.lines = lines;
+		return lat;
 	}
 
 }

@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps;
+package org.openmetromaps.model.osm;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,9 +29,6 @@ import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
-import org.openmetromaps.model.DraftLine;
-import org.openmetromaps.model.DraftModel;
-import org.openmetromaps.model.DraftStation;
 
 import de.topobyte.osm4j.core.model.iface.OsmNode;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;

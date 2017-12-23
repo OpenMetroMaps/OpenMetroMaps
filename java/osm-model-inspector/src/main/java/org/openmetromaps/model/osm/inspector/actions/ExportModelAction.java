@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model.inspector.actions;
+package org.openmetromaps.model.osm.inspector.actions;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -30,11 +30,11 @@ import javax.swing.JFileChooser;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import org.openmetromaps.maps.DraftModelConverter;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModelWriter;
-import org.openmetromaps.model.DraftModel;
-import org.openmetromaps.model.inspector.ModelInspector;
+import org.openmetromaps.model.osm.DraftModel;
+import org.openmetromaps.model.osm.DraftModelConverter;
+import org.openmetromaps.model.osm.inspector.ModelInspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

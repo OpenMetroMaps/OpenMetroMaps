@@ -15,35 +15,27 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model;
+package org.openmetromaps.model.osm.inspector.actions;
 
-public class Fix
+import java.awt.event.ActionEvent;
+
+import de.topobyte.swing.util.action.SimpleAction;
+
+public class ExitAction extends SimpleAction
 {
 
-	private String name;
-	private double lon;
-	private double lat;
+	private static final long serialVersionUID = 1L;
 
-	public Fix(String name, double lat, double lon)
+	public ExitAction()
 	{
-		this.name = name;
-		this.lon = lon;
-		this.lat = lat;
+		super("Exit", "Quit the application");
+		setIcon("res/images/24/gtk-quit.png");
 	}
 
-	public String getName()
+	@Override
+	public void actionPerformed(ActionEvent e)
 	{
-		return name;
-	}
-
-	public double getLon()
-	{
-		return lon;
-	}
-
-	public double getLat()
-	{
-		return lat;
+		System.exit(0);
 	}
 
 }

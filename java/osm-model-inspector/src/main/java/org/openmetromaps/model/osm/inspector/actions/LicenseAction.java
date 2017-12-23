@@ -15,13 +15,13 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.model.inspector.actions;
+package org.openmetromaps.model.osm.inspector.actions;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
-import org.openmetromaps.model.inspector.about.AboutDialog;
+import org.openmetromaps.model.osm.inspector.about.AboutDialog;
 
 import de.topobyte.swing.util.action.SimpleAction;
 

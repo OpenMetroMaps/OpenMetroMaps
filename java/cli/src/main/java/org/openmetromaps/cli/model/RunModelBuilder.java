@@ -27,12 +27,12 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.cli.osm.OsmOptions;
-import org.openmetromaps.maps.DraftModelConverter;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModelWriter;
-import org.openmetromaps.model.DraftModel;
-import org.openmetromaps.model.Fix;
-import org.openmetromaps.model.ModelBuilder;
+import org.openmetromaps.model.osm.DraftModel;
+import org.openmetromaps.model.osm.DraftModelConverter;
+import org.openmetromaps.model.osm.Fix;
+import org.openmetromaps.model.osm.ModelBuilder;
 
 import de.topobyte.osm4j.utils.OsmFile;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;

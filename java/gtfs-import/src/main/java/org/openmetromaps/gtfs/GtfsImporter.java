@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -63,11 +64,18 @@ public class GtfsImporter
 	private Map<String, Stop> stopIdToStop = Maps.newHashMap();
 	private Map<String, StopIdList> selectedStopLists = Maps.newHashMap();
 
+	private DraftModel model = new DraftModel();
+
 	public GtfsImporter(Path path, List<String> prefixes, List<String> suffixes)
 	{
 		this.path = path;
 		this.prefixes = prefixes;
 		this.suffixes = suffixes;
+	}
+
+	public DraftModel getModel()
+	{
+		return model;
 	}
 
 	public void execute() throws ZipException, IOException
@@ -91,9 +99,6 @@ public class GtfsImporter
 		analyzeRoutes();
 
 		createModel();
-
-		// TODO:
-		// * produce model and make available via getter
 
 		zip.close();
 	}
@@ -289,12 +294,31 @@ public class GtfsImporter
 
 	private void createModel()
 	{
+		List<DraftLine> lines = model.getLines();
+		Map<String, DraftStation> idToStation = new HashMap<>();
+
 		Set<String> allStopIds = new HashSet<>();
 		for (String routeName : routeNames) {
 			StopIdList stopIds = selectedStopLists.get(routeName);
 			System.out.println(
 					String.format("%s: %d", routeName, stopIds.size()));
 			allStopIds.addAll(stopIds);
+
+			List<DraftStation> stations = new ArrayList<>();
+
+			for (String id : stopIds) {
+				DraftStation station = idToStation.get(id);
+				if (station == null) {
+					Stop stop = stopIdToStop.get(id);
+					String name = stop.getName();
+					String fixed = applyNameFixes(name);
+					station = new DraftStation(fixed, id);
+					idToStation.put(id, station);
+				}
+				stations.add(station);
+			}
+
+			lines.add(new DraftLine(routeName, stations));
 		}
 		System.out.println("Total number of stations: " + allStopIds.size());
 	}

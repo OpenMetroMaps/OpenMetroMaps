@@ -25,6 +25,7 @@ import org.openmetromaps.cli.model.RunModelInspector;
 import org.openmetromaps.cli.osm.RunFilterRegion;
 import org.openmetromaps.cli.osm.RunFilterRelevantData;
 import org.openmetromaps.cli.util.RunListChangeStations;
+import org.openmetromaps.cli.util.RunListLinesWithChangeStations;
 import org.openmetromaps.cli.util.RunModelInfo;
 
 import de.topobyte.utilities.apache.commons.cli.commands.ArgumentParser;
@@ -76,6 +77,9 @@ public class OpenMetroMapsCli
 			options.addCommand("list-change-stations",
 					RunListChangeStations.OPTIONS_FACTORY,
 					RunListChangeStations.class);
+			options.addCommand("list-lines-with-change-stations",
+					RunListLinesWithChangeStations.OPTIONS_FACTORY,
+					RunListLinesWithChangeStations.class);
 			return options;
 		}
 

@@ -22,11 +22,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -45,6 +44,8 @@ import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.misc.Context;
 import org.openmetromaps.misc.Util;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
@@ -54,7 +55,7 @@ import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOp
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
 
-public class RunListChangeStations
+public class RunListLinesWithChangeStations
 {
 
 	private static final String OPTION_INPUT = "input";
@@ -109,8 +110,6 @@ public class RunListChangeStations
 
 		Context context = new Context(stationToLines, lineNetwork);
 
-		Set<Node> changeNodes = new HashSet<>();
-
 		List<NetworkLine> lines = lineNetwork.getLines();
 		for (NetworkLine line : lines) {
 			List<Node> nodes = LineNetworkUtil.getNodes(lineNetwork, line.line);
@@ -121,29 +120,26 @@ public class RunListChangeStations
 					continue;
 				}
 
-				changeNodes.add(node);
+				Collections.sort(changeLines, new Comparator<Line>() {
+
+					@Override
+					public int compare(Line o1, Line o2)
+					{
+						return o1.getName().compareTo(o2.getName());
+					}
+
+				});
+
+				Collection<String> names = Collections2.transform(changeLines,
+						e -> e.getName());
+				String otherNames = Joiner.on(", ").join(names);
+
+				System.out.println(
+						String.format("%s, %s: %s", line.line.getName(),
+								node.station.getName(), otherNames));
 			}
 		}
 
-		List<Station> changeStations = new ArrayList<>();
-
-		for (Node node : changeNodes) {
-			changeStations.add(node.station);
-		}
-
-		Collections.sort(changeStations, new Comparator<Station>() {
-
-			@Override
-			public int compare(Station o1, Station o2)
-			{
-				return o1.getName().compareTo(o2.getName());
-			}
-
-		});
-
-		for (Station station : changeStations) {
-			System.out.println(station.getName());
-		}
 	}
 
 }

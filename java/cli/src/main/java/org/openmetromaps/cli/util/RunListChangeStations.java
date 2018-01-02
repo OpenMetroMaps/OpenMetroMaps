@@ -22,6 +22,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
@@ -41,6 +44,8 @@ import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.misc.Context;
 import org.openmetromaps.misc.Util;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
@@ -114,11 +119,24 @@ public class RunListChangeStations
 				if (changeLines.isEmpty()) {
 					continue;
 				}
-				for (Line other : changeLines) {
-					System.out.println(
-							String.format("%s, %s: %s", line.line.getName(),
-									node.station.getName(), other.getName()));
-				}
+
+				Collections.sort(changeLines, new Comparator<Line>() {
+
+					@Override
+					public int compare(Line o1, Line o2)
+					{
+						return o1.getName().compareTo(o2.getName());
+					}
+
+				});
+
+				Collection<String> names = Collections2.transform(changeLines,
+						e -> e.getName());
+				String otherNames = Joiner.on(", ").join(names);
+
+				System.out.println(
+						String.format("%s, %s: %s", line.line.getName(),
+								node.station.getName(), otherNames));
 			}
 		}
 

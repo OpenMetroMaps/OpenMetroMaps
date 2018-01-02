@@ -24,6 +24,7 @@ import org.openmetromaps.cli.model.RunModelBuilder;
 import org.openmetromaps.cli.model.RunModelInspector;
 import org.openmetromaps.cli.osm.RunFilterRegion;
 import org.openmetromaps.cli.osm.RunFilterRelevantData;
+import org.openmetromaps.cli.util.RunModelInfo;
 
 import de.topobyte.utilities.apache.commons.cli.commands.ArgumentParser;
 import de.topobyte.utilities.apache.commons.cli.commands.ExeRunner;
@@ -57,6 +58,20 @@ public class OpenMetroMapsCli
 					RunMapViewer.class);
 			options.addCommand("gtfs-import", RunGtfsImport.OPTIONS_FACTORY,
 					RunGtfsImport.class);
+			options.addCommand("util", OPTIONS_FACTORY_UTIL);
+			return options;
+		}
+
+	};
+
+	public static ExeOptionsFactory OPTIONS_FACTORY_UTIL = new ExeOptionsFactory() {
+
+		@Override
+		public ExeOptions createOptions()
+		{
+			DelegateExeOptions options = new DelegateExeOptions();
+			options.addCommand("info", RunModelInfo.OPTIONS_FACTORY,
+					RunModelInfo.class);
 			return options;
 		}
 

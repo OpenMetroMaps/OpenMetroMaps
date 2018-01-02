@@ -52,7 +52,7 @@ public class RunModelInfo
 		{
 			Options options = new Options();
 			// @formatter:off
-			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "a OpenMetroMaps model file");
+			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "an OpenMetroMaps model file");
 			// @formatter:on
 			return new CommonsCliExeOptions(options, "[options]");
 		}

@@ -235,7 +235,7 @@ public class LineNetworkUtil
 		result.setStart(start);
 		result.setEnd(end);
 
-		int num = max - min;
+		int num = max - min - 1;
 
 		logger.debug(Formatting.format("Stops min: %d, max: %d, num: %d", min,
 				max, num));

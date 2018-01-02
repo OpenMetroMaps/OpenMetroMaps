@@ -38,6 +38,18 @@ To run the Map Editor, type:
 
     openmetromaps-cli map-editor --input test-data/src/main/resources/berlin.xml
 
+### The util task
+
+The `util` task work on map model files and offers more sub-tasks:
+
+    openmetromaps-cli util <sub-task>
+
+where sub-task may be one of the following:
+
+    info
+    list-change-stations
+    list-lines-with-change-stations
+
 ## To-Do
 
 Have a look at the [To-Do list](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/java/TODO.md).

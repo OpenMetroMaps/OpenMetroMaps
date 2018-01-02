@@ -5,6 +5,7 @@ dependencies {
     compile project(':openmetromaps-maps-editor')
     compile project(':openmetromaps-maps-model-xml-converter')
     compile project(':openmetromaps-gtfs-import')
+    compile project(':openmetromaps-misc')
 
     compile 'de.topobyte:commons-cli-helper:0.0.6'
 

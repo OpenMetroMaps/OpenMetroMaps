@@ -204,7 +204,15 @@ public class LineNetworkUtil
 	public static List<Node> getNodes(LineNetwork lineNetwork, Line line)
 	{
 		int length = line.getStops().size();
-		return getNodesBetween(lineNetwork, line, 0, length - 1).getNodes();
+
+		NodesInBetweenResult result = getNodesBetween(lineNetwork, line, 0,
+				length - 1);
+
+		List<Node> all = new ArrayList<>();
+		all.add(result.getStart());
+		all.addAll(result.getNodes());
+		all.add(result.getEnd());
+		return all;
 	}
 
 	public static NodesInBetweenResult getNodesBetween(LineNetwork lineNetwork,

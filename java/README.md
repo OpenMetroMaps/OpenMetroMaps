@@ -27,6 +27,7 @@ Where task can be any of the following:
     map-editor
     map-viewer
     gtfs-import
+    util
 
 Each task accepts its own set of command line parameters. To run the Map Viewer
 you would type:

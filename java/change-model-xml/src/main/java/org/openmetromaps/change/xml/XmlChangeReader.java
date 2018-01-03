@@ -73,7 +73,7 @@ public class XmlChangeReader
 	{
 		INodeList allChanges = doc.getElementsByTagName("changes");
 		IElement firstChanges = allChanges.element(0);
-		INodeList changeList = firstChanges.getElementsByTagName("change");
+		INodeList changeList = firstChanges.getChildElementsByTagName("change");
 
 		for (int i = 0; i < changeList.getLength(); i++) {
 			IElement eChange = changeList.element(i);

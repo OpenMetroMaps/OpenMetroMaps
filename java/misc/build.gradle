@@ -1,10 +1,8 @@
 dependencies {
     compile project(':openmetromaps-maps-model')
-    compile project(':openmetromaps-line-network-util')
 
-    compile 'de.topobyte:webpaths-core:0.0.1'
+    compile 'com.google.guava:guava:19.0'
 
-    testCompile project(':openmetromaps-maps-model-xml-desktop')
     testCompile project(':openmetromaps-maps-model-xml-converter')
     testCompile project(':openmetromaps-test-data')
 

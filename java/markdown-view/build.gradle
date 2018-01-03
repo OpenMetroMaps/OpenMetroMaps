@@ -7,7 +7,6 @@ dependencies {
     compile 'de.topobyte:webpaths-core:0.0.1'
     compile 'de.topobyte:webpaths-nio:0.0.1'
 
-    testCompile project(':openmetromaps-maps-model-xml-desktop')
     testCompile project(':openmetromaps-maps-model-xml-converter')
     testCompile project(':openmetromaps-test-data')
 

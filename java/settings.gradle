@@ -1,53 +1,81 @@
-include 'osm-model', 'osm-model-inspector', 'osm', 'cli'
-include 'xml-dom-abstraction', 'xml-dom-abstraction-desktop'
-include 'xml-dom-abstraction-gwt'
+// maps model
 include 'maps-model', 'maps-model-xml', 'maps-model-xml-desktop'
 include 'maps-model-xml-converter'
 include 'maps-model-util'
-include 'osm-model-converter'
-include 'line-network-util'
-include 'maps-core', 'maps-awt', 'maps-android', 'maps-editor'
-include 'maps-gwt'
-include 'ui-resources', 'swing-misc'
-include 'test-data'
-include 'test-maps-model-xml-desktop'
-include 'win'
-include 'gtfs-import'
-include 'misc', 'misc-util'
-include 'lightgeom'
-include 'markdown-view'
-include 'change-model', 'change-model-xml', 'change-model-xml-desktop'
-include 'test-change-model-xml-desktop'
-project(':osm-model').name = 'openmetromaps-osm-model'
-project(':osm-model-inspector').name = 'openmetromaps-osm-model-inspector'
-project(':osm').name = 'openmetromaps-osm'
-project(':cli').name = 'openmetromaps-cli'
 project(':maps-model').name = 'openmetromaps-maps-model'
 project(':maps-model-util').name = 'openmetromaps-maps-model-util'
 project(':maps-model-xml').name = 'openmetromaps-maps-model-xml'
 project(':maps-model-xml-converter').name = 'openmetromaps-maps-model-xml-converter'
 project(':maps-model-xml-desktop').name = 'openmetromaps-maps-model-xml-desktop'
-project(':osm-model-converter').name = 'openmetromaps-osm-model-converter'
-project(':line-network-util').name = 'openmetromaps-line-network-util'
-project(':maps-core').name = 'openmetromaps-maps-core'
-project(':maps-awt').name = 'openmetromaps-maps-awt'
-project(':maps-android').name = 'openmetromaps-maps-android'
-project(':maps-editor').name = 'openmetromaps-maps-editor'
-project(':maps-gwt').name = 'openmetromaps-maps-gwt'
-project(':xml-dom-abstraction').name = 'openmetromaps-xml-dom-abstraction'
-project(':xml-dom-abstraction-desktop').name = 'openmetromaps-xml-dom-abstraction-desktop'
-project(':xml-dom-abstraction-gwt').name = 'openmetromaps-xml-dom-abstraction-gwt'
-project(':ui-resources').name = 'openmetromaps-ui-resources'
-project(':swing-misc').name = 'openmetromaps-swing-misc'
-project(':test-data').name = 'openmetromaps-test-data'
-project(':test-maps-model-xml-desktop').name = 'openmetromaps-test-maps-model-xml-desktop'
-project(':win').name = 'openmetromaps-win'
-project(':gtfs-import').name = 'openmetromaps-gtfs-import'
-project(':misc').name = 'openmetromaps-misc'
-project(':misc-util').name = 'openmetromaps-misc-util'
-project(':lightgeom').name = 'openmetromaps-lightgeom'
-project(':markdown-view').name = 'openmetromaps-markdown-view'
+
+// change model
+include 'change-model', 'change-model-xml', 'change-model-xml-desktop'
 project(':change-model').name = 'openmetromaps-change-model'
 project(':change-model-xml').name = 'openmetromaps-change-model-xml'
 project(':change-model-xml-desktop').name = 'openmetromaps-change-model-xml-desktop'
+
+// testing
+include 'test-data'
+include 'test-maps-model-xml-desktop'
+include 'test-change-model-xml-desktop'
+project(':test-data').name = 'openmetromaps-test-data'
+project(':test-maps-model-xml-desktop').name = 'openmetromaps-test-maps-model-xml-desktop'
 project(':test-change-model-xml-desktop').name = 'openmetromaps-test-change-model-xml-desktop'
+
+// Command Line Interface
+include 'cli'
+project(':cli').name = 'openmetromaps-cli'
+
+// XML
+include 'xml-dom-abstraction'
+include 'xml-dom-abstraction-desktop'
+include 'xml-dom-abstraction-gwt'
+project(':xml-dom-abstraction').name = 'openmetromaps-xml-dom-abstraction'
+project(':xml-dom-abstraction-desktop').name = 'openmetromaps-xml-dom-abstraction-desktop'
+project(':xml-dom-abstraction-gwt').name = 'openmetromaps-xml-dom-abstraction-gwt'
+
+// various
+include 'lightgeom'
+include 'line-network-util'
+include 'misc'
+include 'misc-util'
+project(':lightgeom').name = 'openmetromaps-lightgeom'
+project(':line-network-util').name = 'openmetromaps-line-network-util'
+project(':misc').name = 'openmetromaps-misc'
+project(':misc-util').name = 'openmetromaps-misc-util'
+
+// GTFS
+include 'gtfs-import'
+project(':gtfs-import').name = 'openmetromaps-gtfs-import'
+
+// OSM
+include 'osm', 'osm-model', 'osm-model-inspector', 'osm-model-converter'
+project(':osm').name = 'openmetromaps-osm'
+project(':osm-model').name = 'openmetromaps-osm-model'
+project(':osm-model-inspector').name = 'openmetromaps-osm-model-inspector'
+project(':osm-model-converter').name = 'openmetromaps-osm-model-converter'
+
+// map rendering
+include 'maps-core'
+include 'maps-awt'
+include 'maps-android'
+include 'maps-gwt'
+project(':maps-core').name = 'openmetromaps-maps-core'
+project(':maps-awt').name = 'openmetromaps-maps-awt'
+project(':maps-android').name = 'openmetromaps-maps-android'
+project(':maps-gwt').name = 'openmetromaps-maps-gwt'
+
+// Swing
+include 'maps-editor'
+include 'ui-resources', 'swing-misc'
+project(':maps-editor').name = 'openmetromaps-maps-editor'
+project(':ui-resources').name = 'openmetromaps-ui-resources'
+project(':swing-misc').name = 'openmetromaps-swing-misc'
+
+// Markdown
+include 'markdown-view'
+project(':markdown-view').name = 'openmetromaps-markdown-view'
+
+// Platforms
+include 'win'
+project(':win').name = 'openmetromaps-win'

@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.misc;
+package org.openmetromaps.markdownview;
 
 import java.io.BufferedWriter;
 import java.io.Closeable;

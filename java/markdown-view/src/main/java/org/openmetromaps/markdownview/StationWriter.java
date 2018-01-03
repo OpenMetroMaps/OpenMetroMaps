@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.misc;
+package org.openmetromaps.markdownview;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.misc.Context;
 
 import de.topobyte.webpaths.WebPath;
 

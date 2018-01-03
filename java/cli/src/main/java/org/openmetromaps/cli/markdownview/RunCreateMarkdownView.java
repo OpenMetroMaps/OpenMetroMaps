@@ -28,7 +28,7 @@ import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
-import org.openmetromaps.misc.MarkdownViewCreator;
+import org.openmetromaps.markdownview.MarkdownViewCreator;
 
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;

@@ -15,33 +15,30 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.misc;
+package org.openmetromaps.markdownview;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import org.openmetromaps.maps.MapModel;
-import org.openmetromaps.maps.TestData;
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelConverter;
+import org.openmetromaps.maps.graph.NetworkLine;
+import org.openmetromaps.misc.Context;
 
-import de.topobyte.xml.domabstraction.iface.ParsingException;
-
-public class TestCreateMarkdown
+public class CircularLineWriter extends LineWriter
 {
 
-	public static void main(String[] args) throws IOException, ParsingException
+	public CircularLineWriter(Context context, Path file, NetworkLine line)
 	{
-		Path pathOutput = Paths.get("/tmp/markdownview");
+		super(context, file, line);
+	}
 
-		XmlModel xmlModel = TestData.berlinXml();
+	@Override
+	public void write() throws IOException
+	{
+		output = new MarkdownWriter(file);
 
-		XmlModelConverter modelConverter = new XmlModelConverter();
-		MapModel model = modelConverter.convert(xmlModel);
+		writeStops(line.line.getStops());
 
-		MarkdownViewCreator markdownCreator = new MarkdownViewCreator(model);
-		markdownCreator.create(pathOutput);
+		output.close();
 	}
 
 }

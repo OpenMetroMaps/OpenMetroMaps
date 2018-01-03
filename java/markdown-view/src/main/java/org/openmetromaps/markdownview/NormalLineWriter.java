@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.misc;
+package org.openmetromaps.markdownview;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
+import org.openmetromaps.misc.Context;
 
 import com.google.common.collect.Lists;
 

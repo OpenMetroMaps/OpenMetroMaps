@@ -63,29 +63,28 @@ public class TestShowChange
 		Multimap<Station, Line> stationToLines = HashMultimap.create();
 		Util.fillStationToLines(stationToLines, model);
 
-		Context context = new Context(stationToLines, network);
-
-		test(context, network, "U8", "Hermannplatz");
-		test(context, network, "S41", "Schöneberg");
-		test(context, network, "S41", "Südkreuz");
-		test(context, network, "S41", "Hermannstraße");
-		test(context, network, "S41", "Neukölln");
-		test(context, network, "U7", "Rudow");
-		test(context, network, "S8", "Eichwalde");
-		test(context, network, "S8", "Zeuthen");
-		test(context, network, "U1", "Nollendorfplatz");
-		test(context, network, "U1", "Wittenbergplatz");
+		test(stationToLines, network, "U8", "Hermannplatz");
+		test(stationToLines, network, "S41", "Schöneberg");
+		test(stationToLines, network, "S41", "Südkreuz");
+		test(stationToLines, network, "S41", "Hermannstraße");
+		test(stationToLines, network, "S41", "Neukölln");
+		test(stationToLines, network, "U7", "Rudow");
+		test(stationToLines, network, "S8", "Eichwalde");
+		test(stationToLines, network, "S8", "Zeuthen");
+		test(stationToLines, network, "U1", "Nollendorfplatz");
+		test(stationToLines, network, "U1", "Wittenbergplatz");
 	}
 
-	private static void test(Context context, LineNetwork network,
-			String nameLine, String nameStation)
+	private static void test(Multimap<Station, Line> stationToLines,
+			LineNetwork network, String nameLine, String nameStation)
 	{
 		System.out.println(String.format("%s %s", nameLine, nameStation));
 
 		NetworkLine line = findLine(network, nameLine);
 		Node node = findStation(network, nameStation);
 
-		List<Line> lines = Util.determineInterestingLines(context, line, node);
+		List<Line> lines = Util.determineInterestingLines(stationToLines, line,
+				node);
 		Collections.sort(lines, new Comparator<Line>() {
 
 			@Override

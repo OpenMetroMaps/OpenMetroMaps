@@ -41,7 +41,6 @@ import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
-import org.openmetromaps.misc.Context;
 import org.openmetromaps.misc.Util;
 
 import com.google.common.base.Joiner;
@@ -108,14 +107,12 @@ public class RunListLinesWithChangeStations
 		Multimap<Station, Line> stationToLines = HashMultimap.create();
 		Util.fillStationToLines(stationToLines, model);
 
-		Context context = new Context(stationToLines, lineNetwork);
-
 		List<NetworkLine> lines = lineNetwork.getLines();
 		for (NetworkLine line : lines) {
 			List<Node> nodes = LineNetworkUtil.getNodes(lineNetwork, line.line);
 			for (Node node : nodes) {
-				List<Line> changeLines = Util.determineInterestingLines(context,
-						line, node);
+				List<Line> changeLines = Util
+						.determineInterestingLines(stationToLines, line, node);
 				if (changeLines.isEmpty()) {
 					continue;
 				}

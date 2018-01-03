@@ -42,14 +42,13 @@ public class Util
 
 	final static Logger logger = LoggerFactory.getLogger(Util.class);
 
-	public static List<Line> determineInterestingLines(Context context,
-			NetworkLine line, Node node)
+	public static List<Line> determineInterestingLines(
+			Multimap<Station, Line> stationToLines, NetworkLine line, Node node)
 	{
 		Station station = node.station;
 		logger.debug("station: " + station.getName());
 
-		List<Line> lines = new ArrayList<>(
-				context.getStationToLines().get(station));
+		List<Line> lines = new ArrayList<>(stationToLines.get(station));
 		lines.remove(line.line);
 
 		if (logger.isDebugEnabled()) {

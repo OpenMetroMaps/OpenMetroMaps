@@ -68,8 +68,8 @@ public abstract class LineWriter
 			StringBuilder text = new StringBuilder();
 			text.append(linkStation);
 
-			List<Line> lines = Util.determineInterestingLines(context, line,
-					node);
+			List<Line> lines = Util.determineInterestingLines(
+					context.getStationToLines(), line, node);
 
 			Collections.sort(lines, new Comparator<Line>() {
 

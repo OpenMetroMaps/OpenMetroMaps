@@ -23,7 +23,6 @@ import java.nio.file.Path;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
-import org.openmetromaps.misc.Context;
 
 import com.google.common.collect.Lists;
 

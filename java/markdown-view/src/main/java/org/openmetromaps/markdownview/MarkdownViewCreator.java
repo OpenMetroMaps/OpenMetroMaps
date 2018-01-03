@@ -30,7 +30,6 @@ import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
-import org.openmetromaps.misc.Context;
 import org.openmetromaps.misc.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

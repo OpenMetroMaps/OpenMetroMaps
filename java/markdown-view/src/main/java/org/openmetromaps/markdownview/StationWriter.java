@@ -26,7 +26,6 @@ import java.util.List;
 
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
-import org.openmetromaps.misc.Context;
 
 import de.topobyte.webpaths.WebPath;
 

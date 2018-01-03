@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import org.openmetromaps.maps.graph.NetworkLine;
-import org.openmetromaps.misc.Context;
 
 public class CircularLineWriter extends LineWriter
 {

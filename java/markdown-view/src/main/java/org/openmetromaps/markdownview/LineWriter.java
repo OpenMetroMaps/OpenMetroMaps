@@ -29,7 +29,6 @@ import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
-import org.openmetromaps.misc.Context;
 import org.openmetromaps.misc.Util;
 
 import de.topobyte.webpaths.WebPath;

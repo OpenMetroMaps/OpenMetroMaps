@@ -22,11 +22,13 @@ public class Change
 
 	private String line;
 	private String towards;
+	private String at;
 
-	public Change(String line, String towards)
+	public Change(String line, String towards, String at)
 	{
 		this.line = line;
 		this.towards = towards;
+		this.at = at;
 	}
 
 	public String getLine()
@@ -37,6 +39,11 @@ public class Change
 	public String getTowards()
 	{
 		return towards;
+	}
+
+	public String getAt()
+	{
+		return at;
 	}
 
 }

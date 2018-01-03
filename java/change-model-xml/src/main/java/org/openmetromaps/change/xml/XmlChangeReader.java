@@ -74,14 +74,37 @@ public class XmlChangeReader
 		INodeList allChanges = doc.getElementsByTagName("changes");
 		IElement firstChanges = allChanges.element(0);
 		INodeList changeList = firstChanges.getChildElementsByTagName("change");
+		INodeList batchList = firstChanges.getChildElementsByTagName("batch");
 
 		for (int i = 0; i < changeList.getLength(); i++) {
 			IElement eChange = changeList.element(i);
 
 			String line = eChange.getAttribute("line");
 			String towards = eChange.getAttribute("towards");
+			String at = eChange.getAttribute("at");
 
-			changes.add(new Change(line, towards));
+			changes.add(new Change(line, towards, at));
+		}
+
+		for (int i = 0; i < batchList.getLength(); i++) {
+			IElement eBatch = batchList.element(i);
+			readBatch(eBatch);
+		}
+	}
+
+	private void readBatch(IElement eBatch)
+	{
+		String line = eBatch.getAttribute("line");
+		String towards = eBatch.getAttribute("towards");
+
+		INodeList changeList = eBatch.getChildElementsByTagName("change");
+
+		for (int i = 0; i < changeList.getLength(); i++) {
+			IElement eChange = changeList.element(i);
+
+			String at = eChange.getAttribute("at");
+
+			changes.add(new Change(line, towards, at));
 		}
 	}
 

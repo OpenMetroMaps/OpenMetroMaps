@@ -37,8 +37,8 @@ public class TestReadXmlChange
 				.getResourceAsStream("berlin-changes.xml");
 		ChangeModel model = DesktopXmlChangeReader.read(input);
 		for (Change change : model.getChanges()) {
-			System.out.println(String.format("line %s towards %s",
-					change.getLine(), change.getTowards()));
+			System.out.println(String.format("line %s towards %s at %s",
+					change.getLine(), change.getTowards(), change.getAt()));
 		}
 	}
 

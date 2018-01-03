@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2018 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -17,51 +17,34 @@
 
 package de.topobyte.xml.domabstraction.gwtimpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.Node;
-import com.google.gwt.xml.client.NodeList;
 
 import de.topobyte.xml.domabstraction.iface.IElement;
 import de.topobyte.xml.domabstraction.iface.INodeList;
 
-public class GwtElement implements IElement
+public class GwtNodeList2 implements INodeList
 {
 
-	private Element element;
+	private List<Node> list;
 
-	public GwtElement(Element element)
+	public GwtNodeList2(List<Node> list)
 	{
-		this.element = element;
+		this.list = list;
 	}
 
 	@Override
-	public INodeList getElementsByTagName(String name)
+	public int getLength()
 	{
-		NodeList list = element.getElementsByTagName(name);
-		return new GwtNodeList(list);
+		return list.size();
 	}
 
 	@Override
-	public INodeList getChildElementsByTagName(String name)
+	public IElement element(int i)
 	{
-		NodeList children = element.getChildNodes();
-		List<Node> filtered = new ArrayList<>();
-		for (int i = 0; i < children.getLength(); i++) {
-			Node child = children.item(i);
-			if (child.getNodeName().equals(name)) {
-				filtered.add(child);
-			}
-		}
-		return new GwtNodeList2(filtered);
-	}
-
-	@Override
-	public String getAttribute(String name)
-	{
-		return element.getAttribute(name);
+		return new GwtElement((Element) list.get(i));
 	}
 
 }

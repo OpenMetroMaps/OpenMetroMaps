@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2018 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -17,51 +17,34 @@
 
 package de.topobyte.xml.domabstraction.dektopimpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import de.topobyte.xml.domabstraction.iface.IElement;
 import de.topobyte.xml.domabstraction.iface.INodeList;
 
-class DElement implements IElement
+class DNodeList2 implements INodeList
 {
 
-	private Element element;
+	private List<Node> list;
 
-	public DElement(Element element)
+	public DNodeList2(List<Node> list)
 	{
-		this.element = element;
+		this.list = list;
 	}
 
 	@Override
-	public INodeList getElementsByTagName(String name)
+	public int getLength()
 	{
-		NodeList list = element.getElementsByTagName(name);
-		return new DNodeList(list);
+		return list.size();
 	}
 
 	@Override
-	public INodeList getChildElementsByTagName(String name)
+	public IElement element(int i)
 	{
-		NodeList children = element.getChildNodes();
-		List<Node> filtered = new ArrayList<>();
-		for (int i = 0; i < children.getLength(); i++) {
-			Node child = children.item(i);
-			if (child.getNodeName().equals(name)) {
-				filtered.add(child);
-			}
-		}
-		return new DNodeList2(filtered);
-	}
-
-	@Override
-	public String getAttribute(String name)
-	{
-		return element.getAttribute(name);
+		return new DElement((Element) list.get(i));
 	}
 
 }

@@ -22,6 +22,8 @@ public interface IElement
 
 	INodeList getElementsByTagName(String name);
 
+	INodeList getChildElementsByTagName(String name);
+
 	String getAttribute(String name);
 
 }

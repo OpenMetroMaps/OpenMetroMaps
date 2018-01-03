@@ -41,7 +41,7 @@ To run the Map Editor, type:
 
 ### The util task
 
-The `util` task work on map model files and offers more sub-tasks:
+The `util` task works on map model files and offers more sub-tasks:
 
     openmetromaps-cli util <sub-task>
 

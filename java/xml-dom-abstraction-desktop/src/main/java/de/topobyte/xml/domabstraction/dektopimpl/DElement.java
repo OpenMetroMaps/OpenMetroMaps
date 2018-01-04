@@ -59,6 +59,12 @@ class DElement implements IElement
 	}
 
 	@Override
+	public boolean hasAttribute(String name)
+	{
+		return element.hasAttribute(name);
+	}
+
+	@Override
 	public String getAttribute(String name)
 	{
 		return element.getAttribute(name);

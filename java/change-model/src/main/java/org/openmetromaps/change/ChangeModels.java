@@ -56,6 +56,7 @@ public class ChangeModels
 				location, matcher);
 		changes.add(change);
 		if (raw.isDeriveReverse()) {
+			// TODO: determine reverse towards value from model
 			Change reverse = new Change(raw.getLine(), raw.getTowards(),
 					raw.getAt(), reverse(location), matcher);
 			changes.add(reverse);

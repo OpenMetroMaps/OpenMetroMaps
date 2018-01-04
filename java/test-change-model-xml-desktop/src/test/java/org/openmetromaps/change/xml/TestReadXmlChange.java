@@ -24,6 +24,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.change.Change;
 import org.openmetromaps.change.ChangeModel;
+import org.openmetromaps.change.Matcher;
+import org.openmetromaps.change.RegexMatcher;
+import org.openmetromaps.change.SimpleMatcher;
 
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
@@ -37,8 +40,19 @@ public class TestReadXmlChange
 				.getResourceAsStream("berlin-changes.xml");
 		ChangeModel model = DesktopXmlChangeReader.read(input);
 		for (Change change : model.getChanges()) {
-			System.out.println(String.format("line %s towards %s at %s",
-					change.getLine(), change.getTowards(), change.getAt()));
+			Matcher matcher = change.getMatcher();
+			String changeLine = null;
+			if (matcher instanceof SimpleMatcher) {
+				SimpleMatcher sm = (SimpleMatcher) matcher;
+				changeLine = sm.getName();
+			} else if (matcher instanceof RegexMatcher) {
+				RegexMatcher rm = (RegexMatcher) matcher;
+				changeLine = rm.getPattern();
+			}
+			System.out
+					.println(String.format("line %s towards %s at %s to %s: %s",
+							change.getLine(), change.getTowards(),
+							change.getAt(), changeLine, change.getLocation()));
 		}
 	}
 

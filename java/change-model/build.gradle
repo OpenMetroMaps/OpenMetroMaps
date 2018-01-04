@@ -1,3 +1,5 @@
 dependencies {
+    compile project(':openmetromaps-raw-change-model')
+
     compile 'org.slf4j:slf4j-api:1.6.1'
 }

@@ -24,10 +24,7 @@ import java.util.List;
 import org.openmetromaps.change.Change;
 import org.openmetromaps.change.Exit;
 import org.openmetromaps.change.Location;
-import org.openmetromaps.change.Matcher;
 import org.openmetromaps.change.RawChangeModel;
-import org.openmetromaps.change.RegexMatcher;
-import org.openmetromaps.change.SimpleMatcher;
 
 import de.topobyte.xml.domabstraction.iface.IDocument;
 import de.topobyte.xml.domabstraction.iface.IDocumentFactory;
@@ -137,22 +134,10 @@ public class XmlChangeReader
 
 		Location location = parseLocation(valLocation);
 
-		Matcher matcher = null;
-		if (changeLine != null) {
-			matcher = new SimpleMatcher(changeLine);
-		} else if (changeLineRegex != null) {
-			matcher = new RegexMatcher(changeLineRegex);
-		}
-
 		boolean deriveReverse = valDeriveReverse.equals("true");
 
-		changes.add(new Change(line, towards, at, location, matcher));
-		if (deriveReverse) {
-			// TODO: we need the map model to determine the reverse direction
-			// (towards)
-			changes.add(
-					new Change(line, towards, at, reverse(location), matcher));
-		}
+		changes.add(new Change(line, towards, at, location, changeLine,
+				changeLineRegex, deriveReverse));
 	}
 
 	private String getAttributeOrNull(IElement element, String attribute)
@@ -180,30 +165,6 @@ public class XmlChangeReader
 			return Location.ALMOST_BACK;
 		case "back":
 			return Location.BACK;
-		}
-		return null;
-	}
-
-	private Location reverse(Location location)
-	{
-		if (location == null) {
-			return null;
-		}
-		switch (location) {
-		case FRONT:
-			return Location.BACK;
-		case ALMOST_FRONT:
-			return Location.ALMOST_BACK;
-		case MIDDLE_MIDDLE_FRONT:
-			return Location.MIDDLE_MIDDLE_BACK;
-		case MIDDLE:
-			return Location.MIDDLE;
-		case MIDDLE_MIDDLE_BACK:
-			return Location.MIDDLE_MIDDLE_FRONT;
-		case ALMOST_BACK:
-			return Location.ALMOST_FRONT;
-		case BACK:
-			return Location.FRONT;
 		}
 		return null;
 	}

@@ -24,16 +24,20 @@ public class Change
 	private String towards;
 	private String at;
 	private Location location;
-	private Matcher matcher;
+	private String changeLine;
+	private String changeRegex;
+	private boolean deriveReverse;
 
 	public Change(String line, String towards, String at, Location location,
-			Matcher matcher)
+			String changeLine, String changeLineRegex, boolean deriveReverse)
 	{
 		this.line = line;
 		this.towards = towards;
 		this.at = at;
 		this.location = location;
-		this.matcher = matcher;
+		this.changeLine = changeLine;
+		this.changeRegex = changeLineRegex;
+		this.deriveReverse = deriveReverse;
 	}
 
 	public String getLine()
@@ -56,9 +60,19 @@ public class Change
 		return location;
 	}
 
-	public Matcher getMatcher()
+	public String getChangeLine()
 	{
-		return matcher;
+		return changeLine;
+	}
+
+	public String getChangeRegex()
+	{
+		return changeRegex;
+	}
+
+	public boolean isDeriveReverse()
+	{
+		return deriveReverse;
 	}
 
 }

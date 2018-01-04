@@ -19,10 +19,10 @@ project(':raw-change-model-xml-desktop').name = 'openmetromaps-raw-change-model-
 // testing
 include 'test-data'
 include 'test-maps-model-xml-desktop'
-include 'test-raw-change-model-xml-desktop'
+include 'test-change-model'
 project(':test-data').name = 'openmetromaps-test-data'
 project(':test-maps-model-xml-desktop').name = 'openmetromaps-test-maps-model-xml-desktop'
-project(':test-raw-change-model-xml-desktop').name = 'openmetromaps-test-raw-change-model-xml-desktop'
+project(':test-change-model').name = 'openmetromaps-test-change-model'
 
 // Command Line Interface
 include 'cli'

@@ -20,6 +20,8 @@ package org.openmetromaps.change;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openmetromaps.rawchange.RawChangeModel;
+
 public class ChangeModels
 {
 
@@ -27,7 +29,93 @@ public class ChangeModels
 	{
 		List<Change> changes = new ArrayList<>();
 		List<Exit> exits = new ArrayList<>();
+
+		for (org.openmetromaps.rawchange.Change change : rawModel
+				.getChanges()) {
+			convert(changes, change);
+		}
+
+		for (org.openmetromaps.rawchange.Exit exit : rawModel.getExits()) {
+			convert(exits, exit);
+		}
+
 		return new ChangeModel(changes, exits);
+	}
+
+	private static void convert(List<Change> changes,
+			org.openmetromaps.rawchange.Change raw)
+	{
+		Matcher matcher = null;
+		if (raw.getChangeLine() != null) {
+			matcher = new SimpleMatcher(raw.getChangeLine());
+		} else if (raw.getChangeLineRegex() != null) {
+			matcher = new RegexMatcher(raw.getChangeLineRegex());
+		}
+		Location location = convert(raw.getLocation());
+		Change change = new Change(raw.getLine(), raw.getTowards(), raw.getAt(),
+				location, matcher);
+		changes.add(change);
+		if (raw.isDeriveReverse()) {
+			Change reverse = new Change(raw.getLine(), raw.getTowards(),
+					raw.getAt(), reverse(location), matcher);
+			changes.add(reverse);
+		}
+	}
+
+	private static void convert(List<Exit> exits,
+			org.openmetromaps.rawchange.Exit raw)
+	{
+		Exit exit = new Exit();
+		exits.add(exit);
+	}
+
+	private static Location convert(
+			org.openmetromaps.rawchange.Location location)
+	{
+		if (location == null) {
+			return null;
+		}
+		switch (location) {
+		case FRONT:
+			return Location.FRONT;
+		case ALMOST_FRONT:
+			return Location.ALMOST_FRONT;
+		case MIDDLE_MIDDLE_FRONT:
+			return Location.MIDDLE_MIDDLE_FRONT;
+		case MIDDLE:
+			return Location.MIDDLE;
+		case MIDDLE_MIDDLE_BACK:
+			return Location.MIDDLE_MIDDLE_BACK;
+		case ALMOST_BACK:
+			return Location.ALMOST_BACK;
+		case BACK:
+			return Location.BACK;
+		}
+		return null;
+	}
+
+	private static Location reverse(Location location)
+	{
+		if (location == null) {
+			return null;
+		}
+		switch (location) {
+		case FRONT:
+			return Location.BACK;
+		case ALMOST_FRONT:
+			return Location.ALMOST_BACK;
+		case MIDDLE_MIDDLE_FRONT:
+			return Location.MIDDLE_MIDDLE_BACK;
+		case MIDDLE:
+			return Location.MIDDLE;
+		case MIDDLE_MIDDLE_BACK:
+			return Location.MIDDLE_MIDDLE_FRONT;
+		case ALMOST_BACK:
+			return Location.ALMOST_FRONT;
+		case BACK:
+			return Location.FRONT;
+		}
+		return null;
 	}
 
 }

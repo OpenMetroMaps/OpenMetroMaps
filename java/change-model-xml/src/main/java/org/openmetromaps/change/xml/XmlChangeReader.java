@@ -129,8 +129,9 @@ public class XmlChangeReader
 
 		String at = eChange.getAttribute(ATTR_AT);
 		String valLocation = eChange.getAttribute(ATTR_LOCATION);
-		String changeLine = eChange.getAttribute(ATTR_CHANGE_LINE);
-		String changeLineRegex = eChange.getAttribute(ATTR_CHANGE_LINE_REGEX);
+		String changeLine = getAttributeOrNull(eChange, ATTR_CHANGE_LINE);
+		String changeLineRegex = getAttributeOrNull(eChange,
+				ATTR_CHANGE_LINE_REGEX);
 		String valDeriveReverse = eChange.getAttribute(ATTR_DERIVE_REVERSE);
 
 		Location location = parseLocation(valLocation);
@@ -151,6 +152,14 @@ public class XmlChangeReader
 			changes.add(
 					new Change(line, towards, at, reverse(location), matcher));
 		}
+	}
+
+	private String getAttributeOrNull(IElement element, String attribute)
+	{
+		if (!element.hasAttribute(attribute)) {
+			return null;
+		}
+		return element.getAttribute(attribute);
 	}
 
 	private Location parseLocation(String value)

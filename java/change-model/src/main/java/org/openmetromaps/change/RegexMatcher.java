@@ -17,48 +17,19 @@
 
 package org.openmetromaps.change;
 
-public class Change
+public class RegexMatcher implements Matcher
 {
 
-	private String line;
-	private String towards;
-	private String at;
-	private Location location;
-	private Matcher matcher;
+	private String pattern;
 
-	public Change(String line, String towards, String at, Location location,
-			Matcher matcher)
+	public RegexMatcher(String pattern)
 	{
-		this.line = line;
-		this.towards = towards;
-		this.at = at;
-		this.location = location;
-		this.matcher = matcher;
+		this.pattern = pattern;
 	}
 
-	public String getLine()
+	public String getPattern()
 	{
-		return line;
-	}
-
-	public String getTowards()
-	{
-		return towards;
-	}
-
-	public String getAt()
-	{
-		return at;
-	}
-
-	public Location getLocation()
-	{
-		return location;
-	}
-
-	public Matcher getMatcher()
-	{
-		return matcher;
+		return pattern;
 	}
 
 }

@@ -24,6 +24,10 @@ import java.util.List;
 import org.openmetromaps.change.Change;
 import org.openmetromaps.change.ChangeModel;
 import org.openmetromaps.change.Exit;
+import org.openmetromaps.change.Location;
+import org.openmetromaps.change.Matcher;
+import org.openmetromaps.change.RegexMatcher;
+import org.openmetromaps.change.SimpleMatcher;
 
 import de.topobyte.xml.domabstraction.iface.IDocument;
 import de.topobyte.xml.domabstraction.iface.IDocumentFactory;
@@ -69,6 +73,14 @@ public class XmlChangeReader
 		return new ChangeModel(changes, exits);
 	}
 
+	private static final String ATTR_LINE = "line";
+	private static final String ATTR_TOWARDS = "towards";
+	private static final String ATTR_AT = "at";
+	private static final String ATTR_LOCATION = "location";
+	private static final String ATTR_CHANGE_LINE = "change-line";
+	private static final String ATTR_CHANGE_LINE_REGEX = "change-line-regex";
+	private static final String ATTR_DERIVE_REVERSE = "derive-reverse";
+
 	private void parse(IDocument doc)
 	{
 		INodeList allChanges = doc.getElementsByTagName("changes");
@@ -78,12 +90,7 @@ public class XmlChangeReader
 
 		for (int i = 0; i < changeList.getLength(); i++) {
 			IElement eChange = changeList.element(i);
-
-			String line = eChange.getAttribute("line");
-			String towards = eChange.getAttribute("towards");
-			String at = eChange.getAttribute("at");
-
-			changes.add(new Change(line, towards, at));
+			readChange(null, null, eChange);
 		}
 
 		for (int i = 0; i < batchList.getLength(); i++) {
@@ -94,18 +101,95 @@ public class XmlChangeReader
 
 	private void readBatch(IElement eBatch)
 	{
-		String line = eBatch.getAttribute("line");
-		String towards = eBatch.getAttribute("towards");
+		String line = eBatch.getAttribute(ATTR_LINE);
+		String towards = eBatch.getAttribute(ATTR_TOWARDS);
 
 		INodeList changeList = eBatch.getChildElementsByTagName("change");
 
 		for (int i = 0; i < changeList.getLength(); i++) {
 			IElement eChange = changeList.element(i);
-
-			String at = eChange.getAttribute("at");
-
-			changes.add(new Change(line, towards, at));
+			readChange(line, towards, eChange);
 		}
+	}
+
+	private void readChange(String line, String towards, IElement eChange)
+	{
+		if (line == null) {
+			line = eChange.getAttribute(ATTR_LINE);
+		}
+		if (towards == null) {
+			towards = eChange.getAttribute(ATTR_TOWARDS);
+		}
+
+		String at = eChange.getAttribute(ATTR_AT);
+		String valLocation = eChange.getAttribute(ATTR_LOCATION);
+		String changeLine = eChange.getAttribute(ATTR_CHANGE_LINE);
+		String changeLineRegex = eChange.getAttribute(ATTR_CHANGE_LINE_REGEX);
+		String valDeriveReverse = eChange.getAttribute(ATTR_DERIVE_REVERSE);
+
+		Location location = parseLocation(valLocation);
+
+		Matcher matcher = null;
+		if (changeLine != null) {
+			matcher = new SimpleMatcher(changeLine);
+		} else if (changeLineRegex != null) {
+			matcher = new RegexMatcher(changeLineRegex);
+		}
+
+		boolean deriveReverse = valDeriveReverse.equals("true");
+
+		changes.add(new Change(line, towards, at, location, matcher));
+		if (deriveReverse) {
+			// TODO: we need the map model to determine the reverse direction
+			// (towards)
+			changes.add(
+					new Change(line, towards, at, reverse(location), matcher));
+		}
+	}
+
+	private Location parseLocation(String value)
+	{
+		switch (value) {
+		case "front":
+			return Location.FRONT;
+		case "almost front":
+			return Location.ALMOST_FRONT;
+		case "middle/middel front":
+			return Location.MIDDLE_MIDDLE_FRONT;
+		case "middle":
+			return Location.MIDDLE;
+		case "middle/middel back":
+			return Location.MIDDLE_MIDDLE_BACK;
+		case "almost back":
+			return Location.ALMOST_BACK;
+		case "back":
+			return Location.BACK;
+		}
+		return null;
+	}
+
+	private Location reverse(Location location)
+	{
+		if (location == null) {
+			return null;
+		}
+		switch (location) {
+		case FRONT:
+			return Location.BACK;
+		case ALMOST_FRONT:
+			return Location.ALMOST_BACK;
+		case MIDDLE_MIDDLE_FRONT:
+			return Location.MIDDLE_MIDDLE_BACK;
+		case MIDDLE:
+			return Location.MIDDLE;
+		case MIDDLE_MIDDLE_BACK:
+			return Location.MIDDLE_MIDDLE_FRONT;
+		case ALMOST_BACK:
+			return Location.ALMOST_FRONT;
+		case BACK:
+			return Location.FRONT;
+		}
+		return null;
 	}
 
 }

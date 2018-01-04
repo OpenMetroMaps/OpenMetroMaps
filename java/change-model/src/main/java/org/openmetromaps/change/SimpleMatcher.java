@@ -17,48 +17,19 @@
 
 package org.openmetromaps.change;
 
-public class Change
+public class SimpleMatcher implements Matcher
 {
 
-	private String line;
-	private String towards;
-	private String at;
-	private Location location;
-	private Matcher matcher;
+	private String name;
 
-	public Change(String line, String towards, String at, Location location,
-			Matcher matcher)
+	public SimpleMatcher(String name)
 	{
-		this.line = line;
-		this.towards = towards;
-		this.at = at;
-		this.location = location;
-		this.matcher = matcher;
+		this.name = name;
 	}
 
-	public String getLine()
+	public String getName()
 	{
-		return line;
-	}
-
-	public String getTowards()
-	{
-		return towards;
-	}
-
-	public String getAt()
-	{
-		return at;
-	}
-
-	public Location getLocation()
-	{
-		return location;
-	}
-
-	public Matcher getMatcher()
-	{
-		return matcher;
+		return name;
 	}
 
 }

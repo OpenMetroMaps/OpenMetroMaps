@@ -17,48 +17,7 @@
 
 package org.openmetromaps.change;
 
-public class Change
+public interface Matcher
 {
-
-	private String line;
-	private String towards;
-	private String at;
-	private Location location;
-	private Matcher matcher;
-
-	public Change(String line, String towards, String at, Location location,
-			Matcher matcher)
-	{
-		this.line = line;
-		this.towards = towards;
-		this.at = at;
-		this.location = location;
-		this.matcher = matcher;
-	}
-
-	public String getLine()
-	{
-		return line;
-	}
-
-	public String getTowards()
-	{
-		return towards;
-	}
-
-	public String getAt()
-	{
-		return at;
-	}
-
-	public Location getLocation()
-	{
-		return location;
-	}
-
-	public Matcher getMatcher()
-	{
-		return matcher;
-	}
 
 }

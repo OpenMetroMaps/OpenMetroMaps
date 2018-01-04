@@ -1,4 +1,4 @@
 dependencies {
-    compile project(':openmetromaps-change-model-xml')
+    compile project(':openmetromaps-raw-change-model-xml')
     compile project(':openmetromaps-xml-dom-abstraction-desktop')
 }

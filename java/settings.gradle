@@ -9,18 +9,18 @@ project(':maps-model-xml-converter').name = 'openmetromaps-maps-model-xml-conver
 project(':maps-model-xml-desktop').name = 'openmetromaps-maps-model-xml-desktop'
 
 // change model
-include 'change-model', 'change-model-xml', 'change-model-xml-desktop'
-project(':change-model').name = 'openmetromaps-change-model'
-project(':change-model-xml').name = 'openmetromaps-change-model-xml'
-project(':change-model-xml-desktop').name = 'openmetromaps-change-model-xml-desktop'
+include 'raw-change-model', 'raw-change-model-xml', 'raw-change-model-xml-desktop'
+project(':raw-change-model').name = 'openmetromaps-raw-change-model'
+project(':raw-change-model-xml').name = 'openmetromaps-raw-change-model-xml'
+project(':raw-change-model-xml-desktop').name = 'openmetromaps-raw-change-model-xml-desktop'
 
 // testing
 include 'test-data'
 include 'test-maps-model-xml-desktop'
-include 'test-change-model-xml-desktop'
+include 'test-raw-change-model-xml-desktop'
 project(':test-data').name = 'openmetromaps-test-data'
 project(':test-maps-model-xml-desktop').name = 'openmetromaps-test-maps-model-xml-desktop'
-project(':test-change-model-xml-desktop').name = 'openmetromaps-test-change-model-xml-desktop'
+project(':test-raw-change-model-xml-desktop').name = 'openmetromaps-test-raw-change-model-xml-desktop'
 
 // Command Line Interface
 include 'cli'

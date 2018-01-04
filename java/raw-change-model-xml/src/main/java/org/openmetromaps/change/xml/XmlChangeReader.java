@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openmetromaps.change.Change;
-import org.openmetromaps.change.ChangeModel;
 import org.openmetromaps.change.Exit;
 import org.openmetromaps.change.Location;
 import org.openmetromaps.change.Matcher;
+import org.openmetromaps.change.RawChangeModel;
 import org.openmetromaps.change.RegexMatcher;
 import org.openmetromaps.change.SimpleMatcher;
 
@@ -38,14 +38,15 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class XmlChangeReader
 {
 
-	public static ChangeModel read(IDocumentFactory factory, InputStream is)
+	public static RawChangeModel read(IDocumentFactory factory, InputStream is)
 			throws ParsingException
 	{
 		XmlChangeReader reader = new XmlChangeReader();
 		return reader.readModel(factory, is);
 	}
 
-	public static ChangeModel read(IDocument document) throws ParsingException
+	public static RawChangeModel read(IDocument document)
+			throws ParsingException
 	{
 		XmlChangeReader reader = new XmlChangeReader();
 		return reader.readModel(document);
@@ -59,18 +60,18 @@ public class XmlChangeReader
 		// private constructor
 	}
 
-	private ChangeModel readModel(IDocumentFactory factory, InputStream is)
+	private RawChangeModel readModel(IDocumentFactory factory, InputStream is)
 			throws ParsingException
 	{
 		IDocument doc = factory.parse(is);
 		return readModel(doc);
 	}
 
-	private ChangeModel readModel(IDocument doc) throws ParsingException
+	private RawChangeModel readModel(IDocument doc) throws ParsingException
 	{
 		parse(doc);
 
-		return new ChangeModel(changes, exits);
+		return new RawChangeModel(changes, exits);
 	}
 
 	private static final String ELEM_CHANGES = "changes";

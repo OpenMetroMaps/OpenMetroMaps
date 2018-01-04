@@ -23,8 +23,8 @@ import java.io.InputStream;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.change.Change;
-import org.openmetromaps.change.ChangeModel;
 import org.openmetromaps.change.Matcher;
+import org.openmetromaps.change.RawChangeModel;
 import org.openmetromaps.change.RegexMatcher;
 import org.openmetromaps.change.SimpleMatcher;
 
@@ -38,7 +38,7 @@ public class TestReadXmlChange
 	{
 		InputStream input = TestReadXmlChange.class.getClassLoader()
 				.getResourceAsStream("berlin-changes.xml");
-		ChangeModel model = DesktopXmlChangeReader.read(input);
+		RawChangeModel model = DesktopXmlChangeReader.read(input);
 		for (Change change : model.getChanges()) {
 			Matcher matcher = change.getMatcher();
 			String changeLine = null;

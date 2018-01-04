@@ -19,13 +19,13 @@ package org.openmetromaps.change;
 
 import java.util.List;
 
-public class ChangeModel
+public class RawChangeModel
 {
 
 	private List<Change> changes;
 	private List<Exit> exits;
 
-	public ChangeModel(List<Change> changes, List<Exit> exits)
+	public RawChangeModel(List<Change> changes, List<Exit> exits)
 	{
 		this.changes = changes;
 		this.exits = exits;

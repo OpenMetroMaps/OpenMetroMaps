@@ -19,7 +19,7 @@ package org.openmetromaps.change.xml;
 
 import java.io.InputStream;
 
-import org.openmetromaps.change.ChangeModel;
+import org.openmetromaps.change.RawChangeModel;
 
 import de.topobyte.xml.domabstraction.dektopimpl.DesktopDocumentFactory;
 import de.topobyte.xml.domabstraction.iface.ParsingException;
@@ -27,7 +27,7 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class DesktopXmlChangeReader
 {
 
-	public static ChangeModel read(InputStream is) throws ParsingException
+	public static RawChangeModel read(InputStream is) throws ParsingException
 	{
 		return XmlChangeReader.read(new DesktopDocumentFactory(), is);
 	}

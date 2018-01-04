@@ -160,11 +160,11 @@ public class XmlChangeReader
 			return Location.FRONT;
 		case "almost front":
 			return Location.ALMOST_FRONT;
-		case "middle/middel front":
+		case "middle/middle front":
 			return Location.MIDDLE_MIDDLE_FRONT;
 		case "middle":
 			return Location.MIDDLE;
-		case "middle/middel back":
+		case "middle/middle back":
 			return Location.MIDDLE_MIDDLE_BACK;
 		case "almost back":
 			return Location.ALMOST_BACK;

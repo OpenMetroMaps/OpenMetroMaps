@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.change;
+package org.openmetromaps.rawchange;
 
 public class Change
 {
@@ -25,7 +25,7 @@ public class Change
 	private String at;
 	private Location location;
 	private String changeLine;
-	private String changeRegex;
+	private String changeLineRegex;
 	private boolean deriveReverse;
 
 	public Change(String line, String towards, String at, Location location,
@@ -36,7 +36,7 @@ public class Change
 		this.at = at;
 		this.location = location;
 		this.changeLine = changeLine;
-		this.changeRegex = changeLineRegex;
+		this.changeLineRegex = changeLineRegex;
 		this.deriveReverse = deriveReverse;
 	}
 
@@ -65,9 +65,9 @@ public class Change
 		return changeLine;
 	}
 
-	public String getChangeRegex()
+	public String getChangeLineRegex()
 	{
-		return changeRegex;
+		return changeLineRegex;
 	}
 
 	public boolean isDeriveReverse()

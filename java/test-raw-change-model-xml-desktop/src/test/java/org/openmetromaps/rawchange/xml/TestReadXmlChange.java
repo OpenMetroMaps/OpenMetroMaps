@@ -15,15 +15,15 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.change.xml;
+package org.openmetromaps.rawchange.xml;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openmetromaps.change.Change;
-import org.openmetromaps.change.RawChangeModel;
+import org.openmetromaps.rawchange.Change;
+import org.openmetromaps.rawchange.RawChangeModel;
 
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
@@ -39,7 +39,7 @@ public class TestReadXmlChange
 		for (Change change : model.getChanges()) {
 			String changeLine = change.getChangeLine();
 			if (changeLine == null) {
-				changeLine = change.getChangeRegex();
+				changeLine = change.getChangeLineRegex();
 			}
 			System.out
 					.println(String.format("line %s towards %s at %s to %s: %s",

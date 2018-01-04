@@ -15,30 +15,21 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.change;
+package org.openmetromaps.rawchange.xml;
 
-import java.util.List;
+import java.io.InputStream;
 
-public class RawChangeModel
+import org.openmetromaps.rawchange.RawChangeModel;
+
+import de.topobyte.xml.domabstraction.dektopimpl.DesktopDocumentFactory;
+import de.topobyte.xml.domabstraction.iface.ParsingException;
+
+public class DesktopXmlChangeReader
 {
 
-	private List<Change> changes;
-	private List<Exit> exits;
-
-	public RawChangeModel(List<Change> changes, List<Exit> exits)
+	public static RawChangeModel read(InputStream is) throws ParsingException
 	{
-		this.changes = changes;
-		this.exits = exits;
-	}
-
-	public List<Change> getChanges()
-	{
-		return changes;
-	}
-
-	public List<Exit> getExits()
-	{
-		return exits;
+		return XmlChangeReader.read(new DesktopDocumentFactory(), is);
 	}
 
 }

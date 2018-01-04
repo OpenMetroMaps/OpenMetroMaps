@@ -15,16 +15,16 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.change.xml;
+package org.openmetromaps.rawchange.xml;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openmetromaps.change.Change;
-import org.openmetromaps.change.Exit;
-import org.openmetromaps.change.Location;
-import org.openmetromaps.change.RawChangeModel;
+import org.openmetromaps.rawchange.Change;
+import org.openmetromaps.rawchange.Exit;
+import org.openmetromaps.rawchange.Location;
+import org.openmetromaps.rawchange.RawChangeModel;
 
 import de.topobyte.xml.domabstraction.iface.IDocument;
 import de.topobyte.xml.domabstraction.iface.IDocumentFactory;

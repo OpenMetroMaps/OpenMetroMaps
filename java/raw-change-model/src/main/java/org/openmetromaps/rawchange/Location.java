@@ -15,9 +15,16 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.change;
+package org.openmetromaps.rawchange;
 
-public class Exit
-{
+public enum Location {
+
+	FRONT,
+	ALMOST_FRONT,
+	MIDDLE_MIDDLE_FRONT,
+	MIDDLE,
+	MIDDLE_MIDDLE_BACK,
+	ALMOST_BACK,
+	BACK
 
 }

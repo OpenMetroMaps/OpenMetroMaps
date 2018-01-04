@@ -73,6 +73,10 @@ public class XmlChangeReader
 		return new ChangeModel(changes, exits);
 	}
 
+	private static final String ELEM_CHANGES = "changes";
+	private static final String ELEM_CHANGE = "change";
+	private static final String ELEM_BATCH = "batch";
+
 	private static final String ATTR_LINE = "line";
 	private static final String ATTR_TOWARDS = "towards";
 	private static final String ATTR_AT = "at";
@@ -83,10 +87,12 @@ public class XmlChangeReader
 
 	private void parse(IDocument doc)
 	{
-		INodeList allChanges = doc.getElementsByTagName("changes");
+		INodeList allChanges = doc.getElementsByTagName(ELEM_CHANGES);
 		IElement firstChanges = allChanges.element(0);
-		INodeList changeList = firstChanges.getChildElementsByTagName("change");
-		INodeList batchList = firstChanges.getChildElementsByTagName("batch");
+		INodeList changeList = firstChanges
+				.getChildElementsByTagName(ELEM_CHANGE);
+		INodeList batchList = firstChanges
+				.getChildElementsByTagName(ELEM_BATCH);
 
 		for (int i = 0; i < changeList.getLength(); i++) {
 			IElement eChange = changeList.element(i);
@@ -104,7 +110,7 @@ public class XmlChangeReader
 		String line = eBatch.getAttribute(ATTR_LINE);
 		String towards = eBatch.getAttribute(ATTR_TOWARDS);
 
-		INodeList changeList = eBatch.getChildElementsByTagName("change");
+		INodeList changeList = eBatch.getChildElementsByTagName(ELEM_CHANGE);
 
 		for (int i = 0; i < changeList.getLength(); i++) {
 			IElement eChange = changeList.element(i);

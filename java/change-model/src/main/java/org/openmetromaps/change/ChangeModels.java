@@ -20,19 +20,31 @@ package org.openmetromaps.change;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.maps.model.Stop;
 import org.openmetromaps.rawchange.RawChangeModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import de.topobyte.collections.util.ListUtil;
 
 public class ChangeModels
 {
 
-	public static ChangeModel derive(RawChangeModel rawModel)
+	final static Logger logger = LoggerFactory.getLogger(ChangeModels.class);
+
+	public static ChangeModel derive(ModelData modelData,
+			RawChangeModel rawModel)
 	{
 		List<Change> changes = new ArrayList<>();
 		List<Exit> exits = new ArrayList<>();
 
+		List<Line> lines = modelData.lines;
+
 		for (org.openmetromaps.rawchange.Change change : rawModel
 				.getChanges()) {
-			convert(changes, change);
+			convert(changes, change, lines);
 		}
 
 		for (org.openmetromaps.rawchange.Exit exit : rawModel.getExits()) {
@@ -43,7 +55,7 @@ public class ChangeModels
 	}
 
 	private static void convert(List<Change> changes,
-			org.openmetromaps.rawchange.Change raw)
+			org.openmetromaps.rawchange.Change raw, List<Line> lines)
 	{
 		Matcher matcher = null;
 		if (raw.getChangeLine() != null) {
@@ -56,11 +68,43 @@ public class ChangeModels
 				location, matcher);
 		changes.add(change);
 		if (raw.isDeriveReverse()) {
-			// TODO: determine reverse towards value from model
-			Change reverse = new Change(raw.getLine(), raw.getTowards(),
+			String reverseTowards = reverse(lines, raw.getLine(),
+					raw.getTowards());
+			logger.debug(String.format(
+					"Determine reverse for line '%s' towards '%s': '%s'",
+					raw.getLine(), raw.getTowards(), reverseTowards));
+			Change reverse = new Change(raw.getLine(), reverseTowards,
 					raw.getAt(), reverse(location), matcher);
 			changes.add(reverse);
 		}
+	}
+
+	private static String reverse(List<Line> lines, String lineName,
+			String towards)
+	{
+		Line line = findLine(lines, lineName);
+		if (line == null) {
+			return null;
+		}
+		Stop first = line.getStops().get(0);
+		Stop last = ListUtil.last(line.getStops());
+		if (first.getStation().getName().equals(towards)) {
+			return last.getStation().getName();
+		} else if (last.getStation().getName().equals(towards)) {
+			return first.getStation().getName();
+		}
+		return null;
+	}
+
+	private static Line findLine(List<Line> lines, String lineName)
+	{
+		// TODO: this is inefficient, replace with map from line names to lines
+		for (Line line : lines) {
+			if (line.getName().equals(lineName)) {
+				return line;
+			}
+		}
+		return null;
 	}
 
 	private static void convert(List<Exit> exits,

@@ -1,4 +1,5 @@
 dependencies {
+    testCompile project(':openmetromaps-maps-model-xml-converter')
     testCompile project(':openmetromaps-raw-change-model-xml-desktop')
     testCompile project(':openmetromaps-change-model')
     testCompile project(':openmetromaps-test-data')

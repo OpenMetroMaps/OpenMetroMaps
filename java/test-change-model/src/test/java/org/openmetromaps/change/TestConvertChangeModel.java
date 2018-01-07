@@ -22,6 +22,10 @@ import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.TestData;
+import org.openmetromaps.maps.xml.XmlModel;
+import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.rawchange.RawChangeModel;
 import org.openmetromaps.rawchange.xml.DesktopXmlChangeReader;
 
@@ -33,10 +37,14 @@ public class TestConvertChangeModel
 	public static void main(String[] args)
 			throws ParserConfigurationException, IOException, ParsingException
 	{
+		XmlModel xmlModel = TestData.berlinXml();
+		XmlModelConverter modelConverter = new XmlModelConverter();
+		MapModel mapModel = modelConverter.convert(xmlModel);
+
 		InputStream input = TestConvertChangeModel.class.getClassLoader()
 				.getResourceAsStream("berlin-changes.xml");
 		RawChangeModel rawModel = DesktopXmlChangeReader.read(input);
-		ChangeModel model = ChangeModels.derive(rawModel);
+		ChangeModel model = ChangeModels.derive(mapModel.getData(), rawModel);
 
 		for (Change change : model.getChanges()) {
 			String changeLine = null;

@@ -31,7 +31,7 @@ import org.openmetromaps.rawchange.xml.DesktopXmlChangeReader;
 
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
-public class TestConvertChangeModel
+public class TestDeriveChangeModel
 {
 
 	public static void main(String[] args)
@@ -41,7 +41,7 @@ public class TestConvertChangeModel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel mapModel = modelConverter.convert(xmlModel);
 
-		InputStream input = TestConvertChangeModel.class.getClassLoader()
+		InputStream input = TestDeriveChangeModel.class.getClassLoader()
 				.getResourceAsStream("berlin-changes.xml");
 		RawChangeModel rawModel = DesktopXmlChangeReader.read(input);
 		ChangeModel model = ChangeModels.derive(mapModel.getData(), rawModel);

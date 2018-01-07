@@ -82,7 +82,7 @@ public class ChangeModels
 	private static String reverse(List<Line> lines, String lineName,
 			String towards)
 	{
-		Line line = findLine(lines, lineName);
+		Line line = ChangeUtil.findLine(lines, lineName);
 		if (line == null) {
 			return null;
 		}
@@ -92,17 +92,6 @@ public class ChangeModels
 			return last.getStation().getName();
 		} else if (last.getStation().getName().equals(towards)) {
 			return first.getStation().getName();
-		}
-		return null;
-	}
-
-	private static Line findLine(List<Line> lines, String lineName)
-	{
-		// TODO: this is inefficient, replace with map from line names to lines
-		for (Line line : lines) {
-			if (line.getName().equals(lineName)) {
-				return line;
-			}
 		}
 		return null;
 	}

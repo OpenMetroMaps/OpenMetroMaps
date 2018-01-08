@@ -39,7 +39,7 @@ import com.google.common.base.Joiner;
 import de.topobyte.collections.util.ListUtil;
 
 /**
- * This class converts our change model to the CSV format specifed and used in
+ * This class converts our change model to the CSV format specified and used in
  * this repository: <a href=
  * "https://github.com/juliuste/vbb-change-positions">juliuste/vbb-change-positions</a>.
  */

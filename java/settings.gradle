@@ -49,8 +49,9 @@ project(':misc').name = 'openmetromaps-misc'
 project(':misc-util').name = 'openmetromaps-misc-util'
 
 // GTFS
-include 'gtfs-import'
+include 'gtfs-import', 'gtfs-model-converter'
 project(':gtfs-import').name = 'openmetromaps-gtfs-import'
+project(':gtfs-model-converter').name = 'openmetromaps-gtfs-model-converter'
 
 // OSM
 include 'osm', 'osm-model', 'osm-model-inspector', 'osm-model-converter'

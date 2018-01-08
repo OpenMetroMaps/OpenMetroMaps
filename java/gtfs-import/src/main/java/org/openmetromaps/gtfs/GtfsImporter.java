@@ -302,7 +302,9 @@ public class GtfsImporter
 					Stop stop = stopIdToStop.get(id);
 					String name = stop.getName();
 					String fixed = nameChanger.applyNameFixes(name);
-					station = new DraftStation(fixed, id);
+					double lat = Double.parseDouble(stop.getLat());
+					double lon = Double.parseDouble(stop.getLon());
+					station = new DraftStation(fixed, id, lon, lat);
 					idToStation.put(id, station);
 				}
 				stations.add(station);

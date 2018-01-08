@@ -22,11 +22,15 @@ public class DraftStation
 
 	private String name;
 	private String source;
+	private double lon;
+	private double lat;
 
-	public DraftStation(String name, String source)
+	public DraftStation(String name, String source, double lon, double lat)
 	{
 		this.name = name;
 		this.source = source;
+		this.lon = lon;
+		this.lat = lat;
 	}
 
 	public String getName()
@@ -37,6 +41,16 @@ public class DraftStation
 	public String getSource()
 	{
 		return source;
+	}
+
+	public double getLon()
+	{
+		return lon;
+	}
+
+	public double getLat()
+	{
+		return lat;
 	}
 
 }

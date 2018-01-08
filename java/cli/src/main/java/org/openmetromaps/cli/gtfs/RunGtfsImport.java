@@ -17,6 +17,8 @@
 
 package org.openmetromaps.cli.gtfs;
 
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -24,8 +26,12 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.openmetromaps.gtfs.DraftModel;
 import org.openmetromaps.gtfs.GtfsImporter;
+import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.maps.xml.XmlModelWriter;
 import org.openmetromaps.misc.NameChanger;
+import org.openmetromaps.model.gtfs.DraftModelConverter;
 
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
@@ -80,7 +86,13 @@ public class RunGtfsImport
 		GtfsImporter importer = new GtfsImporter(pathInput, nameChanger);
 		importer.execute();
 
-		// TODO: write to output
+		OutputStream os = Files.newOutputStream(pathOutput);
+
+		DraftModel draft = importer.getModel();
+		ModelData data = new DraftModelConverter().convert(draft);
+
+		new XmlModelWriter().write(os, data, new ArrayList<>());
+		os.close();
 	}
 
 }

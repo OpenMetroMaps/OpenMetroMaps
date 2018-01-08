@@ -44,6 +44,27 @@ Example:
         change-line="U7" location="front"/>
 ```
 
+When a position is valid for a number of change lines and you don't want
+to specify each one separately, repeating the location and other attributes,
+you can use the `change-line-regex` attribute instead of `change-line`.
+This allows you for example to match all trains 'S41', 'S42', 'S45',
+'S46' and 'S47' with the expression `change-line-regex="S.*"`:
+
+```xml
+<change line="U3" towards="Nollendorfplatz" at="Heidelberger Platz"
+        change-line-regex="S.*" location="back"/>
+```
+
+Sometimes, it is necessary to specify the direction of the destination
+line. This can be done with the `change-towards` attribute:
+
+```xml
+<change at="Bundesplatz" change-line="U9" change-towards="Rathaus Steglitz"
+        location="front" derive-reverse-from="true"/>
+<change at="Bundesplatz" change-line="U9" change-towards="Osloer Straße"
+        location="middle" derive-reverse-from="true"/>
+```
+
 ## Exits
 
 Similar to the `change` element, an `exit` element defines an exit from

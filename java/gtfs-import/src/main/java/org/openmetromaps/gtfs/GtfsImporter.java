@@ -290,8 +290,6 @@ public class GtfsImporter
 		Set<String> allStopIds = new HashSet<>();
 		for (String routeName : routeNames) {
 			StopIdList stopIds = selectedStopLists.get(routeName);
-			System.out.println(
-					String.format("%s: %d", routeName, stopIds.size()));
 			allStopIds.addAll(stopIds);
 
 			List<DraftStation> stations = new ArrayList<>();
@@ -309,6 +307,15 @@ public class GtfsImporter
 				}
 				stations.add(station);
 			}
+
+			Collection<Route> routes = nameToRoute.get(routeName);
+			Route route = routes.iterator().next();
+			String color = route.getColor();
+			System.out.println(String.format(
+					"route '%s', number of stops: %d, color: '%s'", routeName,
+					stopIds.size(), color));
+
+			// TODO: use color value
 
 			lines.add(new DraftLine(routeName, stations));
 		}

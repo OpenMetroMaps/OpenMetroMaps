@@ -42,6 +42,20 @@ we experimented with both GWT and JSweet based approaches. Currently the
 The [JSweet](jsweet) solution doesn't work quite yet, but the technology
 certainly has potential.
 
+## Efficient changing and other station data
+
+In addition to the main map file format, we're also working on an additional
+file format and corresponding tools to collect data about stations and their
+tracks. In particular, files in this format store locations of things on a station's
+track as a relative position on the train (front to back / tail).
+This information can be used to compute efficient micro-routing within line
+networks, i.e. optimize on which car to board a train to reach something most
+quickly on the destination station such as a specific exit or a stairway to your
+connecting train.
+See an [example file](example-data/example-changes.xml)
+or the [Berlin testing file](java/test-data/src/main/resources/berlin-changes.xml)
+to get an idea of how this file works.
+
 ## Research
 
 We're also gathering material about transit maps in general on the

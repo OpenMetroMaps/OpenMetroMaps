@@ -17,8 +17,6 @@
 
 package org.openmetromaps.change;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -26,58 +24,47 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapModelUtil;
-import org.openmetromaps.maps.TestData;
 import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelConverter;
-import org.openmetromaps.rawchange.RawChangeModel;
-import org.openmetromaps.rawchange.xml.DesktopXmlChangeReader;
 
 import com.google.common.base.Joiner;
 
 import de.topobyte.collections.util.ListUtil;
-import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 /**
- * This test converts our change model to the CSV format specifed and used in
+ * This class converts our change model to the CSV format specifed and used in
  * this repository: <a href=
  * "https://github.com/juliuste/vbb-change-positions">juliuste/vbb-change-positions</a>.
  */
-public class TestConvertChangeModelBerlin
+public class ChangeModelToCsvExporter
 {
 
-	public static void main(String[] args)
-			throws ParserConfigurationException, IOException, ParsingException
+	private MapModel mapModel;
+	private LineNetwork lineNetwork;
+	private ChangeModel model;
+
+	public ChangeModelToCsvExporter(MapModel mapModel, LineNetwork lineNetwork,
+			ChangeModel model)
 	{
-		XmlModel xmlModel = TestData.berlinXml();
-		XmlModelConverter modelConverter = new XmlModelConverter();
-		MapModel mapModel = modelConverter.convert(xmlModel);
+		this.mapModel = mapModel;
+		this.lineNetwork = lineNetwork;
+		this.model = model;
+	}
 
-		LineNetworkBuilder builder = new LineNetworkBuilder(mapModel.getData(),
-				MapModelUtil.allEdges(mapModel));
-		LineNetwork lineNetwork = builder.getGraph();
-
-		InputStream input = TestConvertChangeModelBerlin.class.getClassLoader()
-				.getResourceAsStream("berlin-changes.xml");
-		RawChangeModel rawModel = DesktopXmlChangeReader.read(input);
-		ChangeModel model = ChangeModels.derive(mapModel.getData(), rawModel);
-
+	public void print()
+	{
 		for (Change change : model.getChanges()) {
 			print(change, mapModel, lineNetwork);
 		}
 	}
 
-	private static void print(Change change, MapModel mapModel,
+	private void print(Change change, MapModel mapModel,
 			LineNetwork lineNetwork)
 	{
 		List<Line> lines = mapModel.getData().lines;
@@ -108,7 +95,7 @@ public class TestConvertChangeModelBerlin
 		}
 	}
 
-	private static void print(Line lineFrom, Line lineTo, Change change,
+	private void print(Line lineFrom, Line lineTo, Change change,
 			boolean toReverse)
 	{
 		// Example output:
@@ -194,7 +181,7 @@ public class TestConvertChangeModelBerlin
 		System.out.println(line);
 	}
 
-	private static double position(Location location)
+	private double position(Location location)
 	{
 		switch (location) {
 		case FRONT:

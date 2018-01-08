@@ -1,0 +1,61 @@
+// Copyright 2018 Sebastian Kuerten
+//
+// This file is part of OpenMetroMaps.
+//
+// OpenMetroMaps is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// OpenMetroMaps is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
+
+package org.openmetromaps.change;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.MapModelUtil;
+import org.openmetromaps.maps.TestData;
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkBuilder;
+import org.openmetromaps.maps.xml.XmlModel;
+import org.openmetromaps.maps.xml.XmlModelConverter;
+import org.openmetromaps.rawchange.RawChangeModel;
+import org.openmetromaps.rawchange.xml.DesktopXmlChangeReader;
+
+import de.topobyte.xml.domabstraction.iface.ParsingException;
+
+public class TestConvertChangeModelBerlin
+{
+
+	public static void main(String[] args)
+			throws ParserConfigurationException, IOException, ParsingException
+	{
+		XmlModel xmlModel = TestData.berlinXml();
+		XmlModelConverter modelConverter = new XmlModelConverter();
+		MapModel mapModel = modelConverter.convert(xmlModel);
+
+		LineNetworkBuilder builder = new LineNetworkBuilder(mapModel.getData(),
+				MapModelUtil.allEdges(mapModel));
+		LineNetwork lineNetwork = builder.getGraph();
+
+		InputStream input = TestConvertChangeModelBerlin.class.getClassLoader()
+				.getResourceAsStream("berlin-changes.xml");
+		RawChangeModel rawModel = DesktopXmlChangeReader.read(input);
+		ChangeModel model = ChangeModels.derive(mapModel.getData(), rawModel);
+
+		ChangeModelToCsvExporter exporter = new ChangeModelToCsvExporter(
+				mapModel, lineNetwork, model);
+		exporter.print();
+	}
+
+}

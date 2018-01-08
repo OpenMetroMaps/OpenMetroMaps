@@ -13,7 +13,8 @@ A major goal of this project is to develop a file format for storing schematic
 maps for public transport networks.
 There's no formal specification of the file format yet and features of the
 format are still under construction.
-See an [example file](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/java/test-data/src/main/resources/berlin.xml)
+See an [example file](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/example-data/example.xml)
+or the [Berlin testing file](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/java/test-data/src/main/resources/berlin.xml)
 to get an idea of how it's going to look.
 
 ## Desktop Tools

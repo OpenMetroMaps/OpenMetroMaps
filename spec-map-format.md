@@ -51,9 +51,10 @@ define the schematic trajectory of the line:
 
 ## Views
 
-A map file can specify a number of views, which defines the appearance of
-a map in terms of the positions of the stations on a scene with Euclidean
-coordinates and other properties that effect the visual appearance:
+A map file can specify a number of views. Each view defines the
+appearance of the map in terms of the positions of the stations on the
+scene with Euclidean coordinates and other properties that effect the visual
+appearance:
 
 ```xml
 <view name="Berlin" scene-height="904.137943" scene-width="1000.000000"

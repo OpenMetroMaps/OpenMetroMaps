@@ -54,8 +54,12 @@ public class DraftModelConverter
 		int id = 0;
 		for (DraftLine draftLine : draftLines) {
 			String name = draftLine.getSource();
-			// TODO: get color from draft
-			String color = "#ff0000";
+			String color = draftLine.getColor();
+			if (!color.isEmpty() && color.length() == 6) {
+				color = "#" + color;
+			} else {
+				color = "#FFFFFF";
+			}
 
 			Line line = new Line(id++, name, color, false, null);
 			linesList.add(line);

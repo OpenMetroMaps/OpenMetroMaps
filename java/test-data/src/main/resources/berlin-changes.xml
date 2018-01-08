@@ -61,7 +61,7 @@
     <change at="Hermannstraße" change-line="U8" location="middle" derive-reverse-from="true"/>
     <exit   at="Hermannstraße" name="west" location="front" description="Escalator" derive-reverse="true"/>
     <exit   at="Hermannstraße" name="east" location="back" description="Hermann-Quartier, Elevator" derive-reverse="true"/>
-    <change at="Tempelhof" change-line="U6" location="almost-back" derive-reverse-from="true"/>
+    <change at="Tempelhof" change-line="U6" location="almost back" derive-reverse-from="true"/>
     <exit   at="Südkreuz" name="Schöneberg" location="front" description="Reisezentrum, Edeka, Burger King, BSR" derive-reverse="true"/>
     <exit   at="Südkreuz" name="Tempelhof" location="back" description="dm, McDonald's, IKEA" derive-reverse="true"/>
     <change at="Innsbrucker Platz" change-line="U4" location="back" derive-reverse-from="true"/>

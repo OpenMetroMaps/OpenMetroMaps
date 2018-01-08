@@ -67,7 +67,7 @@ public class ChangeModels
 		Change change = new Change(raw.getLine(), raw.getTowards(), raw.getAt(),
 				location, matcher);
 		changes.add(change);
-		if (raw.isDeriveReverse()) {
+		if (raw.isDeriveReverseFrom()) {
 			String reverseTowards = reverse(lines, raw.getLine(),
 					raw.getTowards());
 			logger.debug(String.format(

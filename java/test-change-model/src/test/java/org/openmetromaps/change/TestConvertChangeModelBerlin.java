@@ -107,9 +107,8 @@ public class TestConvertChangeModelBerlin
 			// TODO: currently, we simply assume that the change entry applied
 			// for both directions of the target line. This is not necessarily
 			// true, e.g. when changing from S41 to U9 at Bundesplatz. Our model
-			// needs to support matching of target towards and an additionan
-			// 'derive-to-reverse'. 'derive-reverse' should then really be
-			// 'derive-from-reverse'.
+			// needs to support matching of target towards and an additional
+			// 'derive-to-reverse'.
 			if (!first.getStation().getName().equals(change.getAt())) {
 				print(lineFrom, lineTo, change, true);
 			}

@@ -81,7 +81,7 @@ public class XmlChangeReader
 	private static final String ATTR_LOCATION = "location";
 	private static final String ATTR_CHANGE_LINE = "change-line";
 	private static final String ATTR_CHANGE_LINE_REGEX = "change-line-regex";
-	private static final String ATTR_DERIVE_REVERSE = "derive-reverse";
+	private static final String ATTR_DERIVE_REVERSE_FROM = "derive-reverse-from";
 
 	private void parse(IDocument doc)
 	{
@@ -130,14 +130,15 @@ public class XmlChangeReader
 		String changeLine = getAttributeOrNull(eChange, ATTR_CHANGE_LINE);
 		String changeLineRegex = getAttributeOrNull(eChange,
 				ATTR_CHANGE_LINE_REGEX);
-		String valDeriveReverse = eChange.getAttribute(ATTR_DERIVE_REVERSE);
+		String valDeriveReverseFrom = eChange
+				.getAttribute(ATTR_DERIVE_REVERSE_FROM);
 
 		Location location = parseLocation(valLocation);
 
-		boolean deriveReverse = valDeriveReverse.equals("true");
+		boolean deriveReverseFrom = valDeriveReverseFrom.equals("true");
 
 		changes.add(new Change(line, towards, at, location, changeLine,
-				changeLineRegex, deriveReverse));
+				changeLineRegex, deriveReverseFrom));
 	}
 
 	private String getAttributeOrNull(IElement element, String attribute)

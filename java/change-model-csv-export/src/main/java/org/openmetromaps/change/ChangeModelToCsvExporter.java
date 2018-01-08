@@ -22,6 +22,7 @@ import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import org.openmetromaps.maps.MapModel;
@@ -48,13 +49,15 @@ public class ChangeModelToCsvExporter
 	private MapModel mapModel;
 	private LineNetwork lineNetwork;
 	private ChangeModel model;
+	private Map<String, String> nameToId;
 
 	public ChangeModelToCsvExporter(MapModel mapModel, LineNetwork lineNetwork,
-			ChangeModel model)
+			ChangeModel model, Map<String, String> nameToId)
 	{
 		this.mapModel = mapModel;
 		this.lineNetwork = lineNetwork;
 		this.model = model;
+		this.nameToId = nameToId;
 	}
 
 	public void print()
@@ -158,17 +161,19 @@ public class ChangeModelToCsvExporter
 
 		boolean isSamePlatform = false;
 
-		// TODO: retrieve <ID> values somehow
-		String station = "<ID>";
+		String stationNameFrom = fromBefore.getStation().getName();
+		String stationNameTo = toAfter.getStation().getName();
+
+		String station = getId(change.getAt());
 		String stationName = change.getAt();
 		String fromLine = lineFrom.getName();
-		String fromStation = "<ID>";
-		String fromStationName = fromBefore.getStation().getName();
+		String fromStation = getId(stationNameFrom);
+		String fromStationName = stationNameFrom;
 		String fromTrack = ""; // TODO: not supported by our format
 		String fromPosition = valueFromPosition;
 		String toLine = lineTo.getName();
-		String toStation = "<ID>";
-		String toStationName = toAfter.getStation().getName();
+		String toStation = getId(stationNameTo);
+		String toStationName = stationNameTo;
 		String toTrack = ""; // TODO: not supported by our format
 		String toPosition = ""; // TODO: not supported by our format
 		String samePlatform = Boolean.toString(isSamePlatform);
@@ -179,6 +184,12 @@ public class ChangeModelToCsvExporter
 
 		String line = Joiner.on(",").join(values);
 		System.out.println(line);
+	}
+
+	private String getId(String name)
+	{
+		String id = nameToId.get(name);
+		return id != null ? id : "<ID>";
 	}
 
 	private double position(Location location)

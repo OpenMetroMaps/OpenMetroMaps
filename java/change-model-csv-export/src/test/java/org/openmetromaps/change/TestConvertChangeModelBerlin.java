@@ -90,7 +90,7 @@ public class TestConvertChangeModelBerlin
 		gtfs.close();
 
 		ChangeModelToCsvExporter exporter = new ChangeModelToCsvExporter(
-				mapModel, lineNetwork, model);
+				mapModel, lineNetwork, model, nameToId);
 		exporter.print();
 	}
 

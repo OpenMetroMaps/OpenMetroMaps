@@ -315,9 +315,7 @@ public class GtfsImporter
 					"route '%s', number of stops: %d, color: '%s'", routeName,
 					stopIds.size(), color));
 
-			// TODO: use color value
-
-			lines.add(new DraftLine(routeName, stations));
+			lines.add(new DraftLine(routeName, stations, color));
 		}
 		System.out.println("Total number of stations: " + allStopIds.size());
 	}

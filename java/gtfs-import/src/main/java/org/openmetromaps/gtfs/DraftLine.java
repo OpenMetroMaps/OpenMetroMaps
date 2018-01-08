@@ -24,11 +24,13 @@ public class DraftLine
 
 	private String source;
 	private List<DraftStation> stations;
+	private String color;
 
-	public DraftLine(String source, List<DraftStation> stations)
+	public DraftLine(String source, List<DraftStation> stations, String color)
 	{
 		this.source = source;
 		this.stations = stations;
+		this.color = color;
 	}
 
 	public String getSource()
@@ -39,6 +41,11 @@ public class DraftLine
 	public List<DraftStation> getStations()
 	{
 		return stations;
+	}
+
+	public String getColor()
+	{
+		return color;
 	}
 
 }

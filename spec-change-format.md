@@ -53,6 +53,13 @@ on the platform.
 
 ## Batches
 
+The `batch` element can be used to specify multiple change and exit
+records without repeating information that all of them share.
+This is useful for specifying a number of records for the same line where
+`line` and `towards` attribute don't have to be repeated over and over,
+instead they can be specified once on the `batch` element and then apply
+to all `change` and `exit` child elements of the batch.
+
 ## Attribute values
 
 ### Location

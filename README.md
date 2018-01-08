@@ -13,8 +13,8 @@ A major goal of this project is to develop a file format for storing schematic
 maps for public transport networks.
 There's no formal specification of the file format yet and features of the
 format are still under construction.
-See an [example file](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/example-data/example.xml)
-or the [Berlin testing file](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/java/test-data/src/main/resources/berlin.xml)
+See an [example file](example-data/example.xml)
+or the [Berlin testing file](java/test-data/src/main/resources/berlin.xml)
 to get an idea of how it's going to look.
 
 ## Desktop Tools
@@ -28,7 +28,7 @@ OpenStreetMap data or from scratch and lets you manipulate existing maps.
 
 If you want to run the editor or start hacking on the desktop tools, please have
 a look at the relevant
-[README file](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/java/README.md).
+[README file](java/README.md).
 
 ## Web Viewer
 
@@ -38,15 +38,14 @@ any desktop software. Although it would also be nice to have a native Javascript
 implementation of a web viewer, we're eager to maximize code reuse and try to
 use the main Java source via transpilation to Javascript. In order to do that
 we experimented with both GWT and JSweet based approaches. Currently the
-[GWT](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/java/maps-gwt)
-solution looks more promising and is close-to-usable. The
-[JSweet](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/jsweet)
-solution doesn't work quite yet, but the technology certainly has potential.
+[GWT](java/maps-gwt) solution looks more promising and is close-to-usable.
+The [JSweet](jsweet) solution doesn't work quite yet, but the technology
+certainly has potential.
 
 ## Research
 
 We're also gathering material about transit maps in general on the
-[Research](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/research/Research.md)
+[Research](research/Research.md)
 page.
 
 ## Other ideas
@@ -61,11 +60,10 @@ page.
   [Transportr](https://github.com/grote/Transportr).
 * Implement different optimization algorithms to transform geographic
   maps into schematic maps automatically. Some hints on how to get started
-  with that are
-  [already available](https://github.com/OpenMetroMaps/OpenMetroMaps/tree/master/java#writing-an-optimization-algorithm).
+  with that are [already available](java#writing-an-optimization-algorithm).
   Also, there is an
   [implementation](https://github.com/dirkschumacher/TransitmapSolver.jl)
   available which could possibly be built upon (although the license changed
   from MIT to GPL, which makes it impossible to integrate easily).
-  We collect a [list of papers](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/research/Research.md#optimization-algorithms)
+  We collect a [list of papers](research/Research.md#optimization-algorithms)
   about possible algorithms.

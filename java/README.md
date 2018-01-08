@@ -53,7 +53,7 @@ where sub-task may be one of the following:
 
 ## To-Do
 
-Have a look at the [To-Do list](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/java/TODO.md).
+Have a look at the [To-Do list](TODO.md).
 
 ## Hacking
 
@@ -92,5 +92,5 @@ To write your own optimization algorithm, we recommend to copy and rename
 the classes `StraightenAxisParallelLinesAction` and
 `StraightenAxisParallelLinesOptimization` and start modifying the existing code.
 
-See [this list of papers](https://github.com/OpenMetroMaps/OpenMetroMaps/blob/master/research/Research.md#optimization-algorithms)
+See [this list of papers](../research/Research.md#optimization-algorithms)
 for possible implementations that have been discussed in literature.

@@ -35,7 +35,7 @@ import org.openmetromaps.gtfs4j.model.Route;
 import org.openmetromaps.gtfs4j.model.Stop;
 import org.openmetromaps.gtfs4j.model.StopTime;
 import org.openmetromaps.gtfs4j.model.Trip;
-import org.openmetromaps.misc.NameUtil;
+import org.openmetromaps.misc.NameChanger;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.HashMultiset;
@@ -51,8 +51,7 @@ public class GtfsImporter
 {
 
 	private Path path;
-	private List<String> prefixes;
-	private List<String> suffixes;
+	private NameChanger nameChanger;
 
 	private GtfsZip zip;
 
@@ -69,8 +68,7 @@ public class GtfsImporter
 	public GtfsImporter(Path path, List<String> prefixes, List<String> suffixes)
 	{
 		this.path = path;
-		this.prefixes = prefixes;
-		this.suffixes = suffixes;
+		nameChanger = new NameChanger(prefixes, suffixes);
 	}
 
 	public DraftModel getModel()
@@ -278,18 +276,10 @@ public class GtfsImporter
 		for (String id : stopIds) {
 			Stop stop = stopIdToStop.get(id);
 			String name = stop.getName();
-			String fixed = applyNameFixes(name);
+			String fixed = nameChanger.applyNameFixes(name);
 			stops.add(fixed);
 		}
 		return stops;
-	}
-
-	private String applyNameFixes(String name)
-	{
-		String fixed = name;
-		fixed = NameUtil.stripPrefix(fixed, prefixes);
-		fixed = NameUtil.stripSuffix(fixed, suffixes);
-		return fixed;
 	}
 
 	private void createModel()
@@ -311,7 +301,7 @@ public class GtfsImporter
 				if (station == null) {
 					Stop stop = stopIdToStop.get(id);
 					String name = stop.getName();
-					String fixed = applyNameFixes(name);
+					String fixed = nameChanger.applyNameFixes(name);
 					station = new DraftStation(fixed, id);
 					idToStation.put(id, station);
 				}

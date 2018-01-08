@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2018 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -19,39 +19,21 @@ package org.openmetromaps.misc;
 
 import java.util.List;
 
-public class NameUtil
+public class NameChanger
 {
 
-	public static String applyNameFixes(List<String> prefixes,
-			List<String> suffixes, String name)
+	private List<String> prefixes;
+	private List<String> suffixes;
+
+	public NameChanger(List<String> prefixes, List<String> suffixes)
 	{
-		String fixed = name;
-		fixed = NameUtil.stripPrefix(fixed, prefixes);
-		fixed = NameUtil.stripSuffix(fixed, suffixes);
-		return fixed;
+		this.prefixes = prefixes;
+		this.suffixes = suffixes;
 	}
 
-	public static String stripPrefix(String name, List<String> prefixes)
+	public String applyNameFixes(String name)
 	{
-		for (String prefix : prefixes) {
-			if (name.startsWith(prefix)) {
-				name = name.substring(prefix.length());
-				break;
-			}
-		}
-		return name;
-	}
-
-	public static String stripSuffix(String name, List<String> suffixes)
-	{
-		for (String suffix : suffixes) {
-			if (name.endsWith(suffix)) {
-				int len = name.length() - suffix.length();
-				name = name.substring(0, len);
-				break;
-			}
-		}
-		return name;
+		return NameUtil.applyNameFixes(prefixes, suffixes, name);
 	}
 
 }

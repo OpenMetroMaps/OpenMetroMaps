@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <changes>
   <change line="U9" towards="Rathaus Steglitz" at="Berliner Straße" change-line="U7">
-    <description text="middle (slightly to either side)" />
+    <description text="middle (slightly to either side)"/>
   </change>
   <change line="U9" towards="Rathaus Steglitz" at="Bundesplatz" change-line-regex="S.*">
-    <description text="front, but not completely" />
+    <description text="front, but not completely"/>
   </change>
   <change line="U9" towards="Osloer Straße" at="Berliner Straße" change-line="U7">
-    <description text="middle (slightly to either side)" />
+    <description text="middle (slightly to either side)"/>
   </change>
   <change line="U9" towards="Osloer Straße" at="Bundesplatz" change-line-regex="S.*">
-    <description text="back, but not completely" />
+    <description text="back, but not completely"/>
   </change>
 
-  <change line="U3" towards="Nollendorfplatz" at="Heidelberger Platz" change-line-regex="S.*" location="back" />
-  <change line="U3" towards="Krumme Lanke"    at="Heidelberger Platz" change-line-regex="S.*" location="front" />
-  <change line="U3" towards="Nollendorfplatz" at="Fehrbelliner Platz" change-line="U7" location="back" />
-  <change line="U3" towards="Krumme Lanke"    at="Fehrbelliner Platz" change-line="U7" location="front" />
+  <change line="U3" towards="Nollendorfplatz" at="Heidelberger Platz" change-line-regex="S.*" location="back"/>
+  <change line="U3" towards="Krumme Lanke"    at="Heidelberger Platz" change-line-regex="S.*" location="front"/>
+  <change line="U3" towards="Nollendorfplatz" at="Fehrbelliner Platz" change-line="U7" location="back"/>
+  <change line="U3" towards="Krumme Lanke"    at="Fehrbelliner Platz" change-line="U7" location="front"/>
 
   <batch line="U7" towards="Rathaus Spandau">
-    <change at="Neukölln" change-line-regex="S.*" location="front" />
-    <exit   at="Neukölln" name="north" location="front" description="Emser Straße, Saalestraße" derive-reverse="true" />
-    <exit   at="Neukölln" name="south" location="back" description="Lahnstraße, Silbersteinstraße" derive-reverse="true" />
-    <change at="Hermannplatz" change-line="U8" location="middle/middle back" />
-    <exit   at="Möckernbrücke" to="Wikimedia" location="middle" description="Lahnstraße, Silbersteinstraße" derive-reverse="true" />
-    <change at="Berliner Straße" change-line="U9" location="middle" />
-    <change at="Fehrbelliner Platz" change-line="U3" location="almost back" />
+    <change at="Neukölln" change-line-regex="S.*" location="front"/>
+    <exit   at="Neukölln" name="north" location="front" description="Emser Straße, Saalestraße" derive-reverse="true"/>
+    <exit   at="Neukölln" name="south" location="back" description="Lahnstraße, Silbersteinstraße" derive-reverse="true"/>
+    <change at="Hermannplatz" change-line="U8" location="middle/middle back"/>
+    <exit   at="Möckernbrücke" to="Wikimedia" location="middle" description="Lahnstraße, Silbersteinstraße" derive-reverse="true"/>
+    <change at="Berliner Straße" change-line="U9" location="middle"/>
+    <change at="Fehrbelliner Platz" change-line="U3" location="almost back"/>
   </batch>
   <batch line="U7" towards="Rudow">
-    <change at="Neukölln" change-line-regex="S.*" location="back" />
-    <change at="Hermannplatz" change-line="U8" location="middle/middle front" />
-    <change at="Berliner Straße" change-line="U9" location="middle" />
-    <change at="Fehrbelliner Platz" change-line="U3" location="almost front" />
+    <change at="Neukölln" change-line-regex="S.*" location="back"/>
+    <change at="Hermannplatz" change-line="U8" location="middle/middle front"/>
+    <change at="Berliner Straße" change-line="U9" location="middle"/>
+    <change at="Fehrbelliner Platz" change-line="U3" location="almost front"/>
   </batch>
 
   <batch line="U2" towards="Ruhleben">
-    <change at="Stadtmitte" change-line="U6" location="front" derive-reverse-from="true" />
-    <exit   at="Eberswalder Straße" name="north" location="back" description="Cantianstraße" derive-reverse="true" />
-    <exit   at="Eberswalder Straße" name="south" location="front" description="Eberswalder Straße, Danziger Straße, Sparkasse, Kulturbrauerei" derive-reverse="true" />
+    <change at="Stadtmitte" change-line="U6" location="front" derive-reverse-from="true"/>
+    <exit   at="Eberswalder Straße" name="north" location="back" description="Cantianstraße" derive-reverse="true"/>
+    <exit   at="Eberswalder Straße" name="south" location="front" description="Eberswalder Straße, Danziger Straße, Sparkasse, Kulturbrauerei" derive-reverse="true"/>
   </batch>
   <batch line="U2" towards="Pankow">
     <!-- nothing here yet -->
   </batch>
 
-  <change line="U6" towards="Alt-Tegel"      at="Tempelhof" change-line-regex="S.*" location="front" />
-  <change line="U6" towards="Alt Mariendorf" at="Tempelhof" change-line-regex="S.*" location="back" />
+  <change line="U6" towards="Alt-Tegel"      at="Tempelhof" change-line-regex="S.*" location="front"/>
+  <change line="U6" towards="Alt Mariendorf" at="Tempelhof" change-line-regex="S.*" location="back"/>
 
   <batch line="U8" towards="Hermannstraße">
     <change at="Hermannplatz" change-line="U7" location="middle/middle front" derive-reverse-from="true"/>
-    <change at="Hermannstraße" change-line-regex="S.*" location="back" />
-    <exit   at="Hermannstraße" name="north" location="back" description="Siegfriedstraße, Emser Straße" />
-    <exit   at="Hermannstraße" name="south" location="front" description="Silbersteinstraße" />
+    <change at="Hermannstraße" change-line-regex="S.*" location="back"/>
+    <exit   at="Hermannstraße" name="north" location="back" description="Siegfriedstraße, Emser Straße"/>
+    <exit   at="Hermannstraße" name="south" location="front" description="Silbersteinstraße"/>
   </batch>
 
   <batch line="S41" towards="Wedding">

@@ -77,6 +77,8 @@ public class XmlChangeReader
 
 	private static final String ATTR_LINE = "line";
 	private static final String ATTR_TOWARDS = "towards";
+	private static final String ATTR_REVERSE_LINE = "reverse-line";
+	private static final String ATTR_REVERSE_TOWARDS = "reverse-towards";
 	private static final String ATTR_AT = "at";
 	private static final String ATTR_LOCATION = "location";
 	private static final String ATTR_CHANGE_LINE = "change-line";
@@ -94,7 +96,7 @@ public class XmlChangeReader
 
 		for (int i = 0; i < changeList.getLength(); i++) {
 			IElement eChange = changeList.element(i);
-			readChange(null, null, eChange);
+			readChange(null, null, null, null, eChange);
 		}
 
 		for (int i = 0; i < batchList.getLength(); i++) {
@@ -107,22 +109,32 @@ public class XmlChangeReader
 	{
 		String line = eBatch.getAttribute(ATTR_LINE);
 		String towards = eBatch.getAttribute(ATTR_TOWARDS);
+		String reverseLine = getAttributeOrNull(eBatch, ATTR_REVERSE_LINE);
+		String reverseTowards = getAttributeOrNull(eBatch,
+				ATTR_REVERSE_TOWARDS);
 
 		INodeList changeList = eBatch.getChildElementsByTagName(ELEM_CHANGE);
 
 		for (int i = 0; i < changeList.getLength(); i++) {
 			IElement eChange = changeList.element(i);
-			readChange(line, towards, eChange);
+			readChange(line, towards, reverseLine, reverseTowards, eChange);
 		}
 	}
 
-	private void readChange(String line, String towards, IElement eChange)
+	private void readChange(String line, String towards, String reverseLine,
+			String reverseTowards, IElement eChange)
 	{
 		if (line == null) {
 			line = eChange.getAttribute(ATTR_LINE);
 		}
 		if (towards == null) {
 			towards = eChange.getAttribute(ATTR_TOWARDS);
+		}
+		if (reverseLine == null) {
+			reverseLine = getAttributeOrNull(eChange, ATTR_REVERSE_LINE);
+		}
+		if (reverseTowards == null) {
+			reverseTowards = getAttributeOrNull(eChange, ATTR_REVERSE_TOWARDS);
 		}
 
 		String at = eChange.getAttribute(ATTR_AT);
@@ -137,8 +149,8 @@ public class XmlChangeReader
 
 		boolean deriveReverseFrom = valDeriveReverseFrom.equals("true");
 
-		changes.add(new Change(line, towards, at, location, changeLine,
-				changeLineRegex, deriveReverseFrom));
+		changes.add(new Change(line, towards, reverseLine, reverseTowards, at,
+				location, changeLine, changeLineRegex, deriveReverseFrom));
 	}
 
 	private String getAttributeOrNull(IElement element, String attribute)

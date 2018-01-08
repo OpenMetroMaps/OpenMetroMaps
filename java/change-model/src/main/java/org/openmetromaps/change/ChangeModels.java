@@ -70,12 +70,17 @@ public class ChangeModels
 				location, matcher);
 		changes.add(change);
 		if (raw.isDeriveReverseFrom()) {
-			String reverseTowards = reverse(lines, raw.getLine(),
-					raw.getTowards());
+			String reverseLine = raw.getReverseLine() != null
+					? raw.getReverseLine() : raw.getLine();
+			String reverseTowards = raw.getReverseTowards() != null
+					? raw.getReverseTowards()
+					: reverse(lines, raw.getLine(), raw.getTowards());
 			logger.debug(String.format(
-					"Determine reverse for line '%s' towards '%s': '%s'",
-					raw.getLine(), raw.getTowards(), reverseTowards));
-			Change reverse = new Change(raw.getLine(), reverseTowards,
+					"Determine reverse for line '%s' towards '%s': '%s' towards '%s'",
+					raw.getLine(), raw.getTowards(), reverseLine,
+					reverseTowards));
+
+			Change reverse = new Change(reverseLine, reverseTowards,
 					raw.getAt(), reverse(location), matcher);
 			changes.add(reverse);
 		}

@@ -53,7 +53,7 @@
     <exit   at="Hermannstraße" name="south" location="front" description="Silbersteinstraße"/>
   </batch>
 
-  <batch line="S41" towards="Wedding">
+  <batch line="S41" towards="Wedding" reverse-line="S42" reverse-towards="Schönhauser Allee">
     <exit   at="Prenzlauer Allee" name="only-exit" location="front" description="Prenzlauer Allee" derive-reverse="true"/>
     <change at="Neukölln" change-line="U7" location="front" derive-reverse-from="true"/>
     <exit   at="Neukölln" name="west" location="front" description="Karl-Marx-Straße, Emser Straße" derive-reverse="true"/>
@@ -69,7 +69,5 @@
     <change at="Bundesplatz" change-line="U9" location="front" derive-reverse-from="true"/>
     <change at="Bundesplatz" change-line="U9" location="middle" derive-reverse-from="true"/>
     <change at="Heidelberger Platz" change-line="U3" location="back" derive-reverse-from="true"/>
-  </batch>
-  <batch line="S42" towards="Schönhauser Allee">
   </batch>
 </changes>

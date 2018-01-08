@@ -128,9 +128,9 @@ public class ChangeModelToCsvExporter
 		} else {
 			throw new IllegalArgumentException(String.format(
 					"change's towards value does not match the line."
-							+ " Looking for '%s', having '%s' and '%s'",
-					fromTowards, first.getStation().getName(),
-					last.getStation().getName()));
+							+ " Looking for '%s' on '%s', having '%s' and '%s'",
+					fromTowards, lineFrom.getName(),
+					first.getStation().getName(), last.getStation().getName()));
 		}
 
 		int before = fromReverse ? fromIndex + 1 : fromIndex - 1;

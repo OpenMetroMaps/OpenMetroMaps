@@ -18,7 +18,9 @@
 package org.openmetromaps.change;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
@@ -150,6 +152,35 @@ public class ChangeModels
 			return Location.FRONT;
 		}
 		return null;
+	}
+
+	public static List<Line> match(Matcher matcher, Collection<Line> lines)
+	{
+		List<Line> results = new ArrayList<>();
+		for (Line line : lines) {
+			if (matches(matcher, line)) {
+				results.add(line);
+			}
+		}
+		return results;
+	}
+
+	public static boolean matches(Matcher matcher, Line line)
+	{
+		if (matcher instanceof SimpleMatcher) {
+			SimpleMatcher sm = (SimpleMatcher) matcher;
+			if (sm.getName().equals(line.getName())) {
+				return true;
+			}
+		} else if (matcher instanceof RegexMatcher) {
+			RegexMatcher rm = (RegexMatcher) matcher;
+			Pattern pattern = Pattern.compile(rm.getPattern());
+			java.util.regex.Matcher m = pattern.matcher(line.getName());
+			if (m.matches()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

@@ -21,14 +21,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -94,7 +91,8 @@ public class TestConvertChangeModelBerlin
 		Set<Line> linesAtStation = getLines(node);
 
 		Line lineFrom = ChangeUtil.findLine(lines, change.getLine());
-		List<Line> matchingLines = match(change.getMatcher(), linesAtStation);
+		List<Line> matchingLines = ChangeModels.match(change.getMatcher(),
+				linesAtStation);
 		for (Line lineTo : matchingLines) {
 			Stop first = lineTo.getStops().get(0);
 			Stop last = ListUtil.last(lineTo.getStops());
@@ -198,7 +196,6 @@ public class TestConvertChangeModelBerlin
 		System.out.println(line);
 	}
 
-	// TODO: all methods below should be moved to some utility class
 	private static double position(Location location)
 	{
 		switch (location) {
@@ -221,35 +218,7 @@ public class TestConvertChangeModelBerlin
 		}
 	}
 
-	private static List<Line> match(Matcher matcher, Collection<Line> lines)
-	{
-		List<Line> results = new ArrayList<>();
-		for (Line line : lines) {
-			if (matches(matcher, line)) {
-				results.add(line);
-			}
-		}
-		return results;
-	}
-
-	private static boolean matches(Matcher matcher, Line line)
-	{
-		if (matcher instanceof SimpleMatcher) {
-			SimpleMatcher sm = (SimpleMatcher) matcher;
-			if (sm.getName().equals(line.getName())) {
-				return true;
-			}
-		} else if (matcher instanceof RegexMatcher) {
-			RegexMatcher rm = (RegexMatcher) matcher;
-			Pattern pattern = Pattern.compile(rm.getPattern());
-			java.util.regex.Matcher m = pattern.matcher(line.getName());
-			if (m.matches()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
+	// TODO: all methods below should be moved to some utility class
 	private static Set<Line> getLines(Node node)
 	{
 		Set<Line> results = new HashSet<>();

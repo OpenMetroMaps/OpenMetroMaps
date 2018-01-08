@@ -124,10 +124,10 @@ Example:
 ```xml
 <batch line="U7" towards="Rathaus Spandau">
   <change at="Neukölln" change-line-regex="S.*" location="front"/>
-  <exit   at="Neukölln" name="north" location="front" description="Emser Straße,
-          Saalestraße" derive-reverse="true"/>
-  <exit   at="Neukölln" name="south" location="back" description="Lahnstraße,
-          Silbersteinstraße" derive-reverse="true"/>
+  <exit   at="Neukölln" name="north" location="front"
+          description="Emser Straße, Saalestraße" derive-reverse="true"/>
+  <exit   at="Neukölln" name="south" location="back"
+          description="Lahnstraße, Silbersteinstraße" derive-reverse="true"/>
   <change at="Hermannplatz" change-line="U8" location="middle/middle back"/>
   <change at="Berliner Straße" change-line="U9" location="middle"/>
   <change at="Fehrbelliner Platz" change-line="U3" location="almost back"/>

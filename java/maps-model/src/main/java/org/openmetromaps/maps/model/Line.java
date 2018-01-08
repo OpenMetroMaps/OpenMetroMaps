@@ -27,6 +27,12 @@ public class Line extends Entity
 	private boolean circular;
 	private List<Stop> stops;
 
+	/**
+	 * @param id
+	 *            a unique identifier among a set of lines
+	 * @param color
+	 *            a color value in the format '#RRGGBB'
+	 */
 	public Line(int id, String name, String color, boolean circular,
 			List<Stop> stops)
 	{

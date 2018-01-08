@@ -10,7 +10,7 @@ The file should begin with this line:
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 ```
 
-All data is contained within a `omm-file` node:
+All data is contained within a `omm-file` element:
 
 ```xml
 <omm-file>
@@ -18,12 +18,12 @@ All data is contained within a `omm-file` node:
 </omm-file>
 ```
 
-The `omm-file` node contains a `stations` node, a `lines` node and
-optionally a number of `view` nodes.
+The `omm-file` element contains a `stations` element, a `lines` element and
+optionally a number of `view` elements.
 
 ## Stations and Lines
 
-Within the `stations` node, a list of `station` nodes declares the stations
+Within the `stations` element, a list of `station` elements declares the stations
 available on the map along with their geographic coordinates:
 
 ```xml
@@ -34,9 +34,9 @@ available on the map along with their geographic coordinates:
 </stations>
 ```
 
-Within the `lines` node, a list of `line` nodes declares the lines
+Within the `lines` element, a list of `line` elements declares the lines
 available on the map. A line has a `name`, a `color` and can be `circular`.
-Each `line` node contains a number of `stop` references to stations that
+Each `line` element contains a number of `stop` references to stations that
 define the schematic trajectory of the line:
 
 ```xml

@@ -63,6 +63,8 @@ appearance:
 </view>
 ```
 
+The `view` element contains a number of `station` and `edges` elements.
+
 Each station must be assigned an Euclidean coordinate:
 
 ```xml

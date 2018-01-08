@@ -199,7 +199,7 @@ public class ChangeModelToCsvExporter
 		case ALMOST_FRONT:
 			return 0.833;
 		case MIDDLE_MIDDLE_FRONT:
-			return 0.666;
+			return 0.667;
 		case MIDDLE:
 			return 0.5;
 		case MIDDLE_MIDDLE_BACK:

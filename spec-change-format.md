@@ -70,7 +70,7 @@ for both directions of a line at a station in one entry if the situation
 is symmetric:
 
 ```xml
-<change line="S46" towards="Königs Wusterhausen" at="Neukölln"
+<change line="S46" towards="Westend" at="Neukölln"
         change-line="U7" location="front" derive-reverse-from="true"/>
 ```
 

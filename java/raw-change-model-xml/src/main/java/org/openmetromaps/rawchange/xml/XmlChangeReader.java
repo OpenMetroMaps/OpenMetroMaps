@@ -82,6 +82,7 @@ public class XmlChangeReader
 	private static final String ATTR_AT = "at";
 	private static final String ATTR_LOCATION = "location";
 	private static final String ATTR_CHANGE_LINE = "change-line";
+	private static final String ATTR_CHANGE_TOWARDS = "change-towards";
 	private static final String ATTR_CHANGE_LINE_REGEX = "change-line-regex";
 	private static final String ATTR_DERIVE_REVERSE_FROM = "derive-reverse-from";
 
@@ -140,6 +141,7 @@ public class XmlChangeReader
 		String at = eChange.getAttribute(ATTR_AT);
 		String valLocation = eChange.getAttribute(ATTR_LOCATION);
 		String changeLine = getAttributeOrNull(eChange, ATTR_CHANGE_LINE);
+		String changeTowards = getAttributeOrNull(eChange, ATTR_CHANGE_TOWARDS);
 		String changeLineRegex = getAttributeOrNull(eChange,
 				ATTR_CHANGE_LINE_REGEX);
 		String valDeriveReverseFrom = eChange
@@ -150,7 +152,8 @@ public class XmlChangeReader
 		boolean deriveReverseFrom = valDeriveReverseFrom.equals("true");
 
 		changes.add(new Change(line, towards, reverseLine, reverseTowards, at,
-				location, changeLine, changeLineRegex, deriveReverseFrom));
+				location, changeLine, changeTowards, changeLineRegex,
+				deriveReverseFrom));
 	}
 
 	private String getAttributeOrNull(IElement element, String attribute)

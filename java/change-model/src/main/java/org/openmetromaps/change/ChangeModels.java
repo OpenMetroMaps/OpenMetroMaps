@@ -61,7 +61,12 @@ public class ChangeModels
 	{
 		Matcher matcher = null;
 		if (raw.getChangeLine() != null) {
-			matcher = new SimpleMatcher(raw.getChangeLine());
+			if (raw.getChangeTowards() == null) {
+				matcher = new SimpleMatcher(raw.getChangeLine());
+			} else {
+				matcher = new LineTowardsMatcher(raw.getChangeLine(),
+						raw.getChangeTowards());
+			}
 		} else if (raw.getChangeLineRegex() != null) {
 			matcher = new RegexMatcher(raw.getChangeLineRegex());
 		}
@@ -159,33 +164,62 @@ public class ChangeModels
 		return null;
 	}
 
-	public static List<Line> match(Matcher matcher, Collection<Line> lines)
+	public static List<LineWithOrientation> match(Matcher matcher,
+			Collection<Line> lines)
 	{
-		List<Line> results = new ArrayList<>();
+		List<LineWithOrientation> results = new ArrayList<>();
 		for (Line line : lines) {
-			if (matches(matcher, line)) {
-				results.add(line);
-			}
+			addMatches(results, matcher, line);
 		}
 		return results;
 	}
 
-	public static boolean matches(Matcher matcher, Line line)
+	public static void addMatches(List<LineWithOrientation> results,
+			Matcher matcher, Line line)
 	{
 		if (matcher instanceof SimpleMatcher) {
 			SimpleMatcher sm = (SimpleMatcher) matcher;
 			if (sm.getName().equals(line.getName())) {
-				return true;
+				results.add(new LineWithOrientation(line, false));
+				results.add(new LineWithOrientation(line, true));
+			}
+		} else if (matcher instanceof LineTowardsMatcher) {
+			LineTowardsMatcher ltm = (LineTowardsMatcher) matcher;
+			if (ltm.getName().equals(line.getName())) {
+				List<Stop> stops = line.getStops();
+				Stop first = stops.get(0);
+				Stop last = ListUtil.last(stops);
+
+				boolean valid = false;
+				boolean reverse = false;
+				if (last.getStation().getName().equals(ltm.getTowards())) {
+					reverse = false;
+					valid = true;
+				} else if (first.getStation().getName()
+						.equals(ltm.getTowards())) {
+					reverse = true;
+					valid = true;
+				}
+
+				if (valid) {
+					results.add(new LineWithOrientation(line, reverse));
+				} else {
+					logger.warn(String.format(
+							"Unable to find towards value '%s' on line '%s', having '%s' and '%s'",
+							ltm.getTowards(), line.getName(),
+							first.getStation().getName(),
+							last.getStation().getName()));
+				}
 			}
 		} else if (matcher instanceof RegexMatcher) {
 			RegexMatcher rm = (RegexMatcher) matcher;
 			Pattern pattern = Pattern.compile(rm.getPattern());
 			java.util.regex.Matcher m = pattern.matcher(line.getName());
 			if (m.matches()) {
-				return true;
+				results.add(new LineWithOrientation(line, false));
+				results.add(new LineWithOrientation(line, true));
 			}
 		}
-		return false;
 	}
 
 }

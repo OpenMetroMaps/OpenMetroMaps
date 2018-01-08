@@ -66,8 +66,8 @@
     <exit   at="Südkreuz" name="Tempelhof" location="back" description="dm, McDonald's, IKEA" derive-reverse="true"/>
     <change at="Innsbrucker Platz" change-line="U4" location="back" derive-reverse-from="true"/>
     <exit   at="Innsbrucker Platz" name="only-exit" location="back" description="Hauptstraße, Innsbrucker Platz" derive-reverse="true"/>
-    <change at="Bundesplatz" change-line="U9" location="front" derive-reverse-from="true"/>
-    <change at="Bundesplatz" change-line="U9" location="middle" derive-reverse-from="true"/>
+    <change at="Bundesplatz" change-line="U9" change-towards="Rathaus Steglitz" location="front" derive-reverse-from="true"/>
+    <change at="Bundesplatz" change-line="U9" change-towards="Osloer Straße" location="middle" derive-reverse-from="true"/>
     <change at="Heidelberger Platz" change-line="U3" location="back" derive-reverse-from="true"/>
   </batch>
 </changes>

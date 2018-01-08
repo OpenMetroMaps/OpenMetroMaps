@@ -79,26 +79,25 @@ public class ChangeModelToCsvExporter
 		Set<Line> linesAtStation = LineNetworkUtil.getLines(node);
 
 		Line lineFrom = ChangeUtil.findLine(lines, change.getLine());
-		List<Line> matchingLines = ChangeModels.match(change.getMatcher(),
-				linesAtStation);
-		for (Line lineTo : matchingLines) {
-			Stop first = lineTo.getStops().get(0);
-			Stop last = ListUtil.last(lineTo.getStops());
-			// TODO: currently, we simply assume that the change entry applied
-			// for both directions of the target line. This is not necessarily
-			// true, e.g. when changing from S41 to U9 at Bundesplatz. Our model
-			// needs to support matching of target towards and an additional
-			// 'derive-to-reverse'.
-			if (!first.getStation().getName().equals(change.getAt())) {
-				print(lineFrom, lineTo, change, true);
-			}
-			if (!last.getStation().getName().equals(change.getAt())) {
-				print(lineFrom, lineTo, change, false);
+		List<LineWithOrientation> matchingLines = ChangeModels
+				.match(change.getMatcher(), linesAtStation);
+		for (LineWithOrientation lineTo : matchingLines) {
+			List<Stop> stopsTo = lineTo.getLine().getStops();
+			Stop first = stopsTo.get(0);
+			Stop last = ListUtil.last(stopsTo);
+			if (!lineTo.isReverse()) {
+				if (!last.getStation().getName().equals(change.getAt())) {
+					print(lineFrom, lineTo, change, false);
+				}
+			} else {
+				if (!first.getStation().getName().equals(change.getAt())) {
+					print(lineFrom, lineTo, change, true);
+				}
 			}
 		}
 	}
 
-	private void print(Line lineFrom, Line lineTo, Change change,
+	private void print(Line lineFrom, LineWithOrientation lineTo, Change change,
 			boolean toReverse)
 	{
 		// Example output:
@@ -136,7 +135,7 @@ public class ChangeModelToCsvExporter
 		int before = fromReverse ? fromIndex + 1 : fromIndex - 1;
 		Stop fromBefore = fromStops.get(before);
 
-		List<Stop> toStops = lineTo.getStops();
+		List<Stop> toStops = lineTo.getLine().getStops();
 		int toIndex = MapModelUtil.findStop(toStops, change.getAt());
 		if (toIndex < 0) {
 			throw new IllegalArgumentException(
@@ -171,7 +170,7 @@ public class ChangeModelToCsvExporter
 		String fromStationName = stationNameFrom;
 		String fromTrack = ""; // TODO: not supported by our format
 		String fromPosition = valueFromPosition;
-		String toLine = lineTo.getName();
+		String toLine = lineTo.getLine().getName();
 		String toStation = getId(stationNameTo);
 		String toStationName = stationNameTo;
 		String toTrack = ""; // TODO: not supported by our format

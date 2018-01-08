@@ -27,12 +27,13 @@ public class Change
 	private String at;
 	private Location location;
 	private String changeLine;
+	private String changeTowards;
 	private String changeLineRegex;
 	private boolean deriveReverseFrom;
 
 	public Change(String line, String towards, String reverseLine,
 			String reverseTowards, String at, Location location,
-			String changeLine, String changeLineRegex,
+			String changeLine, String changeTowards, String changeLineRegex,
 			boolean deriveReverseFrom)
 	{
 		this.line = line;
@@ -42,6 +43,7 @@ public class Change
 		this.at = at;
 		this.location = location;
 		this.changeLine = changeLine;
+		this.changeTowards = changeTowards;
 		this.changeLineRegex = changeLineRegex;
 		this.deriveReverseFrom = deriveReverseFrom;
 	}
@@ -79,6 +81,11 @@ public class Change
 	public String getChangeLine()
 	{
 		return changeLine;
+	}
+
+	public String getChangeTowards()
+	{
+		return changeTowards;
 	}
 
 	public String getChangeLineRegex()

@@ -35,6 +35,15 @@ changed to and the `location` attribute can be used to define the location
 on the platform that is optimal for a change to that line. See the
 [section below](#location) for possible values of the `location` attribute.
 
+Example:
+
+```xml
+<change line="U3" towards="Nollendorfplatz" at="Fehrbelliner Platz"
+        change-line="U7" location="back"/>
+<change line="U3" towards="Krumme Lanke"    at="Fehrbelliner Platz"
+        change-line="U7" location="front"/>
+```
+
 ## Exits
 
 Similar to the `change` element, an `exit` element defines an exit from
@@ -51,6 +60,15 @@ leads to, or simply one or more of the streets you can reach from there.
 As with change-positions, a `location` attribute specified the location
 on the platform.
 
+Example:
+
+```xml
+<exit line="S41" towards="Wedding" at="Hermannstraße" name="west" location="front"
+      description="Escalator" derive-reverse="true"/>
+<exit line="S41" towards="Wedding" at="Hermannstraße" name="east" location="back"
+      description="Hermann-Quartier, Elevator" derive-reverse="true"/>
+```
+
 ## Batches
 
 The `batch` element can be used to specify multiple change and exit
@@ -59,6 +77,21 @@ This is useful for specifying a number of records for the same line where
 `line` and `towards` attribute don't have to be repeated over and over,
 instead they can be specified once on the `batch` element and then apply
 to all `change` and `exit` child elements of the batch.
+
+Example:
+
+```xml
+<batch line="U7" towards="Rathaus Spandau">
+  <change at="Neukölln" change-line-regex="S.*" location="front"/>
+  <exit   at="Neukölln" name="north" location="front" description="Emser Straße,
+          Saalestraße" derive-reverse="true"/>
+  <exit   at="Neukölln" name="south" location="back" description="Lahnstraße,
+          Silbersteinstraße" derive-reverse="true"/>
+  <change at="Hermannplatz" change-line="U8" location="middle/middle back"/>
+  <change at="Berliner Straße" change-line="U9" location="middle"/>
+  <change at="Fehrbelliner Platz" change-line="U3" location="almost back"/>
+</batch>
+```
 
 ## Attribute values
 

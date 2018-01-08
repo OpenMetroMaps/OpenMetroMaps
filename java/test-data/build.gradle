@@ -1,3 +1,4 @@
 dependencies {
     compile project(':openmetromaps-maps-model-xml-desktop')
+    compile project(':openmetromaps-misc-util')
 }

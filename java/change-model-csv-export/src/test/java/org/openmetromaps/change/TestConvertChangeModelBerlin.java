@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -62,20 +61,7 @@ public class TestConvertChangeModelBerlin
 
 		Path pathGtfs = Paths.get("/tmp/gtfs/filtered.zip");
 
-		List<String> prefixes = new ArrayList<>();
-		prefixes.add("S ");
-		prefixes.add("U ");
-		prefixes.add("S+U ");
-
-		List<String> suffixes = new ArrayList<>();
-		suffixes.add(" Bhf (Berlin)");
-		suffixes.add(" (Berlin)");
-		suffixes.add(" Bhf");
-		for (int i = 1; i <= 9; i++) {
-			suffixes.add(String.format(" (Berlin) [U%d]", i));
-		}
-
-		NameChanger nameChanger = new NameChanger(prefixes, suffixes);
+		NameChanger nameChanger = TestData.berlinGtfsNameChanger();
 
 		GtfsZip gtfs = new GtfsZip(pathGtfs);
 		List<Stop> stops = gtfs.readStops();

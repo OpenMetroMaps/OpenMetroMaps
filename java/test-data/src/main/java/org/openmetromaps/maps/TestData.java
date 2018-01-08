@@ -18,9 +18,12 @@
 package org.openmetromaps.maps;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
+import org.openmetromaps.misc.NameChanger;
 
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
@@ -33,6 +36,24 @@ public class TestData
 				.getResourceAsStream("berlin.xml");
 		XmlModel model = DesktopXmlModelReader.read(input);
 		return model;
+	}
+
+	public static NameChanger berlinGtfsNameChanger()
+	{
+		List<String> prefixes = new ArrayList<>();
+		prefixes.add("S ");
+		prefixes.add("U ");
+		prefixes.add("S+U ");
+
+		List<String> suffixes = new ArrayList<>();
+		suffixes.add(" Bhf (Berlin)");
+		suffixes.add(" (Berlin)");
+		suffixes.add(" Bhf");
+		for (int i = 1; i <= 9; i++) {
+			suffixes.add(String.format(" (Berlin) [U%d]", i));
+		}
+
+		return new NameChanger(prefixes, suffixes);
 	}
 
 }

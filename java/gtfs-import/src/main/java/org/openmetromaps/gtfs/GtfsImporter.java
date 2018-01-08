@@ -65,10 +65,10 @@ public class GtfsImporter
 
 	private DraftModel model = new DraftModel();
 
-	public GtfsImporter(Path path, List<String> prefixes, List<String> suffixes)
+	public GtfsImporter(Path path, NameChanger nameChanger)
 	{
 		this.path = path;
-		nameChanger = new NameChanger(prefixes, suffixes);
+		this.nameChanger = nameChanger;
 	}
 
 	public DraftModel getModel()

@@ -22,6 +22,8 @@ import java.util.List;
 
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.maps.model.Stop;
 
 public class MapModelUtil
 {
@@ -38,6 +40,27 @@ public class MapModelUtil
 			edges.add(new Edges(line.getName()));
 		}
 		return edges;
+	}
+
+	public static Station findStation(List<Station> stations, String name)
+	{
+		for (Station station : stations) {
+			if (station.getName().equals(name)) {
+				return station;
+			}
+		}
+		return null;
+	}
+
+	public static int findStop(List<Stop> stops, String stationName)
+	{
+		for (int i = 0; i < stops.size(); i++) {
+			Stop stop = stops.get(i);
+			if (stop.getStation().getName().equals(stationName)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 }

@@ -22,7 +22,6 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -32,10 +31,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.TestData;
-import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
-import org.openmetromaps.maps.graph.NetworkLine;
+import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
@@ -85,10 +83,10 @@ public class TestConvertChangeModelBerlin
 		List<Line> lines = mapModel.getData().lines;
 		List<Station> stations = mapModel.getData().stations;
 
-		Station station = findStation(stations, change.getAt());
+		Station station = MapModelUtil.findStation(stations, change.getAt());
 
 		Node node = lineNetwork.getStationToNode().get(station);
-		Set<Line> linesAtStation = getLines(node);
+		Set<Line> linesAtStation = LineNetworkUtil.getLines(node);
 
 		Line lineFrom = ChangeUtil.findLine(lines, change.getLine());
 		List<Line> matchingLines = ChangeModels.match(change.getMatcher(),
@@ -124,7 +122,7 @@ public class TestConvertChangeModelBerlin
 
 		String fromTowards = change.getTowards();
 		List<Stop> fromStops = lineFrom.getStops();
-		int fromIndex = findStop(fromStops, change.getAt());
+		int fromIndex = MapModelUtil.findStop(fromStops, change.getAt());
 		if (fromIndex < 0) {
 			throw new IllegalArgumentException(
 					"change station not found on from line");
@@ -149,7 +147,7 @@ public class TestConvertChangeModelBerlin
 		Stop fromBefore = fromStops.get(before);
 
 		List<Stop> toStops = lineTo.getStops();
-		int toIndex = findStop(toStops, change.getAt());
+		int toIndex = MapModelUtil.findStop(toStops, change.getAt());
 		if (toIndex < 0) {
 			throw new IllegalArgumentException(
 					"change station not found on to line");
@@ -216,39 +214,6 @@ public class TestConvertChangeModelBerlin
 		default:
 			return 0.5;
 		}
-	}
-
-	// TODO: all methods below should be moved to some utility class
-	private static Set<Line> getLines(Node node)
-	{
-		Set<Line> results = new HashSet<>();
-		for (Edge edge : node.edges) {
-			for (NetworkLine line : edge.lines) {
-				results.add(line.line);
-			}
-		}
-		return results;
-	}
-
-	private static Station findStation(List<Station> stations, String name)
-	{
-		for (Station station : stations) {
-			if (station.getName().equals(name)) {
-				return station;
-			}
-		}
-		return null;
-	}
-
-	private static int findStop(List<Stop> stops, String stationName)
-	{
-		for (int i = 0; i < stops.size(); i++) {
-			Stop stop = stops.get(i);
-			if (stop.getStation().getName().equals(stationName)) {
-				return i;
-			}
-		}
-		return -1;
 	}
 
 }

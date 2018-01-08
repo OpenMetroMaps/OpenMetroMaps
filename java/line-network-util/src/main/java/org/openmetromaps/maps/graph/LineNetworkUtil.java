@@ -273,4 +273,15 @@ public class LineNetworkUtil
 		return null;
 	}
 
+	public static Set<Line> getLines(Node node)
+	{
+		Set<Line> results = new HashSet<>();
+		for (Edge edge : node.edges) {
+			for (NetworkLine line : edge.lines) {
+				results.add(line.line);
+			}
+		}
+		return results;
+	}
+
 }

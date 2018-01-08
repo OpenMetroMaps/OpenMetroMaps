@@ -19,9 +19,15 @@ package org.openmetromaps.change;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.openmetromaps.gtfs4j.csv.GtfsZip;
+import org.openmetromaps.gtfs4j.model.Stop;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.TestData;
@@ -29,6 +35,7 @@ import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
+import org.openmetromaps.misc.NameChanger;
 import org.openmetromaps.rawchange.RawChangeModel;
 import org.openmetromaps.rawchange.xml.DesktopXmlChangeReader;
 
@@ -52,6 +59,31 @@ public class TestConvertChangeModelBerlin
 				.getResourceAsStream("berlin-changes.xml");
 		RawChangeModel rawModel = DesktopXmlChangeReader.read(input);
 		ChangeModel model = ChangeModels.derive(mapModel.getData(), rawModel);
+
+		Path pathGtfs = Paths.get("/tmp/gtfs/filtered.zip");
+
+		List<String> prefixes = new ArrayList<>();
+		prefixes.add("S ");
+		prefixes.add("U ");
+		prefixes.add("S+U ");
+
+		List<String> suffixes = new ArrayList<>();
+		suffixes.add(" Bhf (Berlin)");
+		suffixes.add(" (Berlin)");
+		suffixes.add(" Bhf");
+		for (int i = 1; i <= 9; i++) {
+			suffixes.add(String.format(" (Berlin) [U%d]", i));
+		}
+
+		NameChanger nameChanger = new NameChanger(prefixes, suffixes);
+
+		GtfsZip gtfs = new GtfsZip(pathGtfs);
+		List<Stop> stops = gtfs.readStops();
+		for (Stop stop : stops) {
+			String name = nameChanger.applyNameFixes(stop.getName());
+			System.out.println(String.format("%s: %s", stop.getId(), name));
+		}
+		gtfs.close();
 
 		ChangeModelToCsvExporter exporter = new ChangeModelToCsvExporter(
 				mapModel, lineNetwork, model);

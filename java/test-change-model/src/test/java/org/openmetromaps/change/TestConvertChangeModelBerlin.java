@@ -32,8 +32,8 @@ import java.util.regex.Pattern;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.TestData;
 import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
@@ -68,14 +68,8 @@ public class TestConvertChangeModelBerlin
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel mapModel = modelConverter.convert(xmlModel);
 
-		// TODO: this should be available via LineNetworkUtils
-		List<Edges> edges = new ArrayList<>();
-		for (Line line : mapModel.getData().lines) {
-			edges.add(new Edges(line.getName()));
-		}
-
 		LineNetworkBuilder builder = new LineNetworkBuilder(mapModel.getData(),
-				edges);
+				MapModelUtil.allEdges(mapModel));
 		LineNetwork lineNetwork = builder.getGraph();
 
 		InputStream input = TestConvertChangeModelBerlin.class.getClassLoader()

@@ -131,10 +131,7 @@ public class ModelUtil
 			return;
 		}
 
-		List<Edges> edges = new ArrayList<>();
-		for (Line line : model.getData().lines) {
-			edges.add(new Edges(line.getName()));
-		}
+		List<Edges> edges = MapModelUtil.allEdges(model);
 
 		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData(),
 				edges);

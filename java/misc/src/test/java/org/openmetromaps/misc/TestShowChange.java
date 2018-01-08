@@ -18,13 +18,12 @@
 package org.openmetromaps.misc;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.TestData;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
@@ -51,13 +50,8 @@ public class TestShowChange
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		List<Edges> edges = new ArrayList<>();
-		for (Line line : model.getData().lines) {
-			edges.add(new Edges(line.getName()));
-		}
-
 		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData(),
-				edges);
+				MapModelUtil.allEdges(model));
 		LineNetwork network = builder.getGraph();
 
 		Multimap<Station, Line> stationToLines = HashMultimap.create();

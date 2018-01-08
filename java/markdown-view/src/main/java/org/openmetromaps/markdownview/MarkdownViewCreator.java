@@ -20,11 +20,9 @@ package org.openmetromaps.markdownview;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.NetworkLine;
@@ -57,13 +55,8 @@ public class MarkdownViewCreator
 	{
 		this.model = model;
 
-		List<Edges> edges = new ArrayList<>();
-		for (Line line : model.getData().lines) {
-			edges.add(new Edges(line.getName()));
-		}
-
 		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData(),
-				edges);
+				MapModelUtil.allEdges(model));
 		lineNetwork = builder.getGraph();
 
 		context = new Context(stationToLines, lineNetwork);

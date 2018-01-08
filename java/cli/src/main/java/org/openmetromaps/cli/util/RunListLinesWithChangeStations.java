@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,8 +28,8 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
@@ -95,13 +94,8 @@ public class RunListLinesWithChangeStations
 
 	private static void execute(MapModel model)
 	{
-		List<Edges> edges = new ArrayList<>();
-		for (Line line : model.getData().lines) {
-			edges.add(new Edges(line.getName()));
-		}
-
 		LineNetworkBuilder builder = new LineNetworkBuilder(model.getData(),
-				edges);
+				MapModelUtil.allEdges(model));
 		LineNetwork lineNetwork = builder.getGraph();
 
 		Multimap<Station, Line> stationToLines = HashMultimap.create();

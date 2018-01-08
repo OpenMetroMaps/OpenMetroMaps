@@ -97,7 +97,9 @@ exits of the same stations, such as a cardinal direction, the suburb it
 leads to, or simply one or more of the streets you can reach from there.
 
 As with change-positions, a `location` attribute specified the location
-on the platform.
+on the platform. Also, the element can specify a boolean `derive-reverse`
+attribute that works similar to the change's `derive-reverse-from` for
+symmetric situations.
 
 Example:
 

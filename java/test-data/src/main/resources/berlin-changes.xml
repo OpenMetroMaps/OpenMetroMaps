@@ -52,4 +52,24 @@
     <exit   at="Hermannstraße" name="north" location="back" description="Siegfriedstraße, Emser Straße" />
     <exit   at="Hermannstraße" name="south" location="front" description="Silbersteinstraße" />
   </batch>
+
+  <batch line="S41" towards="Wedding">
+    <exit   at="Prenzlauer Allee" name="only-exit" location="front" description="Prenzlauer Allee" derive-reverse="true"/>
+    <change at="Neukölln" change-line="U7" location="front" derive-reverse-from="true"/>
+    <exit   at="Neukölln" name="west" location="front" description="Karl-Marx-Straße, Emser Straße" derive-reverse="true"/>
+    <exit   at="Neukölln" name="east" location="back" description="Saalestraße" derive-reverse="true"/>
+    <change at="Hermannstraße" change-line="U8" location="middle" derive-reverse-from="true"/>
+    <exit   at="Hermannstraße" name="west" location="front" description="Escalator" derive-reverse="true"/>
+    <exit   at="Hermannstraße" name="east" location="back" description="Hermann-Quartier, Elevator" derive-reverse="true"/>
+    <change at="Tempelhof" change-line="U6" location="almost-back" derive-reverse-from="true"/>
+    <exit   at="Südkreuz" name="Schöneberg" location="front" description="Reisezentrum, Edeka, Burger King, BSR" derive-reverse="true"/>
+    <exit   at="Südkreuz" name="Tempelhof" location="back" description="dm, McDonald's, IKEA" derive-reverse="true"/>
+    <change at="Innsbrucker Platz" change-line="U4" location="back" derive-reverse-from="true"/>
+    <exit   at="Innsbrucker Platz" name="only-exit" location="back" description="Hauptstraße, Innsbrucker Platz" derive-reverse="true"/>
+    <change at="Bundesplatz" change-line="U9" location="front" derive-reverse-from="true"/>
+    <change at="Bundesplatz" change-line="U9" location="middle" derive-reverse-from="true"/>
+    <change at="Heidelberger Platz" change-line="U3" location="back" derive-reverse-from="true"/>
+  </batch>
+  <batch line="S42" towards="Schönhauser Allee">
+  </batch>
 </changes>

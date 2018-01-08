@@ -65,6 +65,24 @@ line. This can be done with the `change-towards` attribute:
         location="middle" derive-reverse-from="true"/>
 ```
 
+The boolean `derive-reverse-from` attribute allows you to define changes
+for both directions of a line at a station in one entry if the situation
+is symmetric:
+
+```xml
+<change line="S46" towards="Königs Wusterhausen" at="Neukölln"
+        change-line="U7" location="front" derive-reverse-from="true"/>
+```
+
+is equivalent to defining these two entries:
+
+```xml
+<change line="S46" towards="Westend" at="Neukölln"
+        change-line="U7" location="front"/>
+<change line="S46" towards="Königs Wusterhausen" at="Neukölln"
+        change-line="U7" location="back"/>
+```
+
 ## Exits
 
 Similar to the `change` element, an `exit` element defines an exit from

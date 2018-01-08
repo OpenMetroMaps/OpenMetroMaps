@@ -44,7 +44,7 @@
   </batch>
 
   <change line="U6" towards="Alt-Tegel"      at="Tempelhof" change-line-regex="S.*" location="front" />
-  <change line="U6" towards="Alt-Mariendorf" at="Tempelhof" change-line-regex="S.*" location="back" />
+  <change line="U6" towards="Alt Mariendorf" at="Tempelhof" change-line-regex="S.*" location="back" />
 
   <batch line="U8" towards="Hermannstraße">
     <change at="Hermannplatz" change-line="U7" location="middle/middle front" derive-reverse-from="true"/>

@@ -76,6 +76,8 @@ public class TestConvertChangeModelBerlin
 		List<Stop> stops = gtfs.readStops();
 		for (Stop stop : stops) {
 			String name = nameChanger.applyNameFixes(stop.getName());
+			name = fix(name);
+			name = expandAbbreveations(name);
 			if (stop.getLocationType().equals("1")) {
 				if (nameToId.containsKey(name)) {
 					String dup = nameToId.get(name);
@@ -92,6 +94,25 @@ public class TestConvertChangeModelBerlin
 		ChangeModelToCsvExporter exporter = new ChangeModelToCsvExporter(
 				mapModel, lineNetwork, model, nameToId);
 		exporter.print();
+	}
+
+	private static String fix(String name)
+	{
+		if (name.equals("Kochstr./Checkpoint Charlie")) {
+			return "Kochstr.";
+		}
+		return name;
+	}
+
+	private static String expandAbbreveations(String name)
+	{
+		if (name.endsWith("str.")) {
+			return name.substring(0, name.length() - 4) + "straße";
+		}
+		if (name.endsWith("Str.")) {
+			return name.substring(0, name.length() - 4) + "Straße";
+		}
+		return name;
 	}
 
 }

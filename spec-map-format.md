@@ -10,7 +10,7 @@ The file should begin with this line:
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 ```
 
-All data is contained within a `omm-file` element:
+All data is contained within an `omm-file` element:
 
 ```xml
 <omm-file>
@@ -63,7 +63,7 @@ appearance:
 </view>
 ```
 
-Each station must be assigned a Euclidean coordinate:
+Each station must be assigned an Euclidean coordinate:
 
 ```xml
 <station name="Alexanderplatz" x="424.775181" y="461.793637"/>

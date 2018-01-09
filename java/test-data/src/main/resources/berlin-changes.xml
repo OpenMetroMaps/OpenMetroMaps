@@ -3,8 +3,8 @@
   <change line="U9" towards="Rathaus Steglitz" at="Bundesplatz" change-line-regex="S.*" location="almost front"/>
   <change line="U9" towards="Osloer Straße" at="Bundesplatz" change-line-regex="S.*" location="almost back"/>
 
-  <change line="U9" towards="Rathaus Steglitz" at="Berliner Straße" change-line="U7" location="middle/middle front">
-  <change line="U9" towards="Rathaus Steglitz" at="Berliner Straße" change-line="U7" location="middle/middle back">
+  <change line="U9" towards="Rathaus Steglitz" at="Berliner Straße" change-line="U7" location="middle/middle front"/>
+  <change line="U9" towards="Rathaus Steglitz" at="Berliner Straße" change-line="U7" location="middle/middle back"/>
   <change line="U9" towards="Osloer Straße" at="Berliner Straße" change-line="U7" location="middle/middle front"/>
   <change line="U9" towards="Osloer Straße" at="Berliner Straße" change-line="U7" location="middle/middle back"/>
 

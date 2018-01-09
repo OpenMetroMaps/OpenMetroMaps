@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <changes>
-  <change line="U9" towards="Rathaus Steglitz" at="Berliner Straße" change-line="U7">
-    <description text="middle (slightly to either side)"/>
-  </change>
-  <change line="U9" towards="Rathaus Steglitz" at="Bundesplatz" change-line-regex="S.*">
-    <description text="front, but not completely"/>
-  </change>
-  <change line="U9" towards="Osloer Straße" at="Berliner Straße" change-line="U7">
-    <description text="middle (slightly to either side)"/>
-  </change>
-  <change line="U9" towards="Osloer Straße" at="Bundesplatz" change-line-regex="S.*">
-    <description text="back, but not completely"/>
-  </change>
+  <change line="U9" towards="Rathaus Steglitz" at="Bundesplatz" change-line-regex="S.*" location="almost front"/>
+  <change line="U9" towards="Osloer Straße" at="Bundesplatz" change-line-regex="S.*" location="almost back"/>
+
+  <change line="U9" towards="Rathaus Steglitz" at="Berliner Straße" change-line="U7" location="middle/middle front"/>
+  <change line="U9" towards="Rathaus Steglitz" at="Berliner Straße" change-line="U7" location="middle/middle back"/>
+  <change line="U9" towards="Osloer Straße" at="Berliner Straße" change-line="U7" location="middle/middle front"/>
+  <change line="U9" towards="Osloer Straße" at="Berliner Straße" change-line="U7" location="middle/middle back"/>
 
   <change line="U3" towards="Nollendorfplatz" at="Heidelberger Platz" change-line-regex="S.*" location="back"/>
   <change line="U3" towards="Krumme Lanke"    at="Heidelberger Platz" change-line-regex="S.*" location="front"/>

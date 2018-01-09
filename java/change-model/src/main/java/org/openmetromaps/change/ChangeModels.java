@@ -181,7 +181,9 @@ public class ChangeModels
 			SimpleMatcher sm = (SimpleMatcher) matcher;
 			if (sm.getName().equals(line.getName())) {
 				results.add(new LineWithOrientation(line, false));
-				results.add(new LineWithOrientation(line, true));
+				if (!line.isCircular()) {
+					results.add(new LineWithOrientation(line, true));
+				}
 			}
 		} else if (matcher instanceof LineTowardsMatcher) {
 			LineTowardsMatcher ltm = (LineTowardsMatcher) matcher;
@@ -217,8 +219,11 @@ public class ChangeModels
 			java.util.regex.Matcher m = pattern.matcher(line.getName());
 			if (m.matches()) {
 				results.add(new LineWithOrientation(line, false));
-				results.add(new LineWithOrientation(line, true));
+				if (!line.isCircular()) {
+					results.add(new LineWithOrientation(line, true));
+				}
 			}
+
 		}
 	}
 

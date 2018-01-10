@@ -19,7 +19,7 @@ package org.openmetromaps.cli;
 
 import org.openmetromaps.cli.gtfs.RunGtfsImport;
 import org.openmetromaps.cli.maps.RunMapEditor;
-import org.openmetromaps.cli.maps.RunMapViewer;
+import org.openmetromaps.cli.maps.RunSimpleMapViewer;
 import org.openmetromaps.cli.markdownview.RunCreateMarkdownView;
 import org.openmetromaps.cli.model.RunModelBuilder;
 import org.openmetromaps.cli.model.RunModelInspector;
@@ -57,8 +57,9 @@ public class OpenMetroMapsCli
 					RunModelInspector.OPTIONS_FACTORY, RunModelInspector.class);
 			options.addCommand("map-editor", RunMapEditor.OPTIONS_FACTORY,
 					RunMapEditor.class);
-			options.addCommand("map-viewer", RunMapViewer.OPTIONS_FACTORY,
-					RunMapViewer.class);
+			options.addCommand("simple-map-viewer",
+					RunSimpleMapViewer.OPTIONS_FACTORY,
+					RunSimpleMapViewer.class);
 			options.addCommand("gtfs-import", RunGtfsImport.OPTIONS_FACTORY,
 					RunGtfsImport.class);
 			options.addCommand("create-markdown-view",

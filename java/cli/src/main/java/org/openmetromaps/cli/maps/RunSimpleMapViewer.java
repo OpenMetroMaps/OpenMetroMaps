@@ -44,7 +44,7 @@ import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.scrolling.PanMouseAdapter;
 import de.topobyte.viewports.scrolling.ScrollableView;
 
-public class RunMapViewer
+public class RunSimpleMapViewer
 {
 
 	private static final String OPTION_INPUT = "input";
@@ -97,7 +97,7 @@ public class RunMapViewer
 		panel.addMouseListener(panAdapter);
 		panel.addMouseMotionListener(panAdapter);
 
-		final JFrame frame = new JFrame("Map Viewer");
+		final JFrame frame = new JFrame("Simple Map Viewer");
 
 		frame.add(scrollableView);
 

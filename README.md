@@ -94,7 +94,8 @@ connecting train.
 See an [example file](example-data/example-changes.xml)
 or the [Berlin testing file](java/test-data/src/main/resources/berlin-changes.xml)
 to get an idea of how this file works.
-See the [specification draft](spec-change-format.md).
+Also see the [specification draft](spec-change-format.md) and a longer
+discussiong on the [requirements of that format](station-data.md).
 
 ## Research
 

@@ -54,6 +54,7 @@ import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.viewer.actions.file.ExitAction;
+import org.openmetromaps.maps.viewer.actions.file.OpenAction;
 import org.openmetromaps.maps.viewer.actions.help.AboutAction;
 import org.openmetromaps.maps.viewer.actions.help.LicenseAction;
 import org.openmetromaps.maps.viewer.actions.view.ShowLabelsAction;
@@ -322,6 +323,8 @@ public class MapViewer
 
 	private void setupMenuFile(JMenu menuFile)
 	{
+		JMenus.addItem(menuFile, new OpenAction(this), KeyEvent.CTRL_DOWN_MASK,
+				KeyEvent.VK_O);
 		JMenus.addItem(menuFile, new ExitAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_Q);
 	}

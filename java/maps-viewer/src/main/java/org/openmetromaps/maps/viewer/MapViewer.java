@@ -68,8 +68,7 @@ import bibliothek.gui.dock.common.CGrid;
 import bibliothek.gui.dock.common.DefaultSingleCDockable;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.jeography.viewer.config.TileConfigUrl;
-import de.topobyte.jeography.viewer.core.SteplessViewer;
-import de.topobyte.jeography.viewer.core.SteplessViewer.TileDrawMode;
+import de.topobyte.jeography.viewer.core.Viewer;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
 import de.topobyte.swing.util.EmptyIcon;
@@ -104,7 +103,7 @@ public class MapViewer
 	private StatusBar statusBar;
 
 	private JFrame frameMap = null;
-	private SteplessViewer viewer = null;
+	private Viewer viewer = null;
 
 	private List<DataChangeListener> dataChangeListeners;
 
@@ -215,12 +214,11 @@ public class MapViewer
 
 		TileConfigUrl tiles = new TileConfigUrl(1, "osm",
 				"http://tile.openstreetmap.org/%d/%d/%d.png");
-		viewer = new SteplessViewer(tiles, null);
+		viewer = new Viewer(tiles, null);
 		viewer.setMouseActive(true);
 		viewer.setDrawCrosshair(false);
 		viewer.setDrawBorder(false);
 		viewer.setDrawTileNumbers(false);
-		viewer.setMode(TileDrawMode.SCALE_SMOOTH);
 
 		// TODO: connect to frame's close signal and modify state of menu
 		frameMap = new JFrame("Map");
@@ -285,7 +283,7 @@ public class MapViewer
 		return statusBar;
 	}
 
-	public SteplessViewer getMapViewer()
+	public Viewer getMapViewer()
 	{
 		return viewer;
 	}

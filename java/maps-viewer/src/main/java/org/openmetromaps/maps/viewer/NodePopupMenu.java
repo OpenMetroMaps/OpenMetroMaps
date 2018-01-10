@@ -26,7 +26,7 @@ import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.swing.JPopupMenuWithTitle;
 
-import de.topobyte.jeography.viewer.core.SteplessViewer;
+import de.topobyte.jeography.viewer.core.Viewer;
 
 public class NodePopupMenu extends JPopupMenuWithTitle
 {
@@ -89,7 +89,7 @@ public class NodePopupMenu extends JPopupMenuWithTitle
 					String.format("open on map: %s @ %f,%f", station.getName(),
 							location.getLongitude(), location.getLatitude()));
 
-			SteplessViewer viewer = mapViewer.getMapViewer();
+			Viewer viewer = mapViewer.getMapViewer();
 			if (viewer == null) {
 				return;
 			}

@@ -7,7 +7,7 @@ Data projects for cities/regions are stored within the
 the namespaces for data and code projects separated. Also see the
 [list of data projects](data-projects.md).
 
-## File format
+## File Format
 
 A major goal of this project is to develop a file format for storing schematic
 maps for public transport networks.
@@ -102,7 +102,7 @@ We're also gathering material about transit maps in general on the
 [Research](research/Research.md)
 page.
 
-## Other ideas
+## Other Ideas
 
 * It would be nice to be able to create morphing animations from two views
   of the same network. Inspired by

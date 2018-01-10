@@ -293,6 +293,10 @@ public class MapViewer
 		setupMenu();
 		syncMapState();
 
+		MapViewerMouseEventProcessor mep = new MapViewerMouseEventProcessor(
+				this);
+		map.setMouseProcessor(mep);
+
 		new InitialViewportSetupListener(map,
 				model.getViews().get(0).getConfig().getStartPosition());
 	}

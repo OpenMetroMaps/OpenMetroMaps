@@ -58,6 +58,7 @@ import org.openmetromaps.maps.viewer.actions.file.OpenAction;
 import org.openmetromaps.maps.viewer.actions.help.AboutAction;
 import org.openmetromaps.maps.viewer.actions.help.LicenseAction;
 import org.openmetromaps.maps.viewer.actions.view.ShowLabelsAction;
+import org.openmetromaps.maps.viewer.actions.view.ShowMapAction;
 import org.openmetromaps.maps.viewer.actions.view.ShowStationCentersAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,6 +67,9 @@ import bibliothek.gui.dock.common.CControl;
 import bibliothek.gui.dock.common.CGrid;
 import bibliothek.gui.dock.common.DefaultSingleCDockable;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
+import de.topobyte.jeography.viewer.config.TileConfigUrl;
+import de.topobyte.jeography.viewer.core.SteplessViewer;
+import de.topobyte.jeography.viewer.core.SteplessViewer.TileDrawMode;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
 import de.topobyte.swing.util.EmptyIcon;
@@ -110,6 +114,9 @@ public class MapViewer
 	private BooleanValueHolder showStationCenters = new BooleanValueHolder(
 			changeSupport, "show-station-centers",
 			x -> setShowStationCentersInternal(), false);
+
+	private BooleanValueHolder showMap = new BooleanValueHolder(changeSupport,
+			"show-map", x -> setShowMapInternal(x), false);
 
 	private EnumValueHolder<StationMode> stationMode = new EnumValueHolder<>(
 			changeSupport, "station-mode", x -> setStationModeInternal(),
@@ -177,6 +184,48 @@ public class MapViewer
 		map.getPlanRenderer()
 				.setRenderStationCenters(showStationCenters.getValue());
 		map.repaint();
+	}
+
+	public boolean isShowMap()
+	{
+		return showMap.getValue();
+	}
+
+	public void setShowMap(boolean showMap)
+	{
+		this.showMap.setValue(showMap);
+	}
+
+	private JFrame frameMap = null;
+
+	public void setShowMapInternal(boolean visible)
+	{
+		if (!visible) {
+			if (frameMap != null) {
+				frameMap.setVisible(false);
+			}
+			return;
+		}
+
+		if (frameMap != null) {
+			frameMap.setVisible(true);
+			return;
+		}
+
+		TileConfigUrl tiles = new TileConfigUrl(1, "osm",
+				"http://tile.openstreetmap.org/%d/%d/%d.png");
+		SteplessViewer viewer = new SteplessViewer(tiles, null);
+		viewer.setMouseActive(true);
+		viewer.setDrawCrosshair(false);
+		viewer.setDrawBorder(false);
+		viewer.setDrawTileNumbers(false);
+		viewer.setMode(TileDrawMode.SCALE_SMOOTH);
+
+		// TODO: connect to frame's close signal and modify state of menu
+		frameMap = new JFrame("Map");
+		frameMap.add(viewer);
+		frameMap.setSize(600, 500);
+		frameMap.setVisible(true);
 	}
 
 	public StationMode getStationMode()
@@ -335,6 +384,7 @@ public class MapViewer
 				KeyEvent.VK_F2);
 		JMenus.addCheckbox(menuView, new ShowStationCentersAction(this),
 				KeyEvent.VK_F3);
+		JMenus.addCheckbox(menuView, new ShowMapAction(this), KeyEvent.VK_F4);
 		JMenu stationMode = submenu("Station mode");
 		JMenu segmentMode = submenu("Segment mode");
 		menuView.add(stationMode);

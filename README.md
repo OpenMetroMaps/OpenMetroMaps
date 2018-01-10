@@ -81,7 +81,7 @@ file with a normal text editor.
 When you want to use existing data, you can write an import algorithm of
 your own.
 
-## Efficient changing and other station data
+## Station Data
 
 In addition to the main map file format, we're also working on an additional
 file format and corresponding tools to collect data about stations and their

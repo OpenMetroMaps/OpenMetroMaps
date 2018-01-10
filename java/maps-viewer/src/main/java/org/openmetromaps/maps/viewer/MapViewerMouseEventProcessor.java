@@ -73,7 +73,7 @@ public class MapViewerMouseEventProcessor
 
 	private void showPopup(MouseEvent e, Node node)
 	{
-		NodePopupMenu menu = new NodePopupMenu(node);
+		NodePopupMenu menu = new NodePopupMenu(mapViewer, node);
 
 		menu.show(mapViewer.getMap(), e.getX(), e.getY());
 		menu.setVisible(true);

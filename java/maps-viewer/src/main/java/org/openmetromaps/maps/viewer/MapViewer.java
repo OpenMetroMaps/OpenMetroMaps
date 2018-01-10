@@ -103,6 +103,9 @@ public class MapViewer
 	private ScrollableAdvancedPanel map;
 	private StatusBar statusBar;
 
+	private JFrame frameMap = null;
+	private SteplessViewer viewer = null;
+
 	private List<DataChangeListener> dataChangeListeners;
 
 	private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
@@ -196,8 +199,6 @@ public class MapViewer
 		this.showMap.setValue(showMap);
 	}
 
-	private JFrame frameMap = null;
-
 	public void setShowMapInternal(boolean visible)
 	{
 		if (!visible) {
@@ -214,7 +215,7 @@ public class MapViewer
 
 		TileConfigUrl tiles = new TileConfigUrl(1, "osm",
 				"http://tile.openstreetmap.org/%d/%d/%d.png");
-		SteplessViewer viewer = new SteplessViewer(tiles, null);
+		viewer = new SteplessViewer(tiles, null);
 		viewer.setMouseActive(true);
 		viewer.setDrawCrosshair(false);
 		viewer.setDrawBorder(false);
@@ -282,6 +283,11 @@ public class MapViewer
 	public StatusBar getStatusBar()
 	{
 		return statusBar;
+	}
+
+	public SteplessViewer getMapViewer()
+	{
+		return viewer;
 	}
 
 	public void addDataChangeListener(DataChangeListener listener)

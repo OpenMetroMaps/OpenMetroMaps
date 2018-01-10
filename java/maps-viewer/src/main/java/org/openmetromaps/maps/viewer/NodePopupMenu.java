@@ -26,14 +26,19 @@ import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.swing.JPopupMenuWithTitle;
 
+import de.topobyte.jeography.viewer.core.SteplessViewer;
+
 public class NodePopupMenu extends JPopupMenuWithTitle
 {
 
 	private static final long serialVersionUID = 1L;
 
-	public NodePopupMenu(Node node)
+	private MapViewer mapViewer;
+
+	public NodePopupMenu(MapViewer mapViewer, Node node)
 	{
 		super(node.station.getName());
+		this.mapViewer = mapViewer;
 
 		JMenuItem itemShowOnMap = new JMenuItem(new OpenOnMapAction(node));
 		JMenuItem itemProperties = new JMenuItem(
@@ -83,6 +88,14 @@ public class NodePopupMenu extends JPopupMenuWithTitle
 			System.out.println(
 					String.format("open on map: %s @ %f,%f", station.getName(),
 							location.getLongitude(), location.getLatitude()));
+
+			SteplessViewer viewer = mapViewer.getMapViewer();
+			if (viewer == null) {
+				return;
+			}
+			viewer.getMapWindow().gotoLonLat(location.getLongitude(),
+					location.getLatitude());
+			viewer.repaint();
 		}
 
 	}

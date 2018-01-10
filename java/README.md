@@ -26,6 +26,7 @@ Where task can be any of the following:
     inspect-model
     map-editor
     map-viewer
+    simple-map-viewer
     gtfs-import
     create-markdown-view
     util

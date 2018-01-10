@@ -17,13 +17,17 @@
 
 package org.openmetromaps.maps.viewer;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JMenuItem;
 
 import org.openmetromaps.maps.BaseMapWindowPanel;
 import org.openmetromaps.maps.BaseMouseEventProcessor;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.swing.JPopupMenuWithTitle;
 import org.openmetromaps.swing.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +66,29 @@ public class MapViewerMouseEventProcessor
 			}
 		}
 
+		if (e.getButton() == MouseEvent.BUTTON3) {
+			if (onNode) {
+				showPopup(e, node);
+			}
+		}
+
 		mapViewer.getMap().repaint();
+	}
+
+	private void showPopup(MouseEvent e, Node node)
+	{
+		Station station = node.station;
+
+		JPopupMenuWithTitle menu = new JPopupMenuWithTitle(station.getName());
+
+		JMenuItem itemShowOnMap = new JMenuItem(new OpenOnMapAction(node));
+		JMenuItem itemProperties = new JMenuItem(
+				new ShowPropertiesAction(node));
+		menu.add(itemShowOnMap);
+		menu.add(itemProperties);
+
+		menu.show(mapViewer.getMap(), e.getX(), e.getY());
+		menu.setVisible(true);
 	}
 
 	@Override
@@ -70,6 +96,50 @@ public class MapViewerMouseEventProcessor
 	{
 		super.mouseMoved(e);
 		mapViewer.updateStatusBar(e.getX(), e.getY());
+	}
+
+	private class ShowPropertiesAction extends NodeAction
+	{
+
+		private static final long serialVersionUID = 1L;
+
+		public ShowPropertiesAction(Node node)
+		{
+			super(node);
+			setName("Properties");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			Station station = node.station;
+			System.out.println(
+					String.format("show properties: %s", station.getName()));
+		}
+
+	}
+
+	private class OpenOnMapAction extends NodeAction
+	{
+
+		private static final long serialVersionUID = 1L;
+
+		public OpenOnMapAction(Node node)
+		{
+			super(node);
+			setName("Show on map");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			Station station = node.station;
+			Coordinate location = station.getLocation();
+			System.out.println(
+					String.format("open on map: %s @ %f,%f", station.getName(),
+							location.getLongitude(), location.getLatitude()));
+		}
+
 	}
 
 }

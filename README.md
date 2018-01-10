@@ -43,6 +43,44 @@ we experimented with both GWT and JSweet based approaches. Currently the
 The [JSweet](jsweet) solution doesn't work quite yet, but the technology
 certainly has potential.
 
+## Data Sources
+
+We currently support data imports from the following sources:
+* [OpenStreetMap](https://www.openstreetmap.org/about) (OSM)
+* [General Transit Feed Specification](http://gtfs.org) (GTFS)
+
+Both types of import can be done using the [Command Line
+Interface](java/README.md#command-line-interface-cli).
+See the commands `build-model` for importing OSM data and `gtfs-import` for
+importing GTFS data.
+
+### OpenStreetMap
+
+* If you're not familiar with the OpenStreetMap project, start by browsing
+  through the pages listed on the [Use
+  OpenStreetMap](https://wiki.openstreetmap.org/wiki/Use_OpenStreetMap)
+  page on the OSM Wiki.
+* See the [Downloading
+  data](https://wiki.openstreetmap.org/wiki/Downloading_data) page
+  on the OSM Wiki on how to obtain suitable OSM data.
+* Probably you want to use smaller extracts such as those available from
+  [Geofabrik downloads](http://download.geofabrik.de) instead of downloading
+  the whole planet as a file. Using the [Overpass
+  API](https://wiki.openstreetmap.org/wiki/Overpass_API) is also a good
+  way for obtaining relevant data sets.
+
+### GTFS
+
+* [TransitFeeds](https://transitfeeds.com) collects links to
+  official GTFS data worldwide ([GitHub page](https://github.com/TransitFeeds))
+
+### Other Sources
+
+The file format is text-based and pretty simple, so you can create a data
+file with a normal text editor.
+When you want to use existing data, you can write an import algorithm of
+your own.
+
 ## Efficient changing and other station data
 
 In addition to the main map file format, we're also working on an additional

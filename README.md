@@ -99,7 +99,7 @@ See the [specification draft](spec-change-format.md).
 ## Research
 
 We're also gathering material about transit maps in general on the
-[Research](research/Research.md)
+[Research](research/research.md)
 page.
 
 ## Other Ideas
@@ -119,5 +119,5 @@ page.
   [implementation](https://github.com/dirkschumacher/TransitmapSolver.jl)
   available which could possibly be built upon (although the license changed
   from MIT to GPL, which makes it impossible to integrate easily).
-  We collect a [list of papers](research/Research.md#optimization-algorithms)
+  We collect a [list of papers](research/research.md#optimization-algorithms)
   about possible algorithms.

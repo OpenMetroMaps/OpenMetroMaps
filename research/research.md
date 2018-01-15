@@ -16,6 +16,10 @@
   [2017](https://www.bahn.de/p/view/mdb/bahnintern/fahrplan_und_buchung/reiseauskunftsmedien/fahrplanmedien-download/2017/mdb_241655_icec_liniennetz_2017-v3.pdf),
   [2016](https://www.bahn.de/p/view/mdb/bahnintern/fahrplan_und_buchung/reiseauskunftsmedien/fahrplanmedien-download/2016/mdb_228122_583_icec_liniennetz_2016_v3.pdf)
 
+Open data about ICE routes in Germany:
+* <https://de.wikipedia.org/wiki/Liste_der_Intercity-Express-Linien>
+* <https://wiki.openstreetmap.org/wiki/Deutsche_Eisenbahn/DB_Fernverkehr>
+
 #### Berlin, VBB / BVG / S-Bahn Berlin
 
 * [VBB Liniennetze](http://www.vbb.de/de/article/fahrplan/liniennetze/liniennetze/897.html)

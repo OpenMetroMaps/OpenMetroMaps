@@ -21,6 +21,10 @@
 * Save action should store to current file instead of asking
   for a location
 
+# MapViewer
+* Map integration: add keyboard shortcuts
+* Map integration: open on usage, if not yet opened
+
 # File format
 
 * regions (for zones or suburb display)

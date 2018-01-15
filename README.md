@@ -122,3 +122,9 @@ page.
   from MIT to GPL, which makes it impossible to integrate easily).
   We collect a [list of papers](research/research.md#optimization-algorithms)
   about possible algorithms.
+
+### Nick-name map for Berlin
+
+Possible resources:
+* <https://de.wikipedia.org/wiki/Berolinismus>
+* <https://github.com/derhuerst/vbb-common-places/blob/master/stations.js>

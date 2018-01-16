@@ -179,6 +179,22 @@ task checkUploadArtifactList {
                 }
             }
         }
+
+        def pomsMissing = false
+        list.each {
+            def local = new File(it.projectDir, 'info.pom');
+            pomsMissing |= !local.exists()
+        }
+        if (pomsMissing) {
+            println ""
+            println "The following modules are configured for upload but do not have an 'info.pom':"
+            list.each {
+                def local = new File(it.projectDir, 'info.pom');
+                if (!local.exists()) {
+                    println "$it.name"
+                }
+            }
+        }
     }
 }
 

@@ -71,7 +71,7 @@ public class XmlStationReader
 		return new RawStationModel(changes, exits);
 	}
 
-	private static final String ELEM_STATIONS = "stations";
+	private static final String ELEM_STATIONS = "omm-stations";
 	private static final String ELEM_CHANGE = "change";
 	private static final String ELEM_BATCH = "batch";
 

@@ -49,7 +49,18 @@ ext.libraries = [
         project(':openmetromaps-maps-awt')
 ]
 
-ext.alllibraries = []
+ext.alllibraries = [
+        project(':openmetromaps-osm-model'),
+        project(':openmetromaps-osm'),
+        project(':openmetromaps-maps-model'),
+        project(':openmetromaps-maps-model-util'),
+        project(':openmetromaps-maps-awt'),
+        project(':openmetromaps-maps-core'),
+        project(':openmetromaps-lightgeom'),
+        project(':openmetromaps-line-network-util'),
+        project(':openmetromaps-misc-util'),
+        project(':openmetromaps-swing-misc'),
+]
 
 task checkUploadArtifactList {
     doLast {

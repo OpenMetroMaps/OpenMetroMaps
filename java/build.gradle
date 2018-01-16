@@ -61,8 +61,15 @@ task checkUploadArtifactList {
 
         // build set of modules by looking at dependencies
         def set = new HashSet()
-        // iterate modules
-        project.ext.libraries.each {
+        def queue = new HashSet()
+
+        set.addAll(project.ext.libraries)
+        queue.addAll(project.ext.libraries)
+
+        // iterate module queue
+        while(!queue.empty) {
+            it = queue.iterator().next()
+            queue.remove(it)
             println "lib: $it"
             set.add(it)
             it.configurations.compile.resolvedConfiguration.resolvedArtifacts.each {
@@ -72,7 +79,11 @@ task checkUploadArtifactList {
                         def path = component.projectPath
                         def name = path.substring(path.lastIndexOf(':') + 1)
                         println "     → '$name'"
-                        set.add(map.get(name))
+                        def dep = map.get(name)
+                        if (!set.contains(dep)) {
+                            set.add(dep)
+                            queue.add(dep)
+                        }
                     }
                 }
             }

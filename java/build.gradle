@@ -49,10 +49,22 @@ ext.libraries = [
         project(':openmetromaps-maps-awt')
 ]
 
-task buildUploadArtifactList {
+ext.alllibraries = []
+
+task checkUploadArtifactList {
     doLast {
+        // build lookup from module name to module
+        def map = [:]
+        subprojects.each {
+            map.put(it.name, it)
+        }
+
+        // build set of modules by looking at dependencies
+        def set = new HashSet()
+        // iterate modules
         project.ext.libraries.each {
             println "lib: $it"
+            set.add(it)
             it.configurations.compile.resolvedConfiguration.resolvedArtifacts.each {
                 if (it.id instanceof org.gradle.internal.component.local.model.PublishArtifactLocalArtifactMetadata) {
                     def component = it.id.componentIdentifier
@@ -60,14 +72,27 @@ task buildUploadArtifactList {
                         def path = component.projectPath
                         def name = path.substring(path.lastIndexOf(':') + 1)
                         println "     → '$name'"
+                        set.add(map.get(name))
                     }
                 }
+            }
+        }
+
+        // convert set of modules to sorted list
+        def list = []
+        list.addAll(set)
+        Collections.sort(list)
+
+        // check list of modules against configured list of libaries
+        list.each {
+            if (!project.ext.alllibraries.contains(it)) {
+                println "missing: $it.name"
             }
         }
     }
 }
 
-configure(libraries) {
+configure(alllibraries) {
 
     apply plugin: 'maven'
 

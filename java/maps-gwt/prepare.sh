@@ -1,13 +1,13 @@
 #!/bin/bash
 
-DIR=$(dirname $0)
+SDIR=$(dirname $0)
 
-"$DIR/../gradlew" depunpack
+"$SDIR/../gradlew" depunpack
 
 JT="$HOME/github/sebkur/javaparser-transforms/scripts"
-DIR="build/unpackedJars"
+DIR="$SDIR/build/unpackedJars"
 
-cp UnpackedJars.gwt.xml "$DIR"
+cp "$SDIR/UnpackedJars.gwt.xml" "$DIR"
 
 rm "$DIR/jama/MatrixIO.java"
 rm "$DIR/de/topobyte/system/utils/SystemPaths.java"

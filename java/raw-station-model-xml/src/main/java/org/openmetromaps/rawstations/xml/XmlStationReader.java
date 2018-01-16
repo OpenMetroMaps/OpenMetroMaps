@@ -49,6 +49,7 @@ public class XmlStationReader
 		return reader.readModel(document);
 	}
 
+	private String version;
 	private List<Change> changes = new ArrayList<>();
 	private List<Exit> exits = new ArrayList<>();
 
@@ -68,13 +69,14 @@ public class XmlStationReader
 	{
 		parse(doc);
 
-		return new RawStationModel(changes, exits);
+		return new RawStationModel(version, changes, exits);
 	}
 
 	private static final String ELEM_STATIONS = "omm-stations";
 	private static final String ELEM_CHANGE = "change";
 	private static final String ELEM_BATCH = "batch";
 
+	private static final String ATTR_VERSION = "version";
 	private static final String ATTR_LINE = "line";
 	private static final String ATTR_TOWARDS = "towards";
 	private static final String ATTR_REVERSE_LINE = "reverse-line";
@@ -90,6 +92,8 @@ public class XmlStationReader
 	{
 		INodeList allStations = doc.getElementsByTagName(ELEM_STATIONS);
 		IElement firstStations = allStations.element(0);
+		version = firstStations.getAttribute(ATTR_VERSION);
+
 		INodeList changeList = firstStations
 				.getChildElementsByTagName(ELEM_CHANGE);
 		INodeList batchList = firstStations

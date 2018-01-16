@@ -36,6 +36,7 @@ public class TestReadXmlStation
 		InputStream input = TestReadXmlStation.class.getClassLoader()
 				.getResourceAsStream("berlin-stations.xml");
 		RawStationModel model = DesktopXmlStationReader.read(input);
+		System.out.println("version: " + model.getVersion());
 		for (Change change : model.getChanges()) {
 			String changeLine = change.getChangeLine();
 			if (changeLine == null) {

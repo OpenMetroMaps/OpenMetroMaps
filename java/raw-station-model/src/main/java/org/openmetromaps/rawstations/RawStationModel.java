@@ -22,13 +22,21 @@ import java.util.List;
 public class RawStationModel
 {
 
+	private String version;
 	private List<Change> changes;
 	private List<Exit> exits;
 
-	public RawStationModel(List<Change> changes, List<Exit> exits)
+	public RawStationModel(String version, List<Change> changes,
+			List<Exit> exits)
 	{
+		this.version = version;
 		this.changes = changes;
 		this.exits = exits;
+	}
+
+	public String getVersion()
+	{
+		return version;
 	}
 
 	public List<Change> getChanges()

@@ -57,9 +57,9 @@ ext.libraries = [
         project(':openmetromaps-maps-awt'),
         project(':openmetromaps-maps-android'),
 
-        project(':openmetromaps-change-model'),
-        project(':openmetromaps-change-model-csv-export'),
-        project(':openmetromaps-raw-change-model-xml-desktop'),
+        project(':openmetromaps-station-model'),
+        project(':openmetromaps-station-model-csv-export'),
+        project(':openmetromaps-raw-station-model-xml-desktop'),
 
         project(':openmetromaps-markdown-view'),
 ]
@@ -91,11 +91,11 @@ ext.allLibraries = [
         project(':openmetromaps-xml-dom-abstraction'),
         project(':openmetromaps-xml-dom-abstraction-desktop'),
 
-        project(':openmetromaps-change-model'),
-        project(':openmetromaps-change-model-csv-export'),
-        project(':openmetromaps-raw-change-model'),
-        project(':openmetromaps-raw-change-model-xml'),
-        project(':openmetromaps-raw-change-model-xml-desktop'),
+        project(':openmetromaps-station-model'),
+        project(':openmetromaps-station-model-csv-export'),
+        project(':openmetromaps-raw-station-model'),
+        project(':openmetromaps-raw-station-model-xml'),
+        project(':openmetromaps-raw-station-model-xml-desktop'),
 
         project(':openmetromaps-markdown-view'),
 ]

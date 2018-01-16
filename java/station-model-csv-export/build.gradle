@@ -1,10 +1,10 @@
 dependencies {
-    compile project(':openmetromaps-change-model')
+    compile project(':openmetromaps-station-model')
     compile project(':openmetromaps-line-network-util')
     compile 'com.google.guava:guava:19.0'
 
     testCompile project(':openmetromaps-maps-model-xml-converter')
-    testCompile project(':openmetromaps-raw-change-model-xml-desktop')
+    testCompile project(':openmetromaps-raw-station-model-xml-desktop')
     testCompile project(':openmetromaps-test-data')
 
     testCompile 'org.openmetromaps.gtfs4j:gtfs4j-csv-util:0.0.1'

@@ -1,7 +1,7 @@
 dependencies {
     testCompile project(':openmetromaps-maps-model-xml-converter')
-    testCompile project(':openmetromaps-raw-change-model-xml-desktop')
-    testCompile project(':openmetromaps-change-model')
+    testCompile project(':openmetromaps-raw-station-model-xml-desktop')
+    testCompile project(':openmetromaps-station-model')
     testCompile project(':openmetromaps-test-data')
 
     testRuntime 'org.slf4j:slf4j-log4j12:1.6.1'

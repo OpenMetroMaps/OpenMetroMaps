@@ -1,6 +1,6 @@
 dependencies {
     compile project(':openmetromaps-maps-model')
-    compile project(':openmetromaps-raw-change-model')
+    compile project(':openmetromaps-raw-station-model')
 
     compile 'de.topobyte:collections-utils:0.0.4'
     compile 'org.slf4j:slf4j-api:1.6.1'

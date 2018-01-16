@@ -9,22 +9,22 @@ project(':maps-model-xml-converter').name = 'openmetromaps-maps-model-xml-conver
 project(':maps-model-xml-desktop').name = 'openmetromaps-maps-model-xml-desktop'
 
 // change model
-include 'change-model'
-include 'raw-change-model', 'raw-change-model-xml', 'raw-change-model-xml-desktop'
-include 'change-model-csv-export'
-project(':change-model').name = 'openmetromaps-change-model'
-project(':raw-change-model').name = 'openmetromaps-raw-change-model'
-project(':raw-change-model-xml').name = 'openmetromaps-raw-change-model-xml'
-project(':raw-change-model-xml-desktop').name = 'openmetromaps-raw-change-model-xml-desktop'
-project(':change-model-csv-export').name = 'openmetromaps-change-model-csv-export'
+include 'station-model'
+include 'raw-station-model', 'raw-station-model-xml', 'raw-station-model-xml-desktop'
+include 'station-model-csv-export'
+project(':station-model').name = 'openmetromaps-station-model'
+project(':raw-station-model').name = 'openmetromaps-raw-station-model'
+project(':raw-station-model-xml').name = 'openmetromaps-raw-station-model-xml'
+project(':raw-station-model-xml-desktop').name = 'openmetromaps-raw-station-model-xml-desktop'
+project(':station-model-csv-export').name = 'openmetromaps-station-model-csv-export'
 
 // testing
 include 'test-data'
 include 'test-maps-model-xml-desktop'
-include 'test-change-model'
+include 'test-station-model'
 project(':test-data').name = 'openmetromaps-test-data'
 project(':test-maps-model-xml-desktop').name = 'openmetromaps-test-maps-model-xml-desktop'
-project(':test-change-model').name = 'openmetromaps-test-change-model'
+project(':test-station-model').name = 'openmetromaps-test-station-model'
 
 // Command Line Interface
 include 'cli'

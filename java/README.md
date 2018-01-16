@@ -7,6 +7,14 @@ Gradle.
 
 ## Command line interface (CLI)
 
+### Building the CLI module
+
+Run the Gradle `createRuntime` task to build the CLI:
+
+    ./gradlew clean createRuntime
+
+### CLI usage and tasks
+
 This project has a main executable that can be executed like this:
 
     ./scripts/openmetromaps-cli <task>

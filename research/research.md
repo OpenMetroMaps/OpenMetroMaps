@@ -83,4 +83,4 @@ that the maps are not free.
   with Mental Map Preservation for Schematic Diagrams. Diagrammatic
   Representation and Inference: 8th International Conference, Diagrams 2014,
   Melbourne, VIC, Australia, July 28 -- August 1, 2014.
-  [PDF](https://www.researchgate.net/profile/Daniel_Chivers2/publication/265021245_Octilinear_Force-Directed_Layout_with_Mental_Map_Preservation_for_Schematic_Diagrams/links/53fc7c1c0cf2dca8ffff25ff.pdf)
+  [Read online](https://www.researchgate.net/profile/Daniel_Chivers2/publication/265021245_Octilinear_Force-Directed_Layout_with_Mental_Map_Preservation_for_Schematic_Diagrams/links/53fc7c1c0cf2dca8ffff25ff.pdf)

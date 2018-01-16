@@ -43,36 +43,57 @@ subprojects {
 }
 
 ext.libraries = [
-        project(':openmetromaps-osm-model'),
-        project(':openmetromaps-osm'),
         project(':openmetromaps-maps-model'),
         project(':openmetromaps-maps-model-xml-desktop'),
+        project(':openmetromaps-maps-model-xml-converter'),
+
+        project(':openmetromaps-osm'),
+        project(':openmetromaps-osm-model'),
+        project(':openmetromaps-osm-model-converter'),
+
+        project(':openmetromaps-gtfs-import'),
+        project(':openmetromaps-gtfs-model-converter'),
+
         project(':openmetromaps-maps-awt'),
+        project(':openmetromaps-maps-android'),
+
         project(':openmetromaps-change-model'),
         project(':openmetromaps-change-model-csv-export'),
         project(':openmetromaps-raw-change-model-xml-desktop'),
+        project(':openmetromaps-markdown-view'),
 ]
 
 ext.alllibraries = [
-        project(':openmetromaps-osm-model'),
-        project(':openmetromaps-osm'),
         project(':openmetromaps-maps-model'),
         project(':openmetromaps-maps-model-util'),
-        project(':openmetromaps-maps-awt'),
-        project(':openmetromaps-maps-core'),
-        project(':openmetromaps-lightgeom'),
-        project(':openmetromaps-line-network-util'),
-        project(':openmetromaps-misc-util'),
-        project(':openmetromaps-swing-misc'),
-        project(':openmetromaps-change-model'),
-        project(':openmetromaps-change-model-csv-export'),
         project(':openmetromaps-maps-model-xml'),
         project(':openmetromaps-maps-model-xml-desktop'),
+        project(':openmetromaps-maps-model-xml-converter'),
+        project(':openmetromaps-line-network-util'),
+
+        project(':openmetromaps-osm'),
+        project(':openmetromaps-osm-model'),
+        project(':openmetromaps-osm-model-converter'),
+
+        project(':openmetromaps-gtfs-import'),
+        project(':openmetromaps-gtfs-model-converter'),
+
+        project(':openmetromaps-maps-core'),
+        project(':openmetromaps-maps-awt'),
+        project(':openmetromaps-maps-android'),
+
+        project(':openmetromaps-lightgeom'),
+        project(':openmetromaps-misc-util'),
+        project(':openmetromaps-swing-misc'),
+
+        project(':openmetromaps-xml-dom-abstraction'),
+        project(':openmetromaps-xml-dom-abstraction-desktop'),
+
+        project(':openmetromaps-change-model'),
+        project(':openmetromaps-change-model-csv-export'),
         project(':openmetromaps-raw-change-model'),
         project(':openmetromaps-raw-change-model-xml'),
         project(':openmetromaps-raw-change-model-xml-desktop'),
-        project(':openmetromaps-xml-dom-abstraction'),
-        project(':openmetromaps-xml-dom-abstraction-desktop'),
 ]
 
 task checkUploadArtifactList {

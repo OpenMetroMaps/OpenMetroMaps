@@ -24,14 +24,25 @@ subprojects {
     task allDeps(type: DependencyReportTask) {}
 }
 
-configure([project(':openmetromaps-osm-model'),
-        project(':openmetromaps-osm')]) {
+ext.libraries = [
+        project(':openmetromaps-osm-model'),
+        project(':openmetromaps-osm'),
+        project(':openmetromaps-maps-model'),
+        project(':openmetromaps-maps-awt')
+]
+
+configure(libraries) {
 
     apply plugin: 'maven'
 
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
         from sourceSets.main.allSource
+    }
+
+    if (project.hasProperty("topobyte")) {
+        apply from: 'file:///' + System.getProperty("user.home") \
+            + '/.gradle/topobyte.gradle'
     }
 
     artifacts {

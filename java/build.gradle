@@ -46,7 +46,11 @@ ext.libraries = [
         project(':openmetromaps-osm-model'),
         project(':openmetromaps-osm'),
         project(':openmetromaps-maps-model'),
-        project(':openmetromaps-maps-awt')
+        project(':openmetromaps-maps-model-xml-desktop'),
+        project(':openmetromaps-maps-awt'),
+        project(':openmetromaps-change-model'),
+        project(':openmetromaps-change-model-csv-export'),
+        project(':openmetromaps-raw-change-model-xml-desktop'),
 ]
 
 ext.alllibraries = [
@@ -60,6 +64,15 @@ ext.alllibraries = [
         project(':openmetromaps-line-network-util'),
         project(':openmetromaps-misc-util'),
         project(':openmetromaps-swing-misc'),
+        project(':openmetromaps-change-model'),
+        project(':openmetromaps-change-model-csv-export'),
+        project(':openmetromaps-maps-model-xml'),
+        project(':openmetromaps-maps-model-xml-desktop'),
+        project(':openmetromaps-raw-change-model'),
+        project(':openmetromaps-raw-change-model-xml'),
+        project(':openmetromaps-raw-change-model-xml-desktop'),
+        project(':openmetromaps-xml-dom-abstraction'),
+        project(':openmetromaps-xml-dom-abstraction-desktop'),
 ]
 
 task checkUploadArtifactList {

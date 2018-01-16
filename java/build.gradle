@@ -60,6 +60,7 @@ ext.libraries = [
         project(':openmetromaps-change-model'),
         project(':openmetromaps-change-model-csv-export'),
         project(':openmetromaps-raw-change-model-xml-desktop'),
+
         project(':openmetromaps-markdown-view'),
 ]
 
@@ -94,6 +95,8 @@ ext.allLibraries = [
         project(':openmetromaps-raw-change-model'),
         project(':openmetromaps-raw-change-model-xml'),
         project(':openmetromaps-raw-change-model-xml-desktop'),
+
+        project(':openmetromaps-markdown-view'),
 ]
 
 task checkUploadArtifactList {

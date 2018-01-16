@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<changes>
+<stations>
   <change line="U9" towards="Rathaus Steglitz" at="Bundesplatz" change-line-regex="S.*" location="almost front"/>
   <change line="U9" towards="Osloer Straße" at="Bundesplatz" change-line-regex="S.*" location="almost back"/>
 
@@ -66,4 +66,4 @@
     <change at="Bundesplatz" change-line="U9" change-towards="Osloer Straße" location="back" derive-reverse-from="true"/>
     <change at="Heidelberger Platz" change-line="U3" location="back" derive-reverse-from="true"/>
   </batch>
-</changes>
+</stations>

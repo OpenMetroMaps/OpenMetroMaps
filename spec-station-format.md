@@ -10,15 +10,15 @@ The file should begin with this line:
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 ```
 
-All data is contained within a `changes` element:
+All data is contained within a `stations` element:
 
 ```xml
-<changes>
+<stations>
   ...
-</changes>
+</stations>
 ```
 
-The `changes` element contains a number of `change`, `exit`, and `batch`
+The `stations` element contains a number of `change`, `exit`, and `batch`
 elements.
 
 ## Changes

@@ -71,7 +71,7 @@ public class XmlStationReader
 		return new RawStationModel(changes, exits);
 	}
 
-	private static final String ELEM_CHANGES = "changes";
+	private static final String ELEM_STATIONS = "stations";
 	private static final String ELEM_CHANGE = "change";
 	private static final String ELEM_BATCH = "batch";
 
@@ -88,11 +88,11 @@ public class XmlStationReader
 
 	private void parse(IDocument doc)
 	{
-		INodeList allChanges = doc.getElementsByTagName(ELEM_CHANGES);
-		IElement firstChanges = allChanges.element(0);
-		INodeList changeList = firstChanges
+		INodeList allStations = doc.getElementsByTagName(ELEM_STATIONS);
+		IElement firstStations = allStations.element(0);
+		INodeList changeList = firstStations
 				.getChildElementsByTagName(ELEM_CHANGE);
-		INodeList batchList = firstChanges
+		INodeList batchList = firstStations
 				.getChildElementsByTagName(ELEM_BATCH);
 
 		for (int i = 0; i < changeList.getLength(); i++) {

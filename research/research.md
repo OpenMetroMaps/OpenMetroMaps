@@ -74,12 +74,12 @@ that the maps are not free.
 
 ## Optimization algorithms
 
+* Nollenburg, M. (2005). Automated Drawing of Metro Maps (Master thesis, Technical
+  University of Karlsruhe). [PDF](http://i11www.iti.kit.edu/extra/publications/n-admm-05da.pdf)
 * Nollenburg, M., & Wolff, A. (2011). Drawing and labeling high-quality metro maps
   by mixed-integer programming. IEEE Transactions on Visualization and Computer
   Graphics, 17(5), 626-641.
   [PDF](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.467.6286&rep=rep1&type=pdf)
-* Nollenburg, M. (2005). Automated Drawing of Metro Maps (Master thesis, Technical
-  University of Karlsruhe). [PDF](http://i11www.iti.kit.edu/extra/publications/n-admm-05da.pdf)
 * Chivers, Daniel and Rodgers, Peter (2014). Octilinear Force-Directed Layout
   with Mental Map Preservation for Schematic Diagrams. Diagrammatic
   Representation and Inference: 8th International Conference, Diagrams 2014,

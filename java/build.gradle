@@ -86,6 +86,7 @@ ext.allLibraries = [
         project(':openmetromaps-lightgeom'),
         project(':openmetromaps-misc-util'),
         project(':openmetromaps-swing-misc'),
+        project(':openmetromaps-heavy-util'),
 
         project(':openmetromaps-xml-dom-abstraction'),
         project(':openmetromaps-xml-dom-abstraction-desktop'),

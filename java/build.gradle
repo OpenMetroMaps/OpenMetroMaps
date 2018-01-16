@@ -83,6 +83,9 @@ task checkUploadArtifactList {
             map.put(it.name, it)
         }
 
+        def missing = new HashSet()
+        missing.addAll(map.values())
+
         // build set of modules by looking at dependencies
         def set = new HashSet()
         def queue = new HashSet()
@@ -90,6 +93,7 @@ task checkUploadArtifactList {
         set.addAll(project.ext.libraries)
         queue.addAll(project.ext.libraries)
 
+        println "Module dependencies:"
         // iterate module queue
         while(!queue.empty) {
             it = queue.iterator().next()
@@ -118,16 +122,35 @@ task checkUploadArtifactList {
         list.addAll(set)
         Collections.sort(list)
 
+        // print all non-configured modules
+        println ""
+        println "These modules are not configured for upload:"
+        missing.removeAll(set)
+        def listMissing = []
+        listMissing.addAll(missing)
+        Collections.sort(listMissing)
+
+        listMissing.each {
+            println "$it.name"
+        }
+
         // check list of modules against configured list of libaries
         def someMissing = false
         list.each {
             if (!project.ext.alllibraries.contains(it)) {
-                println "missing: $it.name"
                 someMissing = true
             }
         }
 
         if (someMissing) {
+            println ""
+            println "These modules should be configured for upload:"
+            list.each {
+                if (!project.ext.alllibraries.contains(it)) {
+                    println "$it.name"
+                }
+            }
+            println ""
             println "Add the following lines to your config:"
             list.each {
                 if (!project.ext.alllibraries.contains(it)) {

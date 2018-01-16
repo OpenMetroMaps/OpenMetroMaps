@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <name>OpenMetroMaps map model XML converter</name>
+  <description>OpenMetroMaps conversion from XML model to map model</description>
+</project>

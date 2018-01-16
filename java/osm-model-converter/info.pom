@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <name>OpenMetroMaps OSM draft model converter</name>
+  <description>OpenMetroMaps conversion from OSM draft model to map model</description>
+</project>

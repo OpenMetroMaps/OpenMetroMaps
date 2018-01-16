@@ -13,7 +13,7 @@ The file should begin with this line:
 All data is contained within a `omm-stations` element:
 
 ```xml
-<omm-stations>
+<omm-stations version="1.0.0">
   ...
 </omm-stations>
 ```

@@ -63,7 +63,7 @@ ext.libraries = [
         project(':openmetromaps-markdown-view'),
 ]
 
-ext.alllibraries = [
+ext.allLibraries = [
         project(':openmetromaps-maps-model'),
         project(':openmetromaps-maps-model-util'),
         project(':openmetromaps-maps-model-xml'),
@@ -158,7 +158,7 @@ task checkUploadArtifactList {
         // check list of modules against configured list of libaries
         def someMissing = false
         list.each {
-            if (!project.ext.alllibraries.contains(it)) {
+            if (!project.ext.allLibraries.contains(it)) {
                 someMissing = true
             }
         }
@@ -167,14 +167,14 @@ task checkUploadArtifactList {
             println ""
             println "These modules should be configured for upload:"
             list.each {
-                if (!project.ext.alllibraries.contains(it)) {
+                if (!project.ext.allLibraries.contains(it)) {
                     println "$it.name"
                 }
             }
             println ""
             println "Add the following lines to your config:"
             list.each {
-                if (!project.ext.alllibraries.contains(it)) {
+                if (!project.ext.allLibraries.contains(it)) {
                     println "project(':$it.name'),"
                 }
             }
@@ -182,7 +182,7 @@ task checkUploadArtifactList {
     }
 }
 
-configure(alllibraries) {
+configure(allLibraries) {
 
     apply plugin: 'maven'
 

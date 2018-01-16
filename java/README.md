@@ -118,3 +118,33 @@ the classes `StraightenAxisParallelLinesAction` and
 
 See [this list of papers](../research/research.md#optimization-algorithms)
 for possible implementations that have been discussed in literature.
+
+## Publishing artifacts
+
+The process for publishing artifacts works by building the release artifacts,
+copying them into a local repository, from which you need to deploy them to
+a Maven server. We keep a separate repository for released artifacts that are
+then served from a regular web server.
+Run the following to build the release artifacts:
+
+    ./gradlew clean
+    ./maps-gwt/prepare.sh
+    ./gradlew -P topobyte upload
+
+Where the last command requires you to have a special Gradle configuration
+file in your Gradle user directory (`~/.gradle/topobyte.gradle`) with the
+following content:
+
+    apply plugin: Topobyte
+
+    class Topobyte implements Plugin<Project> {
+        void apply(Project project) {
+            project.uploadArchives {
+                repositories {
+                    mavenDeployer {
+                        repository(url: 'file://localhost/path/to/local/maven/repo')
+                    }
+                }
+            }
+        }
+    }

@@ -106,9 +106,20 @@ task checkUploadArtifactList {
         Collections.sort(list)
 
         // check list of modules against configured list of libaries
+        def someMissing = false
         list.each {
             if (!project.ext.alllibraries.contains(it)) {
                 println "missing: $it.name"
+                someMissing = true
+            }
+        }
+
+        if (someMissing) {
+            println "Add the following lines to your config:"
+            list.each {
+                if (!project.ext.alllibraries.contains(it)) {
+                    println "project(':$it.name'),"
+                }
             }
         }
     }

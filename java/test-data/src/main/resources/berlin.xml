@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<omm-file>
+<omm-file version="1.0.0">
   <stations>
     <station lat="52.499964" lon="13.307309" name="Adenauerplatz"/>
     <station lat="52.434911" lon="13.541283" name="Adlershof"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<stations>
+<stations version="1.0.0">
   <change line="U9" towards="Rathaus Steglitz" at="Bundesplatz" change-line-regex="S.*" location="almost front"/>
   <change line="U9" towards="Osloer Straße" at="Bundesplatz" change-line-regex="S.*" location="almost back"/>
 

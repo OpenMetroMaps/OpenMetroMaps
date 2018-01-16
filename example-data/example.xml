@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<omm-file>
+<omm-file version="1.0.0">
   <stations>
     <station lat="52.521515" lon="13.412305" name="Alexanderplatz"/>
     <station lat="52.520387" lon="13.386885" name="Friedrichstraße"/>

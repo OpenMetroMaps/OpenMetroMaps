@@ -25,7 +25,7 @@ subprojects {
 }
 
 subprojects {
-    task showIntermoduleDependencies {
+    task showInterModuleDependencies {
         doLast {
             println "module '$project.name'"
             project.configurations.compile.resolvedConfiguration.resolvedArtifacts.each {

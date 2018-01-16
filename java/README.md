@@ -84,11 +84,11 @@ Eclipse's *Open Type* feature (Navigate → Open Type, shortcut Ctrl+Shift+T).
 
 Here's a list of useful Gradle tasks:
 
-    ./gradlew showIntermoduleDependencies
+    ./gradlew showInterModuleDependencies
     ./gradlew checkUploadArtifactList
 
 The project is split into many modules. To get insights into the modules
-and their dependencies to one another, use the `showIntermoduleDependencies`
+and their dependencies to one another, use the `showInterModuleDependencies`
 task.
 
 To make sure that all required artifacts get uploaded, the

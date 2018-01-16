@@ -24,12 +24,48 @@ subprojects {
     task allDeps(type: DependencyReportTask) {}
 }
 
+subprojects {
+    task showIntermoduleDependencies {
+        doLast {
+            println "module '$project.name'"
+            project.configurations.compile.resolvedConfiguration.resolvedArtifacts.each {
+                if (it.id instanceof org.gradle.internal.component.local.model.PublishArtifactLocalArtifactMetadata) {
+                    def component = it.id.componentIdentifier
+                    if (component instanceof org.gradle.internal.component.local.model.DefaultProjectComponentIdentifier) {
+                        def path = component.projectPath
+                        def name = path.substring(path.lastIndexOf(':') + 1)
+                        println "     → '$name'"
+                    }
+                }
+            }
+        }
+    }
+}
+
 ext.libraries = [
         project(':openmetromaps-osm-model'),
         project(':openmetromaps-osm'),
         project(':openmetromaps-maps-model'),
         project(':openmetromaps-maps-awt')
 ]
+
+task buildUploadArtifactList {
+    doLast {
+        project.ext.libraries.each {
+            println "lib: $it"
+            it.configurations.compile.resolvedConfiguration.resolvedArtifacts.each {
+                if (it.id instanceof org.gradle.internal.component.local.model.PublishArtifactLocalArtifactMetadata) {
+                    def component = it.id.componentIdentifier
+                    if (component instanceof org.gradle.internal.component.local.model.DefaultProjectComponentIdentifier) {
+                        def path = component.projectPath
+                        def name = path.substring(path.lastIndexOf(':') + 1)
+                        println "     → '$name'"
+                    }
+                }
+            }
+        }
+    }
+}
 
 configure(libraries) {
 

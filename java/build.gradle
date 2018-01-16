@@ -209,7 +209,7 @@ configure(allLibraries) {
     if (local.exists()) {
         def pomInfoL = new XmlSlurper().parse(local);
         projName = pomInfoL.name
-        projDesc= pomInfoL.description
+        projDesc = pomInfoL.description
     }
 
     afterEvaluate { project ->

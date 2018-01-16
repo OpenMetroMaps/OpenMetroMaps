@@ -24,7 +24,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.rawstations.Change;
 import org.openmetromaps.rawstations.RawStationModel;
-import org.openmetromaps.rawstations.xml.DesktopXmlStationReader;
 
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
@@ -35,7 +34,7 @@ public class TestReadXmlStation
 			throws ParserConfigurationException, IOException, ParsingException
 	{
 		InputStream input = TestReadXmlStation.class.getClassLoader()
-				.getResourceAsStream("berlin-changes.xml");
+				.getResourceAsStream("berlin-stations.xml");
 		RawStationModel model = DesktopXmlStationReader.read(input);
 		for (Change change : model.getChanges()) {
 			String changeLine = change.getChangeLine();

@@ -91,10 +91,10 @@ This information can be used to compute efficient micro-routing within line
 networks, i.e. optimize on which car to board a train to reach something most
 quickly on the destination station such as a specific exit or a stairway to your
 connecting train.
-See an [example file](example-data/example-changes.xml)
-or the [Berlin testing file](java/test-data/src/main/resources/berlin-changes.xml)
+See an [example file](example-data/example-stations.xml)
+or the [Berlin testing file](java/test-data/src/main/resources/berlin-stations.xml)
 to get an idea of how this file works.
-Also see the [specification draft](spec-change-format.md) and a longer
+Also see the [specification draft](spec-station-format.md) and a longer
 discussion on the [requirements of that format](station-data.md).
 
 ## Research

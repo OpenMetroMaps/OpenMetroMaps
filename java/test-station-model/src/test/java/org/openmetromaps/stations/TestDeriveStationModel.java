@@ -28,12 +28,6 @@ import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.rawstations.RawStationModel;
 import org.openmetromaps.rawstations.xml.DesktopXmlStationReader;
-import org.openmetromaps.stations.Change;
-import org.openmetromaps.stations.StationModel;
-import org.openmetromaps.stations.StationModels;
-import org.openmetromaps.stations.Matcher;
-import org.openmetromaps.stations.RegexMatcher;
-import org.openmetromaps.stations.SimpleMatcher;
 
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
@@ -48,7 +42,7 @@ public class TestDeriveStationModel
 		MapModel mapModel = modelConverter.convert(xmlModel);
 
 		InputStream input = TestDeriveStationModel.class.getClassLoader()
-				.getResourceAsStream("berlin-changes.xml");
+				.getResourceAsStream("berlin-stations.xml");
 		RawStationModel rawModel = DesktopXmlStationReader.read(input);
 		StationModel model = StationModels.derive(mapModel.getData(), rawModel);
 

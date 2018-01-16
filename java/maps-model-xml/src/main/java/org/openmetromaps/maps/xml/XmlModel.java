@@ -22,16 +22,28 @@ import java.util.List;
 public class XmlModel
 {
 
+	private String version;
 	private List<XmlStation> stations;
 	private List<XmlLine> lines;
 	private List<XmlView> xmlViews;
 
-	public XmlModel(List<XmlStation> stations, List<XmlLine> lines,
-			List<XmlView> xmlViews)
+	public XmlModel(String version, List<XmlStation> stations,
+			List<XmlLine> lines, List<XmlView> xmlViews)
 	{
+		this.version = version;
 		this.stations = stations;
 		this.lines = lines;
 		this.xmlViews = xmlViews;
+	}
+
+	public String getVersion()
+	{
+		return version;
+	}
+
+	public void setVersion(String version)
+	{
+		this.version = version;
 	}
 
 	public List<XmlStation> getStations()

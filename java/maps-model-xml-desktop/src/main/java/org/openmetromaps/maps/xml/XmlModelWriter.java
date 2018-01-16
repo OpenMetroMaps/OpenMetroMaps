@@ -65,6 +65,8 @@ public class XmlModelWriter
 		// Add data to document
 
 		Element eMain = doc.createElement("omm-file");
+		eMain.setAttribute("version", "1.0.0");
+
 		Element eStations = doc.createElement("stations");
 		Element eLines = doc.createElement("lines");
 

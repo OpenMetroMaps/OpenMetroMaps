@@ -48,6 +48,7 @@ public class XmlModelReader
 		return reader.readModel(document);
 	}
 
+	private String version;
 	private List<XmlStation> xmlStations = new ArrayList<>();
 	private List<XmlLine> xmlLines = new ArrayList<>();
 	private List<XmlView> xmlViews = new ArrayList<>();
@@ -72,12 +73,17 @@ public class XmlModelReader
 		parseLines(doc);
 		parseViews(doc);
 
-		return new XmlModel(xmlStations, xmlLines, xmlViews);
+		return new XmlModel(version, xmlStations, xmlLines, xmlViews);
 	}
 
 	private void parseStations(IDocument doc)
 	{
-		INodeList allStations = doc.getElementsByTagName("stations");
+		INodeList allOmmFiles = doc.getElementsByTagName("omm-file");
+		IElement firstOmmFile = allOmmFiles.element(0);
+
+		version = firstOmmFile.getAttribute("version");
+
+		INodeList allStations = firstOmmFile.getElementsByTagName("stations");
 		IElement firstStations = allStations.element(0);
 		INodeList stationList = firstStations.getElementsByTagName("station");
 

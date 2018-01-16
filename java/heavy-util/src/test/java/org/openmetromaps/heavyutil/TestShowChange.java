@@ -15,13 +15,14 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.misc;
+package org.openmetromaps.heavyutil;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.openmetromaps.heavyutil.HeavyUtil;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.TestData;
@@ -55,7 +56,7 @@ public class TestShowChange
 		LineNetwork network = builder.getGraph();
 
 		Multimap<Station, Line> stationToLines = HashMultimap.create();
-		Util.fillStationToLines(stationToLines, model);
+		HeavyUtil.fillStationToLines(stationToLines, model);
 
 		test(stationToLines, network, "U8", "Hermannplatz");
 		test(stationToLines, network, "S41", "Schöneberg");
@@ -77,7 +78,7 @@ public class TestShowChange
 		NetworkLine line = findLine(network, nameLine);
 		Node node = findStation(network, nameStation);
 
-		List<Line> lines = Util.determineInterestingLines(stationToLines, line,
+		List<Line> lines = HeavyUtil.determineInterestingLines(stationToLines, line,
 				node);
 		Collections.sort(lines, new Comparator<Line>() {
 

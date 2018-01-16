@@ -24,12 +24,12 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import org.openmetromaps.heavyutil.HeavyUtil;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
-import org.openmetromaps.misc.Util;
 
 import de.topobyte.webpaths.WebPath;
 
@@ -67,7 +67,7 @@ public abstract class LineWriter
 			StringBuilder text = new StringBuilder();
 			text.append(linkStation);
 
-			List<Line> lines = Util.determineInterestingLines(
+			List<Line> lines = HeavyUtil.determineInterestingLines(
 					context.getStationToLines(), line, node);
 
 			Collections.sort(lines, new Comparator<Line>() {

@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.misc;
+package org.openmetromaps.heavyutil;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,10 +37,10 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
 
-public class Util
+public class HeavyUtil
 {
 
-	final static Logger logger = LoggerFactory.getLogger(Util.class);
+	final static Logger logger = LoggerFactory.getLogger(HeavyUtil.class);
 
 	public static List<Line> determineInterestingLines(
 			Multimap<Station, Line> stationToLines, NetworkLine line, Node node)

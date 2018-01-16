@@ -41,12 +41,12 @@ project(':xml-dom-abstraction-gwt').name = 'openmetromaps-xml-dom-abstraction-gw
 // various
 include 'lightgeom'
 include 'line-network-util'
-include 'misc'
 include 'misc-util'
+include 'heavy-util'
 project(':lightgeom').name = 'openmetromaps-lightgeom'
 project(':line-network-util').name = 'openmetromaps-line-network-util'
-project(':misc').name = 'openmetromaps-misc'
 project(':misc-util').name = 'openmetromaps-misc-util'
+project(':heavy-util').name = 'openmetromaps-heavy-util'
 
 // GTFS
 include 'gtfs-import', 'gtfs-model-converter'

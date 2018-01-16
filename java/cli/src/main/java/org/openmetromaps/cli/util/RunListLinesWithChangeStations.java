@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.openmetromaps.heavyutil.HeavyUtil;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.graph.LineNetwork;
@@ -40,7 +41,6 @@ import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
-import org.openmetromaps.misc.Util;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Collections2;
@@ -99,13 +99,13 @@ public class RunListLinesWithChangeStations
 		LineNetwork lineNetwork = builder.getGraph();
 
 		Multimap<Station, Line> stationToLines = HashMultimap.create();
-		Util.fillStationToLines(stationToLines, model);
+		HeavyUtil.fillStationToLines(stationToLines, model);
 
 		List<NetworkLine> lines = lineNetwork.getLines();
 		for (NetworkLine line : lines) {
 			List<Node> nodes = LineNetworkUtil.getNodes(lineNetwork, line.line);
 			for (Node node : nodes) {
-				List<Line> changeLines = Util
+				List<Line> changeLines = HeavyUtil
 						.determineInterestingLines(stationToLines, line, node);
 				if (changeLines.isEmpty()) {
 					continue;

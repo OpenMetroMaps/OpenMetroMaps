@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.openmetromaps.heavyutil.HeavyUtil;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.graph.LineNetwork;
@@ -28,7 +29,6 @@ import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
-import org.openmetromaps.misc.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,7 +72,7 @@ public class MarkdownViewCreator
 		Files.createDirectories(dirLines);
 		Files.createDirectories(dirStations);
 
-		Util.fillStationToLines(stationToLines, model);
+		HeavyUtil.fillStationToLines(stationToLines, model);
 
 		for (NetworkLine line : lineNetwork.lines) {
 			WebPath pathLine = context.path(line.line);

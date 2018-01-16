@@ -8,7 +8,7 @@ project(':maps-model-xml').name = 'openmetromaps-maps-model-xml'
 project(':maps-model-xml-converter').name = 'openmetromaps-maps-model-xml-converter'
 project(':maps-model-xml-desktop').name = 'openmetromaps-maps-model-xml-desktop'
 
-// change model
+// station model
 include 'station-model'
 include 'raw-station-model', 'raw-station-model-xml', 'raw-station-model-xml-desktop'
 include 'station-model-csv-export'

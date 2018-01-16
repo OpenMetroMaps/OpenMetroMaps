@@ -19,7 +19,7 @@ package org.openmetromaps.maps.xml;
 
 import java.io.InputStream;
 
-import de.topobyte.xml.domabstraction.dektopimpl.DesktopDocumentFactory;
+import de.topobyte.xml.domabstraction.desktopimpl.DesktopDocumentFactory;
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class DesktopXmlModelReader

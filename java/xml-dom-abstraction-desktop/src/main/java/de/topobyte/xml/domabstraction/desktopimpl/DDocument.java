@@ -1,4 +1,4 @@
-// Copyright 2018 Sebastian Kuerten
+// Copyright 2017 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,36 +15,29 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.xml.domabstraction.dektopimpl;
+package de.topobyte.xml.domabstraction.desktopimpl;
 
-import java.util.List;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
-import de.topobyte.xml.domabstraction.iface.IElement;
+import de.topobyte.xml.domabstraction.iface.IDocument;
 import de.topobyte.xml.domabstraction.iface.INodeList;
 
-class DNodeList2 implements INodeList
+class DDocument implements IDocument
 {
 
-	private List<Node> list;
+	private Document doc;
 
-	public DNodeList2(List<Node> list)
+	public DDocument(Document doc)
 	{
-		this.list = list;
+		this.doc = doc;
 	}
 
 	@Override
-	public int getLength()
+	public INodeList getElementsByTagName(String name)
 	{
-		return list.size();
-	}
-
-	@Override
-	public IElement element(int i)
-	{
-		return new DElement((Element) list.get(i));
+		NodeList list = doc.getElementsByTagName(name);
+		return new DNodeList(list);
 	}
 
 }

@@ -80,6 +80,21 @@ as a Java application (Right click class → Run As → Java Application). To ea
 find the class within the complex forrest of source trees, we recommend
 Eclipse's *Open Type* feature (Navigate → Open Type, shortcut Ctrl+Shift+T).
 
+### Gradle tasks
+
+Here's a list of useful Gradle tasks:
+
+    ./gradlew showIntermoduleDependencies
+    ./gradlew checkUploadArtifactList
+
+The project is split into many modules. To get insights into the modules
+and their dependencies to one another, use the `showIntermoduleDependencies`
+task.
+
+To make sure that all required artifacts get uploaded, the
+`checkUploadArtifactList` task has been implemented. Run it to make sure
+that the list of artifacts is properly configured.
+
 ### Writing an optimization algorithm
 
 The Map Editor provides an infrastructure for implementing algorithms for

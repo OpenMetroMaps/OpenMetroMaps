@@ -250,6 +250,7 @@ configure(allLibraries) {
         projDesc = pomInfoL.description
     }
 
+    project.archivesBaseName = project.archivesBaseName.replaceAll('^openmetromaps', 'omm')
     jar.baseName = jar.baseName.replaceAll('^openmetromaps', 'omm')
 
     afterEvaluate { project ->

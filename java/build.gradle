@@ -100,6 +100,13 @@ ext.allLibraries = [
         project(':openmetromaps-markdown-view'),
 ]
 
+ext.librariesJava8 = [
+        project(':openmetromaps-swing-misc'),
+        project(':openmetromaps-heavy-util'),
+
+        project(':openmetromaps-markdown-view'),
+]
+
 task checkUploadArtifactList {
     doLast {
         // build lookup from module name to module
@@ -211,13 +218,24 @@ configure(allLibraries) {
         from sourceSets.main.allSource
     }
 
-    if (project.hasProperty("topobyte")) {
+    def runForArtifactPublication = project.hasProperty("topobyte")
+
+    if (runForArtifactPublication) {
         apply from: 'file:///' + System.getProperty("user.home") \
             + '/.gradle/topobyte.gradle'
     }
 
     artifacts {
         archives sourcesJar
+    }
+
+    if (runForArtifactPublication && !librariesJava8.contains(project)) {
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
+
+        configure([compileJava, compileTestJava]) {
+            options.bootstrapClasspath = files(jdk7rtjar)
+        }
     }
 
     def global = new File(rootProject.projectDir, 'info.pom');

@@ -15,41 +15,35 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.gwt.client;
+package org.openmetromaps.maps.gwt;
+
+import java.util.List;
+import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
-import org.openmetromaps.maps.MapViewStatus;
-import org.openmetromaps.maps.PlanRenderer;
-import org.openmetromaps.maps.PlanRenderer.SegmentMode;
-import org.openmetromaps.maps.PlanRenderer.StationMode;
-import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.painting.core.GenericPaintFactory;
-import org.openmetromaps.maps.painting.core.Painter;
-import org.openmetromaps.maps.painting.gwt.GwtPainter;
+import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.maps.model.Stop;
 
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.canvas.dom.client.Context2d.TextAlign;
 import com.google.gwt.canvas.dom.client.CssColor;
 
 import de.topobyte.formatting.Formatting;
+import de.topobyte.lightgeom.lina.Point;
 
-public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
+public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
 {
 
 	private MapModel mapModel;
 	private MapView mapView;
-	private LineNetwork lineNetwork;
-
-	private MapViewStatus mapViewStatus = new MapViewStatus();
-	private StationMode stationMode = StationMode.CONVEX;
-	private SegmentMode segmentMode = SegmentMode.CURVE;
-
-	private PlanRenderer renderer;
 
 	private boolean debugSize = false;
 
-	public ScrollableAdvancedPlanPanel()
+	public ScrollableSimplePlanPanel()
 	{
 		// TODO: use start position
 
@@ -66,11 +60,8 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	{
 		this.mapModel = mapModel;
 		mapView = mapModel.getViews().get(0);
-		lineNetwork = mapView.getLineNetwork();
 
 		setScene(mapView.getConfig().getScene());
-
-		initRenderer();
 	}
 
 	public boolean isDebugSize()
@@ -83,24 +74,24 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 		this.debugSize = debugSize;
 	}
 
-	private void initRenderer()
-	{
-		renderer = new PlanRenderer(lineNetwork, mapViewStatus, stationMode,
-				segmentMode, this, this, 1, new GenericPaintFactory());
-	}
-
 	@Override
 	public void render()
 	{
-		Context2d c = canvas.getContext2d();
-
 		// g.setColor(Color.WHITE);
 		// fillRect(g, scene.getX1(), scene.getY1(), scene.getX2(),
 		// scene.getY2());
 
+		Context2d c = canvas.getContext2d();
 		fillBackground(c);
-
 		renderContent(c);
+
+		if (debugSize) {
+			c.setFont("16px Arial");
+			c.setTextAlign(TextAlign.LEFT);
+			c.setFillStyle("#000000");
+			c.fillText(Formatting.format("%dx%d %.2f", getWidth(), getHeight(),
+					getDevicePixelRatio()), 5, 21);
+		}
 	}
 
 	private void fillBackground(Context2d c)
@@ -111,19 +102,54 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 
 	private void renderContent(Context2d c)
 	{
-		Painter painter = new GwtPainter(c);
-
-		if (renderer == null) {
+		if (mapView == null) {
 			return;
 		}
-		renderer.paint(painter);
 
-		if (debugSize) {
-			c.setFont("16px Arial");
-			c.setTextAlign(TextAlign.LEFT);
-			c.setFillStyle("#000000");
-			c.fillText(Formatting.format("%dx%d %.2f", getWidth(), getHeight(),
-					getDevicePixelRatio()), 5, 21);
+		float s = 5;
+		float w = 3;
+
+		Map<Station, Node> stationToNode = mapView.getLineNetwork()
+				.getStationToNode();
+
+		ModelData data = mapModel.getData();
+
+		c.setLineWidth(w);
+		for (Line line : data.lines) {
+			c.setStrokeStyle(line.getColor());
+			List<Stop> stops = line.getStops();
+			Point prev = stationToNode.get(stops.get(0).getStation()).location;
+			for (int i = 1; i < stops.size(); i++) {
+				Point next = stationToNode
+						.get(stops.get(i).getStation()).location;
+				Point a = getPoint(prev);
+				Point b = getPoint(next);
+				c.beginPath();
+				c.moveTo(a.x, a.y);
+				c.lineTo(b.x, b.y);
+				c.stroke();
+				prev = next;
+			}
+		}
+
+		for (Station station : data.stations) {
+			List<Stop> stops = station.getStops();
+			if (stops.isEmpty()) {
+				continue;
+			} else if (stops.size() > 1) {
+				c.setFillStyle("#ffffff");
+				Point p = getPoint(stationToNode.get(station).location);
+				c.beginPath();
+				c.arc(p.x, p.y, s, 0, 360);
+				c.fill();
+			} else {
+				Stop stop = stops.iterator().next();
+				c.setFillStyle(stop.getLine().getColor());
+				Point p = getPoint(stationToNode.get(station).location);
+				c.beginPath();
+				c.arc(p.x, p.y, s, 0, 360);
+				c.fill();
+			}
 		}
 	}
 

@@ -21,6 +21,10 @@ import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.gwt.BaseMapWindowPanel;
+import org.openmetromaps.maps.gwt.ResizingAbsolutePanel;
+import org.openmetromaps.maps.gwt.StyleUtil;
+import org.openmetromaps.maps.gwt.Util;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;

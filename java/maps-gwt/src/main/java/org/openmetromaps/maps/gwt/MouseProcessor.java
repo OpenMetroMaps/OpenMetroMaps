@@ -15,38 +15,15 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.gwt.client;
+package org.openmetromaps.maps.gwt;
 
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseWheelEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
 
-public class BaseMouseProcessor implements MouseProcessor
+public interface MouseProcessor extends MouseUpHandler, MouseDownHandler,
+		MouseMoveHandler, MouseWheelHandler
 {
-
-	@Override
-	public void onMouseDown(MouseDownEvent event)
-	{
-		event.preventDefault();
-	}
-
-	@Override
-	public void onMouseUp(MouseUpEvent event)
-	{
-		event.preventDefault();
-	}
-
-	@Override
-	public void onMouseMove(MouseMoveEvent event)
-	{
-		event.preventDefault();
-	}
-
-	@Override
-	public void onMouseWheel(MouseWheelEvent event)
-	{
-		event.preventDefault();
-	}
 
 }

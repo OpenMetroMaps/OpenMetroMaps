@@ -21,6 +21,8 @@ import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.gwt.SimplePlanPanel;
+import org.openmetromaps.maps.gwt.Util;
 import org.openmetromaps.maps.model.BBox;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;

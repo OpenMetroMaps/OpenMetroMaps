@@ -15,15 +15,15 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.gwt.client;
+package org.openmetromaps.maps.gwt;
 
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.dom.client.TouchCancelHandler;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchStartHandler;
 
-public interface MouseProcessor extends MouseUpHandler, MouseDownHandler,
-		MouseMoveHandler, MouseWheelHandler
+public interface TouchProcessor extends TouchStartHandler, TouchEndHandler,
+		TouchCancelHandler, TouchMoveHandler
 {
 
 }

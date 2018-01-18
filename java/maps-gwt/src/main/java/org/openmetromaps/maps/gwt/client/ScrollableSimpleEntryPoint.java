@@ -20,6 +20,9 @@ package org.openmetromaps.maps.gwt.client;
 import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.gwt.BaseMapWindowPanel;
+import org.openmetromaps.maps.gwt.ScrollableSimplePlanPanel;
+import org.openmetromaps.maps.gwt.Util;
 
 public class ScrollableSimpleEntryPoint extends ScrollableEntryPoint
 {

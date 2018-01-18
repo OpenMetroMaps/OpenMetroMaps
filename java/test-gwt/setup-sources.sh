@@ -2,6 +2,7 @@
 
 DIRS=(
     'maps-core'
+    'maps-gwt'
     'maps-model'
     'maps-model-xml'
     'maps-model-xml-converter'

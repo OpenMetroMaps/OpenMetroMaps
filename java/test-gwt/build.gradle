@@ -1,0 +1,99 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'http://mvn.topobyte.de' }
+    }
+    dependencies {
+        classpath 'org.wisepersist:gwt-gradle-plugin:1.0.4'
+        classpath('de.topobyte:gradle-dependency-info-plugin:0.0.1');
+        classpath('de.topobyte:gradle-dependency-unpack-plugin:0.0.1');
+    }
+}
+
+apply plugin: 'war'
+apply plugin: 'gwt'
+apply plugin: 'de.topobyte.dependency-info-gradle-plugin'
+apply plugin: 'de.topobyte.dependency-unpack-gradle-plugin'
+
+gwt {
+    gwtVersion='2.8.1'
+
+    modules 'org.openmetromaps.maps.gwt.Simple'
+    modules 'org.openmetromaps.maps.gwt.ScrollableSimple'
+    modules 'org.openmetromaps.maps.gwt.ScrollableAdvanced'
+    modules 'org.openmetromaps.maps.gwt.Demo'
+
+    compiler {
+        strict = true;
+        disableClassMetadata = true;
+        disableCastChecking = true;
+    }
+}
+
+compileGwt {
+    minHeapSize = "512M";
+    maxHeapSize = "1024M";
+}
+
+dependencies {
+    compile 'de.topobyte:viewports-gwt:0.0.3'
+    compile 'de.topobyte:lightweight-geometry:1.0.0'
+    compile 'de.topobyte:adt-geo:0.0.4'
+    compile 'de.topobyte:adt-misc:0.0.2'
+    compile 'de.topobyte:jsi-rectangle-intersection-tester:0.0.1'
+    compile 'de.topobyte:lightweight-geometry:1.0.0'
+    compile 'de.topobyte:lightweight-geometry-convex-hull:1.0.0'
+    compile 'de.topobyte:geomath:0.0.2'
+    compile 'de.topobyte:line-printer-core:0.0.1'
+    compile 'de.topobyte:line-printer-slf4j:0.0.1'
+    compile 'de.topobyte:simple-formatting:0.0.3'
+    compile 'de.topobyte:system-utils:0.0.1'
+    compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
+    compile 'de.topobyte:slf4j-transpilable-binding-jdk:0.0.3'
+}
+
+configurations {
+    compile.exclude group: "org.slf4j", module: "slf4j-api"
+    compile.exclude group: "com.vividsolutions", module: "jts"
+    compile.exclude group: "com.slimjars.trove4j", module: "trove4j-object-int-hash-map"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java'
+        }
+    }
+    main {
+        java {
+            srcDir 'src/modules/maps-core/java'
+            srcDir 'src/modules/maps-gwt/java'
+            srcDir 'src/modules/maps-model/java'
+            srcDir 'src/modules/maps-model-xml/java'
+            srcDir 'src/modules/maps-model-xml-converter/java'
+            srcDir 'src/modules/maps-model-util/java'
+            srcDir 'src/modules/line-network-util/java'
+            srcDir 'src/modules/lightgeom/java'
+            srcDir 'src/modules/xml-dom-abstraction/java'
+            srcDir 'src/modules/xml-dom-abstraction-gwt/java'
+        }
+    }
+}
+
+task depfiles {
+    doLast {
+        project.configurations.compile.each { println it.name }
+    }
+}
+
+task depcoords {
+    doLast {
+        project.configurations.compile.resolvedConfiguration.resolvedArtifacts.each {
+            ComponentIdentifier ci = it.artifactId.componentIdentifier
+            if (ci instanceof ModuleComponentIdentifier) {
+                ModuleComponentIdentifier mci = ci
+                println String.format("%s:%s:%s", mci.group, mci.module, mci.version)
+            }
+        }
+    }
+}

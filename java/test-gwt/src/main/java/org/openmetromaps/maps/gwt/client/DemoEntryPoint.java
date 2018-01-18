@@ -15,12 +15,16 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.gwt;
+package org.openmetromaps.maps.gwt.client;
 
 import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.gwt.ResizingAbsolutePanel;
+import org.openmetromaps.maps.gwt.ScrollableAdvancedPlanPanel;
+import org.openmetromaps.maps.gwt.StyleUtil;
+import org.openmetromaps.maps.gwt.Util;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelReader;

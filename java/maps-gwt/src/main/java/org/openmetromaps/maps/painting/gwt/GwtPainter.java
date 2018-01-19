@@ -169,7 +169,7 @@ public class GwtPainter implements Painter
 		c.setStrokeStyle(colorCode);
 
 		int fontSize = paint.getFontSize();
-		c.setFont(fontSize + "px Arial");
+		c.setFont("bold " + fontSize + "px Arial");
 	}
 
 }

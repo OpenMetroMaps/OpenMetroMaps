@@ -178,7 +178,8 @@ public class GwtPainter implements Painter
 		c.setFillStyle(colorCode);
 		c.setStrokeStyle(colorCode);
 
-		int fontSize = paint.getFontSize();
+		double ratio = getDevicePixelRatio();
+		int fontSize = (int) (paint.getFontSize() * ratio);
 		c.setFont("bold " + fontSize + "px Arial");
 	}
 

@@ -51,4 +51,6 @@ public interface Painter
 
 	public void setPaintInfo(IPaintInfo paint);
 
+	public double getScaleFactor();
+
 }

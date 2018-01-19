@@ -190,4 +190,10 @@ public class AwtPainter implements Painter
 		drawShape(line);
 	}
 
+	@Override
+	public double getScaleFactor()
+	{
+		return 1;
+	}
+
 }

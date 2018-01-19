@@ -125,4 +125,10 @@ public class AndroidPainter implements Painter
 		c.drawLine((float) x1, (float) y1, (float) x2, (float) y2, p);
 	}
 
+	@Override
+	public double getScaleFactor()
+	{
+		return 1;
+	}
+
 }

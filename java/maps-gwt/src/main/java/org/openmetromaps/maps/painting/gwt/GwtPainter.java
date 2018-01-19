@@ -150,6 +150,16 @@ public class GwtPainter implements Painter
 	}
 
 	@Override
+	public double getScaleFactor()
+	{
+		return getDevicePixelRatio();
+	}
+
+	protected final native double getDevicePixelRatio() /*-{
+														return window.devicePixelRatio;
+														}-*/;
+
+	@Override
 	public void setPaintInfo(IPaintInfo paintInfo)
 	{
 		this.paintInfo = (GenericPaintInfo) paintInfo;

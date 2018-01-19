@@ -85,8 +85,9 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 
 	private void initRenderer()
 	{
+		float scale = (float) getDevicePixelRatio();
 		renderer = new PlanRenderer(lineNetwork, mapViewStatus, stationMode,
-				segmentMode, this, this, 1, new GenericPaintFactory());
+				segmentMode, this, this, scale, new GenericPaintFactory());
 	}
 
 	@Override

@@ -391,12 +391,11 @@ public class PlanRenderer implements ViewportListener
 			p.y -= 6 * scale * factor;
 
 			g.setPaintInfo(piText);
-			double sh = fontSize * g.getScaleFactor();
 			int sw = g.getStringWidth(name);
 
 			Rectangle r = new Rectangle((float) (p.x - sw / 2),
-					(float) (p.y - sh / 2), (float) (p.x + sw / 2),
-					(float) (p.y + sh / 2));
+					(float) (p.y - fontSize / 2), (float) (p.x + sw / 2),
+					(float) (p.y + fontSize / 2));
 			if (tester.isFree(r)) {
 				float x = (float) (p.x - sw / 2);
 				float y = (float) p.y;

@@ -150,16 +150,6 @@ public class GwtPainter implements Painter
 	}
 
 	@Override
-	public double getScaleFactor()
-	{
-		return getDevicePixelRatio();
-	}
-
-	protected final native double getDevicePixelRatio() /*-{
-														return window.devicePixelRatio;
-														}-*/;
-
-	@Override
 	public void setPaintInfo(IPaintInfo paintInfo)
 	{
 		this.paintInfo = (GenericPaintInfo) paintInfo;
@@ -178,8 +168,7 @@ public class GwtPainter implements Painter
 		c.setFillStyle(colorCode);
 		c.setStrokeStyle(colorCode);
 
-		double ratio = getDevicePixelRatio();
-		int fontSize = (int) (paint.getFontSize() * ratio);
+		int fontSize = paint.getFontSize();
 		c.setFont("bold " + fontSize + "px Arial");
 	}
 

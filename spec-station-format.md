@@ -1,4 +1,4 @@
-# OpenMetroMaps Change Format
+# OpenMetroMaps Station Format
 
 This is a draft!
 

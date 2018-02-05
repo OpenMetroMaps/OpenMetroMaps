@@ -37,16 +37,16 @@ import org.slf4j.LoggerFactory;
 
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
-public class OpenAction extends MapMorpherAction
+public class Open1Action extends MapMorpherAction
 {
 
-	final static Logger logger = LoggerFactory.getLogger(OpenAction.class);
+	final static Logger logger = LoggerFactory.getLogger(Open1Action.class);
 
 	private static final long serialVersionUID = 1L;
 
-	public OpenAction(MapMorpher mapMorpher)
+	public Open1Action(MapMorpher mapMorpher)
 	{
-		super(mapMorpher, "Open", "Open a file");
+		super(mapMorpher, "Open Morph Start", "Open a file");
 		setIcon("res/images/24/document-open.png");
 	}
 
@@ -75,7 +75,7 @@ public class OpenAction extends MapMorpherAction
 				is.close();
 
 				MapModel model = new XmlModelConverter().convert(xmlModel);
-				mapMorpher.setModel(model);
+				mapMorpher.setModel1(model);
 				mapMorpher.getMap().repaint();
 				mapMorpher.setSource(file.toPath());
 			} catch (IOException | ParsingException e) {

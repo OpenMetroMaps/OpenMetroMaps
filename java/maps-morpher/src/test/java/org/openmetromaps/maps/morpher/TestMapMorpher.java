@@ -32,7 +32,7 @@ public class TestMapMorpher
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		MapMorpher mapMorpher = new MapMorpher(model, null);
+		MapMorpher mapMorpher = new MapMorpher(model, model, null);
 		mapMorpher.show();
 	}
 

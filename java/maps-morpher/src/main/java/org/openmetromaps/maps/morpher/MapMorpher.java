@@ -52,7 +52,8 @@ import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.openmetromaps.maps.ScrollableAdvancedPanel;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.morpher.actions.file.ExitAction;
-import org.openmetromaps.maps.morpher.actions.file.OpenAction;
+import org.openmetromaps.maps.morpher.actions.file.Open1Action;
+import org.openmetromaps.maps.morpher.actions.file.Open2Action;
 import org.openmetromaps.maps.morpher.actions.help.AboutAction;
 import org.openmetromaps.maps.morpher.actions.help.LicenseAction;
 import org.openmetromaps.maps.morpher.actions.view.ShowLabelsAction;
@@ -74,6 +75,9 @@ public class MapMorpher
 {
 
 	final static Logger logger = LoggerFactory.getLogger(MapMorpher.class);
+
+	private MapModel model1;
+	private MapModel model2;
 
 	private MapModel model;
 	private MapView view;
@@ -107,11 +111,11 @@ public class MapMorpher
 			changeSupport, "segment-mode", x -> setSegmentModeInternal(),
 			SegmentMode.CURVE);
 
-	public MapMorpher(MapModel model, Path source)
+	public MapMorpher(MapModel model1, MapModel model2, Path source)
 	{
 		this.source = source;
 
-		init(model);
+		init(model1, model2);
 
 		dataChangeListeners = new ArrayList<>();
 	}
@@ -126,9 +130,17 @@ public class MapMorpher
 		return source;
 	}
 
-	public void setModel(MapModel model)
+	public void setModel1(MapModel model1)
 	{
-		init(model);
+		init(model1, model2);
+		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
+		map.setViewConfig(viewConfig, Constants.DEFAULT_ZOOM);
+		syncMapState();
+	}
+
+	public void setModel2(MapModel model2)
+	{
+		init(model1, model2);
 		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
 		map.setViewConfig(viewConfig, Constants.DEFAULT_ZOOM);
 		syncMapState();
@@ -181,11 +193,15 @@ public class MapMorpher
 		planRenderer.setSegmentMode(segmentMode.getValue());
 	}
 
-	private void init(MapModel model)
+	private void init(MapModel model1, MapModel model2)
 	{
-		this.model = model;
+		this.model1 = model1;
+		this.model2 = model2;
 
 		mapViewStatus = new MapViewStatus();
+
+		model = new MapModel(model1.getData());
+		model.setViews(model1.getViews());
 
 		ModelUtil.ensureView(model);
 
@@ -193,9 +209,14 @@ public class MapMorpher
 		viewConfig = view.getConfig();
 	}
 
-	public MapModel getModel()
+	public MapModel getModel1()
 	{
-		return model;
+		return model1;
+	}
+
+	public MapModel getModel2()
+	{
+		return model2;
 	}
 
 	public MapView getView()
@@ -278,7 +299,7 @@ public class MapMorpher
 		syncMapState();
 
 		new InitialViewportSetupListener(map,
-				model.getViews().get(0).getConfig().getStartPosition());
+				model1.getViews().get(0).getConfig().getStartPosition());
 	}
 
 	private void setupMenu()
@@ -302,8 +323,10 @@ public class MapMorpher
 
 	private void setupMenuFile(JMenu menuFile)
 	{
-		JMenus.addItem(menuFile, new OpenAction(this), KeyEvent.CTRL_DOWN_MASK,
+		JMenus.addItem(menuFile, new Open1Action(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_O);
+		JMenus.addItem(menuFile, new Open2Action(this), KeyEvent.CTRL_DOWN_MASK,
+				KeyEvent.VK_P);
 		JMenus.addItem(menuFile, new ExitAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_Q);
 	}

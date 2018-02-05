@@ -162,6 +162,11 @@ public class MapMorpher
 
 		LineNetwork network = view.getLineNetwork();
 		map.setData(model.getData(), network, mapViewStatus);
+		PlanRenderer planRenderer = map.getPlanRenderer();
+		planRenderer.setRenderLabels(isShowLabels());
+		planRenderer.setRenderStationCenters(isShowStationCenters());
+		planRenderer.setSegmentMode(segmentMode.getValue());
+		planRenderer.setStationMode(stationMode.getValue());
 
 		viewConfig = view.getConfig();
 	}

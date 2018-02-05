@@ -20,6 +20,7 @@ package org.openmetromaps.maps.morpher;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.image.ImageUtil;
@@ -37,7 +38,11 @@ public class TestMapMorpherBerlinExport
 		MapModel geographic = Util.load(berlin.resolve("geographic.xml"));
 		MapModel schematic = Util.load(berlin.resolve("schematic.xml"));
 
+		int before = 25;
 		int num = 150;
+		int after = 50;
+		int total = before + num + after;
+
 		int width = 1440;
 		int height = 1080;
 		int x = 240;
@@ -47,12 +52,54 @@ public class TestMapMorpherBerlinExport
 		Path dir = Paths.get("/tmp/video");
 		Files.createDirectories(dir);
 
+		String pattern = "%04d.png";
+
+		String filenameFirst = String.format(pattern, 1);
+		String filenameLast = String.format(pattern, total);
+
+		Path fileFirst = dir.resolve(filenameFirst);
+		Path fileLast = dir.resolve(filenameLast);
+
+		System.out.println("creating first image: " + fileFirst);
+		{
+			MapModel model = MapMorphing.deriveModel(geographic, schematic, 0);
+			ImageUtil.createPng(model, fileFirst, width, height, x, y, zoom);
+		}
+
+		System.out.println("creating last image: " + fileLast);
+		{
+			MapModel model = MapMorphing.deriveModel(geographic, schematic, 1);
+			ImageUtil.createPng(model, fileLast, width, height, x, y, zoom);
+		}
+
+		for (int i = 1; i < before; i++) {
+			int n = i + 1;
+
+			String filename = String.format(pattern, n);
+			Path file = dir.resolve(filename);
+			System.out.println("Copy first to: " + file);
+
+			Files.copy(fileFirst, file, StandardCopyOption.REPLACE_EXISTING);
+		}
+
+		for (int i = 1; i < after; i++) {
+			int n = before + num + i;
+
+			String filename = String.format(pattern, n);
+			Path file = dir.resolve(filename);
+			System.out.println("Copy last to: " + file);
+
+			Files.copy(fileLast, file, StandardCopyOption.REPLACE_EXISTING);
+		}
+
 		for (int i = 1; i <= num; i++) {
-			String filename = String.format("%04d.png", i);
+			int n = before + i;
+
+			String filename = String.format(pattern, n);
 			Path file = dir.resolve(filename);
 
 			double relative = (i - 1) / (double) (num - 1);
-			System.out.println(String.format("%.2f: %s", relative, filename));
+			System.out.println(String.format("%.2f: %s", relative, file));
 
 			MapModel model = MapMorphing.deriveModel(geographic, schematic,
 					relative);

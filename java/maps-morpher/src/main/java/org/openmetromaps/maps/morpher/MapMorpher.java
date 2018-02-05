@@ -36,6 +36,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
@@ -82,6 +83,7 @@ public class MapMorpher
 	private MapModel model;
 	private MapView view;
 	private MapViewStatus mapViewStatus;
+	private JSlider slider;
 
 	private Path source;
 
@@ -111,13 +113,32 @@ public class MapMorpher
 			changeSupport, "segment-mode", x -> setSegmentModeInternal(),
 			SegmentMode.CURVE);
 
+	private int sliderMin = 0;
+	private int sliderMax = 100;
+	private int sliderCurrent = sliderMin;
+
 	public MapMorpher(MapModel model1, MapModel model2, Path source)
 	{
 		this.source = source;
 
+		slider = new JSlider(sliderMin, sliderMax, sliderCurrent);
+		slider.addChangeListener(e -> {
+			adjustValue();
+		});
+
 		init(model1, model2);
 
 		dataChangeListeners = new ArrayList<>();
+	}
+
+	private void adjustValue()
+	{
+		if (slider.getValue() == sliderCurrent) {
+			return;
+		}
+		sliderCurrent = slider.getValue();
+		double relative = sliderCurrent / (double) (sliderMax - sliderMin);
+		System.out.println(String.format("adjust slider to %.2f", relative));
 	}
 
 	public void setSource(Path source)
@@ -401,8 +422,13 @@ public class MapMorpher
 		map.addMouseMotionListener(panAdapter);
 
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
-		c.fill(GridBagConstraints.BOTH);
-		c.weight(1, 1);
+
+		c.gridPos(0, 0);
+		c.fill(GridBagConstraints.HORIZONTAL).weight(1, 0);
+		panel.add(slider, c.getConstraints());
+
+		c.gridPos(0, 1);
+		c.fill(GridBagConstraints.BOTH).weight(1, 1);
 		panel.add(scrollableView, c.getConstraints());
 	}
 

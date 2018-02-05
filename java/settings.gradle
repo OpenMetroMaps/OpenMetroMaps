@@ -75,9 +75,11 @@ project(':maps-gwt').name = 'openmetromaps-maps-gwt'
 // Swing
 include 'maps-editor'
 include 'maps-viewer'
+include 'maps-morpher'
 include 'ui-resources', 'swing-misc'
 project(':maps-editor').name = 'openmetromaps-maps-editor'
 project(':maps-viewer').name = 'openmetromaps-maps-viewer'
+project(':maps-morpher').name = 'openmetromaps-maps-morpher'
 project(':ui-resources').name = 'openmetromaps-ui-resources'
 project(':swing-misc').name = 'openmetromaps-swing-misc'
 

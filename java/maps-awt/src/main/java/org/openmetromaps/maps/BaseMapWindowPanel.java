@@ -77,15 +77,15 @@ public class BaseMapWindowPanel extends BaseScenePanel
 	}
 
 	@Override
-	public double getX(double lon)
+	public double getX(double x)
 	{
-		return ViewportUtil.getViewX(this, lon);
+		return ViewportUtil.getViewX(this, x);
 	}
 
 	@Override
-	public double getY(double lat)
+	public double getY(double y)
 	{
-		return ViewportUtil.getViewY(this, lat);
+		return ViewportUtil.getViewY(this, y);
 	}
 
 	@Override

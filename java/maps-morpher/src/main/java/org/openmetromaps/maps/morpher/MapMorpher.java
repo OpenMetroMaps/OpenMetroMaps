@@ -28,7 +28,9 @@ import java.beans.PropertyChangeSupport;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -42,6 +44,7 @@ import javax.swing.WindowConstants;
 
 import org.openmetromaps.maps.Constants;
 import org.openmetromaps.maps.DataChangeListener;
+import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.InitialViewportSetupListener;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
@@ -52,6 +55,12 @@ import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.openmetromaps.maps.ScrollableAdvancedPanel;
 import org.openmetromaps.maps.ViewConfig;
+import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.graph.LineNetworkBuilder;
+import org.openmetromaps.maps.graph.LineNetworkUtil;
+import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.morpher.actions.file.ExitAction;
 import org.openmetromaps.maps.morpher.actions.file.Open1Action;
 import org.openmetromaps.maps.morpher.actions.file.Open2Action;
@@ -63,6 +72,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
+import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.JMenus;
 import de.topobyte.swing.util.action.enums.BooleanValueHolder;
@@ -127,6 +137,7 @@ public class MapMorpher
 		});
 
 		init(model1, model2);
+		updateModel();
 
 		dataChangeListeners = new ArrayList<>();
 	}
@@ -137,8 +148,70 @@ public class MapMorpher
 			return;
 		}
 		sliderCurrent = slider.getValue();
+		updateModel();
+		map.repaint();
+	}
+
+	private void updateModel()
+	{
 		double relative = sliderCurrent / (double) (sliderMax - sliderMin);
 		System.out.println(String.format("adjust slider to %.2f", relative));
+		deriveModel(relative);
+	}
+
+	private void deriveModel(double relative)
+	{
+		ModelData data = model1.getData();
+
+		MapView view1 = model1.getViews().get(0);
+		MapView view2 = model2.getViews().get(0);
+		LineNetwork network1 = view1.getLineNetwork();
+		LineNetwork network2 = view2.getLineNetwork();
+
+		ViewConfig config = view1.getConfig();
+		List<Edges> edges = view1.getEdges();
+
+		model = new MapModel(data);
+
+		LineNetworkBuilder builder = new LineNetworkBuilder(data, edges);
+		LineNetwork network = builder.getGraph();
+
+		Map<String, Station> nameToStation = new HashMap<>();
+		for (Station station : network2.getStationToNode().keySet()) {
+			nameToStation.put(station.getName(), station);
+		}
+
+		double f1 = 1 - relative;
+		double f2 = relative;
+
+		for (Node node : network.getNodes()) {
+			String stationName = node.station.getName();
+			Station station2 = nameToStation.get(stationName);
+
+			Node node1 = network1.getStationToNode().get(node.station);
+			Node node2 = network2.getStationToNode().get(station2);
+
+			Point loc1 = node1.location;
+			Point loc2 = node2.location;
+
+			double x = f1 * loc1.x + f2 * loc2.x;
+			double y = f1 * loc1.y + f2 * loc2.y;
+			node.location = new Point(x, y);
+		}
+
+		LineNetworkUtil.calculateAllNeighborLocations(network);
+
+		view = new MapView("morphed", edges, network, config);
+		if (map == null) {
+			return;
+		}
+		map.setData(model.getData(), network, mapViewStatus);
+
+		List<MapView> views = new ArrayList<>();
+		views.add(view);
+		model.setViews(views);
+
+		viewConfig = view.getConfig();
 	}
 
 	public void setSource(Path source)
@@ -154,7 +227,7 @@ public class MapMorpher
 	public void setModel1(MapModel model1)
 	{
 		init(model1, model2);
-		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
+		updateModel();
 		map.setViewConfig(viewConfig, Constants.DEFAULT_ZOOM);
 		syncMapState();
 	}
@@ -162,7 +235,7 @@ public class MapMorpher
 	public void setModel2(MapModel model2)
 	{
 		init(model1, model2);
-		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
+		updateModel();
 		map.setViewConfig(viewConfig, Constants.DEFAULT_ZOOM);
 		syncMapState();
 	}
@@ -221,13 +294,8 @@ public class MapMorpher
 
 		mapViewStatus = new MapViewStatus();
 
-		model = new MapModel(model1.getData());
-		model.setViews(model1.getViews());
-
-		ModelUtil.ensureView(model);
-
-		view = model.getViews().get(0);
-		viewConfig = view.getConfig();
+		ModelUtil.ensureView(model1);
+		ModelUtil.ensureView(model2);
 	}
 
 	public MapModel getModel1()

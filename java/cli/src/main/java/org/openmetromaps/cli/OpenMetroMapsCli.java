@@ -19,6 +19,7 @@ package org.openmetromaps.cli;
 
 import org.openmetromaps.cli.gtfs.RunGtfsImport;
 import org.openmetromaps.cli.maps.RunMapEditor;
+import org.openmetromaps.cli.maps.RunMapMorpher;
 import org.openmetromaps.cli.maps.RunMapViewer;
 import org.openmetromaps.cli.maps.RunSimpleMapViewer;
 import org.openmetromaps.cli.markdownview.RunCreateMarkdownView;
@@ -60,6 +61,8 @@ public class OpenMetroMapsCli
 					RunMapEditor.class);
 			options.addCommand("map-viewer", RunMapViewer.OPTIONS_FACTORY,
 					RunMapViewer.class);
+			options.addCommand("map-morpher", RunMapMorpher.OPTIONS_FACTORY,
+					RunMapMorpher.class);
 			options.addCommand("simple-map-viewer",
 					RunSimpleMapViewer.OPTIONS_FACTORY,
 					RunSimpleMapViewer.class);

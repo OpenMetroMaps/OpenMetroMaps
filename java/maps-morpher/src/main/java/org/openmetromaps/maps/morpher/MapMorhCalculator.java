@@ -43,20 +43,32 @@ public class MapMorhCalculator
 	private MapModel model1;
 	private MapModel model2;
 
+	private MapView view1;
+	private MapView view2;
+	private LineNetwork network1;
+	private LineNetwork network2;
+
+	private Map<String, Station> nameToStation2;
+
 	public MapMorhCalculator(MapModel model1, MapModel model2)
 	{
 		this.model1 = model1;
 		this.model2 = model2;
+
+		view1 = model1.getViews().get(0);
+		view2 = model2.getViews().get(0);
+		network1 = view1.getLineNetwork();
+		network2 = view2.getLineNetwork();
+
+		nameToStation2 = new HashMap<>();
+		for (Station station : network2.getStationToNode().keySet()) {
+			nameToStation2.put(station.getName(), station);
+		}
 	}
 
 	public MapModel deriveModel(double relative)
 	{
 		ModelData data = model1.getData();
-
-		MapView view1 = model1.getViews().get(0);
-		MapView view2 = model2.getViews().get(0);
-		LineNetwork network1 = view1.getLineNetwork();
-		LineNetwork network2 = view2.getLineNetwork();
 
 		Rectangle scene1 = view1.getConfig().getScene();
 		Rectangle scene2 = view2.getConfig().getScene();
@@ -85,17 +97,12 @@ public class MapMorhCalculator
 		LineNetworkBuilder builder = new LineNetworkBuilder(data, edges);
 		LineNetwork network = builder.getGraph();
 
-		Map<String, Station> nameToStation = new HashMap<>();
-		for (Station station : network2.getStationToNode().keySet()) {
-			nameToStation.put(station.getName(), station);
-		}
-
 		double f1 = 1 - relative;
 		double f2 = relative;
 
 		for (Node node : network.getNodes()) {
 			String stationName = node.station.getName();
-			Station station2 = nameToStation.get(stationName);
+			Station station2 = nameToStation2.get(stationName);
 
 			Node node1 = network1.getStationToNode().get(node.station);
 			Node node2 = network2.getStationToNode().get(station2);
@@ -117,6 +124,16 @@ public class MapMorhCalculator
 		model.setViews(views);
 
 		return model;
+	}
+
+	public MapModel getModel1()
+	{
+		return model1;
+	}
+
+	public MapModel getModel2()
+	{
+		return model2;
 	}
 
 }

@@ -34,6 +34,7 @@ Where task can be any of the following:
     inspect-model
     map-editor
     map-viewer
+    map-morpher
     simple-map-viewer
     gtfs-import
     create-markdown-view

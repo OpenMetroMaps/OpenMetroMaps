@@ -18,11 +18,8 @@
 package org.openmetromaps.heavyutil;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import org.openmetromaps.heavyutil.HeavyUtil;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.TestData;
@@ -78,17 +75,10 @@ public class TestShowChange
 		NetworkLine line = findLine(network, nameLine);
 		Node node = findStation(network, nameStation);
 
-		List<Line> lines = HeavyUtil.determineInterestingLines(stationToLines, line,
-				node);
-		Collections.sort(lines, new Comparator<Line>() {
+		List<Line> lines = HeavyUtil.determineInterestingLines(stationToLines,
+				line, node);
+		MapModelUtil.sortLinesByName(lines);
 
-			@Override
-			public int compare(Line o1, Line o2)
-			{
-				return o1.getName().compareTo(o2.getName());
-			}
-
-		});
 		System.out.println(
 				"found: " + Collections2.transform(lines, e -> e.getName()));
 	}

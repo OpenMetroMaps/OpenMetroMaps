@@ -22,8 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -123,15 +121,7 @@ public class RunListChangeStations
 			changeStations.add(node.station);
 		}
 
-		Collections.sort(changeStations, new Comparator<Station>() {
-
-			@Override
-			public int compare(Station o1, Station o2)
-			{
-				return o1.getName().compareTo(o2.getName());
-			}
-
-		});
+		MapModelUtil.sortStationsByName(changeStations);
 
 		for (Station station : changeStations) {
 			System.out.println(station.getName());

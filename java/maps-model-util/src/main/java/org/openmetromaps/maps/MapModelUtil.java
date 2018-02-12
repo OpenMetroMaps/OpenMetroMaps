@@ -18,6 +18,7 @@
 package org.openmetromaps.maps;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.openmetromaps.maps.model.Line;
@@ -61,6 +62,16 @@ public class MapModelUtil
 			}
 		}
 		return -1;
+	}
+
+	public static void sortStationsByName(List<Station> stations)
+	{
+		Collections.sort(stations, new StationComparatorByName());
+	}
+
+	public static void sortLinesByName(List<Line> lines)
+	{
+		Collections.sort(lines, new LineComparatorByName());
 	}
 
 }

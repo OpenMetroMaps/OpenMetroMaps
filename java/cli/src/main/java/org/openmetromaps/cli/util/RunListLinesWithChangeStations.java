@@ -22,8 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
@@ -111,15 +109,7 @@ public class RunListLinesWithChangeStations
 					continue;
 				}
 
-				Collections.sort(changeLines, new Comparator<Line>() {
-
-					@Override
-					public int compare(Line o1, Line o2)
-					{
-						return o1.getName().compareTo(o2.getName());
-					}
-
-				});
+				MapModelUtil.sortLinesByName(changeLines);
 
 				Collection<String> names = Collections2.transform(changeLines,
 						e -> e.getName());

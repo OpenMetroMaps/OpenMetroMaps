@@ -35,6 +35,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.Interval;
+import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.LineNetwork;
@@ -74,25 +75,8 @@ public class XmlModelWriter
 		eMain.appendChild(eStations);
 		eMain.appendChild(eLines);
 
-		Collections.sort(data.stations, new Comparator<Station>() {
-
-			@Override
-			public int compare(Station o1, Station o2)
-			{
-				return o1.getName().compareTo(o2.getName());
-			}
-
-		});
-
-		Collections.sort(data.lines, new Comparator<Line>() {
-
-			@Override
-			public int compare(Line o1, Line o2)
-			{
-				return o1.getName().compareTo(o2.getName());
-			}
-
-		});
+		MapModelUtil.sortStationsByName(data.stations);
+		MapModelUtil.sortLinesByName(data.lines);
 
 		for (Station station : data.stations) {
 			Element eStation = doc.createElement("station");

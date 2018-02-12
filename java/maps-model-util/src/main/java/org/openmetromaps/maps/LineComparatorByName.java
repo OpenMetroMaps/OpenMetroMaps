@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2018 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,40 +15,21 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.model;
+package org.openmetromaps.maps;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Comparator;
 
-import javax.swing.AbstractListModel;
-
-import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.model.Line;
-import org.openmetromaps.maps.model.ModelData;
 
-public class LinesListModel extends AbstractListModel<Line>
+public class LineComparatorByName implements Comparator<Line>
 {
 
-	private static final long serialVersionUID = 1L;
-
-	private List<Line> lines;
-
-	public LinesListModel(ModelData model)
-	{
-		lines = new ArrayList<>(model.lines);
-		MapModelUtil.sortLinesByName(lines);
-	}
-
 	@Override
-	public int getSize()
+	public int compare(Line o1, Line o2)
 	{
-		return lines.size();
-	}
-
-	@Override
-	public Line getElementAt(int index)
-	{
-		return lines.get(index);
+		String name1 = o1.getName();
+		String name2 = o2.getName();
+		return name1.compareTo(name2);
 	}
 
 }

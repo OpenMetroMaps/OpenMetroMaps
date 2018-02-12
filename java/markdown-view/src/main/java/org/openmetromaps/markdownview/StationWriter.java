@@ -20,10 +20,9 @@ package org.openmetromaps.markdownview;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
+import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 
@@ -51,17 +50,7 @@ public class StationWriter
 
 		List<Line> lines = new ArrayList<>(
 				context.getStationToLines().get(station));
-		Collections.sort(lines, new Comparator<Line>() {
-
-			@Override
-			public int compare(Line o1, Line o2)
-			{
-				String name1 = o1.getName();
-				String name2 = o2.getName();
-				return name1.compareTo(name2);
-			}
-
-		});
+		MapModelUtil.sortLinesByName(lines);
 
 		WebPath path = context.path(station);
 

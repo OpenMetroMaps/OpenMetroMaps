@@ -1,4 +1,5 @@
 dependencies {
     compile project(':openmetromaps-maps-model-xml')
     compile project(':openmetromaps-xml-dom-abstraction-desktop')
+    compile project(':openmetromaps-maps-model-util')
 }

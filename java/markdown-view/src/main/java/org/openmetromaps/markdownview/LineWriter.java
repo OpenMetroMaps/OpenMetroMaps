@@ -19,12 +19,11 @@ package org.openmetromaps.markdownview;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import org.openmetromaps.heavyutil.HeavyUtil;
+import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
@@ -69,16 +68,7 @@ public abstract class LineWriter
 
 			List<Line> lines = HeavyUtil.determineInterestingLines(
 					context.getStationToLines(), line, node);
-
-			Collections.sort(lines, new Comparator<Line>() {
-
-				@Override
-				public int compare(Line o1, Line o2)
-				{
-					return o1.getName().compareTo(o2.getName());
-				}
-
-			});
+			MapModelUtil.sortLinesByName(lines);
 
 			if (!lines.isEmpty()) {
 				text.append(" ");

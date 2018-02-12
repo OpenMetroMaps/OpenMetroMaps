@@ -18,8 +18,6 @@
 package org.openmetromaps.model.gtfs;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +25,7 @@ import java.util.Map;
 import org.openmetromaps.gtfs.DraftLine;
 import org.openmetromaps.gtfs.DraftModel;
 import org.openmetromaps.gtfs.DraftStation;
+import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
@@ -90,15 +89,7 @@ public class DraftModelConverter
 			}
 		}
 
-		Collections.sort(stationsList, new Comparator<Station>() {
-
-			@Override
-			public int compare(Station o1, Station o2)
-			{
-				return o1.getName().compareTo(o2.getName());
-			}
-
-		});
+		MapModelUtil.sortStationsByName(stationsList);
 
 		for (int i = 0; i < linesList.size(); i++) {
 			Line line = linesList.get(i);

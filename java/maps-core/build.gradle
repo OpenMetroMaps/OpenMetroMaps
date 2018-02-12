@@ -9,6 +9,6 @@ dependencies {
     compile 'de.topobyte:lightweight-geometry:1.0.0'
     compile 'de.topobyte:lightweight-geometry-convex-hull:1.0.0'
     compile 'de.topobyte:geomath:0.0.2'
-    compile 'de.topobyte:simple-formatting:0.0.2'
+    compile 'de.topobyte:simple-formatting:0.0.3'
     compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
 }

@@ -108,7 +108,8 @@ page.
 * It would be nice to be able to create morphing animations from two views
   of the same network. Inspired by
   [this article](http://mymodernmet.com/animated-subway-maps) about
-  a number of posts on reddit.
+  a number of posts on reddit
+  ([Berlin](https://www.reddit.com/r/dataisbeautiful/comments/6baefh/berlin_subway_map_compared_to_its_real_geography/)).
   **Done** via the `maps-morpher` module and the CLI's `map-morpher` task.
 * Build something like [this interactive route planner](http://jannisr.de/vbb-map-routing) using
   the Javascript viewer component.

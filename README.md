@@ -109,6 +109,7 @@ page.
   of the same network. Inspired by
   [this article](http://mymodernmet.com/animated-subway-maps) about
   a number of posts on reddit.
+  **Done** via the `maps-morpher` module and the CLI's `map-morpher` task.
 * Build something like [this interactive route planner](http://jannisr.de/vbb-map-routing) using
   the Javascript viewer component.
 * Integrate the Android component into

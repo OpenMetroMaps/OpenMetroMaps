@@ -81,6 +81,9 @@ file with a normal text editor.
 When you want to use existing data, you can write an import algorithm of
 your own.
 
+[Wikidata](https://www.wikidata.org) also stores information about
+stations, lines and the like.
+
 ## Station Data
 
 In addition to the main map file format, we're also working on an additional

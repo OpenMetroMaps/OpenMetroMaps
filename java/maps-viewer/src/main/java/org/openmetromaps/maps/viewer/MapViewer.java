@@ -21,6 +21,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Window;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -31,11 +32,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
@@ -60,6 +65,7 @@ import org.openmetromaps.maps.viewer.actions.help.LicenseAction;
 import org.openmetromaps.maps.viewer.actions.view.ShowLabelsAction;
 import org.openmetromaps.maps.viewer.actions.view.ShowMapAction;
 import org.openmetromaps.maps.viewer.actions.view.ShowStationCentersAction;
+import org.openmetromaps.maps.viewer.jeography.JeographyZoomAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,6 +86,7 @@ import de.topobyte.swing.util.action.enums.EnumValueHolder;
 import de.topobyte.viewports.scrolling.PanMouseAdapter;
 import de.topobyte.viewports.scrolling.ScrollableView;
 import de.topobyte.viewports.scrolling.ViewportUtil;
+import de.topobyte.viewports.scrolling.ZoomAction;
 
 public class MapViewer
 {
@@ -219,6 +226,23 @@ public class MapViewer
 		viewer.setDrawCrosshair(false);
 		viewer.setDrawBorder(false);
 		viewer.setDrawTileNumbers(false);
+
+		InputMap inputMap = viewer
+				.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS,
+				InputEvent.CTRL_DOWN_MASK), "Ctrl++");
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS,
+				InputEvent.CTRL_DOWN_MASK), "Ctrl+-");
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_1,
+				InputEvent.CTRL_DOWN_MASK), "Ctrl+1");
+
+		ActionMap actionMap = viewer.getActionMap();
+		actionMap.put("Ctrl++",
+				new JeographyZoomAction(viewer, ZoomAction.Type.IN));
+		actionMap.put("Ctrl+-",
+				new JeographyZoomAction(viewer, ZoomAction.Type.OUT));
+		actionMap.put("Ctrl+1",
+				new JeographyZoomAction(viewer, ZoomAction.Type.IDENTITY));
 
 		// TODO: connect to frame's close signal and modify state of menu
 		frameMap = new JFrame("Map");

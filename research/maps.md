@@ -41,6 +41,8 @@ Open data about ICE routes in Germany:
 * Mike Straschewski has
   [his own interactive map](http://www.stadtschnellbahn-berlin.de/strecken/index.php)
   for the S-Bahn system.
+* Michael Frenzel created an [interactive viewer for the
+  Browser](http://berliner-linien.de/BL/index.html).
 
 ### Austria
 

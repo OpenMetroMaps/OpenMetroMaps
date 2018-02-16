@@ -4,3 +4,4 @@
 * [Other projects](other-projects.md)
 * [Optimization algorithms](optimization-algorithms.md)
 * [Misc](misc.md)
+* [OpenStreetMap](osm.md)

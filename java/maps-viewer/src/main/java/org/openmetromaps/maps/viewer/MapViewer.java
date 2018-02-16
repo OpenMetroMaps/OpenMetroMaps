@@ -135,6 +135,8 @@ public class MapViewer
 			changeSupport, "segment-mode", x -> setSegmentModeInternal(),
 			SegmentMode.CURVE);
 
+	private ShowMapAction showMapAction;
+
 	public MapViewer(MapModel model, Path source)
 	{
 		this.source = source;
@@ -207,6 +209,12 @@ public class MapViewer
 
 	public void setShowMapInternal(boolean visible)
 	{
+		// TODO: this is kind of sub-optimal, but works. Ideally, the
+		// ValueHolder would support any number of additional listeners and the
+		// action could subscribe to change events as a listener instead of
+		// being called from here manually
+		showMapAction.notifyChanged();
+
 		if (!visible) {
 			if (frameMap != null) {
 				frameMap.setVisible(false);
@@ -244,11 +252,20 @@ public class MapViewer
 		actionMap.put("Ctrl+1",
 				new JeographyZoomAction(viewer, ZoomAction.Type.IDENTITY));
 
-		// TODO: connect to frame's close signal and modify state of menu
 		frameMap = new JFrame("Map");
 		frameMap.add(viewer);
 		frameMap.setSize(600, 500);
 		frameMap.setVisible(true);
+
+		frameMap.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e)
+			{
+				showMap.setValue(false);
+			}
+
+		});
 	}
 
 	public StationMode getStationMode()
@@ -412,7 +429,8 @@ public class MapViewer
 				KeyEvent.VK_F2);
 		JMenus.addCheckbox(menuView, new ShowStationCentersAction(this),
 				KeyEvent.VK_F3);
-		JMenus.addCheckbox(menuView, new ShowMapAction(this), KeyEvent.VK_F4);
+		showMapAction = new ShowMapAction(this);
+		JMenus.addCheckbox(menuView, showMapAction, KeyEvent.VK_F4);
 		JMenu stationMode = submenu("Station mode");
 		JMenu segmentMode = submenu("Segment mode");
 		menuView.add(stationMode);

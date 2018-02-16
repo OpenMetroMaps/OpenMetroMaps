@@ -17,6 +17,8 @@
 
 package org.openmetromaps.maps.viewer.actions.view;
 
+import javax.swing.Action;
+
 import org.openmetromaps.maps.viewer.MapViewer;
 import org.openmetromaps.maps.viewer.actions.MapViewerBooleanAction;
 
@@ -43,6 +45,11 @@ public class ShowMapAction extends MapViewerBooleanAction
 	public void toggleState()
 	{
 		mapViewer.setShowMap(!mapViewer.isShowMap());
+	}
+
+	public void notifyChanged()
+	{
+		firePropertyChange(Action.SELECTED_KEY, !getState(), getState());
 	}
 
 }

@@ -44,6 +44,11 @@ Open data about ICE routes in Germany:
 * Michael Frenzel created an [interactive viewer for the
   Browser](http://berliner-linien.de/BL/index.html).
 
+#### Hagen
+
+* Seite bei der Hagener Straßenbahn AG: [Tag-, Spät- und
+  Nachtverkehr](http://www.strassenbahn-hagen.de/fahrplaene-strecken/liniennetzplaene-tag-spaet-und-nachtverkehr.html)
+
 ### Austria
 
 #### Vienna, Wiener Linien

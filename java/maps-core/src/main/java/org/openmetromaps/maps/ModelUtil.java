@@ -43,6 +43,9 @@ public class ModelUtil
 	public static ColorCode getColor(Line line)
 	{
 		String sColor = line.getColor();
+		if (sColor.isEmpty()) {
+			return new ColorCode(0xffbf3f);
+		}
 		return new ColorCode(Integer.decode(sColor));
 	}
 

@@ -51,6 +51,12 @@ Open data about ICE routes in Germany:
 * [Alte Karte von Baumgardt
   Consultants](http://web.archive.org/web/20091007052422/http://www.strassenbahn-hagen.de:80/download/Screen_LNP_Hagen.pdf)
 
+#### Karlsruhe
+
+* Übersicht über die [Liniennetze des KVV](https://www.kvv.de/liniennetz.html)
+* [Liniennetz
+  Schiene](https://www.kvv.de/fileadmin/user_upload/kvv/Bilder/liniennetz/KVV-Liniennetzplan_Schiene.jpg)
+
 ### Austria
 
 #### Vienna, Wiener Linien

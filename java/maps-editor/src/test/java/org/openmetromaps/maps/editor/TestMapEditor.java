@@ -17,18 +17,26 @@
 
 package org.openmetromaps.maps.editor;
 
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.openmetromaps.maps.MapModel;
-import org.openmetromaps.maps.TestData;
-import org.openmetromaps.maps.editor.MapEditor;
+import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
+
+import de.topobyte.system.utils.SystemPaths;
 
 public class TestMapEditor
 {
 
 	public static void main(String[] args) throws Exception
 	{
-		XmlModel xmlModel = TestData.berlinXml();
+		Path file = SystemPaths.HOME.resolve("gueret/gueret.omm");
+		InputStream input = Files.newInputStream(file);
+
+		XmlModel xmlModel = DesktopXmlModelReader.read(input);
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);

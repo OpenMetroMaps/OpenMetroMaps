@@ -110,11 +110,12 @@ public class ModelBuilder
 		Collections.sort(relationsList, new IdComparator());
 
 		Set<String> interstingRouteTypes = new HashSet<>();
-		interstingRouteTypes
-				.addAll(Arrays.asList(new String[] { "light_rail", "subway" }));
+		interstingRouteTypes.addAll(Arrays.asList(new String[] { "bus" }));
 
 		int nBugsNotFound = 0;
 		int nBugsNoName = 0;
+
+		Set<String> refsUsed = new HashSet<>();
 
 		for (OsmRelation relation : relationsList) {
 			Map<String, String> rTags = OsmModelUtil.getTagsAsMap(relation);
@@ -125,9 +126,19 @@ public class ModelBuilder
 			if (!interstingRouteTypes.contains(route)) {
 				continue;
 			}
+
+			if (!"Agglobus".equals(rTags.get("network"))) {
+				continue;
+			}
+
 			String name = rTags.get("name");
 			String ref = rTags.get("ref");
 			logger.info(Formatting.format("Name: '%s', Ref: '%s'", name, ref));
+
+			if (refsUsed.contains(ref)) {
+				continue;
+			}
+			refsUsed.add(ref);
 
 			List<DraftStation> stations = new ArrayList<>();
 

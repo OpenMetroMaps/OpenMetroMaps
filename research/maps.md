@@ -48,6 +48,8 @@ Open data about ICE routes in Germany:
 
 * Seite bei der Hagener Straßenbahn AG: [Tag-, Spät- und
   Nachtverkehr](http://www.strassenbahn-hagen.de/fahrplaene-strecken/liniennetzplaene-tag-spaet-und-nachtverkehr.html)
+* [Alte Karte von Baumgardt
+  Consultants](http://web.archive.org/web/20091007052422/http://www.strassenbahn-hagen.de:80/download/Screen_LNP_Hagen.pdf)
 
 ### Austria
 

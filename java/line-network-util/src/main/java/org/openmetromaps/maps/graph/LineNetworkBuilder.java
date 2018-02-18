@@ -106,6 +106,9 @@ public class LineNetworkBuilder
 	private void addAllEdges(NetworkLine networkLine)
 	{
 		List<Stop> stops = networkLine.line.getStops();
+		if (stops.isEmpty()) {
+			return;
+		}
 		Stop prev = stops.get(0);
 		List<Edge> edges = new ArrayList<>();
 		for (int k = 1; k < stops.size(); k++) {

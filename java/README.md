@@ -1,5 +1,8 @@
 # OpenMetroMaps Java project
 
+Table of Contents
+* [Requirements](#requirements)
+
 ## Requirements
 
 In order to run the software from the development tree you need a Java

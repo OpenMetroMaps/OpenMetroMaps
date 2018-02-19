@@ -83,7 +83,7 @@ Have a look at the [To-Do list](TODO.md).
 
 To start hacking on the project, you should use an IDE. We're using Eclipse here
 and Gradle provides the mechanisms to generate the Eclipse project files for all
-submodules. Use `gradle cleanEclipse eclipse` to generate the required files.
+submodules. Use `./gradlew cleanEclipse eclipse` to generate the required files.
 Afterwards you can import the Git repository into your Eclipse workspace and
 import the projects from there (Use the *Git Repositories* view for this.
 If you don't have this view open in your Eclipse perspective, open it like this:

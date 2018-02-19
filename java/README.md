@@ -75,6 +75,12 @@ where sub-task may be one of the following:
     list-change-stations
     list-lines-with-change-stations
 
+## Map Editor
+
+The Map Editor is the main interface for creating and manipulating maps.
+There's a separate [manual](map-editor.md) that explains the features in
+some detail.
+
 ## To-Do
 
 Have a look at the [To-Do list](TODO.md).

@@ -2,6 +2,17 @@
 
 Table of Contents
 * [Requirements](#requirements)
+* [Command line interface (CLI)](#command-line-interface-cli)
+    * [Building the CLI module](#building-the-cli-module)
+    * [CLI usage and tasks](#cli-usage-and-tasks)
+    * [The util task](#the-util-task)
+* [Map Editor](#map-editor)
+* [To-Do](#to-do)
+* [Hacking](#hacking)
+    * [Gradle tasks](#gradle-tasks)
+    * [Writing an optimization
+      algorithm](#writing-an-optimization-algorithm)
+* [Publishing artifacts](#publishing-artifacts)
 
 ## Requirements
 

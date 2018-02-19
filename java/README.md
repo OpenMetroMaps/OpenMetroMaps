@@ -7,6 +7,11 @@ Development Kit (JDK), Version 8 or later. The project uses Gradle as a
 build tool, but you should use the included Gradle Wrapper for building
 the project.
 
+On Debian-based systems such as Ubuntu or Mint, you can install the JDK
+like this:
+
+    sudo apt-get install openjdk-8-jdk
+
 ## Command line interface (CLI)
 
 ### Building the CLI module

@@ -32,7 +32,10 @@ This project has a main executable that can be executed like this:
 
 Alternatively, add the `scripts` directory to your `PATH` environment
 variable in order to run `openmetromaps-cli` without specifying its location
-each time. The following examples assume you have done that.
+each time. The following examples assume you have done that:
+
+    export PATH=$PATH:$(readlink -f scripts)
+
 Then invoke the main executable like this:
 
     openmetromaps-cli <task>

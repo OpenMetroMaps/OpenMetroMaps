@@ -7,7 +7,7 @@ Data projects for cities/regions are stored within the
 the namespaces for data and code projects separated. Also see the
 [list of data projects](data-projects.md).
 
-Table of Contents
+**Table of Contents**
 * [File Format](#file-format)
 * [Desktop Tools](#desktop-tools)
 * [Web Viewer](#web-viewer)

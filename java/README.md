@@ -1,6 +1,6 @@
 # OpenMetroMaps Java project
 
-Table of Contents
+**Table of Contents**
 * [Requirements](#requirements)
 * [Command line interface (CLI)](#command-line-interface-cli)
     * [Building the CLI module](#building-the-cli-module)

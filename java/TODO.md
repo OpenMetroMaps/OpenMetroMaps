@@ -13,6 +13,8 @@
 * ability to mark more edges as 'parallel' in order to improve the rendering
   of multi-line edges that split into separate lines.
 * settings editor
+* selection of multiple stations by clicking and dragging with the left
+  mouse button (draw a rectangle)
 
 ## Done
 * bulk station dragging

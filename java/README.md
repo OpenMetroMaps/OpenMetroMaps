@@ -16,6 +16,10 @@ like this:
 
 ### Building the CLI module
 
+First, make sure to change to the `java` directory, i.e. type
+
+    cd java
+
 Run the Gradle `createRuntime` task to build the CLI:
 
     ./gradlew clean createRuntime

@@ -7,6 +7,19 @@ Data projects for cities/regions are stored within the
 the namespaces for data and code projects separated. Also see the
 [list of data projects](data-projects.md).
 
+Table of Contents
+* [File Format](#file-format)
+* [Desktop Tools](#desktop-tools)
+* [Web Viewer](#web-viewer)
+* [Data Sources](#data-sources)
+    * [OpenStreetMap](#openstreetmap)
+    * [GTFS](#gtfs)
+    * [Other Sources](#other-sources)
+* [Station Data](#station-data)
+* [Research](#research)
+* [Other Ideas](#other-ideas)
+    * [Nick-name map for Berlin](#nick-name-map-for-berlin)
+
 ## File Format
 
 A major goal of this project is to develop a file format for storing schematic

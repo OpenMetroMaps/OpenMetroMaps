@@ -2,8 +2,10 @@
 
 ## Requirements
 
-In order to run the software from the development tree you need Java 8 and
-Gradle.
+In order to run the software from the development tree you need a Java
+Development Kit (JDK), Version 8 or later. The project uses Gradle as a
+build tool, but you should use the included Gradle Wrapper for building
+the project.
 
 ## Command line interface (CLI)
 

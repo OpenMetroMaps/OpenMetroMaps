@@ -48,6 +48,7 @@ import org.openmetromaps.maps.model.Stop;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import de.topobyte.formatting.DoubleFormatter;
 import de.topobyte.lightgeom.lina.Point;
 
 public class XmlModelWriter
@@ -78,6 +79,9 @@ public class XmlModelWriter
 		MapModelUtil.sortStationsByName(data.stations);
 		MapModelUtil.sortLinesByName(data.lines);
 
+		DoubleFormatter df = new DoubleFormatter();
+		df.setFractionDigits(6);
+
 		for (Station station : data.stations) {
 			Element eStation = doc.createElement("station");
 			eStations.appendChild(eStation);
@@ -85,10 +89,8 @@ public class XmlModelWriter
 			Coordinate location = station.getLocation();
 
 			eStation.setAttribute("name", station.getName());
-			eStation.setAttribute("lon",
-					String.format("%.6f", location.getLongitude()));
-			eStation.setAttribute("lat",
-					String.format("%.6f", location.getLatitude()));
+			eStation.setAttribute("lon", df.format(location.getLongitude()));
+			eStation.setAttribute("lat", df.format(location.getLatitude()));
 		}
 
 		for (Line line : data.lines) {
@@ -114,13 +116,13 @@ public class XmlModelWriter
 			ViewConfig config = view.getConfig();
 			eView.setAttribute("name", view.getName());
 			eView.setAttribute("scene-width",
-					String.format("%.6f", config.getScene().getWidth()));
+					df.format(config.getScene().getWidth()));
 			eView.setAttribute("scene-height",
-					String.format("%.6f", config.getScene().getHeight()));
+					df.format(config.getScene().getHeight()));
 			eView.setAttribute("start-x",
-					String.format("%.6f", config.getStartPosition().getX()));
+					df.format(config.getStartPosition().getX()));
 			eView.setAttribute("start-y",
-					String.format("%.6f", config.getStartPosition().getY()));
+					df.format(config.getStartPosition().getY()));
 
 			LineNetwork lineNetwork = view.getLineNetwork();
 			List<Node> nodes = new ArrayList<>(lineNetwork.getNodes());
@@ -157,10 +159,8 @@ public class XmlModelWriter
 				Point location = node.location;
 
 				eStation.setAttribute("name", station.getName());
-				eStation.setAttribute("x",
-						String.format("%.6f", location.getX()));
-				eStation.setAttribute("y",
-						String.format("%.6f", location.getY()));
+				eStation.setAttribute("x", df.format(location.getX()));
+				eStation.setAttribute("y", df.format(location.getY()));
 			}
 		}
 

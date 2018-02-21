@@ -44,6 +44,7 @@ public class RunGtfsImport
 
 	private static final String OPTION_INPUT = "input";
 	private static final String OPTION_OUTPUT = "output";
+	private static final String OPTION_FIX_BOMS = "fix-boms";
 
 	public static ExeOptionsFactory OPTIONS_FACTORY = new ExeOptionsFactory() {
 
@@ -54,6 +55,7 @@ public class RunGtfsImport
 			// @formatter:off
 			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "a source GTFS zip file");
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "a target model text file");
+			OptionHelper.addL(options, OPTION_FIX_BOMS, false, false, "whether to check for BOMs in zipped files");
 			// @formatter:on
 			return new CommonsCliExeOptions(options, "[options]");
 		}
@@ -67,6 +69,8 @@ public class RunGtfsImport
 
 		String argInput = line.getOptionValue(OPTION_INPUT);
 		String argOutput = line.getOptionValue(OPTION_OUTPUT);
+		boolean fixBoms = line.hasOption(OPTION_FIX_BOMS);
+
 		Path pathInput = Paths.get(argInput);
 		Path pathOutput = Paths.get(argOutput);
 
@@ -83,7 +87,8 @@ public class RunGtfsImport
 
 		NameChanger nameChanger = new NameChanger(prefixes, suffixes);
 
-		GtfsImporter importer = new GtfsImporter(pathInput, nameChanger);
+		GtfsImporter importer = new GtfsImporter(pathInput, nameChanger,
+				fixBoms);
 		importer.execute();
 
 		OutputStream os = Files.newOutputStream(pathOutput);

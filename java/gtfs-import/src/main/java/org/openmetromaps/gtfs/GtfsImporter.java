@@ -18,6 +18,7 @@
 package org.openmetromaps.gtfs;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,6 +53,7 @@ public class GtfsImporter
 
 	private Path path;
 	private NameChanger nameChanger;
+	private boolean removeBoms;
 
 	private GtfsZip zip;
 
@@ -65,10 +67,11 @@ public class GtfsImporter
 
 	private DraftModel model = new DraftModel();
 
-	public GtfsImporter(Path path, NameChanger nameChanger)
+	public GtfsImporter(Path path, NameChanger nameChanger, boolean removeBoms)
 	{
 		this.path = path;
 		this.nameChanger = nameChanger;
+		this.removeBoms = removeBoms;
 	}
 
 	public DraftModel getModel()
@@ -78,7 +81,16 @@ public class GtfsImporter
 
 	public void execute() throws ZipException, IOException
 	{
-		zip = new GtfsZip(path);
+		if (removeBoms) {
+			Path tmp = Files.createTempFile("gtfs", ".zip");
+			GtfsBomRemover bomRemover = new GtfsBomRemover(path, tmp);
+			bomRemover.execute();
+
+			zip = new GtfsZip(tmp);
+			tmp.toFile().deleteOnExit();
+		} else {
+			zip = new GtfsZip(path);
+		}
 
 		printAgencyInfo();
 

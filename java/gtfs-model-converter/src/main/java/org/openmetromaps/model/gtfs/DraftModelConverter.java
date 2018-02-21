@@ -32,6 +32,8 @@ import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
 
+import com.google.common.base.Strings;
+
 public class DraftModelConverter
 {
 
@@ -54,7 +56,7 @@ public class DraftModelConverter
 		for (DraftLine draftLine : draftLines) {
 			String name = draftLine.getSource();
 			String color = draftLine.getColor();
-			if (!color.isEmpty() && color.length() == 6) {
+			if (!Strings.isNullOrEmpty(color) && color.length() == 6) {
 				color = "#" + color;
 			} else {
 				color = "#FFFFFF";

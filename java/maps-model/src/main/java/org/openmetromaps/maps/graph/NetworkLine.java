@@ -40,6 +40,13 @@ public class NetworkLine
 	public void setEdges(List<Edge> edges)
 	{
 		int nEdges = edges.size();
+
+		if (nEdges == 1) {
+			Edge edge = edges.get(0);
+			neighbors.put(edge, new NeighborInfo(null, null));
+			return;
+		}
+
 		{
 			Edge edge = edges.get(0);
 			Edge next = edges.get(1);

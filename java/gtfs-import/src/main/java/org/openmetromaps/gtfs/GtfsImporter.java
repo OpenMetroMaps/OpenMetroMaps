@@ -201,6 +201,13 @@ public class GtfsImporter
 			for (Route route : versions) {
 				trips.addAll(routeIdToTrips.get(route.getId()));
 			}
+
+			if (trips.isEmpty()) {
+				System.out.println(
+						String.format("%s: no trips found", routeName));
+				continue;
+			}
+
 			System.out.println(
 					String.format("%s: %d trips", routeName, trips.size()));
 			Multiset<StopIdList> stopIdListSet = HashMultiset.create();
@@ -290,6 +297,11 @@ public class GtfsImporter
 		Set<String> allStopIds = new HashSet<>();
 		for (String routeName : routeNames) {
 			StopIdList stopIds = selectedStopLists.get(routeName);
+
+			if (stopIds == null) {
+				continue;
+			}
+
 			allStopIds.addAll(stopIds);
 
 			List<DraftStation> stations = new ArrayList<>();

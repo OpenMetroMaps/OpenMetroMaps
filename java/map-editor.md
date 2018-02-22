@@ -1,4 +1,4 @@
-# Editor User Guide
+# Map Editor User Guide
 
 ## Mouse
 * Left click to select stations

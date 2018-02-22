@@ -10,7 +10,7 @@
 
 Mouse actions on stations only work on a pixel-distance <=8 to the stations
 center. To make selecting and dragging stations easier, consider enabling
-the visibility of stations centers (F3).
+the visibility of station centers (F3).
 
 ## Keyboard
 ### File

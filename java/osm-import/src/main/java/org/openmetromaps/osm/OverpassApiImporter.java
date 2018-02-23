@@ -46,7 +46,7 @@ import de.topobyte.osm4j.xml.dynsax.OsmXmlIterator;
 public class OverpassApiImporter
 {
 
-	public void execute(String q, RouteFilter routeFilter)
+	public ModelData execute(String q, RouteFilter routeFilter)
 			throws MalformedURLException, IOException
 	{
 		HttpPost post = new HttpPost(
@@ -96,8 +96,7 @@ public class OverpassApiImporter
 		DraftModel draftModel = modelBuilder.getModel();
 		ModelData model = new DraftModelConverter().convert(draftModel);
 
-		System.out.println(String.format("Imported %d lines with %d stations",
-				model.lines.size(), model.stations.size()));
+		return model;
 	}
 
 }

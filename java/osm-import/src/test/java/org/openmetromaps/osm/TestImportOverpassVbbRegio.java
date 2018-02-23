@@ -18,15 +18,25 @@
 package org.openmetromaps.osm;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.maps.xml.XmlModelWriter;
 import org.openmetromaps.model.osm.filter.RouteTypeFilter;
 
 public class TestImportOverpassVbbRegio
 {
 
-	public static void main(String[] args)
-			throws MalformedURLException, IOException
+	public static void main(String[] args) throws MalformedURLException,
+			IOException, ParserConfigurationException, TransformerException
 	{
 		String q = "(" + //
 				"  relation" + //
@@ -38,7 +48,15 @@ public class TestImportOverpassVbbRegio
 				"out;";
 
 		OverpassApiImporter importer = new OverpassApiImporter();
-		importer.execute(q, new RouteTypeFilter("train"));
+		ModelData data = importer.execute(q, new RouteTypeFilter("train"));
+
+		System.out.println(String.format("Imported %d lines with %d stations",
+				data.lines.size(), data.stations.size()));
+
+		Path pathOutput = Paths.get("/tmp/vbb.xml");
+		OutputStream os = Files.newOutputStream(pathOutput);
+		new XmlModelWriter().write(os, data, new ArrayList<>());
+		os.close();
 	}
 
 }

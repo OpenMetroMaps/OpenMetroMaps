@@ -30,8 +30,6 @@ import org.openmetromaps.misc.NameUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.slimjars.dist.gnu.trove.iterator.TLongObjectIterator;
-
 import de.topobyte.formatting.Formatting;
 import de.topobyte.geomath.WGS84;
 import de.topobyte.lineprinter.sfl4j.LogLevel;
@@ -71,31 +69,8 @@ public class ModelBuilder
 	public void run(boolean applyFixes) throws IOException
 	{
 		List<DraftLine> lines = model.getLines();
-		Map<String, OsmNode> stationMap = model.getStationMap();
 
 		List<OsmRelation> relationsList = new ArrayList<>();
-
-		TLongObjectIterator<OsmNode> nIter = dataSet.getNodes().iterator();
-		while (nIter.hasNext()) {
-			nIter.advance();
-			OsmNode node = nIter.value();
-			Map<String, String> tags = OsmModelUtil.getTagsAsMap(node);
-			String railway = tags.get("railway");
-			if (railway == null) {
-				continue;
-			}
-			if (!railway.equals("station")) {
-				continue;
-			}
-			String stationName = tags.get("name");
-			if (stationName == null) {
-				continue;
-			}
-			stationName = NameUtil.stripPrefix(stationName, prefixes);
-			if (!stationMap.containsKey(stationName)) {
-				stationMap.put(stationName, node);
-			}
-		}
 
 		relationsList.addAll(dataSet.getRelations().valueCollection());
 		Collections.sort(relationsList, new IdComparator());

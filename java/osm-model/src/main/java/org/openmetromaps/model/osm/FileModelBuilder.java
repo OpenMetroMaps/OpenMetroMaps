@@ -20,6 +20,7 @@ package org.openmetromaps.model.osm;
 import java.io.IOException;
 import java.util.List;
 
+import org.openmetromaps.model.osm.filter.RouteFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,15 +37,17 @@ public class FileModelBuilder
 			.getLogger(FileModelBuilder.class);
 
 	private OsmFile fileInput;
+	private RouteFilter routeFilter;
 	private List<String> prefixes;
 	private List<Fix> fixes;
 
 	private ModelBuilder modelBuilder = null;
 
-	public FileModelBuilder(OsmFile fileInput, List<String> prefixes,
-			List<Fix> fixes)
+	public FileModelBuilder(OsmFile fileInput, RouteFilter routeFilter,
+			List<String> prefixes, List<Fix> fixes)
 	{
 		this.fileInput = fileInput;
+		this.routeFilter = routeFilter;
 		this.prefixes = prefixes;
 		this.fixes = fixes;
 	}
@@ -61,7 +64,7 @@ public class FileModelBuilder
 		InMemoryMapDataSet dataSet = MapDataSetLoader.read(iterator, true, true,
 				true);
 
-		modelBuilder = new ModelBuilder(dataSet, prefixes, fixes);
+		modelBuilder = new ModelBuilder(dataSet, routeFilter, prefixes, fixes);
 		modelBuilder.run(applyFixes);
 	}
 

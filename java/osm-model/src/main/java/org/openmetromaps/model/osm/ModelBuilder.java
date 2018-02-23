@@ -19,14 +19,12 @@ package org.openmetromaps.model.osm;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.openmetromaps.misc.NameUtil;
+import org.openmetromaps.model.osm.filter.RouteFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,15 +46,17 @@ public class ModelBuilder
 	final static Logger logger = LoggerFactory.getLogger(ModelBuilder.class);
 
 	private InMemoryMapDataSet dataSet;
+	private RouteFilter routeFilter;
 	private List<String> prefixes;
 	private List<Fix> fixes;
 
 	private DraftModel model = new DraftModel();
 
-	public ModelBuilder(InMemoryMapDataSet dataSet, List<String> prefixes,
-			List<Fix> fixes)
+	public ModelBuilder(InMemoryMapDataSet dataSet, RouteFilter routeFilter,
+			List<String> prefixes, List<Fix> fixes)
 	{
 		this.dataSet = dataSet;
+		this.routeFilter = routeFilter;
 		this.prefixes = prefixes;
 		this.fixes = fixes;
 	}
@@ -75,22 +75,16 @@ public class ModelBuilder
 		relationsList.addAll(dataSet.getRelations().valueCollection());
 		Collections.sort(relationsList, new IdComparator());
 
-		Set<String> interstingRouteTypes = new HashSet<>();
-		interstingRouteTypes
-				.addAll(Arrays.asList(new String[] { "light_rail", "subway" }));
-
 		int nBugsNotFound = 0;
 		int nBugsNoName = 0;
 
 		for (OsmRelation relation : relationsList) {
 			Map<String, String> rTags = OsmModelUtil.getTagsAsMap(relation);
-			String route = rTags.get("route");
-			if (route == null) {
+
+			if (!routeFilter.useRoute(relation)) {
 				continue;
 			}
-			if (!interstingRouteTypes.contains(route)) {
-				continue;
-			}
+
 			String name = rTags.get("name");
 			String ref = rTags.get("ref");
 			logger.info(Formatting.format("Name: '%s', Ref: '%s'", name, ref));

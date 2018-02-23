@@ -28,6 +28,8 @@ import org.openmetromaps.cli.osm.OsmOptions;
 import org.openmetromaps.model.osm.DraftModel;
 import org.openmetromaps.model.osm.FileModelBuilder;
 import org.openmetromaps.model.osm.Fix;
+import org.openmetromaps.model.osm.filter.RouteFilter;
+import org.openmetromaps.model.osm.filter.RouteTypeFilter;
 import org.openmetromaps.model.osm.inspector.ModelInspector;
 
 import de.topobyte.osm4j.utils.OsmFile;
@@ -76,6 +78,8 @@ public class RunModelInspector
 
 		System.out.println("Input: " + pathInput);
 
+		RouteFilter routeFilter = new RouteTypeFilter("light_rail", "subway");
+
 		List<String> prefixes = new ArrayList<>();
 		prefixes.add("S ");
 		prefixes.add("U ");
@@ -85,7 +89,7 @@ public class RunModelInspector
 		List<Fix> fixes = new ArrayList<>();
 
 		FileModelBuilder modelBuilder = new FileModelBuilder(fileInput,
-				prefixes, fixes);
+				routeFilter, prefixes, fixes);
 		modelBuilder.run(true);
 
 		DraftModel model = modelBuilder.getModel();

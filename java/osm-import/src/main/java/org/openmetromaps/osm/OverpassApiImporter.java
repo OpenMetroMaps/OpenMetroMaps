@@ -33,6 +33,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.openmetromaps.model.osm.Fix;
 import org.openmetromaps.model.osm.ModelBuilder;
+import org.openmetromaps.model.osm.filter.RouteFilter;
+import org.openmetromaps.model.osm.filter.RouteTypeFilter;
 
 import de.topobyte.osm4j.core.access.OsmIterator;
 import de.topobyte.osm4j.core.dataset.InMemoryMapDataSet;
@@ -86,8 +88,11 @@ public class OverpassApiImporter
 		List<Fix> fixes = new ArrayList<>();
 		List<String> prefixes = new ArrayList<>();
 
+		RouteFilter routeFilter = new RouteTypeFilter("light_rail", "subway");
+
 		// TODO: this doesn't work yet
-		ModelBuilder modelBuilder = new ModelBuilder(null, prefixes, fixes);
+		ModelBuilder modelBuilder = new ModelBuilder(null, routeFilter,
+				prefixes, fixes);
 		modelBuilder.run(true);
 	}
 

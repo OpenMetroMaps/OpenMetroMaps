@@ -20,6 +20,8 @@ package org.openmetromaps.osm;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import org.openmetromaps.model.osm.filter.RouteTypeFilter;
+
 public class TestImportOverpassVbbRE1ViaTags
 {
 
@@ -29,7 +31,7 @@ public class TestImportOverpassVbbRE1ViaTags
 		String q = "( relation[ref=RE1][network=\"Verkehrsverbund Berlin-Brandenburg\"];"
 				+ ">; ); out;";
 		OverpassApiImporter importer = new OverpassApiImporter();
-		importer.execute(q);
+		importer.execute(q, new RouteTypeFilter("train"));
 	}
 
 }

@@ -31,10 +31,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.openmetromaps.maps.model.ModelData;
+import org.openmetromaps.model.osm.DraftModel;
+import org.openmetromaps.model.osm.DraftModelConverter;
 import org.openmetromaps.model.osm.Fix;
 import org.openmetromaps.model.osm.ModelBuilder;
 import org.openmetromaps.model.osm.filter.RouteFilter;
-import org.openmetromaps.model.osm.filter.RouteTypeFilter;
 
 import de.topobyte.osm4j.core.access.OsmIterator;
 import de.topobyte.osm4j.core.dataset.InMemoryMapDataSet;
@@ -44,7 +46,8 @@ import de.topobyte.osm4j.xml.dynsax.OsmXmlIterator;
 public class OverpassApiImporter
 {
 
-	public void execute(String q) throws MalformedURLException, IOException
+	public void execute(String q, RouteFilter routeFilter)
+			throws MalformedURLException, IOException
 	{
 		HttpPost post = new HttpPost(
 				"http://www.overpass-api.de/api/interpreter");
@@ -83,17 +86,18 @@ public class OverpassApiImporter
 		System.out.println(String.format("%d, %d, %d", data.getNodes().size(),
 				data.getWays().size(), data.getRelations().size()));
 
-		System.exit(0);
-
 		List<Fix> fixes = new ArrayList<>();
 		List<String> prefixes = new ArrayList<>();
 
-		RouteFilter routeFilter = new RouteTypeFilter("light_rail", "subway");
-
-		// TODO: this doesn't work yet
-		ModelBuilder modelBuilder = new ModelBuilder(null, routeFilter,
+		ModelBuilder modelBuilder = new ModelBuilder(data, routeFilter,
 				prefixes, fixes);
 		modelBuilder.run(true);
+
+		DraftModel draftModel = modelBuilder.getModel();
+		ModelData model = new DraftModelConverter().convert(draftModel);
+
+		System.out.println(String.format("Imported %d lines with %d stations",
+				model.lines.size(), model.stations.size()));
 	}
 
 }

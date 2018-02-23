@@ -20,6 +20,8 @@ package org.openmetromaps.osm;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import org.openmetromaps.model.osm.filter.RouteTypeFilter;
+
 public class TestImportOverpassVbbRegio
 {
 
@@ -36,7 +38,7 @@ public class TestImportOverpassVbbRegio
 				"out;";
 
 		OverpassApiImporter importer = new OverpassApiImporter();
-		importer.execute(q);
+		importer.execute(q, new RouteTypeFilter("train"));
 	}
 
 }

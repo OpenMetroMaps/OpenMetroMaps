@@ -57,10 +57,12 @@ project(':gtfs-model-converter').name = 'openmetromaps-gtfs-model-converter'
 
 // OSM
 include 'osm', 'osm-model', 'osm-model-inspector', 'osm-model-converter'
+include 'osm-import'
 project(':osm').name = 'openmetromaps-osm'
 project(':osm-model').name = 'openmetromaps-osm-model'
 project(':osm-model-inspector').name = 'openmetromaps-osm-model-inspector'
 project(':osm-model-converter').name = 'openmetromaps-osm-model-converter'
+project(':osm-import').name = 'openmetromaps-osm-import'
 
 // map rendering
 include 'maps-core'

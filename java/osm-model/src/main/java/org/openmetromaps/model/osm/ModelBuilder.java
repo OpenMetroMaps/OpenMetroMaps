@@ -36,33 +36,29 @@ import de.topobyte.formatting.Formatting;
 import de.topobyte.geomath.WGS84;
 import de.topobyte.lineprinter.sfl4j.LogLevel;
 import de.topobyte.lineprinter.sfl4j.LoggerPrinter;
-import de.topobyte.osm4j.core.access.OsmIteratorInput;
 import de.topobyte.osm4j.core.dataset.InMemoryMapDataSet;
-import de.topobyte.osm4j.core.dataset.MapDataSetLoader;
 import de.topobyte.osm4j.core.dataset.sort.IdComparator;
 import de.topobyte.osm4j.core.model.iface.EntityType;
 import de.topobyte.osm4j.core.model.iface.OsmNode;
 import de.topobyte.osm4j.core.model.iface.OsmRelation;
 import de.topobyte.osm4j.core.model.iface.OsmRelationMember;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
-import de.topobyte.osm4j.utils.OsmFile;
-import de.topobyte.osm4j.utils.OsmFileInput;
 
 public class ModelBuilder
 {
 
 	final static Logger logger = LoggerFactory.getLogger(ModelBuilder.class);
 
-	private OsmFile fileInput;
+	private InMemoryMapDataSet dataSet;
 	private List<String> prefixes;
 	private List<Fix> fixes;
 
 	private DraftModel model = new DraftModel();
 
-	public ModelBuilder(OsmFile fileInput, List<String> prefixes,
+	public ModelBuilder(InMemoryMapDataSet dataSet, List<String> prefixes,
 			List<Fix> fixes)
 	{
-		this.fileInput = fileInput;
+		this.dataSet = dataSet;
 		this.prefixes = prefixes;
 		this.fixes = fixes;
 	}
@@ -76,11 +72,6 @@ public class ModelBuilder
 	{
 		List<DraftLine> lines = model.getLines();
 		Map<String, OsmNode> stationMap = model.getStationMap();
-
-		OsmIteratorInput iterator = new OsmFileInput(fileInput)
-				.createIterator(true, false);
-		InMemoryMapDataSet dataSet = MapDataSetLoader.read(iterator, true, true,
-				true);
 
 		List<OsmRelation> relationsList = new ArrayList<>();
 

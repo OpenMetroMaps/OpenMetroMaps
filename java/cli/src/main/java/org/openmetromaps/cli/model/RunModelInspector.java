@@ -26,8 +26,8 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.cli.osm.OsmOptions;
 import org.openmetromaps.model.osm.DraftModel;
+import org.openmetromaps.model.osm.FileModelBuilder;
 import org.openmetromaps.model.osm.Fix;
-import org.openmetromaps.model.osm.ModelBuilder;
 import org.openmetromaps.model.osm.inspector.ModelInspector;
 
 import de.topobyte.osm4j.utils.OsmFile;
@@ -84,8 +84,8 @@ public class RunModelInspector
 
 		List<Fix> fixes = new ArrayList<>();
 
-		ModelBuilder modelBuilder = new ModelBuilder(fileInput, prefixes,
-				fixes);
+		FileModelBuilder modelBuilder = new FileModelBuilder(fileInput,
+				prefixes, fixes);
 		modelBuilder.run(true);
 
 		DraftModel model = modelBuilder.getModel();

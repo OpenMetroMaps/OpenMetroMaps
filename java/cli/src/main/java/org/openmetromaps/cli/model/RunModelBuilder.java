@@ -31,8 +31,8 @@ import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModelWriter;
 import org.openmetromaps.model.osm.DraftModel;
 import org.openmetromaps.model.osm.DraftModelConverter;
+import org.openmetromaps.model.osm.FileModelBuilder;
 import org.openmetromaps.model.osm.Fix;
-import org.openmetromaps.model.osm.ModelBuilder;
 
 import de.topobyte.osm4j.utils.OsmFile;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
@@ -93,8 +93,8 @@ public class RunModelBuilder
 
 		List<Fix> fixes = new ArrayList<>();
 
-		ModelBuilder modelBuilder = new ModelBuilder(fileInput, prefixes,
-				fixes);
+		FileModelBuilder modelBuilder = new FileModelBuilder(fileInput,
+				prefixes, fixes);
 		modelBuilder.run(true);
 
 		OutputStream os = Files.newOutputStream(pathOutput);

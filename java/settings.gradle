@@ -69,10 +69,12 @@ include 'maps-core'
 include 'maps-awt'
 include 'maps-android'
 include 'maps-gwt'
+include 'maps-batik'
 project(':maps-core').name = 'openmetromaps-maps-core'
 project(':maps-awt').name = 'openmetromaps-maps-awt'
 project(':maps-android').name = 'openmetromaps-maps-android'
 project(':maps-gwt').name = 'openmetromaps-maps-gwt'
+project(':maps-batik').name = 'openmetromaps-maps-batik'
 
 // Swing
 include 'maps-editor'

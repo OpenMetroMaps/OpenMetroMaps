@@ -36,6 +36,7 @@ public class Util
 	{
 		InputStream input = Files.newInputStream(path);
 		XmlModel xmlModel = DesktopXmlModelReader.read(input);
+		input.close();
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);

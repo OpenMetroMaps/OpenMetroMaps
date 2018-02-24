@@ -23,10 +23,10 @@ import org.openmetromaps.cli.maps.RunMapMorpher;
 import org.openmetromaps.cli.maps.RunMapViewer;
 import org.openmetromaps.cli.maps.RunSimpleMapViewer;
 import org.openmetromaps.cli.markdownview.RunCreateMarkdownView;
-import org.openmetromaps.cli.model.RunModelBuilder;
-import org.openmetromaps.cli.model.RunModelInspector;
 import org.openmetromaps.cli.osm.RunFilterRegion;
 import org.openmetromaps.cli.osm.RunFilterRelevantData;
+import org.openmetromaps.cli.osm.RunModelBuilder;
+import org.openmetromaps.cli.osm.RunModelInspector;
 import org.openmetromaps.cli.util.RunListChangeStations;
 import org.openmetromaps.cli.util.RunListLinesWithChangeStations;
 import org.openmetromaps.cli.util.RunModelInfo;
@@ -53,10 +53,10 @@ public class OpenMetroMapsCli
 					RunFilterRelevantData.class);
 			options.addCommand("osm-extract", RunFilterRegion.OPTIONS_FACTORY,
 					RunFilterRegion.class);
-			options.addCommand("build-model", RunModelBuilder.OPTIONS_FACTORY,
+			options.addCommand("osm-import", RunModelBuilder.OPTIONS_FACTORY,
 					RunModelBuilder.class);
-			options.addCommand("inspect-model",
-					RunModelInspector.OPTIONS_FACTORY, RunModelInspector.class);
+			options.addCommand("osm-inspect", RunModelInspector.OPTIONS_FACTORY,
+					RunModelInspector.class);
 			options.addCommand("map-editor", RunMapEditor.OPTIONS_FACTORY,
 					RunMapEditor.class);
 			options.addCommand("map-viewer", RunMapViewer.OPTIONS_FACTORY,

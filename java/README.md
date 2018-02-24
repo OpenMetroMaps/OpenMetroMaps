@@ -58,8 +58,8 @@ Where task can be any of the following:
 
     osm-filter
     osm-extract
-    build-model
-    inspect-model
+    osm-import
+    osm-inspect
     map-editor
     map-viewer
     map-morpher

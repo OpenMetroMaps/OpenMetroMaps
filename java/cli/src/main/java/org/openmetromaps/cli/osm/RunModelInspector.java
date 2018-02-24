@@ -15,10 +15,8 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.cli.model;
+package org.openmetromaps.cli.osm;
 
-import java.io.OutputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -26,15 +24,12 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.openmetromaps.cli.osm.OsmOptions;
-import org.openmetromaps.maps.model.ModelData;
-import org.openmetromaps.maps.xml.XmlModelWriter;
 import org.openmetromaps.model.osm.DraftModel;
-import org.openmetromaps.model.osm.DraftModelConverter;
 import org.openmetromaps.model.osm.FileModelBuilder;
 import org.openmetromaps.model.osm.Fix;
 import org.openmetromaps.model.osm.filter.RouteFilter;
 import org.openmetromaps.model.osm.filter.RouteTypeFilter;
+import org.openmetromaps.model.osm.inspector.ModelInspector;
 
 import de.topobyte.osm4j.utils.OsmFile;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
@@ -43,11 +38,10 @@ import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOp
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
 
-public class RunModelBuilder
+public class RunModelInspector
 {
 
 	private static final String OPTION_INPUT = "input";
-	private static final String OPTION_OUTPUT = "output";
 
 	public static ExeOptionsFactory OPTIONS_FACTORY = new ExeOptionsFactory() {
 
@@ -58,7 +52,6 @@ public class RunModelBuilder
 			OsmOptions.addInputOptions(options);
 			// @formatter:off
 			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "a source OSM data file");
-			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "a target model text file");
 			// @formatter:on
 			return new CommonsCliExeOptions(options, "[options]");
 		}
@@ -79,13 +72,10 @@ public class RunModelBuilder
 		}
 
 		String argInput = line.getOptionValue(OPTION_INPUT);
-		String argOutput = line.getOptionValue(OPTION_OUTPUT);
 		Path pathInput = Paths.get(argInput);
-		Path pathOutput = Paths.get(argOutput);
 		OsmFile fileInput = new OsmFile(pathInput, input.format);
 
 		System.out.println("Input: " + pathInput);
-		System.out.println("Output: " + pathOutput);
 
 		RouteFilter routeFilter = new RouteTypeFilter("light_rail", "subway");
 
@@ -101,13 +91,9 @@ public class RunModelBuilder
 				routeFilter, prefixes, fixes);
 		modelBuilder.run(true);
 
-		OutputStream os = Files.newOutputStream(pathOutput);
-
-		DraftModel draft = modelBuilder.getModel();
-		ModelData data = new DraftModelConverter().convert(draft);
-
-		new XmlModelWriter().write(os, data, new ArrayList<>());
-		os.close();
+		DraftModel model = modelBuilder.getModel();
+		ModelInspector modelInspector = new ModelInspector(model);
+		modelInspector.show();
 	}
 
 }

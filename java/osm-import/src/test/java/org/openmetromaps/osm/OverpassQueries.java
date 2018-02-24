@@ -40,4 +40,19 @@ public class OverpassQueries
 			+ ");" //
 			+ "out;";
 
+	public static String Q_BERLIN_SU = "(" //
+			+ "(" //
+			+ "  relation" //
+			+ "    [route=light_rail]" //
+			+ "    [network=\"Verkehrsverbund Berlin-Brandenburg\"]" //
+			+ "    (50.9030328,11.008300,53.917281,15.9301757);" //
+			+ "  relation" //
+			+ "    [route=subway]" //
+			+ "    [network=\"Verkehrsverbund Berlin-Brandenburg\"]" //
+			+ "    (50.9030328,11.008300,53.917281,15.9301757);" //
+			+ ");" //
+			+ ">;" //
+			+ ");" //
+			+ "out;";
+
 }

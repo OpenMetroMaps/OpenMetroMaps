@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.morpher;
+package org.openmetromaps.maps;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,7 +25,7 @@ import org.openmetromaps.maps.image.ImageUtil;
 
 import de.topobyte.system.utils.SystemPaths;
 
-public class TestBerlinExport
+public class TestExportPngBerlin
 {
 
 	public static void main(String[] args) throws Exception

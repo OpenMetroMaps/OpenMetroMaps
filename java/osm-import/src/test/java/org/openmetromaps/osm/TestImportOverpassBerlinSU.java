@@ -44,9 +44,11 @@ public class TestImportOverpassBerlinSU
 
 		List<Fix> fixes = new ArrayList<>();
 		List<String> prefixes = new ArrayList<>();
+		List<String> suffixes = new ArrayList<>();
 
 		ModelData data = importer.execute(OverpassQueries.Q_BERLIN_SU,
-				new RouteTypeFilter("light_rail", "subway"), prefixes, fixes);
+				new RouteTypeFilter("light_rail", "subway"), prefixes, suffixes,
+				fixes);
 
 		System.out.println(String.format("Imported %d lines with %d stations",
 				data.lines.size(), data.stations.size()));

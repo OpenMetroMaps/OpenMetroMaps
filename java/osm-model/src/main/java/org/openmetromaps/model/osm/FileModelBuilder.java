@@ -39,16 +39,18 @@ public class FileModelBuilder
 	private OsmFile fileInput;
 	private RouteFilter routeFilter;
 	private List<String> prefixes;
+	private List<String> suffixes;
 	private List<Fix> fixes;
 
 	private ModelBuilder modelBuilder = null;
 
 	public FileModelBuilder(OsmFile fileInput, RouteFilter routeFilter,
-			List<String> prefixes, List<Fix> fixes)
+			List<String> prefixes, List<String> suffixes, List<Fix> fixes)
 	{
 		this.fileInput = fileInput;
 		this.routeFilter = routeFilter;
 		this.prefixes = prefixes;
+		this.suffixes = suffixes;
 		this.fixes = fixes;
 	}
 
@@ -65,7 +67,8 @@ public class FileModelBuilder
 		InMemoryMapDataSet dataSet = MapDataSetLoader.read(iterator, true, true,
 				true);
 
-		modelBuilder = new ModelBuilder(dataSet, routeFilter, prefixes, fixes);
+		modelBuilder = new ModelBuilder(dataSet, routeFilter, prefixes,
+				suffixes, fixes);
 		modelBuilder.run(applyFixes, removeReverse);
 	}
 

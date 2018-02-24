@@ -85,10 +85,12 @@ public class RunModelInspector
 		prefixes.add("S+U ");
 		prefixes.add("U-Bhf ");
 
+		List<String> suffixes = new ArrayList<>();
+
 		List<Fix> fixes = new ArrayList<>();
 
 		FileModelBuilder modelBuilder = new FileModelBuilder(fileInput,
-				routeFilter, prefixes, fixes);
+				routeFilter, prefixes, suffixes, fixes);
 		modelBuilder.run(true, false);
 
 		DraftModel model = modelBuilder.getModel();

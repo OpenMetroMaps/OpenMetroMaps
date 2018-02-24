@@ -48,16 +48,18 @@ public class ModelBuilder
 	private InMemoryMapDataSet dataSet;
 	private RouteFilter routeFilter;
 	private List<String> prefixes;
+	private List<String> suffixes;
 	private List<Fix> fixes;
 
 	private DraftModel model = new DraftModel();
 
 	public ModelBuilder(InMemoryMapDataSet dataSet, RouteFilter routeFilter,
-			List<String> prefixes, List<Fix> fixes)
+			List<String> prefixes, List<String> suffixes, List<Fix> fixes)
 	{
 		this.dataSet = dataSet;
 		this.routeFilter = routeFilter;
 		this.prefixes = prefixes;
+		this.suffixes = suffixes;
 		this.fixes = fixes;
 	}
 
@@ -131,6 +133,7 @@ public class ModelBuilder
 				}
 
 				sName = NameUtil.stripPrefix(sName, prefixes);
+				sName = NameUtil.stripSuffix(sName, suffixes);
 
 				logger.info(sName);
 				DraftStation station = new DraftStation(sName, node);

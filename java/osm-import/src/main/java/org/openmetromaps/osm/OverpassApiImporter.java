@@ -46,7 +46,7 @@ public class OverpassApiImporter
 {
 
 	public ModelData execute(String q, RouteFilter routeFilter,
-			List<String> prefixes, List<Fix> fixes)
+			List<String> prefixes, List<String> suffixes, List<Fix> fixes)
 			throws MalformedURLException, IOException
 	{
 		HttpPost post = new HttpPost(
@@ -87,7 +87,7 @@ public class OverpassApiImporter
 				data.getWays().size(), data.getRelations().size()));
 
 		ModelBuilder modelBuilder = new ModelBuilder(data, routeFilter,
-				prefixes, fixes);
+				prefixes, suffixes, fixes);
 		modelBuilder.run(true, true);
 
 		DraftModel draftModel = modelBuilder.getModel();

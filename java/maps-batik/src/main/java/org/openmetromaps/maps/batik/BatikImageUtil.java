@@ -45,7 +45,7 @@ public class BatikImageUtil
 {
 
 	public static void createImage(MapModel model, Path path, int width,
-			int height, int x, int y, double zoom) throws IOException
+			int height, double x, double y, double zoom) throws IOException
 	{
 		MapView view = model.getViews().get(0);
 		LineNetwork lineNetwork = view.getLineNetwork();

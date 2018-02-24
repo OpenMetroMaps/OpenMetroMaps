@@ -82,7 +82,7 @@ public class ImageUtil
 		planRenderer.paint(painter);
 		planRenderer.setRenderLabels(true);
 
-		ImageIO.write(image, "png", path.toFile());
+		ImageIO.write(image, format, path.toFile());
 	}
 
 }

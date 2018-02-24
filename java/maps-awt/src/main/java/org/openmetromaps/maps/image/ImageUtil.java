@@ -59,9 +59,9 @@ public class ImageUtil
 
 		Rectangle scene = view.getConfig().getScene();
 		ImageView imageView = new ImageView(scene, width, height);
+		imageView.setZoom(zoom);
 		imageView.setPositionX(x);
 		imageView.setPositionY(y);
-		imageView.setZoom(zoom);
 
 		PlanRenderer planRenderer = new PlanRenderer(lineNetwork, mapViewStatus,
 				stationMode, segmentMode, imageView, imageView, 1,

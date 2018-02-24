@@ -39,9 +39,9 @@ public class TestExportPngBerlin
 
 		int width = 1440;
 		int height = 1080;
-		int x = 250;
-		int y = 100;
-		double zoom = 3;
+		int x = -70;
+		int y = -150;
+		double zoom = 2;
 
 		ImageUtil.createPng(geographic, Paths.get("/tmp/geographic.png"), width,
 				height, x, y, zoom);

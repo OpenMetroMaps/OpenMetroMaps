@@ -40,7 +40,7 @@ public class ImageView implements ViewportWithSignals, LocationToPoint
 	protected int width = 0;
 	protected int height = 0;
 
-	protected int margin = 150;
+	protected int margin = 0;
 
 	protected double positionX = 0;
 	protected double positionY = 0;

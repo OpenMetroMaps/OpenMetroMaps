@@ -47,8 +47,8 @@ public class TestMapMorpherBerlinExport
 
 		int width = 1440;
 		int height = 1080;
-		int x = 240;
-		int y = 80;
+		int x = -120;
+		int y = -180;
 		double zoom = 2.0;
 
 		Path dir = Paths.get("/tmp/video");

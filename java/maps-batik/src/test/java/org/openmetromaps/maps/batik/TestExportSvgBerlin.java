@@ -39,9 +39,9 @@ public class TestExportSvgBerlin
 
 		int width = 1440;
 		int height = 1080;
-		int x = 250;
-		int y = 100;
-		double zoom = 3;
+		int x = -70;
+		int y = -150;
+		double zoom = 2;
 
 		BatikImageUtil.createImage(geographic, Paths.get("/tmp/geographic.svg"),
 				width, height, x, y, zoom);

@@ -9,3 +9,6 @@
   [geographic](https://raw.githubusercontent.com/OpenMetroMapsData/managua/master/geographic.xml)
 * [Guéret](https://github.com/OpenMetroMapsData/gueret):
   [geographic](https://raw.githubusercontent.com/OpenMetroMapsData/gueret/master/geographic.xml)
+* [Berlin-Brandenburg](https://github.com/OpenMetroMapsData/vbb-regio):
+  [schematic](https://raw.githubusercontent.com/OpenMetroMapsData/vbb-regio/master/schematic.xml),
+  [geographic](https://raw.githubusercontent.com/OpenMetroMapsData/vbb-regio/master/geographic.xml)

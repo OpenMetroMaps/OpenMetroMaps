@@ -47,8 +47,8 @@ public class TestImportOverpassVbbRegio
 		List<String> suffixes = new ArrayList<>();
 
 		for (int i = 1; i <= 6; i++) {
-			suffixes.add(String.format("Gleis %d", i));
 			suffixes.add(String.format(", Gleis %d", i));
+			suffixes.add(String.format("Gleis %d", i));
 		}
 
 		ModelData data = importer.execute(OverpassQueries.Q_VBB_REGIO,

@@ -31,11 +31,10 @@ public class TestDownloadOverpassVbbRE1
 	public static void main(String[] args) throws MalformedURLException,
 			IOException, ParserConfigurationException, TransformerException
 	{
-		String q = "( relation(188380); >; ); out;";
 		Path pathOutput = Paths.get("/tmp/re1.osm.xml");
 
 		OverpassApiDownloader downloader = new OverpassApiDownloader();
-		downloader.execute(q, pathOutput);
+		downloader.execute(OverpassQueries.Q_VBB_RE1_BY_ID, pathOutput);
 	}
 
 }

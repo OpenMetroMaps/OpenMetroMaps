@@ -38,9 +38,9 @@ public class TestImportOverpassVbbRE1
 	public static void main(String[] args) throws MalformedURLException,
 			IOException, ParserConfigurationException, TransformerException
 	{
-		String q = "( relation(188380); >; ); out;";
 		OverpassApiImporter importer = new OverpassApiImporter();
-		ModelData data = importer.execute(q, new RouteTypeFilter("train"));
+		ModelData data = importer.execute(OverpassQueries.Q_VBB_RE1_BY_ID,
+				new RouteTypeFilter("train"));
 
 		System.out.println(String.format("Imported %d lines with %d stations",
 				data.lines.size(), data.stations.size()));

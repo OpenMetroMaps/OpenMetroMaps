@@ -17,24 +17,27 @@
 
 package org.openmetromaps.osm;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-
-public class TestDownloadOverpassVbbRegio
+public class OverpassQueries
 {
 
-	public static void main(String[] args) throws MalformedURLException,
-			IOException, ParserConfigurationException, TransformerException
-	{
-		Path pathOutput = Paths.get("/tmp/vbb.osm.xml");
+	public static String Q_VBB_REGIO = "(" //
+			+ "  relation" //
+			+ "    [route=train]" //
+			+ "    [network=\"Verkehrsverbund Berlin-Brandenburg\"]" //
+			+ "    (50.9030328,11.008300,53.917281,15.9301757);" //
+			+ "  >;" //
+			+ ");" //
+			+ "out;";
 
-		OverpassApiDownloader downloader = new OverpassApiDownloader();
-		downloader.execute(OverpassQueries.Q_VBB_REGIO, pathOutput);
-	}
+	public static String Q_VBB_RE1_BY_ID = "(" //
+			+ " relation(188380); >;" //
+			+ ");" //
+			+ "out;";
+
+	public static String Q_VBB_RE1_BY_TAGS = "(" //
+			+ "relation[ref=RE1][network=\"Verkehrsverbund Berlin-Brandenburg\"];" //
+			+ ">;" //
+			+ ");" //
+			+ "out;";
 
 }

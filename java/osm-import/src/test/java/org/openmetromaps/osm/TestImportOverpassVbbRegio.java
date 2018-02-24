@@ -38,17 +38,9 @@ public class TestImportOverpassVbbRegio
 	public static void main(String[] args) throws MalformedURLException,
 			IOException, ParserConfigurationException, TransformerException
 	{
-		String q = "(" + //
-				"  relation" + //
-				"    [route=train]" + //
-				"    [network=\"Verkehrsverbund Berlin-Brandenburg\"]" + //
-				"    (50.9030328,11.008300,53.917281,15.9301757);" + //
-				"  >;" + //
-				");" + //
-				"out;";
-
 		OverpassApiImporter importer = new OverpassApiImporter();
-		ModelData data = importer.execute(q, new RouteTypeFilter("train"));
+		ModelData data = importer.execute(OverpassQueries.Q_VBB_REGIO,
+				new RouteTypeFilter("train"));
 
 		System.out.println(String.format("Imported %d lines with %d stations",
 				data.lines.size(), data.stations.size()));

@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.openmetromaps.desktop.DesktopUtil;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.image.ImageUtil;
 
@@ -35,8 +36,9 @@ public class TestMapMorpherBerlinExport
 		Path berlin = SystemPaths.HOME
 				.resolve("github/OpenMetroMapsData/berlin");
 
-		MapModel geographic = Util.load(berlin.resolve("geographic.xml"));
-		MapModel schematic = Util.load(berlin.resolve("schematic.xml"));
+		MapModel geographic = DesktopUtil
+				.load(berlin.resolve("geographic.xml"));
+		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.xml"));
 
 		int before = 25;
 		int num = 150;

@@ -20,6 +20,7 @@ package org.openmetromaps.maps.batik;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.openmetromaps.desktop.DesktopUtil;
 import org.openmetromaps.maps.MapModel;
 
 import de.topobyte.system.utils.SystemPaths;
@@ -32,8 +33,9 @@ public class TestExportSvgBerlin
 		Path berlin = SystemPaths.HOME
 				.resolve("github/OpenMetroMapsData/berlin");
 
-		MapModel geographic = Util.load(berlin.resolve("geographic.xml"));
-		MapModel schematic = Util.load(berlin.resolve("schematic.xml"));
+		MapModel geographic = DesktopUtil
+				.load(berlin.resolve("geographic.xml"));
+		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.xml"));
 
 		int width = 1440;
 		int height = 1080;
@@ -43,8 +45,8 @@ public class TestExportSvgBerlin
 
 		BatikImageUtil.createImage(geographic, Paths.get("/tmp/geographic.svg"),
 				width, height, x, y, zoom);
-		BatikImageUtil.createImage(schematic, Paths.get("/tmp/schematic.svg"), width,
-				height, x, y, zoom);
+		BatikImageUtil.createImage(schematic, Paths.get("/tmp/schematic.svg"),
+				width, height, x, y, zoom);
 	}
 
 }

@@ -20,7 +20,7 @@ package org.openmetromaps.maps;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.desktop.DesktopUtil;
 import org.openmetromaps.maps.image.ImageUtil;
 
 import de.topobyte.system.utils.SystemPaths;
@@ -33,8 +33,9 @@ public class TestExportPngBerlin
 		Path berlin = SystemPaths.HOME
 				.resolve("github/OpenMetroMapsData/berlin");
 
-		MapModel geographic = Util.load(berlin.resolve("geographic.xml"));
-		MapModel schematic = Util.load(berlin.resolve("schematic.xml"));
+		MapModel geographic = DesktopUtil
+				.load(berlin.resolve("geographic.xml"));
+		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.xml"));
 
 		int width = 1440;
 		int height = 1080;

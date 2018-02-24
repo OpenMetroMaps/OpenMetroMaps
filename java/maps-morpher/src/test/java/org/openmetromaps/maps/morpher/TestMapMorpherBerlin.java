@@ -19,6 +19,7 @@ package org.openmetromaps.maps.morpher;
 
 import java.nio.file.Path;
 
+import org.openmetromaps.desktop.DesktopUtil;
 import org.openmetromaps.maps.MapModel;
 
 import de.topobyte.system.utils.SystemPaths;
@@ -31,8 +32,9 @@ public class TestMapMorpherBerlin
 		Path berlin = SystemPaths.HOME
 				.resolve("github/OpenMetroMapsData/berlin");
 
-		MapModel geographic = Util.load(berlin.resolve("geographic.xml"));
-		MapModel schematic = Util.load(berlin.resolve("schematic.xml"));
+		MapModel geographic = DesktopUtil
+				.load(berlin.resolve("geographic.xml"));
+		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.xml"));
 
 		MapMorpher mapMorpher = new MapMorpher(geographic, schematic, null);
 		mapMorpher.show();

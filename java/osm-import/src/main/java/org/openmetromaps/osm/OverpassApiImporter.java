@@ -20,7 +20,6 @@ package org.openmetromaps.osm;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -46,7 +45,8 @@ import de.topobyte.osm4j.xml.dynsax.OsmXmlIterator;
 public class OverpassApiImporter
 {
 
-	public ModelData execute(String q, RouteFilter routeFilter)
+	public ModelData execute(String q, RouteFilter routeFilter,
+			List<String> prefixes, List<Fix> fixes)
 			throws MalformedURLException, IOException
 	{
 		HttpPost post = new HttpPost(
@@ -85,9 +85,6 @@ public class OverpassApiImporter
 
 		System.out.println(String.format("%d, %d, %d", data.getNodes().size(),
 				data.getWays().size(), data.getRelations().size()));
-
-		List<Fix> fixes = new ArrayList<>();
-		List<String> prefixes = new ArrayList<>();
 
 		ModelBuilder modelBuilder = new ModelBuilder(data, routeFilter,
 				prefixes, fixes);

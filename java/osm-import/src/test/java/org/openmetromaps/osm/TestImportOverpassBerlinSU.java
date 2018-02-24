@@ -24,12 +24,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModelWriter;
+import org.openmetromaps.model.osm.Fix;
 import org.openmetromaps.model.osm.filter.RouteTypeFilter;
 
 public class TestImportOverpassBerlinSU
@@ -39,8 +41,12 @@ public class TestImportOverpassBerlinSU
 			IOException, ParserConfigurationException, TransformerException
 	{
 		OverpassApiImporter importer = new OverpassApiImporter();
+
+		List<Fix> fixes = new ArrayList<>();
+		List<String> prefixes = new ArrayList<>();
+
 		ModelData data = importer.execute(OverpassQueries.Q_BERLIN_SU,
-				new RouteTypeFilter("light_rail", "subway"));
+				new RouteTypeFilter("light_rail", "subway"), prefixes, fixes);
 
 		System.out.println(String.format("Imported %d lines with %d stations",
 				data.lines.size(), data.stations.size()));

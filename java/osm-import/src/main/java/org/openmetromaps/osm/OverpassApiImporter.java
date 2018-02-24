@@ -91,7 +91,7 @@ public class OverpassApiImporter
 
 		ModelBuilder modelBuilder = new ModelBuilder(data, routeFilter,
 				prefixes, fixes);
-		modelBuilder.run(true);
+		modelBuilder.run(true, true);
 
 		DraftModel draftModel = modelBuilder.getModel();
 		ModelData model = new DraftModelConverter().convert(draftModel);

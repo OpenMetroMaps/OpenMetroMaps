@@ -42,7 +42,7 @@ public class LinesAnalyzer
 		this.model = model;
 	}
 
-	public void analyze(LinePrinter output)
+	public void analyze(LinePrinter output, boolean removeReverse)
 	{
 		this.output = output;
 
@@ -88,11 +88,12 @@ public class LinesAnalyzer
 			List<DraftLine> list = new ArrayList<>(nameToLines.get(name));
 			DraftLine line1 = list.get(0);
 			DraftLine line2 = list.get(1);
-			compare(name, line1, line2);
+			compare(name, line1, line2, removeReverse);
 		}
 	}
 
-	private void compare(String name, DraftLine line1, DraftLine line2)
+	private void compare(String name, DraftLine line1, DraftLine line2,
+			boolean removeReverse)
 	{
 		List<DraftStation> stations1 = line1.getStations();
 		List<DraftStation> stations2 = line2.getStations();
@@ -113,6 +114,9 @@ public class LinesAnalyzer
 		if (different == 0) {
 			output.println(Formatting.format("Line: %s, %d stations, all clear",
 					name, n));
+			if (removeReverse) {
+				model.getLines().remove(line2);
+			}
 		} else {
 			output.println(Formatting.format(
 					"Line: %s, %d stations, %d different", name, n, different));

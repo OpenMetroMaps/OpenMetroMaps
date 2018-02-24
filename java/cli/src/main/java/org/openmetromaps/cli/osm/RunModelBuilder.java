@@ -98,7 +98,7 @@ public class RunModelBuilder
 
 		FileModelBuilder modelBuilder = new FileModelBuilder(fileInput,
 				routeFilter, prefixes, fixes);
-		modelBuilder.run(true);
+		modelBuilder.run(true, true);
 
 		OutputStream os = Files.newOutputStream(pathOutput);
 

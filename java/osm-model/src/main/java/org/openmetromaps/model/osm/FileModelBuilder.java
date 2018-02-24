@@ -57,7 +57,8 @@ public class FileModelBuilder
 		return modelBuilder.getModel();
 	}
 
-	public void run(boolean applyFixes) throws IOException
+	public void run(boolean applyFixes, boolean removeReverse)
+			throws IOException
 	{
 		OsmIteratorInput iterator = new OsmFileInput(fileInput)
 				.createIterator(true, false);
@@ -65,7 +66,7 @@ public class FileModelBuilder
 				true);
 
 		modelBuilder = new ModelBuilder(dataSet, routeFilter, prefixes, fixes);
-		modelBuilder.run(applyFixes);
+		modelBuilder.run(applyFixes, removeReverse);
 	}
 
 }

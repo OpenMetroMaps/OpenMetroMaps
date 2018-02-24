@@ -89,7 +89,7 @@ public class RunModelInspector
 
 		FileModelBuilder modelBuilder = new FileModelBuilder(fileInput,
 				routeFilter, prefixes, fixes);
-		modelBuilder.run(true);
+		modelBuilder.run(true, false);
 
 		DraftModel model = modelBuilder.getModel();
 		ModelInspector modelInspector = new ModelInspector(model);

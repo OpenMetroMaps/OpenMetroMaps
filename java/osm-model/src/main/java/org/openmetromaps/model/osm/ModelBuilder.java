@@ -66,7 +66,8 @@ public class ModelBuilder
 		return model;
 	}
 
-	public void run(boolean applyFixes) throws IOException
+	public void run(boolean applyFixes, boolean removeReverse)
+			throws IOException
 	{
 		List<DraftLine> lines = model.getLines();
 
@@ -143,7 +144,8 @@ public class ModelBuilder
 		logger.info("# Bugs (no name): " + nBugsNoName);
 
 		LinesAnalyzer linesAnalyzer = new LinesAnalyzer(model);
-		linesAnalyzer.analyze(new LoggerPrinter(logger, LogLevel.INFO));
+		linesAnalyzer.analyze(new LoggerPrinter(logger, LogLevel.INFO),
+				removeReverse);
 	}
 
 	private String determineFix(OsmNode node)

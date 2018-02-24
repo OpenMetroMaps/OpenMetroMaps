@@ -46,7 +46,7 @@ public class AnalyzeLinesAction extends SimpleAction
 	{
 		LinesAnalyzer analyzer = new LinesAnalyzer(modelInpector.getModel());
 		LineBufferPrinter buffer = new LineBufferPrinter();
-		analyzer.analyze(buffer);
+		analyzer.analyze(buffer, false);
 
 		TextDialog dialog = new TextDialog(modelInpector.getFrame(),
 				"Line Analyis", buffer.getLines());

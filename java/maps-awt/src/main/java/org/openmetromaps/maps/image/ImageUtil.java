@@ -42,13 +42,14 @@ public class ImageUtil
 {
 
 	public static void createPng(MapModel model, Path path, int width,
-			int height, int x, int y, double zoom) throws IOException
+			int height, double x, double y, double zoom) throws IOException
 	{
 		createImage(model, path, "png", width, height, x, y, zoom);
 	}
 
 	public static void createImage(MapModel model, Path path, String format,
-			int width, int height, int x, int y, double zoom) throws IOException
+			int width, int height, double x, double y, double zoom)
+			throws IOException
 	{
 		MapView view = model.getViews().get(0);
 		LineNetwork lineNetwork = view.getLineNetwork();

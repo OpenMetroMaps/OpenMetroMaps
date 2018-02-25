@@ -102,6 +102,14 @@ where sub-task may be one of the following:
     svg
     png
 
+Examples:
+
+    openmetromaps-cli export png --input test-data/src/main/resources/berlin.xml
+                                 --output berlin.png --zoom 2
+
+    openmetromaps-cli export svg --input test-data/src/main/resources/berlin.xml
+                                 --output berlin.svg --zoom 3
+
 ## Map Editor
 
 The Map Editor is the main interface for creating and manipulating maps.

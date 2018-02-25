@@ -6,6 +6,7 @@
     * [Building the CLI module](#building-the-cli-module)
     * [CLI usage and tasks](#cli-usage-and-tasks)
     * [The util task](#the-util-task)
+    * [The export task](#the-export-task)
 * [Map Editor](#map-editor)
 * [To-Do](#to-do)
 * [Hacking](#hacking)
@@ -67,6 +68,7 @@ Where task can be any of the following:
     gtfs-import
     create-markdown-view
     util
+    export
 
 Each task accepts its own set of command line parameters. To run the Map Viewer
 you would type:
@@ -88,6 +90,17 @@ where sub-task may be one of the following:
     info
     list-change-stations
     list-lines-with-change-stations
+
+### The export task
+
+The `export` task works on map model files and offers more sub-tasks:
+
+    openmetromaps-cli export <sub-task>
+
+where sub-task may be one of the following:
+
+    svg
+    png
 
 ## Map Editor
 

@@ -17,6 +17,8 @@
 
 package org.openmetromaps.cli;
 
+import org.openmetromaps.cli.export.RunExportBatik;
+import org.openmetromaps.cli.export.RunExportPng;
 import org.openmetromaps.cli.gtfs.RunGtfsImport;
 import org.openmetromaps.cli.maps.RunMapEditor;
 import org.openmetromaps.cli.maps.RunMapMorpher;
@@ -72,6 +74,7 @@ public class OpenMetroMapsCli
 					RunCreateMarkdownView.OPTIONS_FACTORY,
 					RunCreateMarkdownView.class);
 			options.addCommand("util", OPTIONS_FACTORY_UTIL);
+			options.addCommand("export", OPTIONS_FACTORY_EXPORT);
 			return options;
 		}
 
@@ -91,6 +94,21 @@ public class OpenMetroMapsCli
 			options.addCommand("list-lines-with-change-stations",
 					RunListLinesWithChangeStations.OPTIONS_FACTORY,
 					RunListLinesWithChangeStations.class);
+			return options;
+		}
+
+	};
+
+	public static ExeOptionsFactory OPTIONS_FACTORY_EXPORT = new ExeOptionsFactory() {
+
+		@Override
+		public ExeOptions createOptions()
+		{
+			DelegateExeOptions options = new DelegateExeOptions();
+			options.addCommand("png", RunExportPng.OPTIONS_FACTORY,
+					RunExportPng.class);
+			options.addCommand("svg", RunExportBatik.OPTIONS_FACTORY,
+					RunExportBatik.class);
 			return options;
 		}
 

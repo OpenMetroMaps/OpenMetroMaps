@@ -37,6 +37,8 @@ import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArgument
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
+import de.topobyte.utilities.apache.commons.cli.parsing.ArgumentHelper;
+import de.topobyte.utilities.apache.commons.cli.parsing.DoubleOption;
 import de.topobyte.viewports.geometry.Rectangle;
 
 public class RunExportPng
@@ -44,6 +46,7 @@ public class RunExportPng
 
 	private static final String OPTION_INPUT = "input";
 	private static final String OPTION_OUTPUT = "output";
+	private static final String OPTION_ZOOM = "zoom";
 
 	public static ExeOptionsFactory OPTIONS_FACTORY = new ExeOptionsFactory() {
 
@@ -54,6 +57,7 @@ public class RunExportPng
 			// @formatter:off
 			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "an OpenMetroMaps model file");
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "an output image file");
+			OptionHelper.addL(options, OPTION_ZOOM, true, false, "double", "zoom level to use");
 			// @formatter:on
 			return new CommonsCliExeOptions(options, "[options]");
 		}
@@ -70,8 +74,15 @@ public class RunExportPng
 		Path pathInput = Paths.get(argInput);
 		Path pathOutput = Paths.get(argOutput);
 
+		DoubleOption argZoom = ArgumentHelper.getDouble(line, OPTION_ZOOM);
+		double zoom = 1;
+		if (argZoom.hasValue()) {
+			zoom = argZoom.getValue();
+		}
+
 		System.out.println("Input: " + pathInput);
 		System.out.println("Output: " + pathOutput);
+		System.out.println("Zoom: " + zoom);
 
 		InputStream input = Files.newInputStream(pathInput);
 
@@ -80,10 +91,10 @@ public class RunExportPng
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		execute(model, pathOutput);
+		execute(model, pathOutput, zoom);
 	}
 
-	private static void execute(MapModel model, Path pathOutput)
+	private static void execute(MapModel model, Path pathOutput, double zoom)
 			throws IOException
 	{
 		MapView view = model.getViews().get(0);
@@ -94,7 +105,6 @@ public class RunExportPng
 
 		double x = 0;
 		double y = 0;
-		double zoom = 3;
 
 		int imageWidth = (int) Math.ceil(width * zoom);
 		int imageHeight = (int) Math.ceil(height * zoom);

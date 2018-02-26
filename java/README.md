@@ -90,6 +90,7 @@ where sub-task may be one of the following:
     info
     list-change-stations
     list-lines-with-change-stations
+    purge-stations
 
 ### The export task
 

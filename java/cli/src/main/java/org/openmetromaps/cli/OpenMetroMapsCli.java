@@ -32,6 +32,7 @@ import org.openmetromaps.cli.osm.RunModelInspector;
 import org.openmetromaps.cli.util.RunListChangeStations;
 import org.openmetromaps.cli.util.RunListLinesWithChangeStations;
 import org.openmetromaps.cli.util.RunModelInfo;
+import org.openmetromaps.cli.util.RunPurgeStations;
 
 import de.topobyte.utilities.apache.commons.cli.commands.ArgumentParser;
 import de.topobyte.utilities.apache.commons.cli.commands.ExeRunner;
@@ -94,6 +95,8 @@ public class OpenMetroMapsCli
 			options.addCommand("list-lines-with-change-stations",
 					RunListLinesWithChangeStations.OPTIONS_FACTORY,
 					RunListLinesWithChangeStations.class);
+			options.addCommand("purge-stations",
+					RunPurgeStations.OPTIONS_FACTORY, RunPurgeStations.class);
 			return options;
 		}
 

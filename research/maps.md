@@ -57,6 +57,11 @@ Open data about ICE routes in Germany:
 * [Liniennetz
   Schiene](https://www.kvv.de/fileadmin/user_upload/kvv/Bilder/liniennetz/KVV-Liniennetzplan_Schiene.jpg)
 
+#### Stuttgart
+
+* [Liniennetz
+  S-Bahn](https://www.s-bahn-stuttgart.de/resource/blob/663012/f99c133b0315e775b1a8daa1cee2b63a/Liniennetzplan-data.pdf)
+
 ### Austria
 
 #### Vienna, Wiener Linien

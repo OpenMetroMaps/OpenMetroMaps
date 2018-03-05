@@ -109,6 +109,10 @@ public class ImportConfigReader
 				IElement eBbox = listBboxes.element(k);
 				String compactBbox = eBbox.getAttribute("compact");
 				bbox = BBoxString.parse(compactBbox).toBbox();
+				// BBoxString parsing expects lon,lat,lon,lat while config is
+				// lat,lon,lat,lon. Fix this by swapping lon and lat values.
+				bbox.set(bbox.getLat1(), bbox.getLon1(), bbox.getLat2(),
+						bbox.getLon2());
 			}
 
 			for (int k = 0; k < listTags.getLength(); k++) {

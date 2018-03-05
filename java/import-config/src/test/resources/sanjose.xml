@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<omm-import-config version="1.0.0">
+  <!-- config for San José, Costa Rica -->
+  <source type="osm">
+     <routes>
+       <bbox compact="9.8346,-84.2418,10.0365,-83.8507"/>
+       <tag key="route" value="train"/>
+       <tag key="network" value="Tren Urbano"/>
+       <tag key="operator" value="Incofer"/>
+     </routes>
+  </source>
+</omm-import-config>

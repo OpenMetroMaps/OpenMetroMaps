@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<omm-import-config version="1.0.0">
+  <!-- config for Berlin, Germany -->
+  <source type="osm">
+     <routes>
+       <bbox compact="50.9030328,11.008300,53.917281,15.9301757"/>
+       <tag key="route" value="light_rail"/>
+       <tag key="network" value="Verkehrsverbund Berlin-Brandenburg"/>
+     </routes>
+     <routes>
+       <bbox compact="50.9030328,11.008300,53.917281,15.9301757"/>
+       <tag key="route" value="subway"/>
+       <tag key="network" value="Verkehrsverbund Berlin-Brandenburg"/>
+     </routes>
+  </source>
+</omm-import-config>

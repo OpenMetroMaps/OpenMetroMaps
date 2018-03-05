@@ -46,11 +46,13 @@ include 'line-network-util'
 include 'misc-util'
 include 'heavy-util'
 include 'desktop-util'
+include 'import-config'
 project(':lightgeom').name = 'openmetromaps-lightgeom'
 project(':line-network-util').name = 'openmetromaps-line-network-util'
 project(':misc-util').name = 'openmetromaps-misc-util'
 project(':heavy-util').name = 'openmetromaps-heavy-util'
 project(':desktop-util').name = 'openmetromaps-desktop-util'
+project(':import-config').name = 'openmetromaps-import-config'
 
 // GTFS
 include 'gtfs-import', 'gtfs-model-converter'

@@ -56,7 +56,7 @@ Then invoke the main executable like this:
 
     openmetromaps-cli <task>
 
-Where task can be any of the following:
+Where `<task>` can be any of the following:
 
     osm-filter
     osm-extract
@@ -87,7 +87,7 @@ The `osm-import` task imports data from OpenStreetMap and offers more sub-tasks:
 
     openmetromaps-cli osm-import <sub-task>
 
-where sub-task may be one of the following:
+where `<sub-task>` may be one of the following:
 
     file
     overpass
@@ -98,7 +98,7 @@ The `util` task works on map model files and offers more sub-tasks:
 
     openmetromaps-cli util <sub-task>
 
-where sub-task may be one of the following:
+where `<sub-task>` may be one of the following:
 
     info
     list-change-stations
@@ -111,7 +111,7 @@ The `export` task works on map model files and offers more sub-tasks:
 
     openmetromaps-cli export <sub-task>
 
-where sub-task may be one of the following:
+where `<sub-task>` may be one of the following:
 
     svg
     png

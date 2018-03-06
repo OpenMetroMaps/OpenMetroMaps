@@ -42,6 +42,17 @@ public class ConfigTests
 				}
 			}
 		}
+
+		Processing processing = config.getProcessing();
+		System.out.println("  Processing");
+
+		for (String prefix : processing.getPrefixes()) {
+			System.out.println("    prefix: '" + prefix + "'");
+		}
+
+		for (String suffix : processing.getSuffixes()) {
+			System.out.println("    suffix: '" + suffix + "'");
+		}
 	}
 
 }

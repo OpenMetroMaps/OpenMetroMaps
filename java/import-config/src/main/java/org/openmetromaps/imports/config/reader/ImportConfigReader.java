@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openmetromaps.imports.config.ImportConfig;
+import org.openmetromaps.imports.config.Processing;
 import org.openmetromaps.imports.config.Source;
 import org.openmetromaps.imports.config.osm.OsmSource;
 import org.openmetromaps.imports.config.osm.Routes;
@@ -53,6 +54,7 @@ public class ImportConfigReader
 
 	private String version;
 	private Source source = null;
+	private Processing processing = new Processing();
 
 	private ImportConfigReader()
 	{
@@ -70,7 +72,7 @@ public class ImportConfigReader
 	{
 		parseFile(doc);
 
-		return new ImportConfig(version, source);
+		return new ImportConfig(version, source, processing);
 	}
 
 	private void parseFile(IDocument doc)
@@ -80,7 +82,8 @@ public class ImportConfigReader
 
 		version = firstOmmFile.getAttribute("version");
 
-		INodeList listSources = firstOmmFile.getElementsByTagName("source");
+		INodeList listSources = firstOmmFile
+				.getChildElementsByTagName("source");
 		IElement firstSource = listSources.element(0);
 
 		String type = firstSource.getAttribute("type");
@@ -88,19 +91,26 @@ public class ImportConfigReader
 			List<Routes> routes = parseRoutes(firstSource);
 			source = new OsmSource(routes);
 		}
+
+		INodeList listProcessing = firstOmmFile
+				.getChildElementsByTagName("processing");
+		if (listProcessing.getLength() != 0) {
+			IElement firstProcessing = listProcessing.element(0);
+			parseProcessing(firstProcessing);
+		}
 	}
 
-	private List<Routes> parseRoutes(IElement firstSource)
+	private List<Routes> parseRoutes(IElement source)
 	{
-		INodeList listRoutes = firstSource.getElementsByTagName("routes");
+		INodeList listRoutes = source.getChildElementsByTagName("routes");
 
 		List<Routes> routes = new ArrayList<>();
 
 		for (int i = 0; i < listRoutes.getLength(); i++) {
 			IElement eRoute = listRoutes.element(i);
 
-			INodeList listBboxes = eRoute.getElementsByTagName("bbox");
-			INodeList listTags = eRoute.getElementsByTagName("tag");
+			INodeList listBboxes = eRoute.getChildElementsByTagName("bbox");
+			INodeList listTags = eRoute.getChildElementsByTagName("tag");
 
 			BBox bbox = null;
 			List<Tag> tags = new ArrayList<>();
@@ -126,6 +136,43 @@ public class ImportConfigReader
 		}
 
 		return routes;
+	}
+
+	private void parseProcessing(IElement processing)
+	{
+		INodeList listStations = processing
+				.getChildElementsByTagName("stations");
+		if (listStations.getLength() != 0) {
+			IElement stations = listStations.element(0);
+			parseStations(stations);
+		}
+	}
+
+	private void parseStations(IElement stations)
+	{
+		INodeList listPrefixRemoval = stations
+				.getChildElementsByTagName("prefix-removal");
+		for (int i = 0; i < listPrefixRemoval.getLength(); i++) {
+			IElement prefixRemoval = listPrefixRemoval.element(i);
+			INodeList listPrefixes = prefixRemoval
+					.getChildElementsByTagName("prefix");
+			for (int k = 0; k < listPrefixes.getLength(); k++) {
+				IElement prefix = listPrefixes.element(k);
+				processing.getPrefixes().add(prefix.getAttribute("value"));
+			}
+		}
+
+		INodeList listSuffixRemoval = stations
+				.getChildElementsByTagName("suffix-removal");
+		for (int i = 0; i < listSuffixRemoval.getLength(); i++) {
+			IElement suffixRemoval = listSuffixRemoval.element(i);
+			INodeList listSuffixes = suffixRemoval
+					.getChildElementsByTagName("suffix");
+			for (int k = 0; k < listSuffixes.getLength(); k++) {
+				IElement suffix = listSuffixes.element(k);
+				processing.getSuffixes().add(suffix.getAttribute("value"));
+			}
+		}
 	}
 
 }

@@ -17,48 +17,33 @@
 
 package org.openmetromaps.imports.config;
 
-public class ImportConfig
+import java.util.ArrayList;
+import java.util.List;
+
+public class Processing
 {
 
-	private String version;
-	private Source source;
-	private Processing processing;
+	private List<String> prefixes = new ArrayList<>();
+	private List<String> suffixes = new ArrayList<>();
 
-	public ImportConfig(String version, Source source, Processing processing)
+	public List<String> getPrefixes()
 	{
-		this.version = version;
-		this.source = source;
-		this.processing = processing;
+		return prefixes;
 	}
 
-	public String getVersion()
+	public void setPrefixes(List<String> prefixes)
 	{
-		return version;
+		this.prefixes = prefixes;
 	}
 
-	public void setVersion(String version)
+	public List<String> getSuffixes()
 	{
-		this.version = version;
+		return suffixes;
 	}
 
-	public Source getSource()
+	public void setSuffixes(List<String> suffixes)
 	{
-		return source;
-	}
-
-	public void setSource(Source source)
-	{
-		this.source = source;
-	}
-
-	public Processing getProcessing()
-	{
-		return processing;
-	}
-
-	public void setProcessing(Processing processing)
-	{
-		this.processing = processing;
+		this.suffixes = suffixes;
 	}
 
 }

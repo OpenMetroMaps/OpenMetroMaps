@@ -17,6 +17,7 @@
 
 package org.openmetromaps.cli.osm;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,6 +27,10 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.openmetromaps.imports.config.ImportConfig;
+import org.openmetromaps.imports.config.Processing;
+import org.openmetromaps.imports.config.osm.OsmSource;
+import org.openmetromaps.imports.config.reader.DesktopImportConfigReader;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModelWriter;
 import org.openmetromaps.model.osm.DraftModel;
@@ -33,7 +38,6 @@ import org.openmetromaps.model.osm.DraftModelConverter;
 import org.openmetromaps.model.osm.FileModelBuilder;
 import org.openmetromaps.model.osm.Fix;
 import org.openmetromaps.model.osm.filter.RouteFilter;
-import org.openmetromaps.model.osm.filter.RouteTypeFilter;
 
 import de.topobyte.osm4j.utils.OsmFile;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
@@ -46,6 +50,7 @@ public class RunOsmImportFile
 {
 
 	private static final String OPTION_INPUT = "input";
+	private static final String OPTION_CONFIG = "config";
 	private static final String OPTION_OUTPUT = "output";
 
 	public static ExeOptionsFactory OPTIONS_FACTORY = new ExeOptionsFactory() {
@@ -57,6 +62,7 @@ public class RunOsmImportFile
 			OsmOptions.addInputOptions(options);
 			// @formatter:off
 			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "a source OSM data file");
+			OptionHelper.addL(options, OPTION_CONFIG, true, true, "file", "an importer configuration file");
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "a target model text file");
 			// @formatter:on
 			return new CommonsCliExeOptions(options, "[options]");
@@ -78,28 +84,36 @@ public class RunOsmImportFile
 		}
 
 		String argInput = line.getOptionValue(OPTION_INPUT);
+		String argConfig = line.getOptionValue(OPTION_CONFIG);
 		String argOutput = line.getOptionValue(OPTION_OUTPUT);
 		Path pathInput = Paths.get(argInput);
+		Path pathConfig = Paths.get(argConfig);
 		Path pathOutput = Paths.get(argOutput);
 		OsmFile fileInput = new OsmFile(pathInput, input.format);
 
 		System.out.println("Input: " + pathInput);
+		System.out.println("Config: " + pathConfig);
 		System.out.println("Output: " + pathOutput);
 
-		RouteFilter routeFilter = new RouteTypeFilter("light_rail", "subway");
+		InputStream isConfig = Files.newInputStream(pathConfig);
+		ImportConfig config = DesktopImportConfigReader.read(isConfig);
+		isConfig.close();
 
-		List<String> prefixes = new ArrayList<>();
-		prefixes.add("S ");
-		prefixes.add("U ");
-		prefixes.add("S+U ");
-		prefixes.add("U-Bhf ");
+		if (!(config.getSource() instanceof OsmSource)) {
+			System.out.println("Config is not an OSM configuration");
+			return;
+		}
 
-		List<String> suffixes = new ArrayList<>();
+		final OsmSource source = (OsmSource) config.getSource();
+		Processing processing = config.getProcessing();
+
+		RouteFilter routeFilter = new OsmSourceRouteFilter(source);
 
 		List<Fix> fixes = new ArrayList<>();
 
 		FileModelBuilder modelBuilder = new FileModelBuilder(fileInput,
-				routeFilter, prefixes, suffixes, fixes);
+				routeFilter, processing.getPrefixes(), processing.getSuffixes(),
+				fixes);
 		modelBuilder.run(true, true);
 
 		OutputStream os = Files.newOutputStream(pathOutput);

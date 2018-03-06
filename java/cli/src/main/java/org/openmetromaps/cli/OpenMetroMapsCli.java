@@ -29,6 +29,7 @@ import org.openmetromaps.cli.osm.RunFilterRegion;
 import org.openmetromaps.cli.osm.RunFilterRelevantData;
 import org.openmetromaps.cli.osm.RunModelBuilder;
 import org.openmetromaps.cli.osm.RunModelInspector;
+import org.openmetromaps.cli.osm.RunOsmDownloadOverpass;
 import org.openmetromaps.cli.osm.RunOsmImportOverpass;
 import org.openmetromaps.cli.util.RunListChangeStations;
 import org.openmetromaps.cli.util.RunListLinesWithChangeStations;
@@ -57,6 +58,9 @@ public class OpenMetroMapsCli
 					RunFilterRelevantData.class);
 			options.addCommand("osm-extract", RunFilterRegion.OPTIONS_FACTORY,
 					RunFilterRegion.class);
+			options.addCommand("osm-query",
+					RunOsmDownloadOverpass.OPTIONS_FACTORY,
+					RunOsmDownloadOverpass.class);
 			options.addCommand("osm-import", OPTIONS_FACTORY_OSM_IMPORT);
 			options.addCommand("osm-inspect", RunModelInspector.OPTIONS_FACTORY,
 					RunModelInspector.class);

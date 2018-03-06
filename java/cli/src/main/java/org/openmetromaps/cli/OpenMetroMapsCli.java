@@ -27,7 +27,7 @@ import org.openmetromaps.cli.maps.RunSimpleMapViewer;
 import org.openmetromaps.cli.markdownview.RunCreateMarkdownView;
 import org.openmetromaps.cli.osm.RunFilterRegion;
 import org.openmetromaps.cli.osm.RunFilterRelevantData;
-import org.openmetromaps.cli.osm.RunModelBuilder;
+import org.openmetromaps.cli.osm.RunOsmImportFile;
 import org.openmetromaps.cli.osm.RunModelInspector;
 import org.openmetromaps.cli.osm.RunOsmDownloadOverpass;
 import org.openmetromaps.cli.osm.RunOsmImportOverpass;
@@ -91,8 +91,8 @@ public class OpenMetroMapsCli
 		public ExeOptions createOptions()
 		{
 			DelegateExeOptions options = new DelegateExeOptions();
-			options.addCommand("file", RunModelBuilder.OPTIONS_FACTORY,
-					RunModelBuilder.class);
+			options.addCommand("file", RunOsmImportFile.OPTIONS_FACTORY,
+					RunOsmImportFile.class);
 			options.addCommand("overpass", RunOsmImportOverpass.OPTIONS_FACTORY,
 					RunOsmImportOverpass.class);
 			return options;

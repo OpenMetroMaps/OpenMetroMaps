@@ -24,14 +24,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.imports.config.ImportConfig;
 import org.openmetromaps.imports.config.osm.OsmSource;
-import org.openmetromaps.imports.config.osm.Routes;
-import org.openmetromaps.imports.config.osm.Tag;
 import org.openmetromaps.imports.config.reader.DesktopImportConfigReader;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModelWriter;
@@ -39,8 +36,6 @@ import org.openmetromaps.model.osm.Fix;
 import org.openmetromaps.model.osm.filter.RouteFilter;
 import org.openmetromaps.osm.OverpassApiImporter;
 
-import de.topobyte.osm4j.core.model.iface.OsmRelation;
-import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
@@ -92,25 +87,7 @@ public class RunOsmImportOverpass
 
 		final OsmSource source = (OsmSource) config.getSource();
 
-		RouteFilter routeFilter = new RouteFilter() {
-
-			@Override
-			public boolean useRoute(OsmRelation relation)
-			{
-				Map<String, String> rTags = OsmModelUtil.getTagsAsMap(relation);
-				routes: for (Routes routes : source.getRoutes()) {
-					List<Tag> tags = routes.getTags();
-					for (Tag tag : tags) {
-						if (!tag.getValue().equals(rTags.get(tag.getKey()))) {
-							continue routes;
-						}
-					}
-					return true;
-				}
-				return false;
-			}
-
-		};
+		RouteFilter routeFilter = new OsmSourceRouteFilter(source);
 
 		List<String> prefixes = new ArrayList<>();
 

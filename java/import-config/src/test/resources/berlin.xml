@@ -13,4 +13,18 @@
        <tag key="network" value="Verkehrsverbund Berlin-Brandenburg"/>
      </routes>
   </source>
+  <processing>
+    <stations>
+      <prefix-removal>
+        <prefix value="S "/>
+        <prefix value="U "/>
+        <prefix value="S+U "/>
+        <prefix value="U-Bhf "/>
+      </prefix-removal>
+      <suffix-removal>
+        <suffix value=" (b Berlin)"/>
+        <suffix value=" (bei Berlin)"/>
+      </suffix-removal>
+    </stations>
+  </processing>
 </omm-import-config>

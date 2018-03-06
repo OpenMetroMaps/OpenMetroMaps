@@ -5,6 +5,7 @@
 * [Command line interface (CLI)](#command-line-interface-cli)
     * [Building the CLI module](#building-the-cli-module)
     * [CLI usage and tasks](#cli-usage-and-tasks)
+    * [The osm-import task](#the-osm-import-task)
     * [The util task](#the-util-task)
     * [The export task](#the-export-task)
 * [Map Editor](#map-editor)
@@ -59,6 +60,7 @@ Where task can be any of the following:
 
     osm-filter
     osm-extract
+    osm-query
     osm-import
     osm-inspect
     map-editor
@@ -78,6 +80,17 @@ you would type:
 To run the Map Editor, type:
 
     openmetromaps-cli map-editor --input test-data/src/main/resources/berlin.xml
+
+### The osm-import task
+
+The `osm-import` task imports data from OpenStreetMap and offers more sub-tasks:
+
+    openmetromaps-cli osm-import <sub-task>
+
+where sub-task may be one of the following:
+
+    file
+    overpass
 
 ### The util task
 

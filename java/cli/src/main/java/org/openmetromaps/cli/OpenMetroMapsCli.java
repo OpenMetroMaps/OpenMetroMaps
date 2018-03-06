@@ -29,6 +29,7 @@ import org.openmetromaps.cli.osm.RunFilterRegion;
 import org.openmetromaps.cli.osm.RunFilterRelevantData;
 import org.openmetromaps.cli.osm.RunModelBuilder;
 import org.openmetromaps.cli.osm.RunModelInspector;
+import org.openmetromaps.cli.osm.RunOsmImportOverpass;
 import org.openmetromaps.cli.util.RunListChangeStations;
 import org.openmetromaps.cli.util.RunListLinesWithChangeStations;
 import org.openmetromaps.cli.util.RunModelInfo;
@@ -56,8 +57,7 @@ public class OpenMetroMapsCli
 					RunFilterRelevantData.class);
 			options.addCommand("osm-extract", RunFilterRegion.OPTIONS_FACTORY,
 					RunFilterRegion.class);
-			options.addCommand("osm-import", RunModelBuilder.OPTIONS_FACTORY,
-					RunModelBuilder.class);
+			options.addCommand("osm-import", OPTIONS_FACTORY_OSM_IMPORT);
 			options.addCommand("osm-inspect", RunModelInspector.OPTIONS_FACTORY,
 					RunModelInspector.class);
 			options.addCommand("map-editor", RunMapEditor.OPTIONS_FACTORY,
@@ -76,6 +76,21 @@ public class OpenMetroMapsCli
 					RunCreateMarkdownView.class);
 			options.addCommand("util", OPTIONS_FACTORY_UTIL);
 			options.addCommand("export", OPTIONS_FACTORY_EXPORT);
+			return options;
+		}
+
+	};
+
+	public static ExeOptionsFactory OPTIONS_FACTORY_OSM_IMPORT = new ExeOptionsFactory() {
+
+		@Override
+		public ExeOptions createOptions()
+		{
+			DelegateExeOptions options = new DelegateExeOptions();
+			options.addCommand("file", RunModelBuilder.OPTIONS_FACTORY,
+					RunModelBuilder.class);
+			options.addCommand("overpass", RunOsmImportOverpass.OPTIONS_FACTORY,
+					RunOsmImportOverpass.class);
 			return options;
 		}
 

@@ -1,7 +1,9 @@
 dependencies {
+    compile project(':openmetromaps-import-config')
+    compile project(':openmetromaps-osm')
     compile project(':openmetromaps-osm-model')
     compile project(':openmetromaps-osm-model-inspector')
-    compile project(':openmetromaps-osm')
+    compile project(':openmetromaps-osm-import')
     compile project(':openmetromaps-maps-editor')
     compile project(':openmetromaps-maps-viewer')
     compile project(':openmetromaps-maps-morpher')

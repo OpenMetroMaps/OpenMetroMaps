@@ -28,6 +28,7 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.imports.config.ImportConfig;
+import org.openmetromaps.imports.config.Processing;
 import org.openmetromaps.imports.config.osm.OsmSource;
 import org.openmetromaps.imports.config.reader.DesktopImportConfigReader;
 import org.openmetromaps.maps.model.ModelData;
@@ -86,12 +87,9 @@ public class RunOsmImportOverpass
 		}
 
 		final OsmSource source = (OsmSource) config.getSource();
+		Processing processing = config.getProcessing();
 
 		RouteFilter routeFilter = new OsmSourceRouteFilter(source);
-
-		List<String> prefixes = new ArrayList<>();
-
-		List<String> suffixes = new ArrayList<>();
 
 		List<Fix> fixes = new ArrayList<>();
 
@@ -101,7 +99,7 @@ public class RunOsmImportOverpass
 
 		OverpassApiImporter overpassApiImporter = new OverpassApiImporter();
 		ModelData data = overpassApiImporter.execute(query, routeFilter,
-				prefixes, suffixes, fixes);
+				processing.getPrefixes(), processing.getSuffixes(), fixes);
 
 		OutputStream os = Files.newOutputStream(pathOutput);
 		new XmlModelWriter().write(os, data, new ArrayList<>());

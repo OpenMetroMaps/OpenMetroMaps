@@ -19,7 +19,9 @@ package org.openmetromaps.maps;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
@@ -37,7 +39,12 @@ public class MapModelUtil
 	public static List<Edges> allEdges(ModelData data)
 	{
 		List<Edges> edges = new ArrayList<>();
+		Set<String> names = new HashSet<>();
 		for (Line line : data.lines) {
+			if (names.contains(line.getName())) {
+				continue;
+			}
+			names.add(line.getName());
 			edges.add(new Edges(line.getName()));
 		}
 		return edges;

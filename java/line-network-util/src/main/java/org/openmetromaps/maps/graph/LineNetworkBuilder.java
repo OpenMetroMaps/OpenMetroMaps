@@ -23,6 +23,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.Interval;
@@ -80,7 +81,7 @@ public class LineNetworkBuilder
 		final int nLines = data.lines.size();
 
 		Map<String, Line> nameToLine = new HashMap<>();
-		Map<String, NetworkLine> nameToNetworkLine = new HashMap<>();
+		SetMultimap<String, NetworkLine> nameToNetworkLine = new SetMultimap<>();
 		for (int i = 0; i < nLines; i++) {
 			Line line = data.lines.get(i);
 			nameToLine.put(line.getName(), line);
@@ -92,13 +93,16 @@ public class LineNetworkBuilder
 
 		for (Edges edgesDef : edgesDefs) {
 			String lineName = edgesDef.getLine();
-			NetworkLine networkLine = nameToNetworkLine.get(lineName);
-			graph.lines.add(networkLine);
+			Set<NetworkLine> networkLines = nameToNetworkLine.get(lineName);
 
-			if (edgesDef.getIntervals().isEmpty()) {
-				addAllEdges(networkLine);
-			} else {
-				addIntervalEdges(networkLine, edgesDef.getIntervals());
+			for (NetworkLine networkLine : networkLines) {
+				graph.lines.add(networkLine);
+
+				if (edgesDef.getIntervals().isEmpty()) {
+					addAllEdges(networkLine);
+				} else {
+					addIntervalEdges(networkLine, edgesDef.getIntervals());
+				}
 			}
 		}
 	}

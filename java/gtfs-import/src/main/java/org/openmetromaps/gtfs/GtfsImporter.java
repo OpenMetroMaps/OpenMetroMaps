@@ -172,7 +172,7 @@ public class GtfsImporter
 			Stop stop = stopIdToStop.get(stopId);
 			String parentStation = stop.getParentStation();
 			String stationId = stop.getId();
-			if (!parentStation.isEmpty()) {
+			if (parentStation != null && !parentStation.isEmpty()) {
 				stationId = parentStation;
 			}
 			StopRef stopRef = new StopRef(seq, stationId);

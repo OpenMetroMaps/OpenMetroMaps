@@ -64,7 +64,7 @@ We currently support data imports from the following sources:
 
 Both types of import can be done using the [Command Line
 Interface](java/README.md#command-line-interface-cli).
-See the commands `build-model` for importing OSM data and `gtfs-import` for
+See the commands `osm-import` for importing OSM data and `gtfs-import` for
 importing GTFS data.
 
 ### OpenStreetMap

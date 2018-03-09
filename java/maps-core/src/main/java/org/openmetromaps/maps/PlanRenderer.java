@@ -61,6 +61,7 @@ public class PlanRenderer implements ViewportListener
 	static final Logger logger = LoggerFactory.getLogger(PlanRenderer.class);
 
 	public static enum StationMode {
+		DOT,
 		SIMPLE,
 		CONVEX
 	}
@@ -207,6 +208,10 @@ public class PlanRenderer implements ViewportListener
 	private void setupStationDrawer()
 	{
 		switch (stationMode) {
+		case DOT:
+			stationDrawer = new StationDrawerDot(pf, lineNetwork, colors, scale,
+					ltp, spreadFactor);
+			break;
 		case SIMPLE:
 			stationDrawer = new StationDrawerSimple(pf, lineNetwork, colors,
 					scale, ltp, spreadFactor);

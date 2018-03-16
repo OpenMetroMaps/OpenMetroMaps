@@ -17,6 +17,7 @@
 
 package org.openmetromaps.maps;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -41,6 +42,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.infomatiq.jsi.Rectangle;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.triangulate.VoronoiDiagramBuilder;
+import com.vividsolutions.jts.triangulate.quadedge.QuadEdge;
+import com.vividsolutions.jts.triangulate.quadedge.QuadEdgeSubdivision;
+import com.vividsolutions.jts.triangulate.quadedge.Vertex;
 
 import de.topobyte.formatting.Formatting;
 import de.topobyte.jsi.intersectiontester.RTreeIntersectionTester;
@@ -105,6 +115,9 @@ public class PlanRenderer implements ViewportListener
 
 	private StationDrawer stationDrawer;
 
+	private QuadEdgeSubdivision qes;
+	private Geometry vd;
+
 	public PlanRenderer(LineNetwork lineNetwork, MapViewStatus mapViewStatus,
 			StationMode stationMode, SegmentMode segmentMode,
 			ViewportWithSignals viewport, LocationToPoint ltp, float scale,
@@ -124,6 +137,8 @@ public class PlanRenderer implements ViewportListener
 			colors.put(line, ModelUtil.getColor(line.line));
 		}
 
+		computeVoronoi();
+
 		List<NetworkLine> lines = lineNetwork.getLines();
 		lineToPaintForLines = new IPaintInfo[lines.size()];
 		for (NetworkLine line : lines) {
@@ -136,6 +151,19 @@ public class PlanRenderer implements ViewportListener
 
 		viewport.addViewportListener(this);
 		zoomChanged();
+	}
+
+	private void computeVoronoi()
+	{
+		VoronoiDiagramBuilder vdb = new VoronoiDiagramBuilder();
+		List<Coordinate> coords = new ArrayList<>();
+		for (Node node : lineNetwork.getNodes()) {
+			coords.add(
+					new Coordinate(node.location.getX(), node.location.getY()));
+		}
+		vdb.setSites(coords);
+		qes = vdb.getSubdivision();
+		vd = vdb.getDiagram(new GeometryFactory());
 	}
 
 	public LineNetwork getLineNetwork()
@@ -271,6 +299,9 @@ public class PlanRenderer implements ViewportListener
 
 		Envelope envelope = new Envelope(x1, x2, y1, y2);
 
+		drawCells(g);
+		// drawDelaunay(g);
+
 		TimeMeasuring tm = new TimeMeasuring(logger);
 
 		final int nNodes = lineNetwork.nodes.size();
@@ -372,6 +403,46 @@ public class PlanRenderer implements ViewportListener
 		tm.log(LOG_LABELS, "Time for labels: %d");
 		logger.info(Formatting.format("Time for curve drawing: %d",
 				durationCurves));
+	}
+
+	private void drawDelaunay(Painter g)
+	{
+		IPaintInfo piCells = pf.create(Colors.BLACK, 1.5f * scale);
+		g.setPaintInfo(piCells);
+
+		Collection<QuadEdge> qedges = qes.getEdges();
+		for (QuadEdge edge : qedges) {
+			Vertex orig = edge.orig();
+			Vertex dest = edge.dest();
+			double ax = ltp.getX(orig.getX());
+			double ay = ltp.getY(orig.getY());
+			double bx = ltp.getX(dest.getX());
+			double by = ltp.getY(dest.getY());
+			g.drawLine(ax, ay, bx, by);
+		}
+	}
+
+	private void drawCells(Painter g)
+	{
+		IPaintInfo piCells = pf.create(new ColorCode(0xAAAAAA), 1.5f * scale);
+		g.setPaintInfo(piCells);
+
+		for (int i = 0; i < vd.getNumGeometries(); i++) {
+			Geometry geom = vd.getGeometryN(i);
+			if (geom instanceof Polygon) {
+				Polygon p = (Polygon) geom;
+				LineString exterior = p.getExteriorRing();
+				for (int k = 0; k < exterior.getNumPoints() - 1; k++) {
+					Coordinate c1 = exterior.getCoordinateN(k);
+					Coordinate c2 = exterior.getCoordinateN(k + 1);
+					double ax = ltp.getX(c1.x);
+					double ay = ltp.getY(c1.y);
+					double bx = ltp.getX(c2.x);
+					double by = ltp.getY(c2.y);
+					g.drawLine(ax, ay, bx, by);
+				}
+			}
+		}
 	}
 
 	private void renderLabels(Painter g, Envelope envelope, int nNodes,

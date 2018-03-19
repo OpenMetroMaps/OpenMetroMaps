@@ -27,3 +27,10 @@
 
 * [Schematic Mapping Workshop
   2014](https://sites.google.com/site/schematicmapping/program)
+
+# Project / Software
+
+* [SchemaSketch](https://www.cs.kent.ac.uk/projects/schemasketch/),
+  a digramming application for Android.
+* [Graphs](https://www.cs.kent.ac.uk/projects/fdol/) - Force-Directed
+  Octilinear Layout, a schematic layout software.

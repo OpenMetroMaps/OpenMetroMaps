@@ -30,6 +30,17 @@
   Representation and Inference: 8th International Conference, Diagrams 2014,
   Melbourne, VIC, Australia, July 28 -- August 1, 2014.
   [PDF](https://www.researchgate.net/profile/Daniel_Chivers2/publication/265021245_Octilinear_Force-Directed_Layout_with_Mental_Map_Preservation_for_Schematic_Diagrams/links/53fc7c1c0cf2dca8ffff25ff.pdf)
+* Chivers, Daniel (2014). Improving Automated Layout Techniques for the
+  Production of Schematic Diagrams. Doctoral dissertation, University of Kent.
+  [PDF](https://kar.kent.ac.uk/50750/1/6Thesis_DanChivers.pdf)
+* Stott, J., Rodgers, P., Martinez-Ovando, J. C., & Walker, S. G. (2011).
+  Automatic metro map layout using multicriteria optimization. IEEE Transactions
+  on Visualization and Computer Graphics, 17(1), 101-114.
+  [PDF](https://kar.kent.ac.uk/30781/1/tvcgMetro.pdf)
+* Chivers, Daniel, and Rodgers, Peter (2013). Exploring local optima in schematic
+  layout. Proceedings of the International Conference on Distributed Multimedia
+  Systems 2013. Knowledge Systems Institute, 2013.
+  [PDF](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.644.4565&rep=rep1&type=pdf)
 
 # Conferences, Events
 

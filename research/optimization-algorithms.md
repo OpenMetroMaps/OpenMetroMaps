@@ -1,3 +1,14 @@
+# People
+
+* [Martin Nöllenburg](https://www.ac.tuwien.ac.at/people/noellenburg/),
+  Associate Professor at TU Wien, Vienna, Austria
+* [Alexander
+  Wolff](http://www1.informatik.uni-wuerzburg.de/en/staff/wolff-alexander/),
+  Professor at Universität Würzburg, Germany
+* [Peter Rodgers](https://www.cs.kent.ac.uk/people/staff/pjr/),
+  Reader / Director of Research / Deputy Head of School at the School of
+  Computin at the University of Kent, United Kingdom
+
 # Optimization algorithms
 
 * Nöllenburg, M. (2005). Automated Drawing of Metro Maps (Master thesis, Technical
@@ -11,3 +22,8 @@
   Representation and Inference: 8th International Conference, Diagrams 2014,
   Melbourne, VIC, Australia, July 28 -- August 1, 2014.
   [Read online](https://www.researchgate.net/profile/Daniel_Chivers2/publication/265021245_Octilinear_Force-Directed_Layout_with_Mental_Map_Preservation_for_Schematic_Diagrams/links/53fc7c1c0cf2dca8ffff25ff.pdf)
+
+# Conferences, Events
+
+* [Schematic Mapping Workshop
+  2014](https://sites.google.com/site/schematicmapping/program)

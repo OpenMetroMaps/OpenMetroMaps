@@ -138,7 +138,7 @@ page.
   [implementation](https://github.com/dirkschumacher/TransitmapSolver.jl)
   available which could possibly be built upon (although the license changed
   from MIT to GPL, which makes it impossible to integrate easily).
-  We collect a [list of papers](research/research.md#optimization-algorithms)
+  We collect a [list of papers](research/optimization-algorithms.md)
   about possible algorithms.
 
 ### Nick-name map for Berlin

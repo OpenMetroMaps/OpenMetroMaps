@@ -112,8 +112,8 @@ public class DistributeEvenlyAction extends MapEditorAction
 		double diffX = c2.getX() - c1.getX();
 		double diffY = c2.getY() - c1.getY();
 
-		double dx = diffX / num;
-		double dy = diffY / num;
+		double dx = diffX / (num + 1);
+		double dy = diffY / (num + 1);
 
 		for (int i = 0; i < num; i++) {
 			Node node = between.get(i);

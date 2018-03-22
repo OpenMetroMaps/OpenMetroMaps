@@ -4,4 +4,8 @@ dependencies {
     compile project(':openmetromaps-lightgeom')
 
     compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
+
+    testCompile 'junit:junit:4.12'
+    testCompile project(':openmetromaps-maps-model-xml-converter')
+    testCompile project(':openmetromaps-test-data')
 }

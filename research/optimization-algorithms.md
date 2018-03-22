@@ -27,6 +27,10 @@
   Representation and Inference: 8th International Conference, Diagrams 2014,
   Melbourne, VIC, Australia, July 28 -- August 1, 2014.
   [PDF](https://www.researchgate.net/profile/Daniel_Chivers2/publication/265021245_Octilinear_Force-Directed_Layout_with_Mental_Map_Preservation_for_Schematic_Diagrams/links/53fc7c1c0cf2dca8ffff25ff.pdf)
+* Fink, Martin and Haverkort, Herman and Nöllenburg, Martin and Roberts, Maxwell
+  J. and Schuhmann, Julian and Wolff, Alexander (2013). Drawing Metro Maps using
+  Bézier Curves.
+  [PDF](https://link.springer.com/content/pdf/10.1007%2F978-3-642-36763-2_41.pdf)
 * Nöllenburg, Martin (2005). Automated Drawing of Metro Maps (Master thesis, Technical
   University of Karlsruhe).
   [PDF](http://i11www.iti.kit.edu/extra/publications/n-admm-05da.pdf)

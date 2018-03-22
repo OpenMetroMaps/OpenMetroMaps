@@ -27,10 +27,11 @@ import org.openmetromaps.cli.maps.RunSimpleMapViewer;
 import org.openmetromaps.cli.markdownview.RunCreateMarkdownView;
 import org.openmetromaps.cli.osm.RunFilterRegion;
 import org.openmetromaps.cli.osm.RunFilterRelevantData;
-import org.openmetromaps.cli.osm.RunOsmImportFile;
 import org.openmetromaps.cli.osm.RunModelInspector;
 import org.openmetromaps.cli.osm.RunOsmDownloadOverpass;
+import org.openmetromaps.cli.osm.RunOsmImportFile;
 import org.openmetromaps.cli.osm.RunOsmImportOverpass;
+import org.openmetromaps.cli.util.RunFindCloseStations;
 import org.openmetromaps.cli.util.RunListChangeStations;
 import org.openmetromaps.cli.util.RunListLinesWithChangeStations;
 import org.openmetromaps.cli.util.RunModelInfo;
@@ -116,6 +117,9 @@ public class OpenMetroMapsCli
 					RunListLinesWithChangeStations.class);
 			options.addCommand("purge-stations",
 					RunPurgeStations.OPTIONS_FACTORY, RunPurgeStations.class);
+			options.addCommand("find-close-stations",
+					RunFindCloseStations.OPTIONS_FACTORY,
+					RunFindCloseStations.class);
 			return options;
 		}
 

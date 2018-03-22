@@ -11,11 +11,11 @@
 
 # Optimization algorithms
 
-* Chivers, Daniel, and Rodgers, Peter (2011) Gesture-based input for drawing
+* Chivers, Daniel and Rodgers, Peter (2011) Gesture-based input for drawing
   schematics on a mobile device. Information Visualisation (IV), 2011 15th
   International Conference on. IEEE, 2011.
   [PDF](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.294.3611&rep=rep1&type=pdf)
-* Chivers, Daniel, and Rodgers, Peter (2013). Exploring local optima in schematic
+* Chivers, Daniel and Rodgers, Peter (2013). Exploring local optima in schematic
   layout. Proceedings of the International Conference on Distributed Multimedia
   Systems 2013. Knowledge Systems Institute, 2013.
   [PDF](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.644.4565&rep=rep1&type=pdf)
@@ -34,14 +34,14 @@
 * Nöllenburg, Martin (2005). Automated Drawing of Metro Maps (Master thesis, Technical
   University of Karlsruhe).
   [PDF](http://i11www.iti.kit.edu/extra/publications/n-admm-05da.pdf)
-* Nöllenburg, Martin, & Wolff, Alexander (2011). Drawing and labeling high-quality metro maps
+* Nöllenburg, Martin and Wolff, Alexander (2011). Drawing and labeling high-quality metro maps
   by mixed-integer programming. IEEE Transactions on Visualization and Computer
   Graphics, 17(5), 626-641.
   [PDF](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.467.6286&rep=rep1&type=pdf)
 * Nöllenburg, Martin (2014). A survey on automated metro map layout methods.
   Tech. Rep.
   [PDF](https://pdfs.semanticscholar.org/2dcd/ad5c1bd03e6e9929b43dc672ef53da434b46.pdf)
-* Stott, J., Rodgers, P., Martinez-Ovando, J. C., & Walker, S. G. (2011).
+* Stott, J. and Rodgers, P. and Martinez-Ovando, J. C. and Walker, S. G. (2011).
   Automatic metro map layout using multicriteria optimization. IEEE Transactions
   on Visualization and Computer Graphics, 17(1), 101-114.
   [PDF](https://kar.kent.ac.uk/30781/1/tvcgMetro.pdf)

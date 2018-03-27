@@ -145,4 +145,4 @@ page.
 
 Possible resources:
 * <https://de.wikipedia.org/wiki/Berolinismus>
-* <https://github.com/derhuerst/vbb-common-places/blob/master/stations.js>
+* <https://github.com/derhuerst/vbb-common-places/blob/master/stations.json>

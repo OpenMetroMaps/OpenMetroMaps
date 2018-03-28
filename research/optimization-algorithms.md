@@ -41,6 +41,9 @@
 * Nöllenburg, Martin (2014). A survey on automated metro map layout methods.
   Tech. Rep.
   [PDF](https://pdfs.semanticscholar.org/2dcd/ad5c1bd03e6e9929b43dc672ef53da434b46.pdf)
+* Schuhmann, Julian (2011). Automatisches Zeichnen von U-Bahn-Linienplänen unter
+  Verwendung von Bézierkurven. (Bachelor thesis, Universität Würzburg).
+  [PDF](http://www1.pub.informatik.uni-wuerzburg.de/pub/theses/2011-schuhmann-bachelor.pdf)
 * Stott, J. and Rodgers, P. and Martinez-Ovando, J. C. and Walker, S. G. (2011).
   Automatic metro map layout using multicriteria optimization. IEEE Transactions
   on Visualization and Computer Graphics, 17(1), 101-114.

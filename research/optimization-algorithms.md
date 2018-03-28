@@ -49,6 +49,11 @@
   on Visualization and Computer Graphics, 17(1), 101-114.
   [PDF](https://kar.kent.ac.uk/30781/1/tvcgMetro.pdf)
 
+Other resources:
+
+List of theses at Institut for Computer Science at Universtität
+Würzburg: <http://www1.informatik.uni-wuerzburg.de/abschlussarbeiten/>
+
 # Conferences, Events
 
 * [Schematic Mapping Workshop

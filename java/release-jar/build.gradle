@@ -1,0 +1,11 @@
+dependencies {
+    compile project(':openmetromaps-ui-selector')
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.openmetromaps.uiselector.RunUiSelector'
+    }
+    baseName = 'openmetromaps-ui-selector'
+    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+}

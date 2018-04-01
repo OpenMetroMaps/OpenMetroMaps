@@ -81,10 +81,12 @@ project(':maps-gwt').name = 'openmetromaps-maps-gwt'
 project(':maps-batik').name = 'openmetromaps-maps-batik'
 
 // Swing
+include 'ui-selector'
 include 'maps-editor'
 include 'maps-viewer'
 include 'maps-morpher'
 include 'ui-resources', 'swing-misc'
+project(':ui-selector').name = 'openmetromaps-ui-selector'
 project(':maps-editor').name = 'openmetromaps-maps-editor'
 project(':maps-viewer').name = 'openmetromaps-maps-viewer'
 project(':maps-morpher').name = 'openmetromaps-maps-morpher'

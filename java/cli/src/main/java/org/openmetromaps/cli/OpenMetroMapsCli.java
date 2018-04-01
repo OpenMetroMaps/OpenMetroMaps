@@ -31,6 +31,7 @@ import org.openmetromaps.cli.osm.RunModelInspector;
 import org.openmetromaps.cli.osm.RunOsmDownloadOverpass;
 import org.openmetromaps.cli.osm.RunOsmImportFile;
 import org.openmetromaps.cli.osm.RunOsmImportOverpass;
+import org.openmetromaps.cli.startup.RunUiSelector;
 import org.openmetromaps.cli.util.RunFindCloseStations;
 import org.openmetromaps.cli.util.RunListChangeStations;
 import org.openmetromaps.cli.util.RunListLinesWithChangeStations;
@@ -54,6 +55,8 @@ public class OpenMetroMapsCli
 		public ExeOptions createOptions()
 		{
 			DelegateExeOptions options = new DelegateExeOptions();
+			options.addCommand("ui-selector", RunUiSelector.OPTIONS_FACTORY,
+					RunUiSelector.class);
 			options.addCommand("osm-filter",
 					RunFilterRelevantData.OPTIONS_FACTORY,
 					RunFilterRelevantData.class);

@@ -12,6 +12,7 @@ dependencies {
     compile project(':openmetromaps-gtfs-import')
     compile project(':openmetromaps-gtfs-model-converter')
     compile project(':openmetromaps-markdown-view')
+    compile project(':openmetromaps-ui-selector')
 
     compile 'de.topobyte:commons-cli-helper:0.0.6'
 

@@ -58,6 +58,7 @@ Then invoke the main executable like this:
 
 Where `<task>` can be any of the following:
 
+    ui-selector
     osm-filter
     osm-extract
     osm-query

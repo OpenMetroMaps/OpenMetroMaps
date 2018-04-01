@@ -66,8 +66,8 @@ public class NewAction extends MapEditorAction
 				edges);
 		LineNetwork lineNetwork = builder.getGraph();
 
-		ViewConfig viewConfig = new ViewConfig(new Rectangle(10, 10, 20, 20),
-				new Coordinate(15, 15));
+		ViewConfig viewConfig = new ViewConfig(new Rectangle(0, 0, 1000, 1000),
+				new Coordinate(500, 500));
 		model.getViews()
 				.add(new MapView("Test", edges, lineNetwork, viewConfig));
 

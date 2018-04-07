@@ -7,5 +7,9 @@ jar {
         attributes 'Main-Class': 'org.openmetromaps.uiselector.RunUiSelector'
     }
     baseName = 'openmetromaps-ui-selector'
-    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+    from {
+        configurations.runtime.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
 }

@@ -1,9 +1,8 @@
 dependencies {
     compile project(':openmetromaps-ui-selector')
-    compile project(':openmetromaps-cli')
 }
 
-task releaseJars(dependsOn: ['jar', 'jarUiSelector', 'jarCli']) {
+task releaseJars(dependsOn: ['jar', 'jarUiSelector']) {
 }
 
 task jarUiSelector(type: Jar) {
@@ -18,17 +17,4 @@ task jarUiSelector(type: Jar) {
         }
     }
     with jar
-}
-
-task jarCli(type: Jar) {
-    manifest {
-        attributes 'Main-Class': 'org.openmetromaps.cli.OpenMetroMapsCli'
-    }
-    baseName = 'openmetromaps-cli'
-    destinationDir = file("$rootDir/release")
-    from {
-        configurations.runtime.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
 }

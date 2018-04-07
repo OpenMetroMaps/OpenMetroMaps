@@ -9,6 +9,4 @@ cd "$DIR"
 
 rm -rf "$OUTPUT"
 
-./gradlew clean jar
-
-cp release-jar/build/libs -a "$OUTPUT"
+./gradlew clean releaseJars

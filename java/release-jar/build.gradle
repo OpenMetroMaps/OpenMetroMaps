@@ -2,14 +2,19 @@ dependencies {
     compile project(':openmetromaps-ui-selector')
 }
 
-jar {
+task releaseJars(dependsOn: ['jar', 'jarUiSelector']) {
+}
+
+task jarUiSelector(type: Jar) {
     manifest {
         attributes 'Main-Class': 'org.openmetromaps.uiselector.RunUiSelector'
     }
     baseName = 'openmetromaps-ui-selector'
+    destinationDir = file("$rootDir/release")
     from {
         configurations.runtime.collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }
+    with jar
 }

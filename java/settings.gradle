@@ -98,6 +98,6 @@ include 'markdown-view'
 project(':markdown-view').name = 'openmetromaps-markdown-view'
 
 // Platforms
-include 'release-jar', 'win'
-project(':release-jar').name = 'openmetromaps-release-jar'
+include 'release-jar/ui-selector', 'win'
+project(':release-jar/ui-selector').name = 'openmetromaps-release-jar-ui-selector'
 project(':win').name = 'openmetromaps-win'

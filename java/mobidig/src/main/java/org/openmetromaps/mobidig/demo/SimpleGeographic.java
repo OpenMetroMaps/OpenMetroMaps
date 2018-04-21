@@ -25,17 +25,17 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.mobidig.MapViewer;
 import org.openmetromaps.mobidig.Util;
 
-public class SimpleViewer
+public class SimpleGeographic
 {
 
 	public static void main(String[] args) throws Exception
 	{
-		MapModel model = Util.stuttgartSchematic();
+		MapModel model = Util.stuttgartGeographic();
 
 		Map<String, ColorCode> colorMap = new HashMap<>();
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap,
-				"Stuttgart S-Bahn", "schematisch");
+				"Stuttgart S-Bahn", "geographisch");
 		mapViewer.show();
 	}
 

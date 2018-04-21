@@ -54,7 +54,6 @@ import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
-import org.openmetromaps.maps.ScrollableAdvancedPanel;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
@@ -106,7 +105,7 @@ public class MapViewer
 	private CControl control;
 	private CGrid grid;
 
-	private ScrollableAdvancedPanel map;
+	private CustomScrollableAdvancedPanel map;
 	private StatusBar statusBar;
 
 	private JFrame frameMap = null;
@@ -275,7 +274,7 @@ public class MapViewer
 
 	private void syncMapState()
 	{
-		PlanRenderer planRenderer = map.getPlanRenderer();
+		CustomPlanRenderer planRenderer = map.getPlanRenderer();
 		planRenderer.setRenderLabels(showLabels.getValue());
 		planRenderer.setRenderStationCenters(showStationCenters.getValue());
 		planRenderer.setStationMode(stationMode.getValue());
@@ -314,7 +313,7 @@ public class MapViewer
 		return frame;
 	}
 
-	public ScrollableAdvancedPanel getMap()
+	public CustomScrollableAdvancedPanel getMap()
 	{
 		return map;
 	}
@@ -455,6 +454,7 @@ public class MapViewer
 
 	private void setStationModeInternal()
 	{
+		System.out.println("jo");
 		map.getPlanRenderer().setStationMode(stationMode.getValue());
 		map.repaint();
 	}
@@ -482,14 +482,14 @@ public class MapViewer
 		JPanel panel = new JPanel(new GridBagLayout());
 		frame.setContentPane(panel);
 
-		map = new ScrollableAdvancedPanel(model.getData(), view, mapViewStatus,
-				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				10, 15);
+		map = new CustomScrollableAdvancedPanel(model.getData(), view,
+				mapViewStatus, PlanRenderer.StationMode.CONVEX,
+				PlanRenderer.SegmentMode.CURVE, 10, 15);
 
-		ScrollableView<ScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
+		ScrollableView<CustomScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
 				map);
 
-		PanMouseAdapter<ScrollableAdvancedPanel> panAdapter = new PanMouseAdapter<>(
+		PanMouseAdapter<CustomScrollableAdvancedPanel> panAdapter = new PanMouseAdapter<>(
 				map);
 		map.addMouseListener(panAdapter);
 		map.addMouseMotionListener(panAdapter);

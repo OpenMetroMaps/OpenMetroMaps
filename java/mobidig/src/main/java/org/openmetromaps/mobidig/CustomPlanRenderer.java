@@ -89,7 +89,7 @@ public class CustomPlanRenderer implements ViewportListener
 	private PaintFactory pf;
 	private Map<String, ColorCode> colorMap;
 
-	private float baseLineWidth = 3.0f;
+	private float baseLineWidth = 6.0f;
 
 	private float lineWidth = 1.0f;
 	private float spreadFactor = 1.8f;
@@ -355,7 +355,7 @@ public class CustomPlanRenderer implements ViewportListener
 		 * Labels
 		 */
 
-		int fontSize = Math.round(12 * scale);
+		int fontSize = Math.round(baseFontSize * scale);
 
 		IPaintInfo piOutline = pf.create(Colors.WHITE, 2 * scale);
 		piOutline.setFontSize(fontSize);
@@ -390,10 +390,12 @@ public class CustomPlanRenderer implements ViewportListener
 				durationCurves));
 	}
 
+	private float baseFontSize = 24;
+
 	private IPaintInfo getPiOutline(String name)
 	{
-		int fontSize = Math.round(12 * scale);
-		IPaintInfo piOutline = pf.create(Colors.WHITE, 2 * scale);
+		int fontSize = Math.round(baseFontSize * scale);
+		IPaintInfo piOutline = pf.create(Colors.WHITE, 4 * scale);
 		piOutline.setFontSize(fontSize);
 		return piOutline;
 	}
@@ -404,7 +406,7 @@ public class CustomPlanRenderer implements ViewportListener
 		if (color == null) {
 			color = Colors.BLACK;
 		}
-		int fontSize = Math.round(12 * scale);
+		int fontSize = Math.round(baseFontSize * scale);
 		IPaintInfo piText = pf.create(color, 1 * scale);
 		piText.setFontSize(fontSize);
 		return piText;

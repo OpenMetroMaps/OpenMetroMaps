@@ -32,12 +32,9 @@ public class ColorTestViewer
 	{
 		MapModel model = Util.stuttgartSchematic();
 
-		ColorCode RED = new ColorCode(0xFF0000);
-		ColorCode GREEN = new ColorCode(0x00bc00);
-
 		Map<String, ColorCode> colorMap = new HashMap<>();
-		colorMap.put("Stuttgart Hauptbahnhof (tief)", GREEN);
-		colorMap.put("Stuttgart Schwabstraße", RED);
+		colorMap.put("Stuttgart Hauptbahnhof (tief)", DemoColors.GREEN);
+		colorMap.put("Stuttgart Schwabstraße", DemoColors.RED);
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap);
 		mapViewer.show();

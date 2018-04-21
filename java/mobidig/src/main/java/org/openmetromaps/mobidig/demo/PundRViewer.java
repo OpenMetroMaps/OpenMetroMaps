@@ -33,13 +33,11 @@ public class PundRViewer
 	{
 		MapModel model = Util.stuttgartSchematic();
 
-		ColorCode GREEN = new ColorCode(0x00bc00);
-
 		Map<String, ColorCode> colorMap = new HashMap<>();
 
 		List<String> lines = Util.lines("pundr.txt");
 		for (String line : lines) {
-			colorMap.put(line, GREEN);
+			colorMap.put(line, DemoColors.GREEN);
 		}
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap);

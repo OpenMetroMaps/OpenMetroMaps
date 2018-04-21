@@ -238,6 +238,7 @@ public class MapViewer
 		viewer.setDrawCrosshair(false);
 		viewer.setDrawBorder(false);
 		viewer.setDrawTileNumbers(false);
+		viewer.getMapWindow().setTileSize(512);
 
 		InputMap inputMap = viewer
 				.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);

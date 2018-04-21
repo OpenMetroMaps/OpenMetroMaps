@@ -33,18 +33,15 @@ public class AufzugViewer
 	{
 		MapModel model = Util.stuttgartSchematic();
 
-		ColorCode RED = new ColorCode(0xFF0000);
-		ColorCode GREEN = new ColorCode(0x00bc00);
-
 		Map<String, ColorCode> colorMap = new HashMap<>();
 
 		List<String> elevators = Util.lines("aufzug.txt");
 		for (String line : elevators) {
-			colorMap.put(line, GREEN);
+			colorMap.put(line, DemoColors.GREEN);
 		}
 		List<String> broken = Util.lines("aufzug-kaputt.txt");
 		for (String line : broken) {
-			colorMap.put(line, RED);
+			colorMap.put(line, DemoColors.RED);
 		}
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap);

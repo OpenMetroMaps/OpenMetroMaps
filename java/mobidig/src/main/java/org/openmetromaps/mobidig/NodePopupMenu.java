@@ -24,8 +24,6 @@ import javax.swing.JMenuItem;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Coordinate;
 import org.openmetromaps.maps.model.Station;
-import org.openmetromaps.mobidig.MapViewer;
-import org.openmetromaps.mobidig.NodeAction;
 import org.openmetromaps.swing.JPopupMenuWithTitle;
 
 import de.topobyte.jeography.viewer.core.Viewer;
@@ -97,6 +95,7 @@ public class NodePopupMenu extends JPopupMenuWithTitle
 			}
 			viewer.getMapWindow().gotoLonLat(location.getLongitude(),
 					location.getLatitude());
+			viewer.getMapWindow().zoom(15);
 			viewer.repaint();
 		}
 

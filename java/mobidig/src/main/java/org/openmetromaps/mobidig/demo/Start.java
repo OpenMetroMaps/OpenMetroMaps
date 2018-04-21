@@ -122,9 +122,9 @@ public class Start
 		ce.gridPos(0, y++);
 		main.add(buttonMorph, c);
 		ce.gridPos(0, y++);
-		main.add(buttonPR, c);
-		ce.gridPos(0, y++);
 		main.add(buttonAufzug, c);
+		ce.gridPos(0, y++);
+		main.add(buttonPR, c);
 
 		ce.fill(GridBagConstraints.BOTH);
 		ce.weight(1, 1);

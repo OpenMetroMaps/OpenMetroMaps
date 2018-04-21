@@ -66,7 +66,7 @@ import org.openmetromaps.mobidig.actions.file.OpenAction;
 import org.openmetromaps.mobidig.actions.view.ShowLabelsAction;
 import org.openmetromaps.mobidig.actions.view.ShowMapAction;
 import org.openmetromaps.mobidig.actions.view.ShowStationCentersAction;
-import org.openmetromaps.mobidig.demo.DemoColors;
+import org.openmetromaps.mobidig.demo.DemoOptions;
 import org.openmetromaps.mobidig.jeography.JeographyZoomAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -492,7 +492,7 @@ public class MapViewer
 		map = new CustomScrollableAdvancedPanel(model.getData(), view,
 				mapViewStatus, PlanRenderer.StationMode.CONVEX,
 				PlanRenderer.SegmentMode.CURVE, 10, 15, colorMap,
-				DemoColors.SCALE);
+				DemoOptions.SCALE);
 
 		ScrollableView<CustomScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
 				map);

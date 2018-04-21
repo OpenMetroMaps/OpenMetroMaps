@@ -2,7 +2,7 @@ package org.openmetromaps.mobidig.demo;
 
 import org.openmetromaps.maps.painting.core.ColorCode;
 
-public class DemoColors
+public class DemoOptions
 {
 
 	public static final float SCALE = 2;

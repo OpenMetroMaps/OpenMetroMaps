@@ -37,7 +37,7 @@ public class PundRViewer
 
 		List<String> lines = Util.lines("pundr.txt");
 		for (String line : lines) {
-			colorMap.put(line, DemoColors.GREEN);
+			colorMap.put(line, DemoOptions.GREEN);
 		}
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap);

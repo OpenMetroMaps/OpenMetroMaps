@@ -37,11 +37,11 @@ public class AufzugViewer
 
 		List<String> elevators = Util.lines("aufzug.txt");
 		for (String line : elevators) {
-			colorMap.put(line, DemoColors.GREEN);
+			colorMap.put(line, DemoOptions.GREEN);
 		}
 		List<String> broken = Util.lines("aufzug-kaputt.txt");
 		for (String line : broken) {
-			colorMap.put(line, DemoColors.RED);
+			colorMap.put(line, DemoOptions.RED);
 		}
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap);

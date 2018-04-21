@@ -101,6 +101,8 @@ public class MapViewer
 
 	private Path source;
 	private Map<String, ColorCode> colorMap;
+	private String title;
+	private String subtitle;
 
 	private ViewConfig viewConfig;
 
@@ -141,10 +143,12 @@ public class MapViewer
 	private ShowMapAction showMapAction;
 
 	public MapViewer(MapModel model, Path source,
-			Map<String, ColorCode> colorMap)
+			Map<String, ColorCode> colorMap, String title, String subtitle)
 	{
 		this.source = source;
 		this.colorMap = colorMap;
+		this.title = title;
+		this.subtitle = subtitle;
 
 		init(model);
 
@@ -492,7 +496,7 @@ public class MapViewer
 		map = new CustomScrollableAdvancedPanel(model.getData(), view,
 				mapViewStatus, PlanRenderer.StationMode.CONVEX,
 				PlanRenderer.SegmentMode.CURVE, 10, 15, colorMap,
-				DemoOptions.SCALE);
+				DemoOptions.SCALE, title, subtitle);
 
 		ScrollableView<CustomScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
 				map);

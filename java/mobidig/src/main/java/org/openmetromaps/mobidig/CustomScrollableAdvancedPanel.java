@@ -18,6 +18,7 @@
 package org.openmetromaps.mobidig;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -56,12 +57,18 @@ public class CustomScrollableAdvancedPanel extends BaseMapWindowPanel
 	private Map<String, ColorCode> colorMap;
 	private float scale;
 
+	private String title;
+	private String subtitle;
+
 	public CustomScrollableAdvancedPanel(ModelData data, MapView view,
 			MapViewStatus mapViewStatus, StationMode stationMode,
 			SegmentMode segmentMode, int minZoom, int maxZoom,
-			Map<String, ColorCode> colorMap, float scale)
+			Map<String, ColorCode> colorMap, float scale, String title,
+			String subtitle)
 	{
 		super(view.getConfig().getScene());
+		this.title = title;
+		this.subtitle = subtitle;
 
 		ViewConfig config = view.getConfig();
 		setPositionX(-config.getStartPosition().getX());
@@ -138,6 +145,28 @@ public class CustomScrollableAdvancedPanel extends BaseMapWindowPanel
 		fillRect(g, scene.getX1(), scene.getY1(), scene.getX2(), scene.getY2());
 
 		renderer.paint(painter);
+
+		Font font1 = new Font("Verdana", Font.BOLD, 30);
+		Font font2 = new Font("Verdana", Font.BOLD, 24);
+		int margin = 10;
+		int padding = 5;
+		int posX = 30;
+
+		g.setFont(font1);
+
+		int posY = font1.getSize() + margin;
+		g.setColor(Color.WHITE);
+		painter.outlineString(title, posX, posY);
+		g.setColor(Color.BLACK);
+		painter.drawString(title, posX, posY);
+
+		g.setFont(font2);
+
+		posY = font1.getSize() + margin + font2.getSize() + padding;
+		g.setColor(Color.WHITE);
+		painter.outlineString(subtitle, posX, posY);
+		g.setColor(Color.BLACK);
+		painter.drawString(subtitle, posX, posY);
 	}
 
 }

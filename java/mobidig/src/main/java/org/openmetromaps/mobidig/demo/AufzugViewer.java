@@ -44,7 +44,8 @@ public class AufzugViewer
 			colorMap.put(line, DemoOptions.RED);
 		}
 
-		MapViewer mapViewer = new MapViewer(model, null, colorMap);
+		MapViewer mapViewer = new MapViewer(model, null, colorMap,
+				"Stuttgart S-Bahn", "Fahrstuhlinformation");
 		mapViewer.show();
 	}
 

@@ -34,7 +34,8 @@ public class SimpleViewer
 
 		Map<String, ColorCode> colorMap = new HashMap<>();
 
-		MapViewer mapViewer = new MapViewer(model, null, colorMap);
+		MapViewer mapViewer = new MapViewer(model, null, colorMap,
+				"Stuttgart S-Bahn", "schematisch");
 		mapViewer.show();
 	}
 

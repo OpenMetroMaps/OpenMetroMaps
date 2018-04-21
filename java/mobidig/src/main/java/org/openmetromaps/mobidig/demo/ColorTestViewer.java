@@ -36,7 +36,8 @@ public class ColorTestViewer
 		colorMap.put("Stuttgart Hauptbahnhof (tief)", DemoOptions.GREEN);
 		colorMap.put("Stuttgart Schwabstraße", DemoOptions.RED);
 
-		MapViewer mapViewer = new MapViewer(model, null, colorMap);
+		MapViewer mapViewer = new MapViewer(model, null, colorMap,
+				"Stuttgart S-Bahn", "Farbtest");
 		mapViewer.show();
 	}
 

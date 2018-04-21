@@ -40,7 +40,8 @@ public class PundRViewer
 			colorMap.put(line, DemoOptions.GREEN);
 		}
 
-		MapViewer mapViewer = new MapViewer(model, null, colorMap);
+		MapViewer mapViewer = new MapViewer(model, null, colorMap,
+				"Stuttgart S-Bahn", "Park & Ride");
 		mapViewer.show();
 	}
 

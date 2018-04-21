@@ -18,8 +18,11 @@
 package org.openmetromaps.mobidig.demo;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
@@ -37,7 +40,14 @@ public class SimpleViewer
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		MapViewer mapViewer = new MapViewer(model, null);
+		ColorCode RED = new ColorCode(0xFF0000);
+		ColorCode GREEN = new ColorCode(0x00bc00);
+
+		Map<String, ColorCode> colorMap = new HashMap<>();
+		colorMap.put("Stuttgart Hauptbahnhof (tief)", GREEN);
+		colorMap.put("Stuttgart Schwabstraße", RED);
+
+		MapViewer mapViewer = new MapViewer(model, null, colorMap);
 		mapViewer.show();
 	}
 

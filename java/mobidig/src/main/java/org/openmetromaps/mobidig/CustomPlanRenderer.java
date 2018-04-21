@@ -87,6 +87,7 @@ public class CustomPlanRenderer implements ViewportListener
 	private float factor;
 
 	private PaintFactory pf;
+	private Map<String, ColorCode> colorMap;
 
 	private float baseLineWidth = 3.0f;
 
@@ -111,7 +112,8 @@ public class CustomPlanRenderer implements ViewportListener
 	public CustomPlanRenderer(LineNetwork lineNetwork,
 			MapViewStatus mapViewStatus, StationMode stationMode,
 			SegmentMode segmentMode, ViewportWithSignals viewport,
-			LocationToPoint ltp, float scale, PaintFactory pf)
+			LocationToPoint ltp, float scale, PaintFactory pf,
+			Map<String, ColorCode> colorMap)
 	{
 		this.lineNetwork = lineNetwork;
 		this.mapViewStatus = mapViewStatus;
@@ -122,6 +124,7 @@ public class CustomPlanRenderer implements ViewportListener
 		this.stationMode = stationMode;
 		this.scale = scale;
 		this.pf = pf;
+		this.colorMap = colorMap;
 
 		for (NetworkLine line : lineNetwork.getLines()) {
 			colors.put(line, ModelUtil.getColor(line.line));
@@ -385,15 +388,6 @@ public class CustomPlanRenderer implements ViewportListener
 		tm.log(LOG_LABELS, "Time for labels: %d");
 		logger.info(Formatting.format("Time for curve drawing: %d",
 				durationCurves));
-	}
-
-	public static ColorCode RED = new ColorCode(0xFF0000);
-	public static ColorCode GREEN = new ColorCode(0x00bc00);
-
-	private Map<String, ColorCode> colorMap = new HashMap<>();
-	{
-		colorMap.put("Stuttgart Hauptbahnhof (tief)", GREEN);
-		colorMap.put("Stuttgart Schwabstraße", RED);
 	}
 
 	private IPaintInfo getPiOutline(String name)

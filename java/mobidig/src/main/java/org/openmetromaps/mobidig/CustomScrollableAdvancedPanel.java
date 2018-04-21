@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.Map;
 
 import org.openmetromaps.maps.BaseMapWindowPanel;
 import org.openmetromaps.maps.MapView;
@@ -32,6 +33,7 @@ import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.painting.awt.AwtPainter;
+import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.GenericPaintFactory;
 import org.openmetromaps.maps.painting.core.Painter;
 
@@ -51,9 +53,12 @@ public class CustomScrollableAdvancedPanel extends BaseMapWindowPanel
 	private StationMode stationMode;
 	private SegmentMode segmentMode;
 
+	private Map<String, ColorCode> colorMap;
+
 	public CustomScrollableAdvancedPanel(ModelData data, MapView view,
 			MapViewStatus mapViewStatus, StationMode stationMode,
-			SegmentMode segmentMode, int minZoom, int maxZoom)
+			SegmentMode segmentMode, int minZoom, int maxZoom,
+			Map<String, ColorCode> colorMap)
 	{
 		super(view.getConfig().getScene());
 
@@ -67,6 +72,7 @@ public class CustomScrollableAdvancedPanel extends BaseMapWindowPanel
 		this.mapViewStatus = mapViewStatus;
 		this.stationMode = stationMode;
 		this.segmentMode = segmentMode;
+		this.colorMap = colorMap;
 
 		initRenderer();
 
@@ -79,7 +85,7 @@ public class CustomScrollableAdvancedPanel extends BaseMapWindowPanel
 	{
 		renderer = new CustomPlanRenderer(lineNetwork, mapViewStatus,
 				stationMode, segmentMode, this, this, 1,
-				new GenericPaintFactory());
+				new GenericPaintFactory(), colorMap);
 	}
 
 	public ModelData getData()

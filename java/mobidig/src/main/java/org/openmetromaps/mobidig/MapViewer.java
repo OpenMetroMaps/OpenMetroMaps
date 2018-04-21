@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ActionMap;
@@ -57,6 +58,7 @@ import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.viewer.actions.help.AboutAction;
 import org.openmetromaps.maps.viewer.actions.help.LicenseAction;
 import org.openmetromaps.mobidig.actions.file.ExitAction;
@@ -97,6 +99,7 @@ public class MapViewer
 	private MapViewStatus mapViewStatus;
 
 	private Path source;
+	private Map<String, ColorCode> colorMap;
 
 	private ViewConfig viewConfig;
 
@@ -136,9 +139,11 @@ public class MapViewer
 
 	private ShowMapAction showMapAction;
 
-	public MapViewer(MapModel model, Path source)
+	public MapViewer(MapModel model, Path source,
+			Map<String, ColorCode> colorMap)
 	{
 		this.source = source;
+		this.colorMap = colorMap;
 
 		init(model);
 
@@ -484,7 +489,7 @@ public class MapViewer
 
 		map = new CustomScrollableAdvancedPanel(model.getData(), view,
 				mapViewStatus, PlanRenderer.StationMode.CONVEX,
-				PlanRenderer.SegmentMode.CURVE, 10, 15);
+				PlanRenderer.SegmentMode.CURVE, 10, 15, colorMap);
 
 		ScrollableView<CustomScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
 				map);

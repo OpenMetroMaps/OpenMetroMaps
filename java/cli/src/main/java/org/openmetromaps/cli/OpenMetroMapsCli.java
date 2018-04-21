@@ -35,6 +35,7 @@ import org.openmetromaps.cli.startup.RunUiSelector;
 import org.openmetromaps.cli.util.RunFindCloseStations;
 import org.openmetromaps.cli.util.RunListChangeStations;
 import org.openmetromaps.cli.util.RunListLinesWithChangeStations;
+import org.openmetromaps.cli.util.RunListStations;
 import org.openmetromaps.cli.util.RunModelInfo;
 import org.openmetromaps.cli.util.RunPurgeStations;
 
@@ -112,6 +113,8 @@ public class OpenMetroMapsCli
 			DelegateExeOptions options = new DelegateExeOptions();
 			options.addCommand("info", RunModelInfo.OPTIONS_FACTORY,
 					RunModelInfo.class);
+			options.addCommand("list-stations", RunListStations.OPTIONS_FACTORY,
+					RunListStations.class);
 			options.addCommand("list-change-stations",
 					RunListChangeStations.OPTIONS_FACTORY,
 					RunListChangeStations.class);

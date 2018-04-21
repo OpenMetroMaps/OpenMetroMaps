@@ -356,7 +356,7 @@ public class CustomPlanRenderer implements ViewportListener
 
 		IPaintInfo piOutline = pf.create(Colors.WHITE, 2 * scale);
 		piOutline.setFontSize(fontSize);
-		IPaintInfo piText = pf.create(Colors.RED, 1 * scale);
+		IPaintInfo piText = pf.create(Colors.BLACK, 1 * scale);
 		piText.setFontSize(fontSize);
 
 		if (debugRanks) {
@@ -376,7 +376,7 @@ public class CustomPlanRenderer implements ViewportListener
 
 		tm.start(LOG_LABELS);
 		if (isRenderLabels) {
-			renderLabels(g, envelope, nNodes, fontSize, piOutline, piText);
+			renderLabels(g, envelope, nNodes, fontSize);
 		}
 		tm.stop(LOG_LABELS);
 
@@ -387,8 +387,37 @@ public class CustomPlanRenderer implements ViewportListener
 				durationCurves));
 	}
 
+	public static ColorCode RED = new ColorCode(0xFF0000);
+	public static ColorCode GREEN = new ColorCode(0x00bc00);
+
+	private Map<String, ColorCode> colorMap = new HashMap<>();
+	{
+		colorMap.put("Stuttgart Hauptbahnhof (tief)", GREEN);
+		colorMap.put("Stuttgart Schwabstraße", RED);
+	}
+
+	private IPaintInfo getPiOutline(String name)
+	{
+		int fontSize = Math.round(12 * scale);
+		IPaintInfo piOutline = pf.create(Colors.WHITE, 2 * scale);
+		piOutline.setFontSize(fontSize);
+		return piOutline;
+	}
+
+	private IPaintInfo getPiText(String name)
+	{
+		ColorCode color = colorMap.get(name);
+		if (color == null) {
+			color = Colors.BLACK;
+		}
+		int fontSize = Math.round(12 * scale);
+		IPaintInfo piText = pf.create(color, 1 * scale);
+		piText.setFontSize(fontSize);
+		return piText;
+	}
+
 	private void renderLabels(Painter g, Envelope envelope, int nNodes,
-			int fontSize, IPaintInfo piOutline, IPaintInfo piText)
+			int fontSize)
 	{
 		RectangleIntersectionTester tester = new RTreeIntersectionTester();
 		for (int i = 0; i < nNodes; i++) {
@@ -407,6 +436,9 @@ public class CustomPlanRenderer implements ViewportListener
 			String name = station.getName();
 			Point p = ltp.getPoint(location);
 			p.y -= 6 * scale * factor;
+
+			IPaintInfo piOutline = getPiOutline(name);
+			IPaintInfo piText = getPiText(name);
 
 			g.setPaintInfo(piText);
 			int sw = g.getStringWidth(name);

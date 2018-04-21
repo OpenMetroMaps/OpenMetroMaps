@@ -18,6 +18,7 @@
 package org.openmetromaps.mobidig.demo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
@@ -25,7 +26,7 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.mobidig.MapViewer;
 import org.openmetromaps.mobidig.Util;
 
-public class ColorTestViewer
+public class AufzugViewer
 {
 
 	public static void main(String[] args) throws Exception
@@ -36,8 +37,15 @@ public class ColorTestViewer
 		ColorCode GREEN = new ColorCode(0x00bc00);
 
 		Map<String, ColorCode> colorMap = new HashMap<>();
-		colorMap.put("Stuttgart Hauptbahnhof (tief)", GREEN);
-		colorMap.put("Stuttgart Schwabstraße", RED);
+
+		List<String> elevators = Util.lines("aufzug.txt");
+		for (String line : elevators) {
+			colorMap.put(line, GREEN);
+		}
+		List<String> broken = Util.lines("aufzug-kaputt.txt");
+		for (String line : broken) {
+			colorMap.put(line, RED);
+		}
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap);
 		mapViewer.show();

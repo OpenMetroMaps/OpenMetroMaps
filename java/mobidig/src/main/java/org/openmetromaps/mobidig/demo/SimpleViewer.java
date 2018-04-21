@@ -17,28 +17,20 @@
 
 package org.openmetromaps.mobidig.demo;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.painting.core.ColorCode;
-import org.openmetromaps.maps.xml.DesktopXmlModelReader;
-import org.openmetromaps.maps.xml.XmlModel;
-import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.mobidig.MapViewer;
+import org.openmetromaps.mobidig.Util;
 
 public class SimpleViewer
 {
 
 	public static void main(String[] args) throws Exception
 	{
-		InputStream input = SimpleViewer.class.getClassLoader()
-				.getResourceAsStream("sbahn-schematic.omm");
-		XmlModel xmlModel = DesktopXmlModelReader.read(input);
-
-		XmlModelConverter modelConverter = new XmlModelConverter();
-		MapModel model = modelConverter.convert(xmlModel);
+		MapModel model = Util.stuttgartSchematic();
 
 		Map<String, ColorCode> colorMap = new HashMap<>();
 

@@ -12,6 +12,7 @@ dependencies {
     compile 'de.topobyte:jeography-viewers:0.1.1'
 
     compile 'com.google.guava:guava:19.0'
+    compile 'commons-io:commons-io:2.4'
 
     compile 'org.dockingframes:docking-frames-core:1.1.1'
     compile 'org.dockingframes:docking-frames-common:1.1.1'

@@ -18,6 +18,7 @@
 package org.openmetromaps.mobidig.demo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
@@ -25,19 +26,21 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.mobidig.MapViewer;
 import org.openmetromaps.mobidig.Util;
 
-public class ColorTestViewer
+public class PundRViewer
 {
 
 	public static void main(String[] args) throws Exception
 	{
 		MapModel model = Util.stuttgartSchematic();
 
-		ColorCode RED = new ColorCode(0xFF0000);
 		ColorCode GREEN = new ColorCode(0x00bc00);
 
 		Map<String, ColorCode> colorMap = new HashMap<>();
-		colorMap.put("Stuttgart Hauptbahnhof (tief)", GREEN);
-		colorMap.put("Stuttgart Schwabstraße", RED);
+
+		List<String> lines = Util.lines("pundr.txt");
+		for (String line : lines) {
+			colorMap.put(line, GREEN);
+		}
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap);
 		mapViewer.show();

@@ -28,19 +28,24 @@ import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.mobidig.MapViewer;
 
-public class SimpleViewer
+public class ColorTestViewer
 {
 
 	public static void main(String[] args) throws Exception
 	{
-		InputStream input = SimpleViewer.class.getClassLoader()
+		InputStream input = ColorTestViewer.class.getClassLoader()
 				.getResourceAsStream("sbahn-schematic.omm");
 		XmlModel xmlModel = DesktopXmlModelReader.read(input);
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
+		ColorCode RED = new ColorCode(0xFF0000);
+		ColorCode GREEN = new ColorCode(0x00bc00);
+
 		Map<String, ColorCode> colorMap = new HashMap<>();
+		colorMap.put("Stuttgart Hauptbahnhof (tief)", GREEN);
+		colorMap.put("Stuttgart Schwabstraße", RED);
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap);
 		mapViewer.show();

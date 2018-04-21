@@ -107,7 +107,6 @@ public class Start
 		ce.weight(0, 0);
 
 		JLabel labelGreeting = new JLabel("Welcome to OpenMetroMaps");
-		JLabel labelPleaseSelect = new JLabel("Select a task:");
 
 		Font font = labelGreeting.getFont();
 		labelGreeting.setFont(font.deriveFont(font.getSize() * 1.5f));
@@ -116,8 +115,6 @@ public class Start
 
 		ce.gridPos(0, y++);
 		main.add(labelGreeting, c);
-		ce.gridPos(0, y++);
-		main.add(labelPleaseSelect, c);
 		ce.gridPos(0, y++);
 		main.add(buttonGeographisch, c);
 		ce.gridPos(0, y++);

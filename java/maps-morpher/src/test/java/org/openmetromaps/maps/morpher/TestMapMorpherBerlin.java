@@ -36,7 +36,7 @@ public class TestMapMorpherBerlin
 				.load(berlin.resolve("geographic.xml"));
 		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.xml"));
 
-		MapMorpher mapMorpher = new MapMorpher(geographic, schematic, null);
+		MapMorpher mapMorpher = new MapMorpher(geographic, schematic, null, 1);
 		mapMorpher.show();
 	}
 

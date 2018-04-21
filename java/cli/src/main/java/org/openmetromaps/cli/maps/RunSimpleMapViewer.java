@@ -83,7 +83,7 @@ public class RunSimpleMapViewer
 		ScrollableAdvancedPanel panel = new ScrollableAdvancedPanel(
 				model.getData(), model.getViews().get(0), mapViewStatus,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				10, 15);
+				10, 15, 1);
 
 		Coordinate start = model.getViews().get(0).getConfig()
 				.getStartPosition();

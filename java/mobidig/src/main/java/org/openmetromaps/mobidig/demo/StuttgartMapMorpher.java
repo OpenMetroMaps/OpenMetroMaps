@@ -29,7 +29,8 @@ public class StuttgartMapMorpher
 		MapModel geographic = Util.stuttgartGeographic();
 		MapModel schematic = Util.stuttgartSchematic();
 
-		MapMorpher mapMorpher = new MapMorpher(geographic, schematic, null);
+		MapMorpher mapMorpher = new MapMorpher(geographic, schematic, null,
+				DemoOptions.SCALE);
 		mapMorpher.show();
 	}
 

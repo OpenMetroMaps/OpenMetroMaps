@@ -205,6 +205,16 @@ public class PlanRenderer implements ViewportListener
 		this.segmentMode = segmentMode;
 	}
 
+	public float getScale()
+	{
+		return scale;
+	}
+
+	public void setScale(float scale)
+	{
+		this.scale = scale;
+	}
+
 	private void setupStationDrawer()
 	{
 		switch (stationMode) {

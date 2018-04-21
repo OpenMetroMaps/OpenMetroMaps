@@ -484,7 +484,7 @@ public class MapViewer
 
 		map = new ScrollableAdvancedPanel(model.getData(), view, mapViewStatus,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				10, 15);
+				10, 15, 1);
 
 		ScrollableView<ScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
 				map);

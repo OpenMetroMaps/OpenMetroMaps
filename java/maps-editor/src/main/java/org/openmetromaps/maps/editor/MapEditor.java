@@ -50,10 +50,10 @@ import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.MapViewStatus;
 import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.PlanRenderer;
-import org.openmetromaps.maps.ScrollableAdvancedPanel;
-import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
+import org.openmetromaps.maps.ScrollableAdvancedPanel;
+import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.editor.actions.algorithms.DummyOptimizationAction;
 import org.openmetromaps.maps.editor.actions.algorithms.StraightenAxisParallelLinesAction;
 import org.openmetromaps.maps.editor.actions.edit.AlignHorizontallyAction;
@@ -574,7 +574,7 @@ public class MapEditor
 
 		map = new ScrollableAdvancedPanel(model.getData(), view, mapViewStatus,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				10, 15);
+				10, 15, 1);
 
 		ScrollableView<ScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
 				map);

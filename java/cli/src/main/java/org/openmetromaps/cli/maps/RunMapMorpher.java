@@ -72,7 +72,7 @@ public class RunMapMorpher
 		MapModel model1 = read(pathInput1);
 		MapModel model2 = read(pathInput2);
 
-		MapMorpher mapMorpher = new MapMorpher(model1, model2, pathInput1);
+		MapMorpher mapMorpher = new MapMorpher(model1, model2, pathInput1, 1);
 		mapMorpher.show();
 	}
 

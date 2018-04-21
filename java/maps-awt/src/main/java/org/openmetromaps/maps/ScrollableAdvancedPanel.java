@@ -46,9 +46,11 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 	private StationMode stationMode;
 	private SegmentMode segmentMode;
 
+	private float scale;
+
 	public ScrollableAdvancedPanel(ModelData data, MapView view,
 			MapViewStatus mapViewStatus, StationMode stationMode,
-			SegmentMode segmentMode, int minZoom, int maxZoom)
+			SegmentMode segmentMode, int minZoom, int maxZoom, float scale)
 	{
 		super(view.getConfig().getScene());
 
@@ -62,6 +64,7 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 		this.mapViewStatus = mapViewStatus;
 		this.stationMode = stationMode;
 		this.segmentMode = segmentMode;
+		this.scale = scale;
 
 		initRenderer();
 
@@ -73,7 +76,7 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 	private void initRenderer()
 	{
 		renderer = new PlanRenderer(lineNetwork, mapViewStatus, stationMode,
-				segmentMode, this, this, 1, new GenericPaintFactory());
+				segmentMode, this, this, scale, new GenericPaintFactory());
 	}
 
 	public ModelData getData()

@@ -87,6 +87,7 @@ public class MapMorpher
 	private JSlider slider;
 
 	private Path source;
+	private float scale;
 
 	private ViewConfig viewConfig;
 
@@ -118,9 +119,11 @@ public class MapMorpher
 	private int sliderMax = 100;
 	private int sliderCurrent = sliderMin;
 
-	public MapMorpher(MapModel model1, MapModel model2, Path source)
+	public MapMorpher(MapModel model1, MapModel model2, Path source,
+			float scale)
 	{
 		this.source = source;
+		this.scale = scale;
 
 		slider = new JSlider(sliderMin, sliderMax, sliderCurrent);
 		slider.addChangeListener(e -> {
@@ -436,7 +439,7 @@ public class MapMorpher
 
 		map = new ScrollableAdvancedPanel(model.getData(), view, mapViewStatus,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
-				10, 15);
+				10, 15, scale);
 
 		ScrollableView<ScrollableAdvancedPanel> scrollableView = new ScrollableView<>(
 				map);

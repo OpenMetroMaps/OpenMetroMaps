@@ -89,7 +89,7 @@ public class CustomPlanRenderer implements ViewportListener
 	private PaintFactory pf;
 	private Map<String, ColorCode> colorMap;
 
-	private float baseLineWidth = 6.0f;
+	private float baseLineWidth = 3.0f;
 
 	private float lineWidth = 1.0f;
 	private float spreadFactor = 1.8f;
@@ -390,7 +390,7 @@ public class CustomPlanRenderer implements ViewportListener
 				durationCurves));
 	}
 
-	private float baseFontSize = 24;
+	private float baseFontSize = 12;
 
 	private IPaintInfo getPiOutline(String name)
 	{

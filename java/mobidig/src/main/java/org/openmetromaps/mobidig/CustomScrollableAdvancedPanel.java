@@ -54,11 +54,12 @@ public class CustomScrollableAdvancedPanel extends BaseMapWindowPanel
 	private SegmentMode segmentMode;
 
 	private Map<String, ColorCode> colorMap;
+	private float scale;
 
 	public CustomScrollableAdvancedPanel(ModelData data, MapView view,
 			MapViewStatus mapViewStatus, StationMode stationMode,
 			SegmentMode segmentMode, int minZoom, int maxZoom,
-			Map<String, ColorCode> colorMap)
+			Map<String, ColorCode> colorMap, float scale)
 	{
 		super(view.getConfig().getScene());
 
@@ -73,6 +74,7 @@ public class CustomScrollableAdvancedPanel extends BaseMapWindowPanel
 		this.stationMode = stationMode;
 		this.segmentMode = segmentMode;
 		this.colorMap = colorMap;
+		this.scale = scale;
 
 		initRenderer();
 
@@ -84,7 +86,7 @@ public class CustomScrollableAdvancedPanel extends BaseMapWindowPanel
 	private void initRenderer()
 	{
 		renderer = new CustomPlanRenderer(lineNetwork, mapViewStatus,
-				stationMode, segmentMode, this, this, 1,
+				stationMode, segmentMode, this, this, scale,
 				new GenericPaintFactory(), colorMap);
 	}
 

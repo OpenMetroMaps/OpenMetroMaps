@@ -359,18 +359,8 @@ public class MapViewer
 	public void show()
 	{
 		frame = new JFrame("Map Viewer");
-		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.setSize(1000, 800);
-
-		frame.addWindowListener(new WindowAdapter() {
-
-			@Override
-			public void windowClosing(WindowEvent e)
-			{
-				showReallyExitDialog();
-			}
-
-		});
 
 		build();
 

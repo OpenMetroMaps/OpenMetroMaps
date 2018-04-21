@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<omm-file version="1.0.0">
+  <stations>
+    <station lat="48.720168" lon="9.382560" name="Altbach"/>
+    <station lat="48.907312" lon="9.147762" name="Asperg"/>
+    <station lat="48.942485" lon="9.426076" name="Backnang"/>
+    <station lat="48.943733" lon="9.244395" name="Benningen (Neckar)"/>
+    <station lat="48.810386" lon="9.385599" name="Beutelsbach"/>
+    <station lat="48.947989" lon="9.137271" name="Bietigheim-Bissingen"/>
+    <station lat="48.928424" lon="9.369471" name="Burgstall (Murr)"/>
+    <station lat="48.688127" lon="9.004615" name="Böblingen"/>
+    <station lat="48.696590" lon="9.019928" name="Böblingen Goldberg"/>
+    <station lat="48.823639" lon="9.067347" name="Ditzingen"/>
+    <station lat="48.692038" lon="9.169484" name="Echterdingen"/>
+    <station lat="48.662225" lon="8.943381" name="Ehningen (bei Böblingen)"/>
+    <station lat="48.813129" lon="9.370628" name="Endersbach"/>
+    <station lat="48.948271" lon="9.299210" name="Erdmannhausen"/>
+    <station lat="48.738451" lon="9.300079" name="Esslingen (Neckar)"/>
+    <station lat="48.724230" lon="9.359720" name="Esslingen Zell"/>
+    <station lat="48.747128" lon="9.275500" name="Esslingen-Mettingen"/>
+    <station lat="48.909531" lon="9.180686" name="Favoritepark"/>
+    <station lat="48.820388" lon="9.270470" name="Fellbach"/>
+    <station lat="48.676460" lon="9.217527" name="Filderstadt"/>
+    <station lat="48.929916" lon="9.197618" name="Freiberg (Neckar)"/>
+    <station lat="48.805265" lon="9.439611" name="Geradstetten"/>
+    <station lat="48.810453" lon="9.419387" name="Grunbach"/>
+    <station lat="48.640797" lon="8.908941" name="Gärtringen"/>
+    <station lat="48.594005" lon="8.862951" name="Herrenberg"/>
+    <station lat="48.679207" lon="8.982413" name="Hulb"/>
+    <station lat="48.815058" lon="9.026181" name="Höfingen"/>
+    <station lat="48.939383" lon="9.327579" name="Kirchberg (Murr)"/>
+    <station lat="48.644275" lon="9.443766" name="Kirchheim (Teck)"/>
+    <station lat="48.657806" lon="9.416252" name="Kirchheim (Teck)-Ötlingen"/>
+    <station lat="48.826525" lon="9.121406" name="Korntal"/>
+    <station lat="48.862305" lon="9.179971" name="Kornwestheim Personenbahnhof"/>
+    <station lat="48.696703" lon="9.142703" name="Leinfelden"/>
+    <station lat="48.799602" lon="9.003719" name="Leonberg"/>
+    <station lat="48.892401" lon="9.185193" name="Ludwigsburg"/>
+    <station lat="48.736151" lon="8.965350" name="Magstadt"/>
+    <station lat="48.721635" lon="8.969603" name="Maichingen"/>
+    <station lat="48.727421" lon="8.979411" name="Maichingen Nord"/>
+    <station lat="48.771801" lon="8.904733" name="Malmsheim"/>
+    <station lat="48.943529" lon="9.263988" name="Marbach (Neckar)"/>
+    <station lat="48.926169" lon="9.419666" name="Maubach"/>
+    <station lat="48.903414" lon="9.415419" name="Nellmersbach"/>
+    <station lat="48.859104" lon="9.324257" name="Neustadt-Hohenacker"/>
+    <station lat="48.833870" lon="9.151385" name="Neuwirtshaus (Porscheplatz)"/>
+    <station lat="48.620331" lon="8.890317" name="Nufringen"/>
+    <station lat="48.705219" lon="9.127287" name="Oberaichen"/>
+    <station lat="48.729836" lon="9.327025" name="Oberesslingen"/>
+    <station lat="48.712797" lon="9.410971" name="Plochingen"/>
+    <station lat="48.775233" lon="8.932746" name="Renningen"/>
+    <station lat="48.763061" lon="8.931261" name="Renningen Süd"/>
+    <station lat="48.815558" lon="9.319097" name="Rommelshausen"/>
+    <station lat="48.790495" lon="8.960914" name="Rutesheim"/>
+    <station lat="48.806979" lon="9.526101" name="Schorndorf"/>
+    <station lat="48.868390" lon="9.354955" name="Schwaikheim"/>
+    <station lat="48.703923" lon="8.999061" name="Sindelfingen"/>
+    <station lat="48.812042" lon="9.352935" name="Stetten-Beinstein"/>
+    <station lat="48.772641" lon="9.165808" name="Stuttgart Feuersee"/>
+    <station lat="48.690609" lon="9.192978" name="Stuttgart Flughafen/Messe"/>
+    <station lat="48.783493" lon="9.180222" name="Stuttgart Hauptbahnhof (tief)"/>
+    <station lat="48.791906" lon="9.241012" name="Stuttgart Neckarpark (Mercedes-Benz)"/>
+    <station lat="48.803853" lon="9.187861" name="Stuttgart Nord"/>
+    <station lat="48.806370" lon="9.234711" name="Stuttgart Nürnberger Straße"/>
+    <station lat="48.770314" lon="9.156937" name="Stuttgart Schwabstraße"/>
+    <station lat="48.776253" lon="9.172854" name="Stuttgart Stadtmitte"/>
+    <station lat="48.745295" lon="9.105689" name="Stuttgart Universität"/>
+    <station lat="48.737599" lon="9.116525" name="Stuttgart Österfeld"/>
+    <station lat="48.801457" lon="9.217754" name="Stuttgart-Bad Cannstatt"/>
+    <station lat="48.813729" lon="9.169134" name="Stuttgart-Feuerbach"/>
+    <station lat="48.761689" lon="9.267915" name="Stuttgart-Obertürkheim"/>
+    <station lat="48.717783" lon="9.108249" name="Stuttgart-Rohr"/>
+    <station lat="48.815191" lon="9.247933" name="Stuttgart-Sommerrain"/>
+    <station lat="48.779632" lon="9.250309" name="Stuttgart-Untertürkheim"/>
+    <station lat="48.726569" lon="9.113210" name="Stuttgart-Vaihingen"/>
+    <station lat="48.829705" lon="9.166054" name="Stuttgart-Zuffenhausen"/>
+    <station lat="48.921653" lon="9.125633" name="Tamm (Württ)"/>
+    <station lat="48.826009" lon="9.300679" name="Waiblingen"/>
+    <station lat="48.755682" lon="8.873234" name="Weil der Stadt"/>
+    <station lat="48.800370" lon="9.502010" name="Weiler (Rems)"/>
+    <station lat="48.822107" lon="9.094372" name="Weilimdorf"/>
+    <station lat="48.673893" lon="9.374025" name="Wendlingen (Neckar)"/>
+    <station lat="48.694670" lon="9.414475" name="Wernau"/>
+    <station lat="48.879860" lon="9.392330" name="Winnenden"/>
+    <station lat="48.798394" lon="9.481076" name="Winterbach (b Schorndorf)"/>
+  </stations>
+  <lines>
+    <line circular="false" color="#009913" name="S1">
+      <stop station="Herrenberg"/>
+      <stop station="Nufringen"/>
+      <stop station="Gärtringen"/>
+      <stop station="Ehningen (bei Böblingen)"/>
+      <stop station="Hulb"/>
+      <stop station="Böblingen"/>
+      <stop station="Böblingen Goldberg"/>
+      <stop station="Stuttgart-Rohr"/>
+      <stop station="Stuttgart-Vaihingen"/>
+      <stop station="Stuttgart Österfeld"/>
+      <stop station="Stuttgart Universität"/>
+      <stop station="Stuttgart Schwabstraße"/>
+      <stop station="Stuttgart Feuersee"/>
+      <stop station="Stuttgart Stadtmitte"/>
+      <stop station="Stuttgart Hauptbahnhof (tief)"/>
+      <stop station="Stuttgart-Bad Cannstatt"/>
+      <stop station="Stuttgart Neckarpark (Mercedes-Benz)"/>
+      <stop station="Stuttgart-Untertürkheim"/>
+      <stop station="Stuttgart-Obertürkheim"/>
+      <stop station="Esslingen-Mettingen"/>
+      <stop station="Esslingen (Neckar)"/>
+      <stop station="Oberesslingen"/>
+      <stop station="Esslingen Zell"/>
+      <stop station="Altbach"/>
+      <stop station="Plochingen"/>
+      <stop station="Wernau"/>
+      <stop station="Wendlingen (Neckar)"/>
+      <stop station="Kirchheim (Teck)-Ötlingen"/>
+      <stop station="Kirchheim (Teck)"/>
+    </line>
+    <line circular="false" color="#ff0000" name="S2">
+      <stop station="Schorndorf"/>
+      <stop station="Weiler (Rems)"/>
+      <stop station="Winterbach (b Schorndorf)"/>
+      <stop station="Geradstetten"/>
+      <stop station="Grunbach"/>
+      <stop station="Beutelsbach"/>
+      <stop station="Endersbach"/>
+      <stop station="Stetten-Beinstein"/>
+      <stop station="Rommelshausen"/>
+      <stop station="Waiblingen"/>
+      <stop station="Fellbach"/>
+      <stop station="Stuttgart-Sommerrain"/>
+      <stop station="Stuttgart Nürnberger Straße"/>
+      <stop station="Stuttgart-Bad Cannstatt"/>
+      <stop station="Stuttgart Hauptbahnhof (tief)"/>
+      <stop station="Stuttgart Stadtmitte"/>
+      <stop station="Stuttgart Feuersee"/>
+      <stop station="Stuttgart Schwabstraße"/>
+      <stop station="Stuttgart Universität"/>
+      <stop station="Stuttgart Österfeld"/>
+      <stop station="Stuttgart-Vaihingen"/>
+      <stop station="Stuttgart-Rohr"/>
+      <stop station="Oberaichen"/>
+      <stop station="Leinfelden"/>
+      <stop station="Echterdingen"/>
+      <stop station="Stuttgart Flughafen/Messe"/>
+      <stop station="Filderstadt"/>
+    </line>
+    <line circular="false" color="#ff9c00" name="S3">
+      <stop station="Backnang"/>
+      <stop station="Maubach"/>
+      <stop station="Nellmersbach"/>
+      <stop station="Winnenden"/>
+      <stop station="Schwaikheim"/>
+      <stop station="Neustadt-Hohenacker"/>
+      <stop station="Waiblingen"/>
+      <stop station="Fellbach"/>
+      <stop station="Stuttgart-Sommerrain"/>
+      <stop station="Stuttgart Nürnberger Straße"/>
+      <stop station="Stuttgart-Bad Cannstatt"/>
+      <stop station="Stuttgart Hauptbahnhof (tief)"/>
+      <stop station="Stuttgart Stadtmitte"/>
+      <stop station="Stuttgart Feuersee"/>
+      <stop station="Stuttgart Schwabstraße"/>
+      <stop station="Stuttgart Universität"/>
+      <stop station="Stuttgart Österfeld"/>
+      <stop station="Stuttgart-Vaihingen"/>
+      <stop station="Stuttgart-Rohr"/>
+      <stop station="Oberaichen"/>
+      <stop station="Leinfelden"/>
+      <stop station="Echterdingen"/>
+      <stop station="Stuttgart Flughafen/Messe"/>
+    </line>
+    <line circular="false" color="#005ca9" name="S4">
+      <stop station="Stuttgart Schwabstraße"/>
+      <stop station="Stuttgart Feuersee"/>
+      <stop station="Stuttgart Stadtmitte"/>
+      <stop station="Stuttgart Hauptbahnhof (tief)"/>
+      <stop station="Stuttgart Nord"/>
+      <stop station="Stuttgart-Feuerbach"/>
+      <stop station="Stuttgart-Zuffenhausen"/>
+      <stop station="Kornwestheim Personenbahnhof"/>
+      <stop station="Ludwigsburg"/>
+      <stop station="Favoritepark"/>
+      <stop station="Freiberg (Neckar)"/>
+      <stop station="Benningen (Neckar)"/>
+      <stop station="Marbach (Neckar)"/>
+      <stop station="Erdmannhausen"/>
+      <stop station="Kirchberg (Murr)"/>
+      <stop station="Burgstall (Murr)"/>
+      <stop station="Backnang"/>
+    </line>
+    <line circular="false" color="#2c80ff" name="S5">
+      <stop station="Bietigheim-Bissingen"/>
+      <stop station="Tamm (Württ)"/>
+      <stop station="Asperg"/>
+      <stop station="Ludwigsburg"/>
+      <stop station="Kornwestheim Personenbahnhof"/>
+      <stop station="Stuttgart-Zuffenhausen"/>
+      <stop station="Stuttgart-Feuerbach"/>
+      <stop station="Stuttgart Nord"/>
+      <stop station="Stuttgart Hauptbahnhof (tief)"/>
+      <stop station="Stuttgart Stadtmitte"/>
+      <stop station="Stuttgart Feuersee"/>
+      <stop station="Stuttgart Schwabstraße"/>
+    </line>
+    <line circular="false" color="#502d16" name="S6">
+      <stop station="Stuttgart Schwabstraße"/>
+      <stop station="Stuttgart Feuersee"/>
+      <stop station="Stuttgart Stadtmitte"/>
+      <stop station="Stuttgart Hauptbahnhof (tief)"/>
+      <stop station="Stuttgart Nord"/>
+      <stop station="Stuttgart-Feuerbach"/>
+      <stop station="Stuttgart-Zuffenhausen"/>
+      <stop station="Neuwirtshaus (Porscheplatz)"/>
+      <stop station="Korntal"/>
+      <stop station="Weilimdorf"/>
+      <stop station="Ditzingen"/>
+      <stop station="Höfingen"/>
+      <stop station="Leonberg"/>
+      <stop station="Rutesheim"/>
+      <stop station="Renningen"/>
+      <stop station="Malmsheim"/>
+      <stop station="Weil der Stadt"/>
+    </line>
+    <line circular="false" color="#808000" name="S60">
+      <stop station="Böblingen"/>
+      <stop station="Sindelfingen"/>
+      <stop station="Maichingen"/>
+      <stop station="Maichingen Nord"/>
+      <stop station="Magstadt"/>
+      <stop station="Renningen Süd"/>
+      <stop station="Renningen"/>
+      <stop station="Rutesheim"/>
+      <stop station="Leonberg"/>
+      <stop station="Höfingen"/>
+      <stop station="Ditzingen"/>
+      <stop station="Weilimdorf"/>
+      <stop station="Korntal"/>
+      <stop station="Neuwirtshaus (Porscheplatz)"/>
+      <stop station="Stuttgart-Zuffenhausen"/>
+      <stop station="Stuttgart-Feuerbach"/>
+      <stop station="Stuttgart Nord"/>
+      <stop station="Stuttgart Hauptbahnhof (tief)"/>
+      <stop station="Stuttgart Stadtmitte"/>
+      <stop station="Stuttgart Feuersee"/>
+      <stop station="Stuttgart Schwabstraße"/>
+    </line>
+  </lines>
+</omm-file>

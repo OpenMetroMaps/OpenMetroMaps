@@ -1,5 +1,6 @@
 dependencies {
     compile project(':openmetromaps-maps-viewer')
+    compile project(':openmetromaps-maps-morpher')
     compile project(':openmetromaps-maps-model-xml-desktop')
     compile project(':openmetromaps-maps-model-xml-converter')
     compile project(':openmetromaps-ui-resources')

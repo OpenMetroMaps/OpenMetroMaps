@@ -20,8 +20,18 @@ public class Util
 
 	public static MapModel stuttgartSchematic() throws ParsingException
 	{
+		return load("sbahn-schematic.omm");
+	}
+
+	public static MapModel stuttgartGeographic() throws ParsingException
+	{
+		return load("sbahn-geographic.omm");
+	}
+
+	public static MapModel load(String resource) throws ParsingException
+	{
 		InputStream input = AufzugViewer.class.getClassLoader()
-				.getResourceAsStream("sbahn-schematic.omm");
+				.getResourceAsStream(resource);
 		XmlModel xmlModel = DesktopXmlModelReader.read(input);
 
 		XmlModelConverter modelConverter = new XmlModelConverter();

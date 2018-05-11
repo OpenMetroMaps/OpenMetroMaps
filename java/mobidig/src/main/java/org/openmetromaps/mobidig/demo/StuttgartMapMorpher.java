@@ -17,6 +17,10 @@
 
 package org.openmetromaps.mobidig.demo;
 
+import java.awt.event.WindowListener;
+
+import javax.swing.JFrame;
+
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.morpher.MapMorpher;
 import org.openmetromaps.mobidig.Util;
@@ -32,6 +36,12 @@ public class StuttgartMapMorpher
 		MapMorpher mapMorpher = new MapMorpher(geographic, schematic, null,
 				DemoOptions.SCALE);
 		mapMorpher.show();
+
+		JFrame frame = (JFrame) mapMorpher.getFrame();
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		for (WindowListener windowListener : frame.getWindowListeners()) {
+			frame.removeWindowListener(windowListener);
+		}
 	}
 
 }

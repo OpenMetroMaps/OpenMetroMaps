@@ -53,7 +53,7 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	{
 		// TODO: use start position
 
-		MouseProcessor panMouseHandler = new PanMouseProcessor<>(this);
+		MouseProcessor panMouseHandler = new ContextMouseProcessor(this);
 		MouseProcessor zoomMouseHandler = new ZoomMouseProcessor<>(this);
 		Util.addHandler(canvas, panMouseHandler);
 		Util.addHandler(canvas, zoomMouseHandler);
@@ -126,6 +126,16 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 			c.fillText(Formatting.format("%dx%d %.2f", getWidth(), getHeight(),
 					getDevicePixelRatio()), 5, 21);
 		}
+	}
+
+	public PlanRenderer getPlanRenderer()
+	{
+		return renderer;
+	}
+
+	public LineNetwork getLineNetwork()
+	{
+		return lineNetwork;
 	}
 
 }

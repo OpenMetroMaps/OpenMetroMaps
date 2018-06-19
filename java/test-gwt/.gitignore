@@ -11,3 +11,4 @@ build
 /src/main/webapp/scrollable_simple/
 /src/main/webapp/scrollable_advanced/
 /war/
+/gwt-unitCache/

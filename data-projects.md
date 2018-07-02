@@ -12,3 +12,5 @@
 * [Berlin-Brandenburg](https://github.com/OpenMetroMapsData/vbb-regio):
   [schematic](https://raw.githubusercontent.com/OpenMetroMapsData/vbb-regio/master/schematic.xml),
   [geographic](https://raw.githubusercontent.com/OpenMetroMapsData/vbb-regio/master/geographic.xml)
+* [Bay Area Rapid Transport (BART), California](https://github.com/OpenMetroMapsData/bart):
+  [geographic](https://raw.githubusercontent.com/OpenMetroMapsData/bart/master/geographic.xml)

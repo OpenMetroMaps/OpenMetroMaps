@@ -15,6 +15,9 @@
 * [Berlin-Brandenburg](https://github.com/OpenMetroMapsData/vbb-regio):
   [schematic](https://raw.githubusercontent.com/OpenMetroMapsData/vbb-regio/master/schematic.xml),
   [geographic](https://raw.githubusercontent.com/OpenMetroMapsData/vbb-regio/master/geographic.xml)
+* [Stuttgart](https://github.com/OpenMetroMapsData/stuttgart):
+  [schematic](https://raw.githubusercontent.com/OpenMetroMapsData/stuttgart/master/sbahn-schematic.omm),
+  [geographic](https://raw.githubusercontent.com/OpenMetroMapsData/stuttgart/master/sbahn-geographic.omm)
 
 ## Nicaragua
 * [Managua](https://github.com/OpenMetroMapsData/managua):

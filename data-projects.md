@@ -26,3 +26,4 @@
 ## United States
 * [Bay Area Rapid Transport (BART), California](https://github.com/OpenMetroMapsData/bart):
   [geographic](https://raw.githubusercontent.com/OpenMetroMapsData/bart/master/geographic.xml)
+  [schematic](https://raw.githubusercontent.com/OpenMetroMapsData/bart/master/schematic.xml)

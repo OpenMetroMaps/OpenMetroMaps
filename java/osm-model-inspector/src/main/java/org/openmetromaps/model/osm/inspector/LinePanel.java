@@ -23,7 +23,6 @@ import java.awt.Insets;
 import java.awt.Window;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -39,7 +38,6 @@ import org.openmetromaps.swing.Util;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.osm4j.core.model.iface.OsmRelation;
-import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 
 public class LinePanel extends JPanel
 {
@@ -99,8 +97,7 @@ public class LinePanel extends JPanel
 		this.line = line;
 
 		final OsmRelation source = line.getSource();
-		Map<String, String> tags = OsmModelUtil.getTagsAsMap(source);
-		String name = tags.get("ref");
+		String name = line.getName();
 
 		displayName.setText(name);
 		displaySource.setText(String.format("Relation %d", source.getId()));
@@ -154,8 +151,7 @@ public class LinePanel extends JPanel
 			output.add(station.getName());
 		}
 
-		Map<String, String> tags = OsmModelUtil.getTagsAsMap(line.getSource());
-		String name = tags.get("ref");
+		String name = line.getName();
 
 		Window window = SwingUtilities.windowForComponent(this);
 		TextDialog dialog = new TextDialog(window, "Line " + name, output);

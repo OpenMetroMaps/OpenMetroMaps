@@ -18,8 +18,10 @@
 package org.openmetromaps.model.osm;
 
 import java.util.List;
+import java.util.Map;
 
 import de.topobyte.osm4j.core.model.iface.OsmRelation;
+import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 
 public class DraftLine
 {
@@ -41,6 +43,17 @@ public class DraftLine
 	public List<DraftStation> getStations()
 	{
 		return stations;
+	}
+
+	public String getName()
+	{
+		Map<String, String> tags = OsmModelUtil.getTagsAsMap(source);
+		String ref = tags.get("ref");
+		if (ref != null) {
+			return ref;
+		}
+		String name = tags.get("name");
+		return name;
 	}
 
 }

@@ -54,7 +54,7 @@ public class DraftModelConverter
 		for (DraftLine draftLine : draftLines) {
 			Map<String, String> tags = OsmModelUtil
 					.getTagsAsMap(draftLine.getSource());
-			String name = tags.get("ref");
+			String name = draftLine.getName();
 			String color = tags.get("colour");
 
 			Line line = new Line(id++, name, color, false, null);

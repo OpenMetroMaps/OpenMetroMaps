@@ -25,7 +25,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
@@ -52,7 +51,6 @@ import org.openmetromaps.model.osm.inspector.actions.ExportModelAction;
 import org.openmetromaps.model.osm.inspector.actions.LicenseAction;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
-import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 
 public class ModelInspector
 {
@@ -202,8 +200,7 @@ public class ModelInspector
 	protected void activated(int index)
 	{
 		DraftLine line = linesModel.getElementAt(index);
-		Map<String, String> tags = OsmModelUtil.getTagsAsMap(line.getSource());
-		String name = tags.get("ref");
+		String name = line.getName();
 		System.out.println(String.format(
 				"Line: %s, Source: http://www.openstreetmap.org/relation/%d",
 				name, line.getSource().getId()));

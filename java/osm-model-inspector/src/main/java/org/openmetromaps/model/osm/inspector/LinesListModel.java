@@ -27,8 +27,6 @@ import javax.swing.AbstractListModel;
 import org.openmetromaps.model.osm.DraftLine;
 import org.openmetromaps.model.osm.DraftModel;
 
-import de.topobyte.osm4j.core.model.util.OsmModelUtil;
-
 public class LinesListModel extends AbstractListModel<DraftLine>
 {
 
@@ -44,10 +42,8 @@ public class LinesListModel extends AbstractListModel<DraftLine>
 			@Override
 			public int compare(DraftLine o1, DraftLine o2)
 			{
-				String name1 = OsmModelUtil.getTagsAsMap(o1.getSource())
-						.get("ref");
-				String name2 = OsmModelUtil.getTagsAsMap(o2.getSource())
-						.get("ref");
+				String name1 = o1.getName();
+				String name2 = o1.getName();
 				return name1.compareTo(name2);
 			}
 

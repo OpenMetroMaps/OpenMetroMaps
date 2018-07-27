@@ -18,15 +18,12 @@
 package org.openmetromaps.model.osm.inspector;
 
 import java.awt.Component;
-import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 import org.openmetromaps.model.osm.DraftLine;
-
-import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 
 public class LinesCellRenderer extends JLabel
 		implements ListCellRenderer<DraftLine>
@@ -44,8 +41,7 @@ public class LinesCellRenderer extends JLabel
 			JList<? extends DraftLine> list, DraftLine line, int index,
 			boolean isSelected, boolean cellHasFocus)
 	{
-		Map<String, String> tags = OsmModelUtil.getTagsAsMap(line.getSource());
-		String name = tags.get("ref");
+		String name = line.getName();
 
 		setText(String.format("%s: %d", name, line.getStations().size()));
 

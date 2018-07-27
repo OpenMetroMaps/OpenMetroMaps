@@ -20,7 +20,6 @@ package org.openmetromaps.model.osm;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.HashMultiset;
@@ -29,7 +28,6 @@ import com.google.common.collect.Multiset;
 
 import de.topobyte.formatting.Formatting;
 import de.topobyte.lineprinter.LinePrinter;
-import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 
 public class LinesAnalyzer
 {
@@ -51,21 +49,17 @@ public class LinesAnalyzer
 		Multiset<String> nameCounts = HashMultiset.create();
 		Multimap<String, DraftLine> nameToLines = HashMultimap.create();
 		for (DraftLine line : lines) {
-			Map<String, String> tags = OsmModelUtil
-					.getTagsAsMap(line.getSource());
-			String ref = tags.get("ref");
-			nameCounts.add(ref);
-			nameToLines.put(ref, line);
+			String name = line.getName();
+			nameCounts.add(name);
+			nameToLines.put(name, line);
 		}
 
 		output.println(Formatting.format("Found %d lines", lines.size()));
 
 		output.println("Line names:");
 		for (DraftLine line : lines) {
-			Map<String, String> tags = OsmModelUtil
-					.getTagsAsMap(line.getSource());
-			String ref = tags.get("ref");
-			output.println("line: " + ref);
+			String name = line.getName();
+			output.println("line: " + name);
 		}
 
 		output.println("Lines with != 2 occurrences:");

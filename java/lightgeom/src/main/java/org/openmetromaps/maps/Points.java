@@ -87,4 +87,18 @@ public class Points
 		return new Point(x, y);
 	}
 
+	/**
+	 * Create an exact copy of the specified point.
+	 * 
+	 * @return a new Point with the same coordinates or null, if <code>p</code>
+	 *         is null.
+	 */
+	public static Point clonePoint(Point p)
+	{
+		if (p == null) {
+			return null;
+		}
+		return new Point(p.getX(), p.getY());
+	}
+
 }

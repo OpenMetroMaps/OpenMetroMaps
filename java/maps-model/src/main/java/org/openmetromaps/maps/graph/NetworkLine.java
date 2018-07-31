@@ -33,9 +33,9 @@ public class NetworkLine
 		this.line = line;
 	}
 
-	private Map<Edge, Node> nexts = new HashMap<>();
-	private Map<Edge, Node> prevs = new HashMap<>();
-	private Map<Edge, NeighborInfo> neighbors = new HashMap<>();
+	Map<Edge, Node> nexts = new HashMap<>();
+	Map<Edge, Node> prevs = new HashMap<>();
+	Map<Edge, NeighborInfo> neighbors = new HashMap<>();
 
 	public void setEdges(List<Edge> edges)
 	{

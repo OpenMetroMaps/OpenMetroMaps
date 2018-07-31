@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
@@ -152,6 +153,62 @@ public class ModelUtil
 		MapView view = new MapView("Test", edges, lineNetwork, viewConfig);
 		CoordinateConversion.convertView(view);
 		model.getViews().add(view);
+	}
+
+	public static MapView cloneMapView(MapView view)
+	{
+		return Cloning.cloneMapView(view);
+	}
+
+	public static MapView getScaledInstance(MapView view, double scale)
+	{
+		MapView copy = cloneMapView(view);
+		scale(copy, scale);
+		return copy;
+	}
+
+	public static void scale(MapView view, double factor)
+	{
+		LineNetwork network = view.getLineNetwork();
+		for (Node node : network.getNodes()) {
+			Point location = node.location;
+			scale(location, factor);
+		}
+
+		for (Edge edge : network.getEdges()) {
+			scale(edge.prev, factor);
+			scale(edge.next, factor);
+		}
+
+		scale(view.getConfig().getStartPosition(), factor);
+		scale(view.getConfig().getScene(), factor);
+	}
+
+	private static void scale(Point location, double factor)
+	{
+		if (location == null) {
+			return;
+		}
+		location.x = location.x * factor;
+		location.y = location.y * factor;
+	}
+
+	private static void scale(
+			de.topobyte.viewports.geometry.Coordinate location, double factor)
+	{
+		if (location == null) {
+			return;
+		}
+		location.setX(location.getX() * factor);
+		location.setY(location.getY() * factor);
+	}
+
+	private static void scale(Rectangle scene, double factor)
+	{
+		scene.setX1(scene.getX1() * factor);
+		scene.setX2(scene.getX2() * factor);
+		scene.setY1(scene.getY1() * factor);
+		scene.setY2(scene.getY2() * factor);
 	}
 
 }

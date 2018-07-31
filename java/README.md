@@ -199,7 +199,7 @@ then served from a regular web server.
 Run the following to build the release artifacts:
 
     ./gradlew clean
-    ./maps-gwt/prepare.sh
+    ./test-gwt/prepare.sh
     ./gradlew -P topobyte upload
 
 Where the last command requires you to have a special Gradle configuration

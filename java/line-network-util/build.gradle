@@ -3,6 +3,7 @@ dependencies {
     compile project(':openmetromaps-maps-model-util')
     compile project(':openmetromaps-lightgeom')
 
+    compile 'de.topobyte:collections-utils:0.0.5'
     compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
 
     testCompile 'junit:junit:4.12'

@@ -29,6 +29,7 @@ import org.openmetromaps.maps.model.Stop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.collections.util.SetUtil;
 import de.topobyte.formatting.Formatting;
 import de.topobyte.lightgeom.lina.Point;
 
@@ -141,7 +142,7 @@ public class LineNetworkUtil
 		Set<Line> node1Lines = lines(node1);
 		Set<Line> node2Lines = lines(node2);
 
-		Set<Line> commonLines = intersection(node1Lines, node2Lines);
+		Set<Line> commonLines = SetUtil.intersection(node1Lines, node2Lines);
 		boolean connected = !commonLines.isEmpty();
 
 		result.setConnected(connected);
@@ -151,18 +152,6 @@ public class LineNetworkUtil
 			return result;
 		}
 
-		return result;
-	}
-
-	// TODO: this should be moved into a utility library
-	private static <T> Set<T> intersection(Set<T> set1, Set<T> set2)
-	{
-		Set<T> result = new HashSet<>();
-		for (T element : set1) {
-			if (set2.contains(element)) {
-				result.add(element);
-			}
-		}
 		return result;
 	}
 

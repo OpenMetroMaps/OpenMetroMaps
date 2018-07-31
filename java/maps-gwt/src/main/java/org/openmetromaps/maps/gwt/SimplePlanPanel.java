@@ -50,7 +50,7 @@ public class SimplePlanPanel extends SimplePanel implements RequiresResize
 
 	private static Logger logger = Logger.getLogger("");
 	static {
-		// Is this necessary? Proably not. TODO: get logging to work
+		// Is this necessary? Probably not. TODO: get logging to work
 		logger.addHandler(new SystemLogHandler());
 	}
 

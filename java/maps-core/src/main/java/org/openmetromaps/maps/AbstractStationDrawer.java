@@ -117,6 +117,18 @@ public abstract class AbstractStationDrawer implements StationDrawer
 	}
 
 	@Override
+	public float getScale()
+	{
+		return scale;
+	}
+
+	@Override
+	public void setScale(float scale)
+	{
+		this.scale = scale;
+	}
+
+	@Override
 	public void zoomChanged(float factor, float lineWidth)
 	{
 		this.lineWidth = lineWidth;

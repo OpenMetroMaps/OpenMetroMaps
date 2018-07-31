@@ -29,4 +29,8 @@ public interface StationDrawer
 
 	public void zoomChanged(float factor, float lineWidth);
 
+	public float getScale();
+
+	public void setScale(float scale);
+
 }

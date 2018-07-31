@@ -44,6 +44,7 @@ public class TestMapViewerWithScaleUp
 
 		mapViewer.show();
 		mapViewer.getMap().getPlanRenderer().setScale((float) scale);
+		mapViewer.getMap().getPlanRenderer().zoomChanged();
 	}
 
 }

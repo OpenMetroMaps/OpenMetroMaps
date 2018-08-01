@@ -200,6 +200,7 @@ Run the following to build the release artifacts:
 
     ./gradlew clean
     ./test-gwt/prepare.sh
+    ./gradlew checkUploadArtifactList
     ./gradlew -P topobyte upload
 
 Where the last command requires you to have a special Gradle configuration

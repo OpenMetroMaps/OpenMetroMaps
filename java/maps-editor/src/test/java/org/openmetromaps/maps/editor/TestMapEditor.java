@@ -19,7 +19,6 @@ package org.openmetromaps.maps.editor;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.TestData;
-import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 

@@ -3,6 +3,7 @@ build
 .project
 .classpath
 .settings
+/.gradle
 /src/main/gwt-unitCache
 /src/main/webapp/WEB-INF/lib/
 /src/main/webapp/WEB-INF/classes/

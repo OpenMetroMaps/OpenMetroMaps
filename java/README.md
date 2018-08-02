@@ -199,7 +199,6 @@ then served from a regular web server.
 Run the following to build the release artifacts:
 
     ./gradlew clean
-    ./test-gwt/prepare.sh
     ./gradlew checkUploadArtifactList
     ./gradlew -P topobyte upload
 

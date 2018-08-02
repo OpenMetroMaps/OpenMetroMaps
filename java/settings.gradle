@@ -22,11 +22,9 @@ project(':station-model-csv-export').name = 'openmetromaps-station-model-csv-exp
 include 'test-data'
 include 'test-maps-model-xml-desktop'
 include 'test-station-model'
-include 'test-gwt'
 project(':test-data').name = 'openmetromaps-test-data'
 project(':test-maps-model-xml-desktop').name = 'openmetromaps-test-maps-model-xml-desktop'
 project(':test-station-model').name = 'openmetromaps-test-station-model'
-project(':test-gwt').name = 'openmetromaps-test-gwt'
 
 // Command Line Interface
 include 'cli'

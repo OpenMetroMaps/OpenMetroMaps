@@ -52,7 +52,8 @@ any desktop software. Although it would also be nice to have a native Javascript
 implementation of a web viewer, we're eager to maximize code reuse and try to
 use the main Java source via transpilation to Javascript. In order to do that
 we experimented with both GWT and JSweet based approaches. Currently the
-[GWT](java/maps-gwt) solution looks more promising and is close-to-usable.
+[GWT](gwt) solution looks more promising and is close-to-usable.
+Have a look at <https://demo.openmetromaps.org/> to see it in action.
 The [JSweet](jsweet) solution doesn't work quite yet, but the technology
 certainly has potential.
 

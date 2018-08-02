@@ -14,10 +14,23 @@ buildscript {
     }
 }
 
+repositories {
+    maven {
+        url 'http://mvn.topobyte.de'
+    }
+    maven {
+        url 'http://mvn.slimjars.com'
+    }
+    mavenCentral()
+}
+
 apply plugin: 'war'
 apply plugin: 'gwt'
+apply plugin: 'eclipse'
 apply plugin: 'de.topobyte.dependency-info-gradle-plugin'
 apply plugin: 'de.topobyte.dependency-unpack-gradle-plugin'
+
+task allDeps(type: DependencyReportTask) {}
 
 gwt {
     gwtVersion='2.8.1'

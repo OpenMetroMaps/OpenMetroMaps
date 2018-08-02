@@ -17,5 +17,5 @@ cd src/modules
 
 for f in ${DIRS[@]}; do
     echo "$f"
-    ln -sf "../../../$f/src/main/" "$f"
+    ln -sf "../../../java/$f/src/main/" "$f"
 done

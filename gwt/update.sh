@@ -3,7 +3,7 @@
 DIR=$(dirname $0)
 
 rm -rf test
-"$DIR/../gradlew" compileGwt
+"$DIR/gradlew" compileGwt
 mkdir test
 
 OUT="build/gwt/out"

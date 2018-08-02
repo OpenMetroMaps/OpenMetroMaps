@@ -4,7 +4,7 @@ set -e
 
 SDIR=$(dirname $0)
 
-"$SDIR/../gradlew" depunpack
+"$SDIR/gradlew" depunpack
 
 JT="$HOME/github/sebkur/javaparser-transforms/scripts"
 DIR="$SDIR/build/unpackedJars"

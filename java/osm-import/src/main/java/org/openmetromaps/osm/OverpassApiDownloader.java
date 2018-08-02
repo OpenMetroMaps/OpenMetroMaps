@@ -45,7 +45,7 @@ public class OverpassApiDownloader
 		output.close();
 	}
 
-	public void execute(String q, OutputStream output)
+	public void execute(String q, final OutputStream output)
 			throws MalformedURLException, IOException
 	{
 		HttpPost post = new HttpPost(

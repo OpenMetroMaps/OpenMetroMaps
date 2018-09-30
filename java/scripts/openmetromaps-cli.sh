@@ -8,6 +8,9 @@ if [ ! -d "$LIBS" ]; then
 	exit 1
 fi
 
-CLASSPATH="$LIBS/*"
+function join { local IFS="$1"; shift; echo "$*"; }
+
+CP="$LIBS/*"
+CLASSPATH=$(join ':' $CP)
 
 exec java -cp "$CLASSPATH" "$@"

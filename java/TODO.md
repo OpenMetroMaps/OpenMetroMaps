@@ -14,6 +14,7 @@
 * settings editor
 * selection of multiple stations by clicking and dragging with the left
   mouse button (draw a rectangle)
+* undo/redo functionality
 
 ## Done
 * bulk station dragging

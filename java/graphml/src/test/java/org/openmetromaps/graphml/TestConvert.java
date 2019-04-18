@@ -21,13 +21,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.CoordinateConversionType;
+import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModelWriter;
 
@@ -47,12 +47,13 @@ public class TestConvert
 		UndirectedGraph<Vertex, Edge> graph = graphMLReader.read(input);
 
 		GraphConverter converter = new GraphConverter();
-		ModelData model = converter.convert(graph);
+		ModelData data = converter.convert(graph);
 
-		List<MapView> views = new ArrayList<>();
+		MapModel model = new MapModel(data);
+		ModelUtil.ensureView(model, CoordinateConversionType.IDENTITY);
 
 		OutputStream os = new FileOutputStream("/tmp/test.omm");
-		new XmlModelWriter().write(os, model, views);
+		new XmlModelWriter().write(os, data, model.getViews());
 		os.close();
 	}
 

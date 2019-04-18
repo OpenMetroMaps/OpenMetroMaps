@@ -24,11 +24,9 @@ import java.nio.file.Paths;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.openmetromaps.graphml.Edge;
 import org.openmetromaps.graphml.GraphConverter;
 import org.openmetromaps.graphml.GraphMLReader;
 import org.openmetromaps.graphml.GraphWithData;
-import org.openmetromaps.graphml.Vertex;
 import org.openmetromaps.maps.CoordinateConversionType;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.ModelUtil;
@@ -40,7 +38,6 @@ import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArgument
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
-import edu.uci.ics.jung.graph.UndirectedGraph;
 
 public class RunGraphMLImport
 {
@@ -79,10 +76,9 @@ public class RunGraphMLImport
 
 		GraphMLReader graphMLReader = new GraphMLReader();
 		GraphWithData graphWithData = graphMLReader.read(pathInput);
-		UndirectedGraph<Vertex, Edge> graph = graphWithData.getGraph();
 
 		GraphConverter converter = new GraphConverter();
-		ModelData data = converter.convert(graph);
+		ModelData data = converter.convert(graphWithData);
 
 		MapModel model = new MapModel(data);
 		ModelUtil.ensureView(model, CoordinateConversionType.IDENTITY);

@@ -48,8 +48,10 @@ public class GraphConverter
 
 	protected Map<String, Station> nameToStation = new HashMap<>();
 
-	public ModelData convert(UndirectedGraph<Vertex, Edge> graph)
+	public ModelData convert(GraphWithData graphWithData)
 	{
+		UndirectedGraph<Vertex, Edge> graph = graphWithData.getGraph();
+
 		for (Vertex vertex : graph.getVertices()) {
 			vertex.setY(vertex.getY() * -1);
 		}

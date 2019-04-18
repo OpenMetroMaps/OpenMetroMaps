@@ -31,7 +31,6 @@ import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModelWriter;
 
-import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.io.GraphIOException;
 
 public class TestConvert
@@ -45,10 +44,9 @@ public class TestConvert
 
 		GraphMLReader graphMLReader = new GraphMLReader();
 		GraphWithData graphWithData = graphMLReader.read(input);
-		UndirectedGraph<Vertex, Edge> graph = graphWithData.getGraph();
 
 		GraphConverter converter = new GraphConverter();
-		ModelData data = converter.convert(graph);
+		ModelData data = converter.convert(graphWithData);
 
 		MapModel model = new MapModel(data);
 		ModelUtil.ensureView(model, CoordinateConversionType.IDENTITY);

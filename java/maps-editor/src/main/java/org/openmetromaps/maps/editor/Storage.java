@@ -27,7 +27,6 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
@@ -51,8 +50,7 @@ public class Storage
 			List<MapView> views = Arrays.asList(view);
 			new XmlModelWriter().write(os, model.getData(), views);
 			os.close();
-		} catch (ParserConfigurationException | TransformerException
-				| IOException e) {
+		} catch (ParserConfigurationException | IOException e) {
 			logger.error("Error while saving file", e);
 			// TODO: display an error dialog
 		}

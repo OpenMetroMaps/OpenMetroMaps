@@ -17,6 +17,7 @@
 
 package org.openmetromaps.maps.xml;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,12 +27,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.openmetromaps.maps.Edges;
 import org.openmetromaps.maps.Interval;
@@ -50,12 +45,13 @@ import org.w3c.dom.Element;
 
 import de.topobyte.formatting.DoubleFormatter;
 import de.topobyte.lightgeom.lina.Point;
+import de.topobyte.xml4jah.dom.DocumentWriter;
 
 public class XmlModelWriter
 {
 
 	public void write(OutputStream os, ModelData data, List<MapView> views)
-			throws ParserConfigurationException, TransformerException
+			throws ParserConfigurationException, IOException
 	{
 		// Create document
 
@@ -166,16 +162,8 @@ public class XmlModelWriter
 
 		// Write document
 
-		StreamResult streamResult = new StreamResult(os);
-
-		TransformerFactory tFactory = TransformerFactory.newInstance();
-		Transformer transformer = tFactory.newTransformer();
-		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer.setOutputProperty(
-				"{http://xml.apache.org/xslt}indent-amount", "2");
-
-		DOMSource source = new DOMSource(doc);
-		transformer.transform(source, streamResult);
+		DocumentWriter writer = new DocumentWriter();
+		writer.write(doc, os);
 	}
 
 }

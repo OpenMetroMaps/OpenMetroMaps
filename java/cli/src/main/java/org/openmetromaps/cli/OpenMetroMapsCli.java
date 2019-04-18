@@ -19,6 +19,7 @@ package org.openmetromaps.cli;
 
 import org.openmetromaps.cli.export.RunExportBatik;
 import org.openmetromaps.cli.export.RunExportPng;
+import org.openmetromaps.cli.graphml.RunGraphMLImport;
 import org.openmetromaps.cli.gtfs.RunGtfsImport;
 import org.openmetromaps.cli.maps.RunMapEditor;
 import org.openmetromaps.cli.maps.RunMapMorpher;
@@ -80,6 +81,8 @@ public class OpenMetroMapsCli
 					RunSimpleMapViewer.class);
 			options.addCommand("gtfs-import", RunGtfsImport.OPTIONS_FACTORY,
 					RunGtfsImport.class);
+			options.addCommand("graphml-import",
+					RunGraphMLImport.OPTIONS_FACTORY, RunGraphMLImport.class);
 			options.addCommand("create-markdown-view",
 					RunCreateMarkdownView.OPTIONS_FACTORY,
 					RunCreateMarkdownView.class);

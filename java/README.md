@@ -145,6 +145,12 @@ import the projects from there (Use the *Git Repositories* view for this.
 If you don't have this view open in your Eclipse perspective, open it like this:
 Window → Show View → Other..., Git → Git Repositories).
 
+When importing the modules into Eclipse, it may show lots of build errors due
+to circular dependencies between projects. Make the projects build by
+configuring Eclipse to warn about circular dependencies instead of failing.
+In the main menu go to Window → Preferences → Java → Compiler → Building
+→ Circular Dependencies and select 'Warning' instead of 'Error'.
+
 Once you've set up your working envrionment, you can start running the editor
 from within the IDE. Navigate to the class `TestMapEditor` and run this class
 as a Java application (Right click class → Run As → Java Application). To easily

@@ -74,7 +74,7 @@ public class GraphConverter
 
 		int id = 0;
 		for (String name : allLines) {
-			String color = "#FFFFFF";
+			String color = "#AAAAAA";
 
 			Line line = new Line(id++, name, color, false, null);
 			linesList.add(line);

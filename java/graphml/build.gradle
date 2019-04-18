@@ -1,4 +1,9 @@
 dependencies {
+    compile project(':openmetromaps-maps-model')
+    compile project(':openmetromaps-maps-model-util')
+    compile project(':openmetromaps-maps-model-util')
+    compile project(':openmetromaps-maps-model-xml-desktop')
+
     compile 'net.sf.jung:jung-io:2.1.1'
     compile 'net.sf.jung:jung-graph-impl:2.1.1'
     compile 'com.google.guava:guava:19.0'

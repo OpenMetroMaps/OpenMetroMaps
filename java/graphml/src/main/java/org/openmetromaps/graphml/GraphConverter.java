@@ -50,6 +50,10 @@ public class GraphConverter
 
 	public ModelData convert(UndirectedGraph<Vertex, Edge> graph)
 	{
+		for (Vertex vertex : graph.getVertices()) {
+			vertex.setY(vertex.getY() * -1);
+		}
+
 		Set<String> allLinesSet = new HashSet<>();
 
 		for (Edge edge : graph.getEdges()) {

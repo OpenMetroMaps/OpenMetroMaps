@@ -66,6 +66,10 @@ project(':osm-model-inspector').name = 'openmetromaps-osm-model-inspector'
 project(':osm-model-converter').name = 'openmetromaps-osm-model-converter'
 project(':osm-import').name = 'openmetromaps-osm-import'
 
+// GraphML
+include 'graphml'
+project(':graphml').name = 'openmetromaps-graphml'
+
 // map rendering
 include 'maps-core'
 include 'maps-awt'

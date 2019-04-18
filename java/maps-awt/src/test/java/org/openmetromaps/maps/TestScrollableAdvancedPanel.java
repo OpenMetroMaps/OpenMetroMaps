@@ -36,7 +36,7 @@ public class TestScrollableAdvancedPanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		ModelUtil.ensureView(model);
+		ModelUtil.ensureView(model, CoordinateConversionType.WGS84);
 
 		MapViewStatus mapViewStatus = new MapViewStatus();
 

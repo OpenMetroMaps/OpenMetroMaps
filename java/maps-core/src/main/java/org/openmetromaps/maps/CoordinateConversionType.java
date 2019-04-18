@@ -17,19 +17,9 @@
 
 package org.openmetromaps.maps;
 
-import org.openmetromaps.maps.model.Coordinate;
+public enum CoordinateConversionType {
 
-import de.topobyte.lightgeom.lina.Point;
-
-public interface CoordinateConverter
-{
-
-	double getWidth();
-
-	double getHeight();
-
-	Point convert(Coordinate coordinate);
-
-	Point convert(Point point);
+	IDENTITY,
+	WGS84
 
 }

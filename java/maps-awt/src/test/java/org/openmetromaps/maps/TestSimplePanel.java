@@ -33,7 +33,7 @@ public class TestSimplePanel
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		ModelUtil.ensureView(model);
+		ModelUtil.ensureView(model, CoordinateConversionType.WGS84);
 
 		SimplePanel panel = new SimplePanel(model.getData(),
 				model.getViews().get(0));

@@ -24,7 +24,7 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openmetromaps.maps.CoordinateConverter;
+import org.openmetromaps.maps.Wgs84CoordinateConverter;
 import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.model.Coordinate;
 
@@ -59,7 +59,7 @@ public class TestConvertCoordinates
 		BBox bbox = BBoxHelper.minimumBoundingBox(coordinates);
 		System.out.println("bbox: " + bbox);
 
-		CoordinateConverter converter = new CoordinateConverter(bbox, size,
+		Wgs84CoordinateConverter converter = new Wgs84CoordinateConverter(bbox, size,
 				margin);
 		System.out.println(String.format("size: %f x %f", converter.getWidth(),
 				converter.getHeight()));

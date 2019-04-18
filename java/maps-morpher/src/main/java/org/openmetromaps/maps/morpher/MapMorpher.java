@@ -41,6 +41,7 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 import org.openmetromaps.maps.Constants;
+import org.openmetromaps.maps.CoordinateConversionType;
 import org.openmetromaps.maps.DataChangeListener;
 import org.openmetromaps.maps.InitialViewportSetupListener;
 import org.openmetromaps.maps.MapModel;
@@ -254,8 +255,8 @@ public class MapMorpher
 
 		mapViewStatus = new MapViewStatus();
 
-		ModelUtil.ensureView(model1);
-		ModelUtil.ensureView(model2);
+		ModelUtil.ensureView(model1, CoordinateConversionType.WGS84);
+		ModelUtil.ensureView(model2, CoordinateConversionType.WGS84);
 	}
 
 	public MapModel getModel1()

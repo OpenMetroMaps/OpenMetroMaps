@@ -30,14 +30,16 @@ import de.topobyte.adt.geo.Coordinate;
 public class CoordinateConversion
 {
 
-	public static void convertViews(MapModel model)
+	public static void convertViews(MapModel model,
+			CoordinateConversionType conversionType)
 	{
 		for (MapView view : model.getViews()) {
-			convertView(view);
+			convertView(view, conversionType);
 		}
 	}
 
-	public static void convertView(MapView view)
+	public static void convertView(MapView view,
+			CoordinateConversionType conversionType)
 	{
 		List<Coordinate> coordinates = new ArrayList<>();
 		for (Node node : view.getLineNetwork().getNodes()) {
@@ -49,7 +51,16 @@ public class CoordinateConversion
 		}
 
 		BBox bbox = BBoxHelper.minimumBoundingBox(coordinates);
-		CoordinateConverter converter = new CoordinateConverter(bbox, 1000, 50);
+
+		CoordinateConverter converter = null;
+		if (conversionType == CoordinateConversionType.IDENTITY) {
+			converter = new IdentityCoordinateConverter(bbox, 1000, 50);
+		} else if (conversionType == CoordinateConversionType.WGS84) {
+			converter = new Wgs84CoordinateConverter(bbox, 1000, 50);
+		} else {
+			throw new IllegalArgumentException(
+					"Invalid coordinate conversion specified");
+		}
 
 		for (Node node : view.getLineNetwork().getNodes()) {
 			node.location = converter.convert(node.location);

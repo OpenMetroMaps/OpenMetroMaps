@@ -43,6 +43,7 @@ import javax.swing.WindowConstants;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.Constants;
+import org.openmetromaps.maps.CoordinateConversionType;
 import org.openmetromaps.maps.DataChangeListener;
 import org.openmetromaps.maps.InitialViewportSetupListener;
 import org.openmetromaps.maps.MapModel;
@@ -341,7 +342,7 @@ public class MapEditor
 
 		mapViewStatus = new MapViewStatus();
 
-		ModelUtil.ensureView(model);
+		ModelUtil.ensureView(model, CoordinateConversionType.WGS84);
 
 		view = model.getViews().get(0);
 		viewConfig = view.getConfig();

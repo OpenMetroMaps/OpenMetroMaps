@@ -129,7 +129,8 @@ public class ModelUtil
 						medianY));
 	}
 
-	public static void ensureView(MapModel model)
+	public static void ensureView(MapModel model,
+			CoordinateConversionType conversionType)
 	{
 		if (!model.getViews().isEmpty()) {
 			return;
@@ -151,7 +152,7 @@ public class ModelUtil
 
 		ViewConfig viewConfig = ModelUtil.viewConfig(lineNetwork);
 		MapView view = new MapView("Test", edges, lineNetwork, viewConfig);
-		CoordinateConversion.convertView(view);
+		CoordinateConversion.convertView(view, conversionType);
 		model.getViews().add(view);
 	}
 

@@ -41,6 +41,7 @@ public class GraphMLReader
 {
 
 	private Map<String, Vertex> idToVertex = new HashMap<>();
+	private Map<String, String> propertiesGraph;
 
 	private Function<GraphMetadata, UndirectedGraph<Vertex, Edge>> graphTransformer = new Function<GraphMetadata, UndirectedGraph<Vertex, Edge>>() {
 
@@ -48,6 +49,7 @@ public class GraphMLReader
 		public UndirectedSparseMultigraph<Vertex, Edge> apply(
 				GraphMetadata input)
 		{
+			propertiesGraph = input.getProperties();
 			return new UndirectedSparseMultigraph<>();
 		}
 
@@ -110,22 +112,20 @@ public class GraphMLReader
 
 	};
 
-	public UndirectedGraph<Vertex, Edge> read(Path path)
-			throws IOException, GraphIOException
+	public GraphWithData read(Path path) throws IOException, GraphIOException
 	{
 		InputStream input = Files.newInputStream(path);
 		return read(input);
 	}
 
-	public UndirectedGraph<Vertex, Edge> read(InputStream input)
-			throws GraphIOException
+	public GraphWithData read(InputStream input) throws GraphIOException
 	{
 		GraphMLReader2<UndirectedGraph<Vertex, Edge>, Vertex, Edge> reader = new GraphMLReader2<>(
 				input, graphTransformer, vertexTransformer, edgeTransformer,
 				hyperEdgeTransformer);
 		UndirectedGraph<Vertex, Edge> graph = reader.readGraph();
 
-		return graph;
+		return new GraphWithData(graph, propertiesGraph);
 	}
 
 }

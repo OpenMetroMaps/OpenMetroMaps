@@ -18,6 +18,7 @@
 package org.openmetromaps.graphml;
 
 import java.io.InputStream;
+import java.util.Map;
 
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.io.GraphIOException;
@@ -31,7 +32,13 @@ public class TestPrintGraph
 				.getResourceAsStream("wien.graphml");
 
 		GraphMLReader graphMLReader = new GraphMLReader();
-		UndirectedGraph<Vertex, Edge> graph = graphMLReader.read(input);
+		GraphWithData graphWithData = graphMLReader.read(input);
+		UndirectedGraph<Vertex, Edge> graph = graphWithData.getGraph();
+
+		Map<String, String> data = graphWithData.getData();
+		for (String key : data.keySet()) {
+			System.out.println(String.format("'%s'='%s'", key, data.get(key)));
+		}
 
 		for (Vertex vertex : graph.getVertices()) {
 			System.out.println(String.format("vertex: %s", vertex.getLabel()));

@@ -27,6 +27,7 @@ import org.apache.commons.cli.Options;
 import org.openmetromaps.graphml.Edge;
 import org.openmetromaps.graphml.GraphConverter;
 import org.openmetromaps.graphml.GraphMLReader;
+import org.openmetromaps.graphml.GraphWithData;
 import org.openmetromaps.graphml.Vertex;
 import org.openmetromaps.maps.CoordinateConversionType;
 import org.openmetromaps.maps.MapModel;
@@ -77,7 +78,8 @@ public class RunGraphMLImport
 		System.out.println("Output: " + pathOutput);
 
 		GraphMLReader graphMLReader = new GraphMLReader();
-		UndirectedGraph<Vertex, Edge> graph = graphMLReader.read(pathInput);
+		GraphWithData graphWithData = graphMLReader.read(pathInput);
+		UndirectedGraph<Vertex, Edge> graph = graphWithData.getGraph();
 
 		GraphConverter converter = new GraphConverter();
 		ModelData data = converter.convert(graph);

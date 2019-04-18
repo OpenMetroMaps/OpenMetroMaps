@@ -6,23 +6,33 @@
   <key id="x" for="node" attr.name="x_coordinate" attr.type="int"/>
   <key id="y" for="node" attr.name="y_coordinate" attr.type="int"/>
   <key id="label" for="node" attr.name="station_name" attr.type="string"/>
-  <key id="l0" for="edge" attr.name="U4" attr.type="boolean" color.r="34" color.g="139" color.b="34">
+  <key id="l0" for="edge" attr.name="U4" attr.type="boolean">
     <default>FALSE</default>
   </key>
-  <key id="l1" for="edge" attr.name="U6" attr.type="boolean" color.r="165" color.g="42" color.b="42">
+  <key id="l1" for="edge" attr.type="boolean">
     <default>FALSE</default>
   </key>
-  <key id="l2" for="edge" attr.name="U3" attr.type="boolean" color.r="255" color.g="140" color.b="0">
+  <key id="l2" for="edge" attr.type="boolean">
     <default>FALSE</default>
   </key>
-  <key id="l3" for="edge" attr.name="U1" attr.type="boolean" color.r="255" color.g="0" color.b="0">
+  <key id="l3" for="edge" attr.type="boolean">
     <default>FALSE</default>
   </key>
-  <key id="l4" for="edge" attr.name="U2" attr.type="boolean" color.r="208" color.g="32" color.b="144">
+  <key id="l4" for="edge" attr.type="boolean">
       <default>FALSE</default>
   </key>
 
   <graph id="G" edgedefault="undirected">
+    <data key="color.l0">34,139,34</data>
+    <data key="color.l1">165,42,42</data>
+    <data key="color.l2">255,140,0</data>
+    <data key="color.l3">255,0,0</data>
+    <data key="color.l4">208,32,144</data>
+    <data key="name.l0">U4</data>
+    <data key="name.l1">U6</data>
+    <data key="name.l2">U3</data>
+    <data key="name.l3">U1</data>
+    <data key="name.l4">U2</data>
     <node id="n0">
       <data key="x">19</data>
       <data key="y">233</data>

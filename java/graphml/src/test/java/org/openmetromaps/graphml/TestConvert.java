@@ -44,7 +44,8 @@ public class TestConvert
 				.getResourceAsStream("wien.graphml");
 
 		GraphMLReader graphMLReader = new GraphMLReader();
-		UndirectedGraph<Vertex, Edge> graph = graphMLReader.read(input);
+		GraphWithData graphWithData = graphMLReader.read(input);
+		UndirectedGraph<Vertex, Edge> graph = graphWithData.getGraph();
 
 		GraphConverter converter = new GraphConverter();
 		ModelData data = converter.convert(graph);

@@ -33,6 +33,8 @@ import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
 
+import com.google.common.base.Splitter;
+
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
 public class GraphConverter
@@ -51,6 +53,8 @@ public class GraphConverter
 	public ModelData convert(GraphWithData graphWithData)
 	{
 		UndirectedGraph<Vertex, Edge> graph = graphWithData.getGraph();
+
+		Map<String, String> metadata = graphWithData.getData();
 
 		for (Vertex vertex : graph.getVertices()) {
 			vertex.setY(vertex.getY() * -1);
@@ -78,19 +82,31 @@ public class GraphConverter
 			}
 		}
 
-		Map<String, Line> nameToLine = new HashMap<>();
+		Map<String, Line> idToLine = new HashMap<>();
 
 		int id = 0;
-		for (String name : allLines) {
-			String color = "#AAAAAA";
+		for (String lineId : allLines) {
+
+			String name = metadata.get(String.format("name.%s", lineId));
+			String sColor = metadata.get(String.format("color.%s", lineId));
+
+			String color = parseColor(sColor);
+
+			if (name == null) {
+				name = lineId;
+			}
+
+			if (color == null) {
+				color = "#AAAAAA";
+			}
 
 			Line line = new Line(id++, name, color, false, null);
 			linesList.add(line);
-			nameToLine.put(name, line);
+			idToLine.put(lineId, line);
 		}
 
 		for (String lineName : allLines) {
-			Line line = nameToLine.get(lineName);
+			Line line = idToLine.get(lineName);
 
 			List<Edge> edges = lineToEdges.get(lineName);
 			lineFromEdges(graph, line, edges);
@@ -117,6 +133,19 @@ public class GraphConverter
 		}
 
 		return new ModelData(linesList, stationsList);
+	}
+
+	private String parseColor(String input)
+	{
+		List<String> parts = Splitter.on(",").splitToList(input);
+		if (parts.size() != 3) {
+			return null;
+		}
+		// TODO: range check (>0, <256)
+		int r = Integer.parseInt(parts.get(0));
+		int g = Integer.parseInt(parts.get(1));
+		int b = Integer.parseInt(parts.get(2));
+		return String.format("#%02X%02X%02X", r, g, b);
 	}
 
 	private void lineFromEdges(UndirectedGraph<Vertex, Edge> graph, Line line,

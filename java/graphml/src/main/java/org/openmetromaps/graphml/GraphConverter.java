@@ -18,6 +18,7 @@
 package org.openmetromaps.graphml;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -45,6 +46,8 @@ public class GraphConverter
 	protected Map<Station, Integer> stationToIndex = new HashMap<>();
 	protected Map<Stop, Integer> stopToIndex = new HashMap<>();
 
+	protected Map<String, Station> nameToStation = new HashMap<>();
+
 	public ModelData convert(UndirectedGraph<Vertex, Edge> graph)
 	{
 		Set<String> allLinesSet = new HashSet<>();
@@ -70,7 +73,6 @@ public class GraphConverter
 		}
 
 		Map<String, Line> nameToLine = new HashMap<>();
-		Map<String, Station> nameToStation = new HashMap<>();
 
 		int id = 0;
 		for (String name : allLines) {
@@ -83,31 +85,9 @@ public class GraphConverter
 
 		for (String lineName : allLines) {
 			Line line = nameToLine.get(lineName);
-			List<Stop> stops = new ArrayList<>();
-			line.setStops(stops);
 
-			// TODO: determine correct order of edges
 			List<Edge> edges = lineToEdges.get(lineName);
-			for (Edge edge : edges) {
-				Vertex source = edge.getSource();
-				Vertex target = edge.getSource();
-
-				String stopName = source.getLabel();
-
-				Station station = nameToStation.get(stopName);
-				if (station == null) {
-					Coordinate location = new Coordinate(source.getX(),
-							source.getY());
-					station = new Station(0, stopName, location,
-							new ArrayList<Stop>());
-					stationsList.add(station);
-					nameToStation.put(stopName, station);
-				}
-
-				Stop stop = new Stop(station, line);
-				stops.add(stop);
-				station.getStops().add(stop);
-			}
+			lineFromEdges(graph, line, edges);
 		}
 
 		MapModelUtil.sortStationsByName(stationsList);
@@ -131,6 +111,113 @@ public class GraphConverter
 		}
 
 		return new ModelData(linesList, stationsList);
+	}
+
+	private void lineFromEdges(UndirectedGraph<Vertex, Edge> graph, Line line,
+			List<Edge> edges)
+	{
+		List<Stop> stops = new ArrayList<>();
+		line.setStops(stops);
+
+		if (edges.isEmpty()) {
+			return;
+		}
+
+		// add any of the edges to the line to initialize
+		Set<Edge> todo = new HashSet<>(edges);
+		Edge firstEdge = todo.iterator().next();
+		todo.remove(firstEdge);
+
+		Vertex start = firstEdge.getSource();
+		Vertex end = firstEdge.getTarget();
+
+		append(line, start);
+		append(line, end);
+
+		// determine edges that can be prepended
+		outer: while (!todo.isEmpty()) {
+			Collection<Edge> out = graph.getIncidentEdges(start);
+			for (Edge edge : out) {
+				if (todo.contains(edge)) {
+					todo.remove(edge);
+					start = prepend(line, start, edge);
+					continue outer;
+				}
+			}
+			break outer;
+		}
+
+		// determine edges that can be appended
+		outer: while (!todo.isEmpty()) {
+			Collection<Edge> out = graph.getIncidentEdges(end);
+			for (Edge edge : out) {
+				if (todo.contains(edge)) {
+					todo.remove(edge);
+					end = append(line, end, edge);
+					continue outer;
+				}
+			}
+			break outer;
+		}
+	}
+
+	private Vertex prepend(Line line, Vertex firstVertex, Edge edge)
+	{
+		if (edge.getSource() == firstVertex) {
+			prepend(line, edge.getTarget());
+			return edge.getTarget();
+		} else if (edge.getTarget() == firstVertex) {
+			prepend(line, edge.getSource());
+			return edge.getSource();
+		}
+		throw new IllegalArgumentException(
+				"vertex is neither source nor target of the edge");
+	}
+
+	private Vertex append(Line line, Vertex lastVertex, Edge edge)
+	{
+		if (edge.getSource() == lastVertex) {
+			append(line, edge.getTarget());
+			return edge.getTarget();
+		} else if (edge.getTarget() == lastVertex) {
+			append(line, edge.getSource());
+			return edge.getSource();
+		}
+		throw new IllegalArgumentException(
+				"vertex is neither source nor target of the edge");
+	}
+
+	private void prepend(Line line, Vertex vertex)
+	{
+		Station station = station(vertex);
+		Stop stop = new Stop(station, line);
+
+		List<Stop> stops = line.getStops();
+		stops.add(0, stop);
+	}
+
+	private void append(Line line, Vertex vertex)
+	{
+		Station station = station(vertex);
+		Stop stop = new Stop(station, line);
+
+		List<Stop> stops = line.getStops();
+		stops.add(stop);
+	}
+
+	private Station station(Vertex vertex)
+	{
+		String stopName = vertex.getLabel();
+		Station station = nameToStation.get(stopName);
+
+		if (station == null) {
+			Coordinate location = new Coordinate(vertex.getX(), vertex.getY());
+			station = new Station(0, stopName, location, new ArrayList<>());
+			stationsList.add(station);
+			nameToStation.put(stopName, station);
+		}
+
+		return station;
 	}
 
 }

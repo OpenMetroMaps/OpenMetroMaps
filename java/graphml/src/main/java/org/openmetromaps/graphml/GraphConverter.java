@@ -90,7 +90,10 @@ public class GraphConverter
 			String name = metadata.get(String.format("name.%s", lineId));
 			String sColor = metadata.get(String.format("color.%s", lineId));
 
-			String color = parseColor(sColor);
+			String color = null;
+			if (sColor != null) {
+				color = parseColor(sColor);
+			}
 
 			if (name == null) {
 				name = lineId;

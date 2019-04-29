@@ -69,6 +69,7 @@ Where `<task>` can be any of the following:
     map-morpher
     simple-map-viewer
     gtfs-import
+    graphml-import
     create-markdown-view
     util
     export

@@ -6,10 +6,12 @@
 
 * [Strecken- und Liniennetzkarten](https://www.bahn.de/p/view/service/fahrplaene/streckennetz.shtml)
 * ICE-Netz
+  [2019](https://www.bahn.de/p/view/mdb/bahnintern/fahrplan_und_buchung/streckenplaene/mdb_289267_110073_ice_liniennetz_2019_v2.pdf),
   [2018](https://www.bahn.de/p/view/mdb/bahnintern/fahrplan_und_buchung/reiseauskunftsmedien/fahrplanmedien-download/mdb_263334_ice_liniennetz_v2_2018.pdf),
   [2017](https://www.bahn.de/p/view/mdb/bahnintern/fahrplan_und_buchung/reiseauskunftsmedien/fahrplanmedien-download/2017/mdb_241654_ice_liniennetz_2017_v2.pdf),
   [2016](https://www.bahn.de/p/view/mdb/bahnintern/fahrplan_und_buchung/reiseauskunftsmedien/fahrplanmedien-download/2016/mdb_228121_583_ice_liniennetz_2016_v2.pdf)
 * EC-/IC-Netz
+  [2019](https://www.bahn.de/p/view/mdb/bahnintern/fahrplan_und_buchung/streckenplaene/mdb_289266_11007_icecliniennetz_2019_v2.pdf),
   [2018](https://www.bahn.de/p/view/mdb/bahnintern/fahrplan_und_buchung/reiseauskunftsmedien/fahrplanmedien-download/mdb_263335_icec_liniennetz_2018.pdf),
   [2017](https://www.bahn.de/p/view/mdb/bahnintern/fahrplan_und_buchung/reiseauskunftsmedien/fahrplanmedien-download/2017/mdb_241655_icec_liniennetz_2017-v3.pdf),
   [2016](https://www.bahn.de/p/view/mdb/bahnintern/fahrplan_und_buchung/reiseauskunftsmedien/fahrplanmedien-download/2016/mdb_228122_583_icec_liniennetz_2016_v3.pdf)

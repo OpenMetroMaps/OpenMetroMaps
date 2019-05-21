@@ -94,6 +94,9 @@ public class LineNetworkBuilder
 		for (Edges edgesDef : edgesDefs) {
 			String lineName = edgesDef.getLine();
 			Set<NetworkLine> networkLines = nameToNetworkLine.get(lineName);
+			if (networkLines == null) {
+				continue;
+			}
 
 			for (NetworkLine networkLine : networkLines) {
 				graph.lines.add(networkLine);

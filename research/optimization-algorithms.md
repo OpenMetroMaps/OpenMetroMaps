@@ -58,6 +58,7 @@ Würzburg: <http://www1.informatik.uni-wuerzburg.de/abschlussarbeiten/>
 
 * [Schematic Mapping Workshop
   2014](https://sites.google.com/site/schematicmapping/program)
+* [Schematic Mapping Workshop 2019](https://schematicmapping2019.ac.tuwien.ac.at/)
 
 # Project / Software
 

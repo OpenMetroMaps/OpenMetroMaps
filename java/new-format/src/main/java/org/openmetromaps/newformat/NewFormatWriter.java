@@ -28,18 +28,26 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.MapViewStatus;
+import org.openmetromaps.maps.PlanRenderer;
+import org.openmetromaps.maps.PlanRenderer.SegmentMode;
+import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.NetworkLine;
+import org.openmetromaps.maps.image.ImageView;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.maps.painting.core.GenericPaintFactory;
+import org.openmetromaps.maps.painting.core.Painter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.google.common.base.Joiner;
 
+import de.topobyte.viewports.geometry.Rectangle;
 import de.topobyte.xml4jah.dom.DocumentWriter;
 
 public class NewFormatWriter
@@ -48,6 +56,10 @@ public class NewFormatWriter
 	public void write(OutputStream os, ModelData data, List<MapView> views)
 			throws ParserConfigurationException, IOException
 	{
+		LineNetworkBuilder graphBuilder = new LineNetworkBuilder(data,
+				MapModelUtil.allEdges(data));
+		LineNetwork network = graphBuilder.getGraph();
+
 		// Create document
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -87,10 +99,6 @@ public class NewFormatWriter
 			eLine.setTextContent(line.getName());
 		}
 
-		LineNetworkBuilder graphBuilder = new LineNetworkBuilder(data,
-				MapModelUtil.allEdges(data));
-		LineNetwork network = graphBuilder.getGraph();
-
 		for (Edge edge : network.getEdges()) {
 			String id1 = nodeId(edge.n1.station);
 			String id2 = nodeId(edge.n2.station);
@@ -107,6 +115,28 @@ public class NewFormatWriter
 			eEdge.setAttribute("source", id1);
 			eEdge.setAttribute("target", id2);
 			eEdge.setTextContent(Joiner.on(", ").join(lineIds));
+		}
+
+		for (int i = 0; i < views.size(); i++) {
+			MapView view = views.get(i);
+			Rectangle scene = view.getConfig().getScene();
+			int width = 1000;
+			int height = 800;
+			ImageView imageView = new ImageView(scene, width, height);
+
+			MapViewStatus mapViewStatus = new MapViewStatus();
+			StationMode stationMode = StationMode.CONVEX;
+			SegmentMode segmentMode = SegmentMode.CURVE;
+			PlanRenderer renderer = new PlanRenderer(network, mapViewStatus,
+					stationMode, segmentMode, imageView, imageView, 1,
+					new GenericPaintFactory());
+
+			Element eGeometricEmbedding = doc
+					.createElement("geometricembedding");
+			eGeometricEmbedding.setAttribute("id", "ge" + (i + 1));
+
+			Painter painter = new NewFormatPainter(eGeometricEmbedding);
+			renderer.paint(painter);
 		}
 
 		// Write document

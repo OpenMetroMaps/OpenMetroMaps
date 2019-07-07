@@ -1,5 +1,7 @@
 dependencies {
     compile project(':openmetromaps-maps-model')
+    compile project(':openmetromaps-maps-core')
+    compile project(':openmetromaps-maps-awt')
 
     compile 'com.google.guava:guava:19.0'
 

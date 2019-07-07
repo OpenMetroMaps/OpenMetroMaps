@@ -15,10 +15,14 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps;
+package org.openmetromaps.maps.rendering.components;
 
 import java.util.Map;
 
+import org.openmetromaps.maps.EdgeUtil;
+import org.openmetromaps.maps.LocationToPoint;
+import org.openmetromaps.maps.SegmentEndPointPaintInfo;
+import org.openmetromaps.maps.SegmentEndPointPool;
 import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.NetworkLine;

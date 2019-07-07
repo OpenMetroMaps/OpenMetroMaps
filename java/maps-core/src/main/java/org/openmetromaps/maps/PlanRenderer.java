@@ -32,6 +32,13 @@ import org.openmetromaps.maps.painting.core.IPaintInfo;
 import org.openmetromaps.maps.painting.core.PaintFactory;
 import org.openmetromaps.maps.painting.core.Painter;
 import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.rendering.components.SegmentDrawer;
+import org.openmetromaps.maps.rendering.components.SegmentDrawerCurved;
+import org.openmetromaps.maps.rendering.components.SegmentDrawerStraight;
+import org.openmetromaps.maps.rendering.components.StationDrawer;
+import org.openmetromaps.maps.rendering.components.StationDrawerConvex;
+import org.openmetromaps.maps.rendering.components.StationDrawerDot;
+import org.openmetromaps.maps.rendering.components.StationDrawerSimple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

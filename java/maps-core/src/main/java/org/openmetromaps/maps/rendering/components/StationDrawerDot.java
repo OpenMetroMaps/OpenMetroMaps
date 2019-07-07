@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2018 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,13 +15,12 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps;
+package org.openmetromaps.maps.rendering.components;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.openmetromaps.maps.graph.Edge;
+import org.openmetromaps.maps.LocationToPoint;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
@@ -36,13 +35,13 @@ import org.slf4j.LoggerFactory;
 
 import de.topobyte.lightgeom.lina.Point;
 
-public class StationDrawerSimple extends AbstractStationDrawer
+public class StationDrawerDot extends AbstractStationDrawer
 {
 
 	static final Logger logger = LoggerFactory
-			.getLogger(StationDrawerSimple.class);
+			.getLogger(StationDrawerDot.class);
 
-	public StationDrawerSimple(PaintFactory pf, LineNetwork data,
+	public StationDrawerDot(PaintFactory pf, LineNetwork data,
 			Map<NetworkLine, ColorCode> colors, float scale,
 			LocationToPoint ltp, float spreadFactor)
 	{
@@ -56,59 +55,13 @@ public class StationDrawerSimple extends AbstractStationDrawer
 		List<Stop> stops = node.station.getStops();
 		Point location = node.location;
 
-		if (stops.size() == 1) {
-			Stop stop = stops.get(0);
-			IPaintInfo paint = lineToPaintForStations[stop.getLine().getId()];
-			double px = ltp.getX(location.x);
-			double py = ltp.getY(location.y);
-			drawSinglePuntal(g, px, py, paint, selected);
-			return;
-		}
-
-		List<Edge> edges = node.edges;
-
-		boolean moreThanDot = false;
-
-		List<List<NetworkLine>> done = new ArrayList<>();
-
 		double px = ltp.getX(location.x);
 		double py = ltp.getY(location.y);
 
-		path.reset();
-		for (Edge edge : edges) {
-			List<NetworkLine> lines = edge.lines;
-			moreThanDot |= lines.size() > 1;
-
-			if (lines.size() == 1) {
-				continue;
-			}
-
-			if (done.contains(lines)) {
-				continue;
-			}
-			done.add(lines);
-
-			SegmentEndPointPaintInfo spi = endpointInfo(edge, node, ltp,
-					lineWidth, spreadFactor, lines.size());
-
-			path.moveTo(px + spi.sx, py + spi.sy);
-			path.lineTo(px + spi.ex, py + spi.ey);
-
-			spiPool.give(spi);
-		}
-
-		if (moreThanDot) {
-			if (selected) {
-				g.setPaintInfo(paintSelectedStationsStrokeOutline);
-			} else {
-				g.setPaintInfo(paintStationsStrokeOutline);
-			}
-			g.draw(path);
-			g.setPaintInfo(paintStationsStroke);
-			g.draw(path);
-			if (renderCenter) {
-				renderCenter(g, px, py);
-			}
+		if (stops.size() == 1) {
+			Stop stop = stops.get(0);
+			IPaintInfo paint = lineToPaintForStations[stop.getLine().getId()];
+			drawSinglePuntal(g, px, py, paint, selected);
 		} else {
 			drawMultiPuntal(g, px, py, selected);
 		}

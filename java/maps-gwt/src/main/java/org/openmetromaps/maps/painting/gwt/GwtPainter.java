@@ -17,6 +17,9 @@
 
 package org.openmetromaps.maps.painting.gwt;
 
+import org.openmetromaps.maps.graph.Edge;
+import org.openmetromaps.maps.graph.NetworkLine;
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.GenericPaintInfo;
 import org.openmetromaps.maps.painting.core.IPaintInfo;
@@ -170,6 +173,24 @@ public class GwtPainter implements Painter
 
 		int fontSize = paint.getFontSize();
 		c.setFont("bold " + fontSize + "px Arial");
+	}
+
+	@Override
+	public void setRef(Node node)
+	{
+		// ignore
+	}
+
+	@Override
+	public void setRef(Edge edge, NetworkLine line)
+	{
+		// ignore
+	}
+
+	@Override
+	public void setNoRef()
+	{
+		// ignore
 	}
 
 }

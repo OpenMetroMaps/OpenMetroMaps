@@ -70,7 +70,9 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 
 		g.setPaintInfo(paint);
 
+		g.setRef(edge, line);
 		g.drawLine(ax, ay, bx, by);
+		g.setNoRef();
 	}
 
 	private void drawMultiLineEdgeStraight(Painter g,
@@ -92,7 +94,9 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
 			g.setPaintInfo(paint);
 
+			g.setRef(edge, line);
 			g.drawLine(lax, lay, lbx, lby);
+			g.setNoRef();
 		}
 	}
 

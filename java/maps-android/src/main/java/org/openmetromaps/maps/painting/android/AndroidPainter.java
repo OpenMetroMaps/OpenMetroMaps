@@ -17,8 +17,8 @@
 
 package org.openmetromaps.maps.painting.android;
 
+import org.openmetromaps.maps.painting.core.AbstractPainter;
 import org.openmetromaps.maps.painting.core.IPaintInfo;
-import org.openmetromaps.maps.painting.core.Painter;
 import org.openmetromaps.maps.painting.core.geom.Circle;
 import org.openmetromaps.maps.painting.core.geom.LineSegment;
 import org.openmetromaps.maps.painting.core.geom.Path;
@@ -30,7 +30,7 @@ import de.topobyte.lightgeom.curves.spline.CubicSpline;
 import de.topobyte.lightgeom.curves.spline.QuadraticSpline;
 import de.topobyte.lightgeom.curves.spline.android.LightGeomAndroid;
 
-public class AndroidPainter implements Painter
+public class AndroidPainter extends AbstractPainter
 {
 
 	private Canvas c;

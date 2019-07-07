@@ -17,6 +17,9 @@
 
 package org.openmetromaps.maps.painting.core;
 
+import org.openmetromaps.maps.graph.Edge;
+import org.openmetromaps.maps.graph.NetworkLine;
+import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.painting.core.geom.Circle;
 import org.openmetromaps.maps.painting.core.geom.LineSegment;
 import org.openmetromaps.maps.painting.core.geom.Path;
@@ -26,6 +29,12 @@ import de.topobyte.lightgeom.curves.spline.QuadraticSpline;
 
 public interface Painter
 {
+
+	public void setRef(Node node);
+
+	public void setRef(Edge edge, NetworkLine line);
+
+	public void setNoRef();
 
 	public void draw(Path path);
 

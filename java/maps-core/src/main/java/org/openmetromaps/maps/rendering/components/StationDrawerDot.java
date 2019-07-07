@@ -52,6 +52,14 @@ public class StationDrawerDot extends AbstractStationDrawer
 	public void drawStation(Painter g, Node node, Path path, boolean selected,
 			boolean renderCenter)
 	{
+		g.setRef(node);
+		drawStationInternal(g, node, path, selected, renderCenter);
+		g.setNoRef();
+	}
+
+	private void drawStationInternal(Painter g, Node node, Path path,
+			boolean selected, boolean renderCenter)
+	{
 		List<Stop> stops = node.station.getStops();
 		Point location = node.location;
 

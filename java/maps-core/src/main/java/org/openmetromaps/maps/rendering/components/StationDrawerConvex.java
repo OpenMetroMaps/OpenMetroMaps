@@ -100,6 +100,14 @@ public class StationDrawerConvex extends AbstractStationDrawer
 	public void drawStation(Painter g, Node node, Path path, boolean selected,
 			boolean renderCenter)
 	{
+		g.setRef(node);
+		drawStationInternal(g, node, path, selected, renderCenter);
+		g.setNoRef();
+	}
+
+	private void drawStationInternal(Painter g, Node node, Path path,
+			boolean selected, boolean renderCenter)
+	{
 		Point location = node.location;
 		List<Edge> nodeEdges = node.edges;
 

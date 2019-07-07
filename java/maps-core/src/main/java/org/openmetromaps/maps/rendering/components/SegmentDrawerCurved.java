@@ -130,7 +130,10 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 		}
 
 		SplineUtil.spline(spline, ax, ay, bx, by, d02, d31, f, true);
+
+		g.setRef(edge, line);
 		g.draw(spline);
+		g.setNoRef();
 	}
 
 	private SegmentEndPointPaintInfo spiA = new SegmentEndPointPaintInfo();
@@ -168,6 +171,8 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 				d31 = v2.set(ax, ay).sub(sp3x, sp3y).normalize();
 			}
 
+			g.setRef(edge, line);
+
 			SplineUtil.spline(spline, lax, lay, lbx, lby, d02, d31, f, true);
 			long ta = System.currentTimeMillis();
 			g.draw(spline);
@@ -178,6 +183,8 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 				g.draw(new LineSegment(spline.getP1(), spline.getC1()));
 				g.draw(new LineSegment(spline.getC2(), spline.getP2()));
 			}
+
+			g.setNoRef();
 		}
 	}
 }

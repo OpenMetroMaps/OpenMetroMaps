@@ -31,11 +31,11 @@ import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.QuadCurve2D;
 
+import org.openmetromaps.maps.painting.core.AbstractPainter;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.GenericPaintInfo;
 import org.openmetromaps.maps.painting.core.IPaintInfo;
 import org.openmetromaps.maps.painting.core.PaintType;
-import org.openmetromaps.maps.painting.core.Painter;
 import org.openmetromaps.maps.painting.core.geom.Circle;
 import org.openmetromaps.maps.painting.core.geom.LineSegment;
 import org.openmetromaps.maps.painting.core.geom.Path;
@@ -44,7 +44,7 @@ import de.topobyte.lightgeom.curves.spline.CubicSpline;
 import de.topobyte.lightgeom.curves.spline.QuadraticSpline;
 import de.topobyte.lightgeom.curves.spline.awt.LightGeomAwt;
 
-public class AwtPainter implements Painter
+public class AwtPainter extends AbstractPainter
 {
 
 	private Graphics2D g;

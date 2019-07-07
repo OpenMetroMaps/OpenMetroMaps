@@ -17,15 +17,12 @@
 
 package org.openmetromaps.maps;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.NeighborInfo;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Station;
@@ -33,9 +30,7 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.Colors;
 import org.openmetromaps.maps.painting.core.IPaintInfo;
 import org.openmetromaps.maps.painting.core.PaintFactory;
-import org.openmetromaps.maps.painting.core.PaintType;
 import org.openmetromaps.maps.painting.core.Painter;
-import org.openmetromaps.maps.painting.core.geom.LineSegment;
 import org.openmetromaps.maps.painting.core.geom.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,11 +40,7 @@ import com.infomatiq.jsi.Rectangle;
 import de.topobyte.formatting.Formatting;
 import de.topobyte.jsi.intersectiontester.RTreeIntersectionTester;
 import de.topobyte.jsi.intersectiontester.RectangleIntersectionTester;
-import de.topobyte.lightgeom.curves.spline.CubicSpline;
-import de.topobyte.lightgeom.curves.spline.CubicSplineB;
-import de.topobyte.lightgeom.curves.spline.SplineUtil;
 import de.topobyte.lightgeom.lina.Point;
-import de.topobyte.lightgeom.lina.Vector2;
 import de.topobyte.viewports.geometry.Envelope;
 import de.topobyte.viewports.scrolling.ViewportListener;
 import de.topobyte.viewports.scrolling.ViewportUtil;
@@ -92,7 +83,6 @@ public class PlanRenderer implements ViewportListener
 	private boolean onlyImportant = false;
 
 	private int overDrawPixels = 100;
-	private double f = 0.3;
 
 	private LineNetwork lineNetwork;
 	private MapViewStatus mapViewStatus;
@@ -101,8 +91,7 @@ public class PlanRenderer implements ViewportListener
 	protected ViewportWithSignals viewport;
 	private LocationToPoint ltp;
 
-	private IPaintInfo[] lineToPaintForLines;
-
+	private SegmentDrawer segmentDrawer;
 	private StationDrawer stationDrawer;
 
 	public PlanRenderer(LineNetwork lineNetwork, MapViewStatus mapViewStatus,
@@ -124,14 +113,7 @@ public class PlanRenderer implements ViewportListener
 			colors.put(line, ModelUtil.getColor(line.line));
 		}
 
-		List<NetworkLine> lines = lineNetwork.getLines();
-		lineToPaintForLines = new IPaintInfo[lines.size()];
-		for (NetworkLine line : lines) {
-			IPaintInfo paint = pf.create(colors.get(line));
-			paint.setStyle(PaintType.STROKE);
-			lineToPaintForLines[line.line.getId()] = paint;
-		}
-
+		setupSegmentDrawer();
 		setupStationDrawer();
 
 		viewport.addViewportListener(this);
@@ -181,6 +163,10 @@ public class PlanRenderer implements ViewportListener
 	public void setDebugTangents(boolean debugTangents)
 	{
 		this.debugTangents = debugTangents;
+		if (segmentMode == SegmentMode.CURVE) {
+			SegmentDrawerCurved curvedDrawer = (SegmentDrawerCurved) segmentDrawer;
+			curvedDrawer.setDebugTangents(debugTangents);
+		}
 	}
 
 	public StationMode getStationMode()
@@ -203,6 +189,8 @@ public class PlanRenderer implements ViewportListener
 	public void setSegmentMode(SegmentMode segmentMode)
 	{
 		this.segmentMode = segmentMode;
+		setupSegmentDrawer();
+		zoomChanged();
 	}
 
 	public float getScale()
@@ -234,6 +222,22 @@ public class PlanRenderer implements ViewportListener
 		}
 	}
 
+	private void setupSegmentDrawer()
+	{
+		switch (segmentMode) {
+		case STRAIGHT:
+			segmentDrawer = new SegmentDrawerStraight(pf, lineNetwork, colors,
+					scale, ltp, spreadFactor, lineWidth);
+			break;
+		case CURVE:
+			segmentDrawer = new SegmentDrawerCurved(pf, lineNetwork, colors,
+					scale, ltp, spreadFactor, lineWidth);
+			SegmentDrawerCurved curvedDrawer = (SegmentDrawerCurved) segmentDrawer;
+			curvedDrawer.setDebugTangents(debugTangents);
+			break;
+		}
+	}
+
 	@Override
 	public void viewportChanged()
 	{
@@ -253,23 +257,15 @@ public class PlanRenderer implements ViewportListener
 		factor = (float) (zoom / 3);
 		lineWidth = baseLineWidth * factor * scale;
 
-		List<NetworkLine> lines = lineNetwork.getLines();
-		final int nLines = lines.size();
-		for (int i = 0; i < nLines; i++) {
-			NetworkLine line = lines.get(i);
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
-			paint.setWidth(lineWidth);
-		}
-
 		onlyImportant = zoom < 2.2;
 
+		segmentDrawer.zoomChanged(factor, lineWidth);
 		stationDrawer.zoomChanged(factor, lineWidth);
 	}
 
 	private static final String LOG_SEGMENTS = "segments";
 	private static final String LOG_STATIONS = "stations";
 	private static final String LOG_LABELS = "labels";
-	private long durationCurves = 0;
 
 	public void paint(Painter g)
 	{
@@ -294,7 +290,7 @@ public class PlanRenderer implements ViewportListener
 		Envelope edgeEnvelope = new Envelope();
 
 		tm.start(LOG_SEGMENTS);
-		durationCurves = 0;
+		segmentDrawer.startSegments();
 		for (int i = 0; i < nEdges; i++) {
 			Edge edge = lineNetwork.edges.get(i);
 			Point locationA = edge.n1.location;
@@ -307,20 +303,10 @@ public class PlanRenderer implements ViewportListener
 				continue;
 			}
 
-			double ax = ltp.getX(locationA.x);
-			double ay = ltp.getY(locationA.y);
-			double bx = ltp.getX(locationB.x);
-			double by = ltp.getY(locationB.y);
-
 			List<NetworkLine> lines = edge.lines;
-
-			if (lines.size() == 1) {
-				NetworkLine line = lines.get(0);
-				drawSingleLineEdge(g, line, edge, ax, ay, bx, by);
-			} else {
-				drawMultiLineEdge(g, lines, edge, ax, ay, bx, by);
-			}
+			segmentDrawer.drawSegment(g, lines, edge);
 		}
+		segmentDrawer.finishSegments();
 		tm.stop(LOG_SEGMENTS);
 
 		/*
@@ -381,8 +367,11 @@ public class PlanRenderer implements ViewportListener
 		tm.log(LOG_SEGMENTS, "Time for segments: %d");
 		tm.log(LOG_STATIONS, "Time for stations: %d");
 		tm.log(LOG_LABELS, "Time for labels: %d");
-		logger.info(Formatting.format("Time for curve drawing: %d",
-				durationCurves));
+		if (segmentMode == SegmentMode.CURVE) {
+			SegmentDrawerCurved curvedDrawer = (SegmentDrawerCurved) segmentDrawer;
+			logger.info(Formatting.format("Time for curve drawing: %d",
+					curvedDrawer.getDurationCurves()));
+		}
 	}
 
 	private void renderLabels(Painter g, Envelope envelope, int nNodes,
@@ -423,146 +412,6 @@ public class PlanRenderer implements ViewportListener
 				g.drawString(name, x, y);
 
 				tester.add(r, false);
-			}
-		}
-	}
-
-	private void drawSingleLineEdge(Painter g, NetworkLine line, Edge edge,
-			double ax, double ay, double bx, double by)
-	{
-		if (segmentMode == SegmentMode.STRAIGHT) {
-			drawSingleLineEdgeStraight(g, line, edge, ax, ay, bx, by);
-		} else if (segmentMode == SegmentMode.CURVE) {
-			drawSingleLineEdgeCurved(g, line, edge, ax, ay, bx, by);
-		}
-	}
-
-	private void drawMultiLineEdge(Painter g, List<NetworkLine> lines,
-			Edge edge, double ax, double ay, double bx, double by)
-	{
-		if (segmentMode == SegmentMode.STRAIGHT) {
-			drawMultiLineEdgeStraight(g, lines, edge, ax, ay, bx, by);
-		} else if (segmentMode == SegmentMode.CURVE) {
-			drawMultiLineEdgeCurved(g, lines, edge, ax, ay, bx, by);
-		}
-	}
-
-	private void drawSingleLineEdgeStraight(Painter g, NetworkLine line,
-			Edge edge, double ax, double ay, double bx, double by)
-	{
-		IPaintInfo paint = lineToPaintForLines[line.line.getId()];
-
-		g.setPaintInfo(paint);
-
-		g.drawLine(ax, ay, bx, by);
-	}
-
-	private void drawMultiLineEdgeStraight(Painter g,
-			Collection<NetworkLine> lines, Edge edge, double ax, double ay,
-			double bx, double by)
-	{
-		SegmentPaintInfo spi = new SegmentPaintInfo(ax, ay, bx, by,
-				lineWidth * spreadFactor, lines.size());
-
-		Iterator<NetworkLine> iter = lines.iterator();
-		final int nLines = lines.size();
-		for (int i = 0; i < nLines; i++) {
-			double lax = ax + spi.sx + spi.ndy * i * spi.shift;
-			double lay = ay + spi.sy - spi.ndx * i * spi.shift;
-			double lbx = bx + spi.sx + spi.ndy * i * spi.shift;
-			double lby = by + spi.sy - spi.ndx * i * spi.shift;
-
-			NetworkLine line = iter.next();
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
-			g.setPaintInfo(paint);
-
-			g.drawLine(lax, lay, lbx, lby);
-		}
-	}
-
-	private CubicSpline spline = new CubicSplineB(0, 0, 0, 0, 0, 0, 0, 0);
-
-	private Vector2 v1 = new Vector2(0, 0);
-	private Vector2 v2 = new Vector2(0, 0);
-
-	private void drawSingleLineEdgeCurved(Painter g, NetworkLine line,
-			Edge edge, double ax, double ay, double bx, double by)
-	{
-		IPaintInfo paint = lineToPaintForLines[line.line.getId()];
-		g.setPaintInfo(paint);
-
-		NeighborInfo neighbors = line.getNeighbors(edge);
-
-		Node prev = neighbors.prev;
-		Node next = neighbors.next;
-
-		Vector2 d02 = null, d31 = null;
-
-		if (prev != null) {
-			double sp0x = ltp.getX(prev.location.x);
-			double sp0y = ltp.getY(prev.location.y);
-			d02 = v1;
-			d02.set(bx, by);
-			d02.sub(sp0x, sp0y);
-			d02.normalize();
-		}
-		if (next != null) {
-			double sp3x = ltp.getX(next.location.x);
-			double sp3y = ltp.getY(next.location.y);
-			d31 = v2;
-			d31.set(ax, ay);
-			d31.sub(sp3x, sp3y);
-			d31.normalize();
-		}
-
-		SplineUtil.spline(spline, ax, ay, bx, by, d02, d31, f, true);
-		g.draw(spline);
-	}
-
-	private SegmentEndPointPaintInfo spiA = new SegmentEndPointPaintInfo();
-	private SegmentEndPointPaintInfo spiB = new SegmentEndPointPaintInfo();
-
-	private void drawMultiLineEdgeCurved(Painter g, List<NetworkLine> lines,
-			Edge edge, double ax, double ay, double bx, double by)
-	{
-		Point lp = edge.prev;
-		Point ln = edge.next;
-
-		EdgeUtil.segmentInfo(spiA, spiB, ax, ay, bx, by, lp, ln, ltp, lineWidth,
-				spreadFactor, lines.size());
-
-		for (int i = 0; i < lines.size(); i++) {
-			double lax = ax + spiA.sx + spiA.ndy * i * spiA.shift;
-			double lay = ay + spiA.sy - spiA.ndx * i * spiA.shift;
-			double lbx = bx + spiB.sx + spiB.ndy * i * spiB.shift;
-			double lby = by + spiB.sy - spiB.ndx * i * spiB.shift;
-
-			NetworkLine line = lines.get(i);
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
-			g.setPaintInfo(paint);
-
-			Vector2 d02 = null, d31 = null;
-
-			if (lp != null) {
-				double sp0x = ltp.getX(lp.x);
-				double sp0y = ltp.getY(lp.y);
-				d02 = v1.set(bx, by).sub(sp0x, sp0y).normalize();
-			}
-			if (ln != null) {
-				double sp3x = ltp.getX(ln.x);
-				double sp3y = ltp.getY(ln.y);
-				d31 = v2.set(ax, ay).sub(sp3x, sp3y).normalize();
-			}
-
-			SplineUtil.spline(spline, lax, lay, lbx, lby, d02, d31, f, true);
-			long ta = System.currentTimeMillis();
-			g.draw(spline);
-			long tb = System.currentTimeMillis();
-			durationCurves += tb - ta;
-
-			if (debugTangents) {
-				g.draw(new LineSegment(spline.getP1(), spline.getC1()));
-				g.draw(new LineSegment(spline.getC2(), spline.getP2()));
 			}
 		}
 	}

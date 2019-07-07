@@ -239,6 +239,7 @@ public class MapViewer
 
 		TileConfigUrl tiles = new TileConfigUrl(1, "osm",
 				"http://tile.openstreetmap.org/%d/%d/%d.png");
+		tiles.setUserAgent("OpenMetroMaps MapViewer");
 		viewer = new Viewer(tiles, null);
 		viewer.setMouseActive(true);
 		viewer.setDrawCrosshair(false);

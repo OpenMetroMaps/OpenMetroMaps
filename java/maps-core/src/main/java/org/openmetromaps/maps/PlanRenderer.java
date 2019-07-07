@@ -208,6 +208,7 @@ public class PlanRenderer implements ViewportListener
 	public void setScale(float scale)
 	{
 		this.scale = scale;
+		segmentDrawer.setScale(scale);
 		stationDrawer.setScale(scale);
 	}
 

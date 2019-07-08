@@ -22,17 +22,26 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
+import de.topobyte.xml4jah.dom.DocumentWriter;
 
 public class RunExportNewFormatToIpe
 {
@@ -74,9 +83,55 @@ public class RunExportNewFormatToIpe
 	}
 
 	private static void execute(InputStream input, Path pathOutput)
-			throws IOException, ParserConfigurationException
+			throws ParserConfigurationException, SAXException, IOException
 	{
-		// TODO: implement this
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document docSource = builder.parse(input);
+
+		// TODO: get size from document
+		int width = 1000;
+		int height = 905;
+
+		Document doc = builder.newDocument();
+		Element eIpe = doc.createElement("ipe");
+		eIpe.setAttribute("version", "70005");
+		eIpe.setAttribute("creator", "OpenMetroMaps");
+		doc.appendChild(eIpe);
+
+		Element eIpestyle = doc.createElement("ipestyle");
+
+		Element layout = doc.createElement("layout");
+		eIpestyle.appendChild(layout);
+		layout.setAttribute("paper", width + " " + height);
+		layout.setAttribute("origin", "0 0");
+		layout.setAttribute("frame", width + " " + height);
+
+		for (int i = 0; i <= 100; i += 10) {
+			Element opacity = doc.createElement("opacity");
+			eIpestyle.appendChild(opacity);
+			opacity.setAttribute("name", i + "%");
+			opacity.setAttribute("value",
+					String.format(Locale.US, "%.2f", i / (double) 100));
+		}
+
+		Element ePage = doc.createElement("page");
+		eIpe.appendChild(eIpestyle);
+		eIpe.appendChild(ePage);
+
+		Element eGroup = doc.createElement("group");
+		eGroup.setAttribute("matrix", String.format("1 0 0 -1 0 %d", height));
+		ePage.appendChild(eGroup);
+
+		NodeList paths = docSource.getElementsByTagName("path");
+		for (int i = 0; i < paths.getLength(); i++) {
+			Node element = paths.item(i);
+			Node copy = doc.importNode(element, true);
+			eGroup.appendChild(copy);
+		}
+
+		DocumentWriter writer = new DocumentWriter();
+		writer.write(doc, pathOutput);
 	}
 
 }

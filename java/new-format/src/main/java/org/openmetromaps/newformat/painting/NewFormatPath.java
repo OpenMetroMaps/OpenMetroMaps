@@ -33,11 +33,27 @@ public class NewFormatPath implements Path
 
 	private List<PathOperation> operations = new ArrayList<>();
 
-	public void render()
+	public String render()
 	{
-		for (PathOperation operation : operations) {
-			// TODO: render
+		StringBuilder buffer = new StringBuilder();
+
+		for (int i = 0; i < operations.size(); i++) {
+			if (i != 0) {
+				buffer.append(" ");
+			}
+			PathOperation operation = operations.get(i);
+			if (operation instanceof MoveTo) {
+				MoveTo moveTo = (MoveTo) operation;
+				buffer.append(
+						String.format("%f %f m", moveTo.getX(), moveTo.getY()));
+			} else if (operation instanceof LineTo) {
+				LineTo lineTo = (LineTo) operation;
+				buffer.append(
+						String.format("%f %f l", lineTo.getX(), lineTo.getY()));
+			}
 		}
+
+		return buffer.toString();
 	}
 
 	@Override

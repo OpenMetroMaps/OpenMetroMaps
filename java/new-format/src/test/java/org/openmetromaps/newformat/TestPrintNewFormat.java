@@ -18,10 +18,6 @@
 package org.openmetromaps.newformat;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -32,7 +28,7 @@ import org.openmetromaps.maps.xml.XmlModelConverter;
 
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
-public class TestCreateNewFormat
+public class TestPrintNewFormat
 {
 
 	public static void main(String[] args)
@@ -44,11 +40,7 @@ public class TestCreateNewFormat
 		MapModel model = modelConverter.convert(xmlModel);
 
 		NewFormatWriter writer = new NewFormatWriter();
-
-		Path path = Paths.get("/tmp/test.omm2");
-		OutputStream os = Files.newOutputStream(path);
-		writer.write(os, model.getData(), model.getViews());
-		os.close();
+		writer.write(System.out, model.getData(), model.getViews());
 	}
 
 }

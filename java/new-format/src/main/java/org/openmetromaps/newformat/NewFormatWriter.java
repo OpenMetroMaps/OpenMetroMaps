@@ -124,9 +124,16 @@ public class NewFormatWriter
 			MapView view = views.get(i);
 			network = view.getLineNetwork();
 			Rectangle scene = view.getConfig().getScene();
-			int width = 1000;
-			int height = 800;
-			ImageView imageView = new ImageView(scene, width, height);
+
+			double width = scene.getWidth();
+			double height = scene.getHeight();
+			double zoom = 1;
+
+			int imageWidth = (int) Math.ceil(width * zoom);
+			int imageHeight = (int) Math.ceil(height * zoom);
+
+			ImageView imageView = new ImageView(scene, imageWidth, imageHeight);
+			imageView.setZoom(zoom);
 
 			MapViewStatus mapViewStatus = new MapViewStatus();
 			StationMode stationMode = StationMode.CONVEX;
@@ -138,6 +145,8 @@ public class NewFormatWriter
 			Element eGeometricEmbedding = doc
 					.createElement("geometricembedding");
 			eGeometricEmbedding.setAttribute("id", "ge" + (i + 1));
+			eGeometricEmbedding.setAttribute("width", "" + imageWidth);
+			eGeometricEmbedding.setAttribute("height", "" + imageHeight);
 			eMain.appendChild(eGeometricEmbedding);
 
 			Painter painter = new NewFormatPainter(doc, eGeometricEmbedding,

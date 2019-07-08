@@ -17,12 +17,19 @@
 
 package org.openmetromaps.newformat;
 
+import java.util.Locale;
+
 import org.openmetromaps.maps.painting.core.AbstractPainter;
+import org.openmetromaps.maps.painting.core.ColorCode;
+import org.openmetromaps.maps.painting.core.GenericPaintInfo;
 import org.openmetromaps.maps.painting.core.IPaintInfo;
 import org.openmetromaps.maps.painting.core.geom.Circle;
 import org.openmetromaps.maps.painting.core.geom.LineSegment;
 import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.painting.core.ref.LineEdgeReference;
+import org.openmetromaps.maps.painting.core.ref.NodeReference;
 import org.openmetromaps.newformat.painting.NewFormatPath;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import de.topobyte.lightgeom.curves.spline.CubicSpline;
@@ -31,11 +38,36 @@ import de.topobyte.lightgeom.curves.spline.QuadraticSpline;
 public class NewFormatPainter extends AbstractPainter
 {
 
+	private Document doc;
 	private Element eRoot;
+	private Ids ids;
+	private GenericPaintInfo paint;
 
-	public NewFormatPainter(Element eRoot)
+	public NewFormatPainter(Document doc, Element eRoot, Ids ids)
 	{
+		this.doc = doc;
 		this.eRoot = eRoot;
+		this.ids = ids;
+	}
+
+	private Element element()
+	{
+		Element e = null;
+		if (reference instanceof NodeReference) {
+			e = doc.createElement("node");
+			e.setAttribute("type", "ipe");
+			NodeReference nodeReference = (NodeReference) reference;
+			e.setAttribute("id",
+					ids.getNodeId(nodeReference.getNode().station));
+		} else if (reference instanceof LineEdgeReference) {
+			e = doc.createElement("metroline");
+			e.setAttribute("type", "ipe");
+			LineEdgeReference lineEdgeReference = (LineEdgeReference) reference;
+			e.setAttribute("id",
+					ids.getLineId(lineEdgeReference.getLine().line));
+			e.setAttribute("edge", ids.getEdgeId(lineEdgeReference.getEdge()));
+		}
+		return e;
 	}
 
 	@Override
@@ -74,8 +106,27 @@ public class NewFormatPainter extends AbstractPainter
 	@Override
 	public void draw(CubicSpline spline)
 	{
-		// TODO Auto-generated method stub
+		Element e = element();
 
+		if (e == null) {
+			return;
+		}
+
+		StringBuilder buffer = new StringBuilder();
+		buffer.append(
+				String.format("%f %f m", spline.getP1X(), spline.getP1Y()));
+		buffer.append(" ");
+		buffer.append(String.format("%f %f %f %f %f %f c", spline.getC1X(),
+				spline.getC1Y(), spline.getC2X(), spline.getC2Y(),
+				spline.getP2X(), spline.getP2Y()));
+
+		eRoot.appendChild(e);
+
+		Element ePath = doc.createElement("path");
+		ePath.setAttribute("stroke", getColor(paint.getColor()));
+
+		ePath.setTextContent(buffer.toString());
+		e.appendChild(ePath);
 	}
 
 	@Override
@@ -116,8 +167,15 @@ public class NewFormatPainter extends AbstractPainter
 	@Override
 	public void setPaintInfo(IPaintInfo paint)
 	{
-		// TODO Auto-generated method stub
+		this.paint = (GenericPaintInfo) paint;
+	}
 
+	private String getColor(ColorCode color)
+	{
+		float r = color.getRed() / 255.0f;
+		float g = color.getGreen() / 255.0f;
+		float b = color.getBlue() / 255.0f;
+		return String.format(Locale.US, "%f %f %f", r, g, b);
 	}
 
 }

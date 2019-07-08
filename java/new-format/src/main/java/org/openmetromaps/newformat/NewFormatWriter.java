@@ -26,7 +26,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openmetromaps.maps.MapModelUtil;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.MapViewStatus;
 import org.openmetromaps.maps.PlanRenderer;
@@ -34,7 +33,6 @@ import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.image.ImageView;
 import org.openmetromaps.maps.model.Line;
@@ -56,9 +54,7 @@ public class NewFormatWriter
 	public void write(OutputStream os, ModelData data, List<MapView> views)
 			throws ParserConfigurationException, IOException
 	{
-		LineNetworkBuilder graphBuilder = new LineNetworkBuilder(data,
-				MapModelUtil.allEdges(data));
-		LineNetwork network = graphBuilder.getGraph();
+		Ids ids = new Ids();
 
 		// Create document
 
@@ -86,7 +82,9 @@ public class NewFormatWriter
 			Element eNode = doc.createElement("node");
 			eGraph.appendChild(eNode);
 
-			eNode.setAttribute("id", nodeId(station));
+			String nodeId = nodeId(station);
+			ids.setNodeId(station, nodeId);
+			eNode.setAttribute("id", nodeId);
 			eNode.setTextContent(station.getName());
 		}
 
@@ -94,24 +92,29 @@ public class NewFormatWriter
 			Element eLine = doc.createElement("metroline");
 			eGraph.appendChild(eLine);
 
-			eLine.setAttribute("id", lineId(line));
+			String lineId = lineId(line);
+			ids.setLineId(line, lineId);
+			eLine.setAttribute("id", lineId);
 			eLine.setAttribute("color", line.getColor());
 			eLine.setTextContent(line.getName());
 		}
 
+		LineNetwork network = views.get(0).getLineNetwork();
 		for (Edge edge : network.getEdges()) {
-			String id1 = nodeId(edge.n1.station);
-			String id2 = nodeId(edge.n2.station);
+			String id1 = ids.getNodeId(edge.n1.station);
+			String id2 = ids.getNodeId(edge.n2.station);
 			List<NetworkLine> lines = edge.lines;
 			List<String> lineIds = new ArrayList<>();
 			for (NetworkLine line : lines) {
-				lineIds.add(lineId(line.line));
+				lineIds.add(ids.getLineId(line.line));
 			}
 
 			Element eEdge = doc.createElement("edge");
 			eGraph.appendChild(eEdge);
 
-			eEdge.setAttribute("id", edgeId());
+			String edgeId = edgeId();
+			ids.setEdgeId(edge, edgeId);
+			eEdge.setAttribute("id", edgeId);
 			eEdge.setAttribute("source", id1);
 			eEdge.setAttribute("target", id2);
 			eEdge.setTextContent(Joiner.on(", ").join(lineIds));
@@ -119,6 +122,7 @@ public class NewFormatWriter
 
 		for (int i = 0; i < views.size(); i++) {
 			MapView view = views.get(i);
+			network = view.getLineNetwork();
 			Rectangle scene = view.getConfig().getScene();
 			int width = 1000;
 			int height = 800;
@@ -134,8 +138,10 @@ public class NewFormatWriter
 			Element eGeometricEmbedding = doc
 					.createElement("geometricembedding");
 			eGeometricEmbedding.setAttribute("id", "ge" + (i + 1));
+			eMain.appendChild(eGeometricEmbedding);
 
-			Painter painter = new NewFormatPainter(eGeometricEmbedding);
+			Painter painter = new NewFormatPainter(doc, eGeometricEmbedding,
+					ids);
 			renderer.paint(painter);
 		}
 

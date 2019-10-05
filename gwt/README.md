@@ -22,3 +22,6 @@ And navigate here with your browser:
 You might need to install the `http-server` package using npm:
 
     npm install -g http-server
+
+When working with Eclipse, make sure to use GWT SDK version 2.8.1, otherwise
+there will be compile errors.

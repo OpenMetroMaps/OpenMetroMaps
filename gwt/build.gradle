@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath 'org.wisepersist:gwt-gradle-plugin:1.0.4'
         classpath('de.topobyte:gradle-dependency-info-plugin:0.0.1');
-        classpath('de.topobyte:gradle-dependency-unpack-plugin:0.0.1');
+        classpath('de.topobyte:gradle-dependency-unpack-plugin:0.0.2');
     }
 }
 

@@ -53,7 +53,6 @@ compileGwt {
 
 dependencies {
     compile 'de.topobyte:viewports-gwt:0.0.3'
-    compile 'de.topobyte:lightweight-geometry:1.0.0'
     compile 'de.topobyte:adt-geo:0.0.4'
     compile 'de.topobyte:adt-misc:0.0.2'
     compile 'de.topobyte:jsi-rectangle-intersection-tester:0.0.1'

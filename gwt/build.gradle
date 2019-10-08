@@ -24,7 +24,6 @@ repositories {
     mavenCentral()
 }
 
-apply plugin: 'war'
 apply plugin: 'gwt'
 apply plugin: 'eclipse'
 apply plugin: 'de.topobyte.dependency-info-gradle-plugin'

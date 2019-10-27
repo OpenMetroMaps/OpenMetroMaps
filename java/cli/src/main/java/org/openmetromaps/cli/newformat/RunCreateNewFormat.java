@@ -28,7 +28,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.openmetromaps.maps.CoordinateConversionType;
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
@@ -80,6 +82,7 @@ public class RunCreateNewFormat
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
+		ModelUtil.ensureView(model, CoordinateConversionType.WGS84);
 
 		execute(model, pathOutput);
 	}

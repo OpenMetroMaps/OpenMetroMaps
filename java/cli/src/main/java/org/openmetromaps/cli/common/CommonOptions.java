@@ -57,19 +57,11 @@ public class CommonOptions
 		POSSIBLE_VALUES_SEGMENT_MODE = Joiner.on(", ").join(options);
 	}
 
-	private static EnumLookup<StationMode> lookupStationMode = new EnumLookup<>();
-	static {
-		for (StationMode value : StationMode.values()) {
-			lookupStationMode.put(value.toString().toLowerCase(), value);
-		}
-	}
+	private static EnumLookup<StationMode> lookupStationMode = EnumLookup
+			.build(StationMode.values());
 
-	private static EnumLookup<SegmentMode> lookupSegmentMode = new EnumLookup<>();
-	static {
-		for (SegmentMode value : SegmentMode.values()) {
-			lookupSegmentMode.put(value.toString().toLowerCase(), value);
-		}
-	}
+	private static EnumLookup<SegmentMode> lookupSegmentMode = EnumLookup
+			.build(SegmentMode.values());
 
 	public static void addRenderingOptions(Options options)
 	{

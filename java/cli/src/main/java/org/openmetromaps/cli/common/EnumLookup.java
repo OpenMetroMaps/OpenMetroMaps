@@ -52,4 +52,13 @@ public class EnumLookup<T extends Enum<T>>
 		return reverseMap.get(value);
 	}
 
+	public static <A extends Enum<A>> EnumLookup<A> build(A[] values)
+	{
+		EnumLookup<A> lookup = new EnumLookup<>();
+		for (A value : values) {
+			lookup.put(value.toString().toLowerCase(), value);
+		}
+		return lookup;
+	}
+
 }

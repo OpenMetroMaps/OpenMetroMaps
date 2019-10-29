@@ -51,6 +51,29 @@ import de.topobyte.xml4jah.dom.DocumentWriter;
 public class NewFormatWriter
 {
 
+	private StationMode stationMode = StationMode.CONVEX;
+	private SegmentMode segmentMode = SegmentMode.CURVE;
+
+	public StationMode getStationMode()
+	{
+		return stationMode;
+	}
+
+	public void setStationMode(StationMode stationMode)
+	{
+		this.stationMode = stationMode;
+	}
+
+	public SegmentMode getSegmentMode()
+	{
+		return segmentMode;
+	}
+
+	public void setSegmentMode(SegmentMode segmentMode)
+	{
+		this.segmentMode = segmentMode;
+	}
+
 	public void write(OutputStream os, ModelData data, List<MapView> views)
 			throws ParserConfigurationException, IOException
 	{
@@ -136,8 +159,6 @@ public class NewFormatWriter
 			imageView.setZoom(zoom);
 
 			MapViewStatus mapViewStatus = new MapViewStatus();
-			StationMode stationMode = StationMode.CONVEX;
-			SegmentMode segmentMode = SegmentMode.CURVE;
 			PlanRenderer renderer = new PlanRenderer(network, mapViewStatus,
 					stationMode, segmentMode, imageView, imageView, 1,
 					new GenericPaintFactory());

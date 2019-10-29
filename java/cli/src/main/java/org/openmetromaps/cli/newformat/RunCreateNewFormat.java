@@ -28,6 +28,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.openmetromaps.cli.common.CommonOptions;
+import org.openmetromaps.cli.common.RenderingConfig;
 import org.openmetromaps.maps.CoordinateConversionType;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.ModelUtil;
@@ -58,6 +60,7 @@ public class RunCreateNewFormat
 			OptionHelper.addL(options, OPTION_INPUT, true, true, "file", "an OpenMetroMaps model file");
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "an output file in the new format");
 			// @formatter:on
+			CommonOptions.addRenderingOptions(options);
 			return new CommonsCliExeOptions(options, "[options]");
 		}
 
@@ -76,6 +79,9 @@ public class RunCreateNewFormat
 		System.out.println("Input: " + pathInput);
 		System.out.println("Output: " + pathOutput);
 
+		RenderingConfig renderingConfig = CommonOptions
+				.parseRenderingOptions(line);
+
 		InputStream input = Files.newInputStream(pathInput);
 
 		XmlModel xmlModel = DesktopXmlModelReader.read(input);
@@ -84,13 +90,15 @@ public class RunCreateNewFormat
 		MapModel model = modelConverter.convert(xmlModel);
 		ModelUtil.ensureView(model, CoordinateConversionType.WGS84);
 
-		execute(model, pathOutput);
+		execute(model, renderingConfig, pathOutput);
 	}
 
-	private static void execute(MapModel model, Path pathOutput)
-			throws IOException, ParserConfigurationException
+	private static void execute(MapModel model, RenderingConfig renderingConfig,
+			Path pathOutput) throws IOException, ParserConfigurationException
 	{
 		NewFormatWriter writer = new NewFormatWriter();
+		writer.setStationMode(renderingConfig.getStationMode());
+		writer.setSegmentMode(renderingConfig.getSegmentMode());
 
 		OutputStream os = Files.newOutputStream(pathOutput);
 		writer.write(os, model.getData(), model.getViews());

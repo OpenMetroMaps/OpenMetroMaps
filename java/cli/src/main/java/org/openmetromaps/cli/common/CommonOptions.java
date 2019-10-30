@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
+import de.topobyte.utilities.apache.commons.cli.parsing.ArgumentParseException;
 
 public class CommonOptions
 {
@@ -55,6 +56,7 @@ public class CommonOptions
 	}
 
 	public static RenderingConfig parseRenderingOptions(CommandLine line)
+			throws ArgumentParseException
 	{
 		RenderingConfig config = new RenderingConfig();
 
@@ -62,7 +64,7 @@ public class CommonOptions
 			String value = line.getOptionValue(OPTION_STATION_MODE);
 			StationMode stationMode = lookupStationMode.get(value);
 			if (stationMode == null) {
-				logger.error(String.format(
+				throw new ArgumentParseException(String.format(
 						"Invalid value for option '%s'. Possible values: '%s'",
 						OPTION_STATION_MODE, POSSIBLE_VALUES_STATION_MODE));
 			} else {
@@ -73,7 +75,7 @@ public class CommonOptions
 			String value = line.getOptionValue(OPTION_SEGMENT_MODE);
 			SegmentMode segmentMode = lookupSegmentMode.get(value);
 			if (segmentMode == null) {
-				logger.error(String.format(
+				throw new ArgumentParseException(String.format(
 						"Invalid value for option '%s'. Possible values: '%s'",
 						OPTION_SEGMENT_MODE, POSSIBLE_VALUES_SEGMENT_MODE));
 			} else {

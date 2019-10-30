@@ -43,6 +43,7 @@ import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArgument
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
+import de.topobyte.utilities.apache.commons.cli.parsing.ArgumentParseException;
 
 public class RunCreateNewFormat
 {
@@ -79,8 +80,13 @@ public class RunCreateNewFormat
 		System.out.println("Input: " + pathInput);
 		System.out.println("Output: " + pathOutput);
 
-		RenderingConfig renderingConfig = CommonOptions
-				.parseRenderingOptions(line);
+		RenderingConfig renderingConfig = null;
+		try {
+			renderingConfig = CommonOptions.parseRenderingOptions(line);
+		} catch (ArgumentParseException e) {
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
 
 		InputStream input = Files.newInputStream(pathInput);
 

@@ -17,17 +17,12 @@
 
 package org.openmetromaps.cli.common;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Joiner;
 
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 
@@ -39,23 +34,11 @@ public class CommonOptions
 	private static final String OPTION_STATION_MODE = "station-mode";
 	private static final String OPTION_SEGMENT_MODE = "segment-mode";
 
-	private static String POSSIBLE_VALUES_STATION_MODE;
-	static {
-		List<String> options = new ArrayList<>();
-		for (StationMode mode : StationMode.values()) {
-			options.add(mode.toString().toLowerCase());
-		}
-		POSSIBLE_VALUES_STATION_MODE = Joiner.on(", ").join(options);
-	}
+	private static String POSSIBLE_VALUES_STATION_MODE = EnumUtil
+			.buildNameList(StationMode.values());
 
-	private static String POSSIBLE_VALUES_SEGMENT_MODE;
-	static {
-		List<String> options = new ArrayList<>();
-		for (SegmentMode mode : SegmentMode.values()) {
-			options.add(mode.toString().toLowerCase());
-		}
-		POSSIBLE_VALUES_SEGMENT_MODE = Joiner.on(", ").join(options);
-	}
+	private static String POSSIBLE_VALUES_SEGMENT_MODE = EnumUtil
+			.buildNameList(SegmentMode.values());
 
 	private static EnumLookup<StationMode> lookupStationMode = EnumLookup
 			.build(StationMode.values());

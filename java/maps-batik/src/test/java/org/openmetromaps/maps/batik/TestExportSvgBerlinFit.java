@@ -23,6 +23,8 @@ import java.nio.file.Paths;
 import org.openmetromaps.desktop.DesktopUtil;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.PlanRenderer.SegmentMode;
+import org.openmetromaps.maps.PlanRenderer.StationMode;
 
 import de.topobyte.system.utils.SystemPaths;
 import de.topobyte.viewports.geometry.Rectangle;
@@ -47,10 +49,13 @@ public class TestExportSvgBerlinFit
 		double y = 0;
 		double zoom = 3;
 
+		StationMode stationMode = StationMode.CONVEX;
+		SegmentMode segmentMode = SegmentMode.CURVE;
+
 		BatikImageUtil.createImage(schematic,
 				Paths.get("/tmp/schematic-fit.svg"),
 				(int) Math.ceil(width * zoom), (int) Math.ceil(height * zoom),
-				x, y, zoom);
+				x, y, zoom, stationMode, segmentMode);
 	}
 
 }

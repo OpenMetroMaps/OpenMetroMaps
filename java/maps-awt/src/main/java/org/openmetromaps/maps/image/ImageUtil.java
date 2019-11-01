@@ -42,21 +42,20 @@ public class ImageUtil
 {
 
 	public static void createPng(MapModel model, Path path, int width,
-			int height, double x, double y, double zoom) throws IOException
+			int height, double x, double y, double zoom,
+			StationMode stationMode, SegmentMode segmentMode) throws IOException
 	{
-		createImage(model, path, "png", width, height, x, y, zoom);
+		createImage(model, path, "png", width, height, x, y, zoom, stationMode,
+				segmentMode);
 	}
 
 	public static void createImage(MapModel model, Path path, String format,
-			int width, int height, double x, double y, double zoom)
-			throws IOException
+			int width, int height, double x, double y, double zoom,
+			StationMode stationMode, SegmentMode segmentMode) throws IOException
 	{
 		MapView view = model.getViews().get(0);
 		LineNetwork lineNetwork = view.getLineNetwork();
 		MapViewStatus mapViewStatus = new MapViewStatus();
-
-		StationMode stationMode = StationMode.CONVEX;
-		SegmentMode segmentMode = SegmentMode.CURVE;
 
 		Rectangle scene = view.getConfig().getScene();
 		ImageView imageView = new ImageView(scene, width, height);

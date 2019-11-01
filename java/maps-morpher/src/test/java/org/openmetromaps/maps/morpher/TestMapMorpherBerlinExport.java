@@ -24,6 +24,8 @@ import java.nio.file.StandardCopyOption;
 
 import org.openmetromaps.desktop.DesktopUtil;
 import org.openmetromaps.maps.MapModel;
+import org.openmetromaps.maps.PlanRenderer.SegmentMode;
+import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.openmetromaps.maps.image.ImageUtil;
 
 import de.topobyte.system.utils.SystemPaths;
@@ -51,6 +53,9 @@ public class TestMapMorpherBerlinExport
 		int y = -180;
 		double zoom = 2.0;
 
+		StationMode stationMode = StationMode.CONVEX;
+		SegmentMode segmentMode = SegmentMode.CURVE;
+
 		Path dir = Paths.get("/tmp/video");
 		Files.createDirectories(dir);
 
@@ -65,13 +70,15 @@ public class TestMapMorpherBerlinExport
 		System.out.println("creating first image: " + fileFirst);
 		{
 			MapModel model = MapMorphing.deriveModel(geographic, schematic, 0);
-			ImageUtil.createPng(model, fileFirst, width, height, x, y, zoom);
+			ImageUtil.createPng(model, fileFirst, width, height, x, y, zoom,
+					stationMode, segmentMode);
 		}
 
 		System.out.println("creating last image: " + fileLast);
 		{
 			MapModel model = MapMorphing.deriveModel(geographic, schematic, 1);
-			ImageUtil.createPng(model, fileLast, width, height, x, y, zoom);
+			ImageUtil.createPng(model, fileLast, width, height, x, y, zoom,
+					stationMode, segmentMode);
 		}
 
 		for (int i = 1; i < before; i++) {
@@ -105,7 +112,8 @@ public class TestMapMorpherBerlinExport
 
 			MapModel model = MapMorphing.deriveModel(geographic, schematic,
 					relative);
-			ImageUtil.createPng(model, file, width, height, x, y, zoom);
+			ImageUtil.createPng(model, file, width, height, x, y, zoom,
+					stationMode, segmentMode);
 		}
 	}
 

@@ -25,6 +25,8 @@ import java.nio.file.Paths;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.openmetromaps.cli.common.CommonOptions;
+import org.openmetromaps.cli.common.RenderingConfig;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.batik.BatikImageUtil;
@@ -38,6 +40,7 @@ import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOp
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
 import de.topobyte.utilities.apache.commons.cli.parsing.ArgumentHelper;
+import de.topobyte.utilities.apache.commons.cli.parsing.ArgumentParseException;
 import de.topobyte.utilities.apache.commons.cli.parsing.DoubleOption;
 import de.topobyte.viewports.geometry.Rectangle;
 
@@ -59,6 +62,7 @@ public class RunExportBatik
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "an output image file");
 			OptionHelper.addL(options, OPTION_ZOOM, true, false, "double", "zoom level to use");
 			// @formatter:on
+			CommonOptions.addRenderingOptions(options);
 			return new CommonsCliExeOptions(options, "[options]");
 		}
 
@@ -84,6 +88,14 @@ public class RunExportBatik
 		System.out.println("Output: " + pathOutput);
 		System.out.println("Zoom: " + zoom);
 
+		RenderingConfig renderingConfig = null;
+		try {
+			renderingConfig = CommonOptions.parseRenderingOptions(line);
+		} catch (ArgumentParseException e) {
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+
 		InputStream input = Files.newInputStream(pathInput);
 
 		XmlModel xmlModel = DesktopXmlModelReader.read(input);
@@ -91,11 +103,11 @@ public class RunExportBatik
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		execute(model, pathOutput, zoom);
+		execute(model, renderingConfig, pathOutput, zoom);
 	}
 
-	private static void execute(MapModel model, Path pathOutput, double zoom)
-			throws IOException
+	private static void execute(MapModel model, RenderingConfig renderingConfig,
+			Path pathOutput, double zoom) throws IOException
 	{
 		MapView view = model.getViews().get(0);
 		Rectangle scene = view.getConfig().getScene();
@@ -110,7 +122,8 @@ public class RunExportBatik
 		int imageHeight = (int) Math.ceil(height * zoom);
 
 		BatikImageUtil.createImage(model, pathOutput, imageWidth, imageHeight,
-				x, y, zoom);
+				x, y, zoom, renderingConfig.getStationMode(),
+				renderingConfig.getSegmentMode());
 	}
 
 }

@@ -45,14 +45,12 @@ public class BatikImageUtil
 {
 
 	public static void createImage(MapModel model, Path path, int width,
-			int height, double x, double y, double zoom) throws IOException
+			int height, double x, double y, double zoom,
+			StationMode stationMode, SegmentMode segmentMode) throws IOException
 	{
 		MapView view = model.getViews().get(0);
 		LineNetwork lineNetwork = view.getLineNetwork();
 		MapViewStatus mapViewStatus = new MapViewStatus();
-
-		StationMode stationMode = StationMode.CONVEX;
-		SegmentMode segmentMode = SegmentMode.CURVE;
 
 		Rectangle scene = view.getConfig().getScene();
 		ImageView imageView = new ImageView(scene, width, height);

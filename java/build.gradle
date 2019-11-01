@@ -21,6 +21,9 @@ subprojects {
         mavenCentral()
     }
 
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
     task allDeps(type: DependencyReportTask) {}
 }
 

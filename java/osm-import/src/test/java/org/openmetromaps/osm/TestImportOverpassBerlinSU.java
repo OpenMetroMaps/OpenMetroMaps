@@ -53,7 +53,7 @@ public class TestImportOverpassBerlinSU
 		System.out.println(String.format("Imported %d lines with %d stations",
 				data.lines.size(), data.stations.size()));
 
-		Path pathOutput = Paths.get("/tmp/berlin-su.xml");
+		Path pathOutput = Paths.get("/tmp/berlin-su.omm");
 		OutputStream os = Files.newOutputStream(pathOutput);
 		new XmlModelWriter().write(os, data, new ArrayList<>());
 		os.close();

@@ -24,8 +24,8 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openmetromaps.maps.Wgs84CoordinateConverter;
 import org.openmetromaps.maps.Points;
+import org.openmetromaps.maps.Wgs84CoordinateConverter;
 import org.openmetromaps.maps.model.Coordinate;
 
 import de.topobyte.adt.geo.BBox;
@@ -40,7 +40,7 @@ public class TestConvertCoordinates
 			throws ParserConfigurationException, IOException, ParsingException
 	{
 		InputStream input = TestConvertCoordinates.class.getClassLoader()
-				.getResourceAsStream("berlin.xml");
+				.getResourceAsStream("berlin.omm");
 		XmlModel model = DesktopXmlModelReader.read(input);
 
 		convert(model.getStations(), 1000, 50);
@@ -59,8 +59,8 @@ public class TestConvertCoordinates
 		BBox bbox = BBoxHelper.minimumBoundingBox(coordinates);
 		System.out.println("bbox: " + bbox);
 
-		Wgs84CoordinateConverter converter = new Wgs84CoordinateConverter(bbox, size,
-				margin);
+		Wgs84CoordinateConverter converter = new Wgs84CoordinateConverter(bbox,
+				size, margin);
 		System.out.println(String.format("size: %f x %f", converter.getWidth(),
 				converter.getHeight()));
 

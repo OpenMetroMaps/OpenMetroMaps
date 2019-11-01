@@ -57,7 +57,7 @@ public class TestImportOverpassVbbRegio
 		System.out.println(String.format("Imported %d lines with %d stations",
 				data.lines.size(), data.stations.size()));
 
-		Path pathOutput = Paths.get("/tmp/vbb.xml");
+		Path pathOutput = Paths.get("/tmp/vbb.omm");
 		OutputStream os = Files.newOutputStream(pathOutput);
 		new XmlModelWriter().write(os, data, new ArrayList<>());
 		os.close();

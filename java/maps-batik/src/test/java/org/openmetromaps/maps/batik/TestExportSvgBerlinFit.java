@@ -37,7 +37,7 @@ public class TestExportSvgBerlinFit
 		Path berlin = SystemPaths.HOME
 				.resolve("github/OpenMetroMapsData/berlin");
 
-		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.xml"));
+		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.omm"));
 
 		MapView view = schematic.getViews().get(0);
 		Rectangle scene = view.getConfig().getScene();

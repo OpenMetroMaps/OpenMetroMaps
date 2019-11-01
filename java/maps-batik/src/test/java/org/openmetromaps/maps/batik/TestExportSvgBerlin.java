@@ -36,8 +36,8 @@ public class TestExportSvgBerlin
 				.resolve("github/OpenMetroMapsData/berlin");
 
 		MapModel geographic = DesktopUtil
-				.load(berlin.resolve("geographic.xml"));
-		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.xml"));
+				.load(berlin.resolve("geographic.omm"));
+		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.omm"));
 
 		int width = 1440;
 		int height = 1080;

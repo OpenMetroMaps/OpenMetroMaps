@@ -52,7 +52,7 @@ public class TestImportOverpassVbbRE1ViaTags
 		System.out.println(String.format("Imported %d lines with %d stations",
 				data.lines.size(), data.stations.size()));
 
-		Path pathOutput = Paths.get("/tmp/re1.xml");
+		Path pathOutput = Paths.get("/tmp/re1.omm");
 		OutputStream os = Files.newOutputStream(pathOutput);
 		new XmlModelWriter().write(os, data, new ArrayList<>());
 		os.close();

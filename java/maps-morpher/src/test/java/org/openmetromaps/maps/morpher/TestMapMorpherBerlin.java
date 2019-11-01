@@ -33,8 +33,8 @@ public class TestMapMorpherBerlin
 				.resolve("github/OpenMetroMapsData/berlin");
 
 		MapModel geographic = DesktopUtil
-				.load(berlin.resolve("geographic.xml"));
-		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.xml"));
+				.load(berlin.resolve("geographic.omm"));
+		MapModel schematic = DesktopUtil.load(berlin.resolve("schematic.omm"));
 
 		MapMorpher mapMorpher = new MapMorpher(geographic, schematic, null, 1);
 		mapMorpher.show();

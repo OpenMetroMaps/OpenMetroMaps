@@ -24,6 +24,10 @@ import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.melon.enums.EnumLookup;
+import de.topobyte.melon.enums.EnumLookups;
+import de.topobyte.melon.enums.EnumUtil;
+import de.topobyte.melon.enums.naming.SimpleEnumNamer;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.parsing.ArgumentParseException;
 
@@ -36,16 +40,16 @@ public class CommonOptions
 	private static final String OPTION_SEGMENT_MODE = "segment-mode";
 
 	private static String POSSIBLE_VALUES_STATION_MODE = EnumUtil
-			.buildNameList(StationMode.values());
+			.buildNameList(StationMode.values(), new SimpleEnumNamer<>());
 
 	private static String POSSIBLE_VALUES_SEGMENT_MODE = EnumUtil
-			.buildNameList(SegmentMode.values());
+			.buildNameList(SegmentMode.values(), new SimpleEnumNamer<>());
 
-	private static EnumLookup<StationMode> lookupStationMode = EnumLookup
-			.build(StationMode.values());
+	private static EnumLookup<StationMode> lookupStationMode = EnumLookups
+			.build(StationMode.class, new SimpleEnumNamer<>());
 
-	private static EnumLookup<SegmentMode> lookupSegmentMode = EnumLookup
-			.build(SegmentMode.values());
+	private static EnumLookup<SegmentMode> lookupSegmentMode = EnumLookups
+			.build(SegmentMode.class, new SimpleEnumNamer<>());
 
 	public static void addRenderingOptions(Options options)
 	{

@@ -56,6 +56,7 @@ import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.openmetromaps.maps.ScrollableAdvancedPanel;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.editor.actions.algorithms.DummyOptimizationAction;
+import org.openmetromaps.maps.editor.actions.algorithms.HeavyComputationAction;
 import org.openmetromaps.maps.editor.actions.algorithms.StraightenAxisParallelLinesAction;
 import org.openmetromaps.maps.editor.actions.edit.AlignHorizontallyAction;
 import org.openmetromaps.maps.editor.actions.edit.AlignVerticallyAction;
@@ -510,6 +511,7 @@ public class MapEditor
 		JMenus.addItem(menuAlgorithms, new DummyOptimizationAction(this));
 		JMenus.addItem(menuAlgorithms,
 				new StraightenAxisParallelLinesAction(this));
+		JMenus.addItem(menuAlgorithms, new HeavyComputationAction(this));
 	}
 
 	private void setupMenuView(JMenu menuView)

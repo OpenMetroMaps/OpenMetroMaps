@@ -115,6 +115,7 @@ ext.allLibraries = [
 ext.librariesJava8 = [
         project(':openmetromaps-swing-misc'),
         project(':openmetromaps-heavy-util'),
+        project(':openmetromaps-maps-awt'),
 
         project(':openmetromaps-markdown-view'),
 ]

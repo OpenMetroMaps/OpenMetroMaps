@@ -38,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
+import de.topobyte.melon.resources.Resources;
 
 public class Start
 {
@@ -71,8 +72,7 @@ public class Start
 		for (int size : new int[] { 16, 20, 22, 24, 32, 48, 64, 72, 96, 144 }) {
 			String filename = String.format("res/images/icon/icon-%d.png",
 					size);
-			try (InputStream is = Thread.currentThread().getContextClassLoader()
-					.getResourceAsStream(filename)) {
+			try (InputStream is = Resources.stream(filename)) {
 				images.add(ImageIO.read(is));
 			} catch (Exception e) {
 				logger.debug(

@@ -31,6 +31,7 @@ import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.xml.XmlModelWriter;
 
+import de.topobyte.melon.resources.Resources;
 import edu.uci.ics.jung.io.GraphIOException;
 
 public class TestConvert
@@ -39,8 +40,7 @@ public class TestConvert
 	public static void main(String[] args) throws GraphIOException,
 			ParserConfigurationException, TransformerException, IOException
 	{
-		InputStream input = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("wien.graphml");
+		InputStream input = Resources.stream("wien.graphml");
 
 		GraphMLReader graphMLReader = new GraphMLReader();
 		GraphWithData graphWithData = graphMLReader.read(input);

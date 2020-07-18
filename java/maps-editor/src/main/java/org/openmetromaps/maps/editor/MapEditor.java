@@ -96,6 +96,7 @@ import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
 import de.topobyte.melon.io.StreamUtil;
+import de.topobyte.melon.resources.Resources;
 import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.JMenus;
 import de.topobyte.swing.util.action.enums.BooleanValueHolder;
@@ -420,8 +421,7 @@ public class MapEditor
 		for (int size : new int[] { 16, 20, 22, 24, 32, 48, 64, 72, 96, 144 }) {
 			String filename = String.format("res/images/icon/icon-%d.png",
 					size);
-			try (InputStream is = Thread.currentThread().getContextClassLoader()
-					.getResourceAsStream(filename)) {
+			try (InputStream is = Resources.stream(filename)) {
 				images.add(ImageIO.read(is));
 			} catch (Exception e) {
 				logger.debug(

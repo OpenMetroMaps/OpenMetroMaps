@@ -9,6 +9,7 @@ dependencies {
     compile 'de.topobyte:awt-utils:0.0.3'
     compile 'de.topobyte:collections-utils:0.0.4'
     compile 'de.topobyte:melon-io:0.0.1'
+    compile 'de.topobyte:melon-resources:0.0.1'
 
     compile 'com.google.guava:guava:19.0'
 

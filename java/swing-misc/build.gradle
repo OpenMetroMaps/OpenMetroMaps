@@ -2,4 +2,5 @@ dependencies {
     compile 'de.topobyte:swing-utils:0.0.11'
     compile 'de.topobyte:awt-utils:0.0.3'
     compile 'de.topobyte:system-utils:0.0.1'
+    compile 'de.topobyte:melon-resources:0.0.1'
 }

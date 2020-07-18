@@ -21,6 +21,7 @@ import java.io.InputStream;
 
 import org.openmetromaps.imports.config.reader.DesktopImportConfigReader;
 
+import de.topobyte.melon.resources.Resources;
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class TestReadBerlin
@@ -28,8 +29,7 @@ public class TestReadBerlin
 
 	public static void main(String[] args) throws ParsingException
 	{
-		InputStream is = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("berlin.xml");
+		InputStream is = Resources.stream("berlin.xml");
 		ImportConfig config = DesktopImportConfigReader.read(is);
 		ConfigTests.print(config);
 	}

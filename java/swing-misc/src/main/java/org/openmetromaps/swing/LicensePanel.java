@@ -30,6 +30,8 @@ import javax.swing.text.html.HTMLEditorKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.melon.resources.Resources;
+
 public class LicensePanel extends JPanel
 {
 
@@ -56,8 +58,7 @@ public class LicensePanel extends JPanel
 		HTMLEditorKit kit = new HTMLEditorKit();
 		pane.setEditorKit(kit);
 
-		URL url = Thread.currentThread().getContextClassLoader()
-				.getResource(filename);
+		URL url = Resources.url(filename);
 		try {
 			logger.debug("url: " + url);
 			pane.setPage(url);

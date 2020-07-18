@@ -30,6 +30,7 @@ import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.mobidig.demo.AufzugViewer;
 
+import de.topobyte.melon.resources.Resources;
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class Util
@@ -58,8 +59,7 @@ public class Util
 
 	public static List<String> lines(String resourceName) throws IOException
 	{
-		InputStream is = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream(resourceName);
+		InputStream is = Resources.stream(resourceName);
 		String text = IOUtils.toString(is, StandardCharsets.UTF_8);
 		String[] lines = text.split("\\r?\\n");
 		return Arrays.asList(lines);

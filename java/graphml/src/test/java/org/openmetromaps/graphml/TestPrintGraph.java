@@ -20,6 +20,7 @@ package org.openmetromaps.graphml;
 import java.io.InputStream;
 import java.util.Map;
 
+import de.topobyte.melon.resources.Resources;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.io.GraphIOException;
 
@@ -28,8 +29,7 @@ public class TestPrintGraph
 
 	public static void main(String[] args) throws GraphIOException
 	{
-		InputStream input = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("wien.graphml");
+		InputStream input = Resources.stream("wien.graphml");
 
 		GraphMLReader graphMLReader = new GraphMLReader();
 		GraphWithData graphWithData = graphMLReader.read(input);

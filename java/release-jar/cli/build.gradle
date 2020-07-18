@@ -9,8 +9,8 @@ task jarCli(type: Jar) {
     manifest {
         attributes 'Main-Class': 'org.openmetromaps.cli.OpenMetroMapsCli'
     }
-    baseName = 'openmetromaps-cli'
-    destinationDir = file("$rootDir/release")
+    archiveBaseName = 'openmetromaps-cli'
+    destinationDirectory = file("$rootDir/release")
     from {
         configurations.runtime.collect {
             it.isDirectory() ? it : zipTree(it)

@@ -263,7 +263,7 @@ configure(allLibraries) {
     }
 
     project.archivesBaseName = project.archivesBaseName.replaceAll('^openmetromaps', 'omm')
-    jar.baseName = jar.baseName.replaceAll('^openmetromaps', 'omm')
+    jar.archiveBaseName = jar.archiveBaseName.get().replaceAll('^openmetromaps', 'omm')
 
     afterEvaluate { project ->
         uploadArchives {

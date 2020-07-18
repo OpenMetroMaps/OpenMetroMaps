@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':openmetromaps-ui-selector')
+    api project(':openmetromaps-ui-selector')
 }
 
 task releaseJars(dependsOn: ['jar', 'jarUiSelector']) {

@@ -1,8 +1,8 @@
 dependencies {
-    compile project(':openmetromaps-maps-core')
+    api project(':openmetromaps-maps-core')
 
     compileOnly 'com.google.gwt:gwt-user:2.8.2'
 
-    compile 'de.topobyte:viewports-gwt:0.0.3'
-    compile 'de.topobyte:simple-formatting:0.0.3'
+    api 'de.topobyte:viewports-gwt:0.0.3'
+    api 'de.topobyte:simple-formatting:0.0.3'
 }

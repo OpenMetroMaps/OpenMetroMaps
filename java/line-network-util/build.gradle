@@ -1,12 +1,12 @@
 dependencies {
-    compile project(':openmetromaps-maps-model')
-    compile project(':openmetromaps-maps-model-util')
-    compile project(':openmetromaps-lightgeom')
+    api project(':openmetromaps-maps-model')
+    api project(':openmetromaps-maps-model-util')
+    api project(':openmetromaps-lightgeom')
 
-    compile 'de.topobyte:collections-utils:0.0.5'
-    compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
+    api 'de.topobyte:collections-utils:0.0.5'
+    api 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
 
-    testCompile 'junit:junit:4.12'
-    testCompile project(':openmetromaps-maps-model-xml-converter')
-    testCompile project(':openmetromaps-test-data')
+    testImplementation 'junit:junit:4.12'
+    testImplementation project(':openmetromaps-maps-model-xml-converter')
+    testImplementation project(':openmetromaps-test-data')
 }

@@ -1,4 +1,4 @@
 dependencies {
-    compile project(':openmetromaps-maps-model-xml')
-    compile project(':openmetromaps-line-network-util')
+    api project(':openmetromaps-maps-model-xml')
+    api project(':openmetromaps-line-network-util')
 }

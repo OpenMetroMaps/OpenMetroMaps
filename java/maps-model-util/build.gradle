@@ -1,12 +1,12 @@
 dependencies {
-    compile project(':openmetromaps-maps-model')
-    compile project(':openmetromaps-lightgeom')
+    api project(':openmetromaps-maps-model')
+    api project(':openmetromaps-lightgeom')
 
-    compile 'de.topobyte:adt-geo:0.0.4'
-    compile 'de.topobyte:jsi-rectangle-intersection-tester:0.0.1'
-    compile 'de.topobyte:lightweight-geometry:1.0.0'
-    compile 'de.topobyte:lightweight-geometry-convex-hull:1.0.0'
-    compile 'de.topobyte:geomath:0.0.2'
-    compile 'de.topobyte:simple-formatting:0.0.3'
-    compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
+    api 'de.topobyte:adt-geo:0.0.4'
+    api 'de.topobyte:jsi-rectangle-intersection-tester:0.0.1'
+    api 'de.topobyte:lightweight-geometry:1.0.0'
+    api 'de.topobyte:lightweight-geometry-convex-hull:1.0.0'
+    api 'de.topobyte:geomath:0.0.2'
+    api 'de.topobyte:simple-formatting:0.0.3'
+    api 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
 }

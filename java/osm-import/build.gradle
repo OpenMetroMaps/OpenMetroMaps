@@ -1,15 +1,15 @@
 dependencies {
-    compile project(':openmetromaps-maps-model-xml-desktop')
-    compile project(':openmetromaps-osm-model')
-    compile project(':openmetromaps-osm-model-converter')
+    api project(':openmetromaps-maps-model-xml-desktop')
+    api project(':openmetromaps-osm-model')
+    api project(':openmetromaps-osm-model-converter')
 
-    compile 'de.topobyte:osm4j-xml:0.1.1'
-    compile 'de.topobyte:melon-io:0.0.1'
+    api 'de.topobyte:osm4j-xml:0.1.1'
+    api 'de.topobyte:melon-io:0.0.1'
 
-    compile 'org.apache.httpcomponents:httpclient:4.5.5'
+    api 'org.apache.httpcomponents:httpclient:4.5.5'
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
-    testRuntime 'org.slf4j:slf4j-log4j12:1.6.1'
-    testRuntime 'log4j:log4j:1.2.16'
+    testRuntimeOnly 'org.slf4j:slf4j-log4j12:1.6.1'
+    testRuntimeOnly 'log4j:log4j:1.2.16'
 }

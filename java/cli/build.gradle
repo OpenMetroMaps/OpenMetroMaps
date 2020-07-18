@@ -1,26 +1,26 @@
 dependencies {
-    compile project(':openmetromaps-import-config')
-    compile project(':openmetromaps-osm')
-    compile project(':openmetromaps-osm-model')
-    compile project(':openmetromaps-osm-model-inspector')
-    compile project(':openmetromaps-osm-import')
-    compile project(':openmetromaps-maps-editor')
-    compile project(':openmetromaps-maps-viewer')
-    compile project(':openmetromaps-maps-morpher')
-    compile project(':openmetromaps-maps-batik')
-    compile project(':openmetromaps-maps-model-xml-converter')
-    compile project(':openmetromaps-new-format')
-    compile project(':openmetromaps-gtfs-import')
-    compile project(':openmetromaps-gtfs-model-converter')
-    compile project(':openmetromaps-graphml')
-    compile project(':openmetromaps-markdown-view')
-    compile project(':openmetromaps-ui-selector')
+    implementation project(':openmetromaps-import-config')
+    implementation project(':openmetromaps-osm')
+    implementation project(':openmetromaps-osm-model')
+    implementation project(':openmetromaps-osm-model-inspector')
+    implementation project(':openmetromaps-osm-import')
+    implementation project(':openmetromaps-maps-editor')
+    implementation project(':openmetromaps-maps-viewer')
+    implementation project(':openmetromaps-maps-morpher')
+    implementation project(':openmetromaps-maps-batik')
+    implementation project(':openmetromaps-maps-model-xml-converter')
+    implementation project(':openmetromaps-new-format')
+    implementation project(':openmetromaps-gtfs-import')
+    implementation project(':openmetromaps-gtfs-model-converter')
+    implementation project(':openmetromaps-graphml')
+    implementation project(':openmetromaps-markdown-view')
+    implementation project(':openmetromaps-ui-selector')
 
-    compile 'de.topobyte:commons-cli-helper:0.1.0'
-    compile 'de.topobyte:melon-enums:0.0.1'
+    implementation 'de.topobyte:commons-cli-helper:0.1.0'
+    implementation 'de.topobyte:melon-enums:0.0.1'
 
-    runtime 'org.slf4j:slf4j-log4j12:1.6.1'
-    runtime 'log4j:log4j:1.2.16'
+    runtimeOnly 'org.slf4j:slf4j-log4j12:1.6.1'
+    runtimeOnly 'log4j:log4j:1.2.16'
 }
 
 task copyJars(type: Copy) {

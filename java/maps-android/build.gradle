@@ -1,6 +1,6 @@
 dependencies {
-    compile project(':openmetromaps-maps-core')
+    api project(':openmetromaps-maps-core')
 
-    compile 'de.topobyte:lightweight-geometry-android:1.0.0'
-    compile 'com.google.android:android:4.1.1.4'
+    api 'de.topobyte:lightweight-geometry-android:1.0.0'
+    api 'com.google.android:android:4.1.1.4'
 }

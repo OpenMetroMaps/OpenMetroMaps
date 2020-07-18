@@ -1,4 +1,4 @@
 dependencies {
-    compile project(':openmetromaps-raw-station-model')
-    compile project(':openmetromaps-xml-dom-abstraction')
+    api project(':openmetromaps-raw-station-model')
+    api project(':openmetromaps-xml-dom-abstraction')
 }

@@ -1,6 +1,6 @@
 dependencies {
-    compile 'de.topobyte:viewports-core:0.0.3'
-    compile 'de.topobyte:lightweight-geometry:1.0.0'
+    api 'de.topobyte:viewports-core:0.0.3'
+    api 'de.topobyte:lightweight-geometry:1.0.0'
 
-    compile 'org.slf4j:slf4j-api:1.6.1'
+    api 'org.slf4j:slf4j-api:1.6.1'
 }

@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':openmetromaps-xml-dom-abstraction')
+    api project(':openmetromaps-xml-dom-abstraction')
 
-    compile 'com.google.gwt:gwt-servlet:2.7.0'
+    api 'com.google.gwt:gwt-servlet:2.7.0'
 }

@@ -1,14 +1,14 @@
 dependencies {
-    compile project(':openmetromaps-station-model')
-    compile project(':openmetromaps-line-network-util')
-    compile 'com.google.guava:guava:19.0'
+    api project(':openmetromaps-station-model')
+    api project(':openmetromaps-line-network-util')
+    api 'com.google.guava:guava:19.0'
 
-    testCompile project(':openmetromaps-maps-model-xml-converter')
-    testCompile project(':openmetromaps-raw-station-model-xml-desktop')
-    testCompile project(':openmetromaps-test-data')
+    testImplementation project(':openmetromaps-maps-model-xml-converter')
+    testImplementation project(':openmetromaps-raw-station-model-xml-desktop')
+    testImplementation project(':openmetromaps-test-data')
 
-    testCompile 'org.openmetromaps.gtfs4j:gtfs4j-csv-util:0.0.1'
+    testImplementation 'org.openmetromaps.gtfs4j:gtfs4j-csv-util:0.0.1'
 
-    testRuntime 'org.slf4j:slf4j-log4j12:1.6.1'
-    testRuntime 'log4j:log4j:1.2.16'
+    testRuntimeOnly 'org.slf4j:slf4j-log4j12:1.6.1'
+    testRuntimeOnly 'log4j:log4j:1.2.16'
 }

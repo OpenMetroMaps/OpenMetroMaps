@@ -43,8 +43,19 @@ public class TestImportOverpassBerlinSU
 		OverpassApiImporter importer = new OverpassApiImporter();
 
 		List<Fix> fixes = new ArrayList<>();
+
 		List<String> prefixes = new ArrayList<>();
+		prefixes.add("S ");
+		prefixes.add("U ");
+		prefixes.add("S+U ");
+
 		List<String> suffixes = new ArrayList<>();
+		suffixes.add(" Bhf (Berlin)");
+		suffixes.add(" (Berlin)");
+		suffixes.add(" Bhf");
+		for (int i = 1; i <= 9; i++) {
+			suffixes.add(String.format(" (Berlin) [U%d]", i));
+		}
 
 		ModelData data = importer.execute(OverpassQueries.Q_BERLIN_SU,
 				new RouteTypeFilter("train", "subway"), prefixes, suffixes,

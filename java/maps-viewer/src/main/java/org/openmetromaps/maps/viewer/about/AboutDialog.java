@@ -45,7 +45,7 @@ public class AboutDialog extends JDialog
 	{
 		super(owner, "OpenMetroMaps Map Editor");
 
-		aboutPanel = new AboutPanel("res/about.html");
+		aboutPanel = new AboutPanel("res/about-viewer.html");
 		lgplPanel = new LicensePanel("res/lgpl.html");
 		gplPanel = new LicensePanel("res/gpl.html");
 

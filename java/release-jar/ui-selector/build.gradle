@@ -2,17 +2,19 @@ dependencies {
     api project(':openmetromaps-ui-selector')
 }
 
-task releaseJars(dependsOn: ['jar', 'jarUiSelector']) {
+task releaseJars(dependsOn: ['jarUiSelector']) {
 }
 
 task jarUiSelector(type: Jar) {
+    rootProject.subprojects.each {p -> p.tasks.findAll {task -> if(task.name == 'jar') dependsOn(task) } }
     manifest {
         attributes 'Main-Class': 'org.openmetromaps.uiselector.RunUiSelector'
     }
     archiveBaseName = 'openmetromaps-ui-selector'
+    duplicatesStrategy = DuplicatesStrategy.WARN
     destinationDirectory = file("$rootDir/release")
     from {
-        configurations.runtime.collect {
+        configurations.runtimeClasspath.collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }

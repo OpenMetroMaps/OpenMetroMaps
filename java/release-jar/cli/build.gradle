@@ -2,17 +2,19 @@ dependencies {
     api project(':openmetromaps-cli')
 }
 
-task releaseJars(dependsOn: ['jar', 'jarCli']) {
+task releaseJars(dependsOn: ['jarCli']) {
 }
 
 task jarCli(type: Jar) {
+    rootProject.subprojects.each {p -> p.tasks.findAll {task -> if(task.name == 'jar') dependsOn(task) } }
     manifest {
         attributes 'Main-Class': 'org.openmetromaps.cli.OpenMetroMapsCli'
     }
     archiveBaseName = 'openmetromaps-cli'
+    duplicatesStrategy = DuplicatesStrategy.WARN
     destinationDirectory = file("$rootDir/release")
     from {
-        configurations.runtime.collect {
+        configurations.runtimeClasspath.collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }

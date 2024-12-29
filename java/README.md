@@ -207,7 +207,7 @@ Run the following to build the release artifacts:
 
     ./gradlew clean
     ./gradlew checkUploadArtifactList
-    ./gradlew -P topobyte upload
+    ./gradlew -P topobyte publish
 
 Where the last command requires you to have a special Gradle configuration
 file in your Gradle user directory (`~/.gradle/topobyte.gradle`) with the

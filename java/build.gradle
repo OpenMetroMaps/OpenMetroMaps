@@ -1,5 +1,5 @@
 wrapper {
-    gradleVersion = '6.5.1'
+    gradleVersion = '7.6.2'
 }
 
 allprojects {
@@ -31,7 +31,7 @@ subprojects {
     task showInterModuleDependencies {
         doLast {
             println "module '$project.name'"
-            project.configurations.compile.resolvedConfiguration.resolvedArtifacts.each {
+            project.configurations.runtimeClasspath.resolvedConfiguration.resolvedArtifacts.each {
                 if (it.id instanceof org.gradle.internal.component.local.model.PublishArtifactLocalArtifactMetadata) {
                     def component = it.id.componentIdentifier
                     if (component instanceof org.gradle.api.internal.artifacts.DefaultProjectComponentIdentifier) {
@@ -145,7 +145,7 @@ task checkUploadArtifactList {
             queue.remove(it)
             println "lib: $it"
             set.add(it)
-            it.configurations.compile.resolvedConfiguration.resolvedArtifacts.each {
+            it.configurations.runtimeClasspath.resolvedConfiguration.resolvedArtifacts.each {
                 if (it.id instanceof org.gradle.internal.component.local.model.PublishArtifactLocalArtifactMetadata) {
                     def component = it.id.componentIdentifier
                     if (component instanceof org.gradle.api.internal.artifacts.DefaultProjectComponentIdentifier) {
@@ -223,13 +223,7 @@ task checkUploadArtifactList {
 }
 
 configure(allLibraries) {
-
-    apply plugin: 'maven'
-
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
+    apply plugin: 'maven-publish'
 
     def runForArtifactPublication = project.hasProperty("topobyte")
 
@@ -238,17 +232,8 @@ configure(allLibraries) {
             + '/.gradle/topobyte.gradle'
     }
 
-    artifacts {
-        archives sourcesJar
-    }
-
-    if (runForArtifactPublication && !librariesJava8.contains(project)) {
-        sourceCompatibility = 1.7
-        targetCompatibility = 1.7
-
-        configure([compileJava, compileTestJava]) {
-            options.bootstrapClasspath = files(jdk7rtjar)
-        }
+    java {
+        withSourcesJar()
     }
 
     def global = new File(rootProject.projectDir, 'info.pom');
@@ -263,28 +248,20 @@ configure(allLibraries) {
         projDesc = pomInfoL.description
     }
 
-    project.archivesBaseName = project.archivesBaseName.replaceAll('^openmetromaps', 'omm')
-    jar.archiveBaseName = jar.archiveBaseName.get().replaceAll('^openmetromaps', 'omm')
-
-    afterEvaluate { project ->
-        uploadArchives {
-            repositories {
-                mavenDeployer {
-                    pom.project {
-                        name projName
-                        description projDesc
-                        url pomInfo.url
-                        licenses {
-                            license {
-                                name pomInfo.licenseName
-                                url pomInfo.licenseUrl
-                                distribution pomInfo.licenseDistribution
-                            }
-                        }
-                    }
-                    pom.whenConfigured {
-                        p -> p.dependencies = p.dependencies.findAll {
-                            dep -> dep.scope != "test"
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                artifactId = project.name.replaceAll('^openmetromaps', 'omm')
+                from components.java
+                pom {
+                    name = "$projName"
+                    description = "$projDesc"
+                    url = "$pomInfo.url"
+                    licenses {
+                        license {
+                            name = "$pomInfo.licenseName"
+                            url = "$pomInfo.licenseUrl"
+                            distribution = "$pomInfo.licenseDistribution"
                         }
                     }
                 }

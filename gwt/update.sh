@@ -1,13 +1,15 @@
 #!/bin/bash
 
+set -e
+
 DIR=$(dirname $0)
 
 rm -rf test
-"$DIR/gradlew" compileGwt
+"$DIR/gradlew" gwtCompile
 mkdir test
 
-OUT="build/gwt/out"
-OUTPUT=$(ls $OUT | grep -v WEB-INF)
+OUT="build/gwt"
+OUTPUT="demo simple scrollable_simple scrollable_advanced"
 for DIR in $OUTPUT; do
 	cp -a "$OUT/$DIR" test
 done

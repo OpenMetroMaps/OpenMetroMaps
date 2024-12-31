@@ -1,30 +1,32 @@
 wrapper {
-    gradleVersion = '5.2.1'
+    gradleVersion = '8.3'
 }
 
 buildscript {
     repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
-        maven { url 'http://mvn.topobyte.de' }
+        maven { url 'https://mvn.topobyte.de' }
     }
     dependencies {
-        classpath 'org.wisepersist:gwt-gradle-plugin:1.0.4'
-        classpath('de.topobyte:gradle-dependency-info-plugin:0.0.1');
-        classpath('de.topobyte:gradle-dependency-unpack-plugin:0.0.2');
+        classpath 'org.docstr.gwt:gwt-gradle-plugin:2.1.6'
+        classpath('de.topobyte:gradle-dependency-info-plugin:0.0.3');
+        classpath('de.topobyte:gradle-dependency-unpack-plugin:0.0.3');
     }
 }
 
 repositories {
     maven {
-        url 'http://mvn.topobyte.de'
+        url 'https://mvn.topobyte.de'
     }
     maven {
-        url 'http://mvn.slimjars.com'
+        url 'https://mvn.slimjars.com'
     }
     mavenCentral()
 }
 
-apply plugin: 'gwt'
+apply plugin: 'java'
+apply plugin: 'org.docstr.gwt'
 apply plugin: 'eclipse'
 apply plugin: 'de.topobyte.dependency-info-gradle-plugin'
 apply plugin: 'de.topobyte.dependency-unpack-gradle-plugin'
@@ -32,46 +34,58 @@ apply plugin: 'de.topobyte.dependency-unpack-gradle-plugin'
 task allDeps(type: DependencyReportTask) {}
 
 gwt {
-    gwtVersion='2.8.1'
+    gwtVersion = '2.12.1'
 
-    modules 'org.openmetromaps.maps.gwt.Simple'
-    modules 'org.openmetromaps.maps.gwt.ScrollableSimple'
-    modules 'org.openmetromaps.maps.gwt.ScrollableAdvanced'
-    modules 'org.openmetromaps.maps.gwt.Demo'
+    modules = ['org.openmetromaps.maps.gwt.Simple',
+               'org.openmetromaps.maps.gwt.ScrollableSimple',
+               'org.openmetromaps.maps.gwt.ScrollableAdvanced',
+               'org.openmetromaps.maps.gwt.Demo']
 
     compiler {
         strict = true;
-        disableClassMetadata = true;
-        disableCastChecking = true;
+        classMetadata = false;
+        // TODO: do we need to re-enable these?
+        // draftCompile = true;
+        //disableCastChecking = true;
     }
 }
 
-compileGwt {
-    minHeapSize = "512M";
-    maxHeapSize = "1024M";
+// TODO: how can we configure this again?
+//compileGwt {
+//    minHeapSize = "512M";
+//    maxHeapSize = "1024M";
+//}
+
+// Use a custom configuration for the main dependencies. We need to be able to reference
+// these ones for dependency unpacking. The GWT plugin adds the gwt-user and gwt-dev
+// dependencies to the 'implementation' configuration which pull in a large tree of
+// transitive dependencies. So when we unpack the 'implementation' dependency set,
+// we unpack a whole lot more dependencies than just the few ones were adding ourselves.
+configurations {
+    gwtdeps
 }
 
 dependencies {
-    compile 'de.topobyte:viewports-gwt:0.0.3'
-    compile 'de.topobyte:adt-geo:0.0.4'
-    compile 'de.topobyte:adt-misc:0.0.2'
-    compile 'de.topobyte:jsi-rectangle-intersection-tester:0.0.1'
-    compile 'de.topobyte:lightweight-geometry:1.0.0'
-    compile 'de.topobyte:lightweight-geometry-convex-hull:1.0.0'
-    compile 'de.topobyte:geomath:0.0.2'
-    compile 'de.topobyte:line-printer-core:0.0.1'
-    compile 'de.topobyte:line-printer-slf4j:0.0.1'
-    compile 'de.topobyte:simple-formatting:0.0.3'
-    compile 'de.topobyte:system-utils:0.0.1'
-    compile 'de.topobyte:collections-utils:0.0.5'
-    compile 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
-    compile 'de.topobyte:slf4j-transpilable-binding-jdk:0.0.3'
+    gwtdeps 'de.topobyte:viewports-gwt:0.0.3'
+    gwtdeps 'de.topobyte:adt-geo:0.0.4'
+    gwtdeps 'de.topobyte:adt-misc:0.0.2'
+    gwtdeps 'de.topobyte:jsi-rectangle-intersection-tester:0.0.1'
+    gwtdeps 'de.topobyte:lightweight-geometry:1.0.0'
+    gwtdeps 'de.topobyte:lightweight-geometry-convex-hull:1.0.0'
+    gwtdeps 'de.topobyte:geomath:0.0.2'
+    gwtdeps 'de.topobyte:line-printer-core:0.0.1'
+    gwtdeps 'de.topobyte:line-printer-slf4j:0.0.1'
+    gwtdeps 'de.topobyte:simple-formatting:0.0.3'
+    gwtdeps 'de.topobyte:system-utils:0.0.1'
+    gwtdeps 'de.topobyte:collections-utils:0.0.5'
+    gwtdeps 'com.slimjars.trove4j:trove4j-int-hash-set:1.0.1'
+    gwtdeps 'de.topobyte:slf4j-transpilable-binding-jdk:0.0.3'
 }
 
 configurations {
-    compile.exclude group: "org.slf4j", module: "slf4j-api"
-    compile.exclude group: "com.vividsolutions", module: "jts"
-    compile.exclude group: "com.slimjars.trove4j", module: "trove4j-object-int-hash-map"
+    gwtdeps.exclude group: "org.slf4j", module: "slf4j-api"
+    gwtdeps.exclude group: "com.vividsolutions", module: "jts"
+    gwtdeps.exclude group: "com.slimjars.trove4j", module: "trove4j-object-int-hash-map"
 }
 
 sourceSets {
@@ -96,9 +110,17 @@ sourceSets {
     }
 }
 
+depinfo {
+    configuration "gwtdeps"
+}
+
+depunpack {
+    configuration "gwtdeps"
+}
+
 task depfiles {
     doLast {
-        project.configurations.compile.each { println it.name }
+        project.configurations.gwtdeps.each { println it.name }
     }
 }
 

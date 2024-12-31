@@ -39,15 +39,15 @@ JAMA_MATRIX="$DIR/jama/Matrix.java"
 "$JT/remove-method-annotation.sh" clone Override "$JAMA_MATRIX"
 
 MATRIX="$DIR/de/topobyte/lina/Matrix.java"
-"$JT/substitute.sh" \
+"$JT/substitute-literal.sh" \
     "System.getProperty(\"line.separator\")" "\"\n\"" "$MATRIX"
 
 TINTOBJECTHASHMAP="$DIR/com/slimjars/dist/gnu/trove/map/hash/TIntObjectHashMap.java"
-"$JT/substitute.sh" \
-    "dest = (V[]) java.lang.reflect.Array.newInstance(dest.getClass().getComponentType(), _size);" \
+"$JT/substitute-pattern.sh" \
+    "dest = \( V\[\] \) java.lang.reflect.Array.newInstance\(\\s*dest.getClass\(\).getComponentType\(\), _size\);" \
     "dest = javaemul.internal.ArrayHelper.createFrom(dest, _size);"\
     "$TINTOBJECTHASHMAP"
-"$JT/substitute.sh" \
-    "a = (T[]) java.lang.reflect.Array.newInstance(a.getClass().getComponentType(), size);" \
+"$JT/substitute-pattern.sh" \
+    "a = \(T\[\]\) java.lang.reflect.Array.newInstance\(\\s*a.getClass\(\).getComponentType\(\), size \);" \
     "a = javaemul.internal.ArrayHelper.createFrom(a, size);"\
     "$TINTOBJECTHASHMAP"

@@ -27,7 +27,7 @@ maps for public transport networks.
 There's no formal specification of the file format yet and features of the
 format are still under construction.
 See an [example file](example-data/example.xml)
-or the [Berlin testing file](java/test-data/src/main/resources/berlin.xml)
+or the [Berlin testing file](java/test-data/src/main/resources/berlin.omm)
 to get an idea of how it's going to look.
 See the [specification draft](spec-map-format.md).
 

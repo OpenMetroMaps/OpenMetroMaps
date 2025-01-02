@@ -25,14 +25,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.apache.commons.compress.utils.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 
 public class OverpassApiDownloader
 {
@@ -55,29 +52,13 @@ public class OverpassApiDownloader
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		ResponseHandler<Void> handler = new ResponseHandler<Void>() {
-
-			@Override
-			public Void handleResponse(HttpResponse response)
-					throws ClientProtocolException, IOException
-			{
-
-				int status = response.getStatusLine().getStatusCode();
-				if (status == 200) {
-					HttpEntity entity = response.getEntity();
-					InputStream input = entity.getContent();
-
-					IOUtils.copy(input, output);
-					return null;
-				} else {
-					throw new ClientProtocolException(
-							"Unexpected response status: " + status);
-				}
+		httpclient.execute(post, response -> {
+			if (response.getCode() == 200) {
+				HttpEntity entity = response.getEntity();
+				InputStream input = entity.getContent();
+				IOUtils.copy(input, output);
 			}
-
-		};
-
-		httpclient.execute(post, handler);
+			return null;
+		});
 	}
-
 }

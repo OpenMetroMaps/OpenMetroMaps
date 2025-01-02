@@ -22,14 +22,12 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.hc.client5.http.ClientProtocolException;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.model.osm.DraftModel;
 import org.openmetromaps.model.osm.DraftModelConverter;
@@ -56,32 +54,19 @@ public class OverpassApiImporter
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		ResponseHandler<InMemoryMapDataSet> handler = new ResponseHandler<InMemoryMapDataSet>() {
+		InMemoryMapDataSet data = httpclient.execute(post, response -> {
+			int status = response.getCode();
+			if (status == 200) {
+				HttpEntity entity = response.getEntity();
+				InputStream input = entity.getContent();
 
-			@Override
-			public InMemoryMapDataSet handleResponse(HttpResponse response)
-					throws ClientProtocolException, IOException
-			{
-
-				int status = response.getStatusLine().getStatusCode();
-				if (status == 200) {
-					HttpEntity entity = response.getEntity();
-					InputStream input = entity.getContent();
-
-					OsmIterator iterator = new OsmXmlIterator(input, true);
-					InMemoryMapDataSet data = MapDataSetLoader.read(iterator,
-							true, true, true);
-
-					return data;
-				} else {
-					throw new ClientProtocolException(
-							"Unexpected response status: " + status);
-				}
+				OsmIterator iterator = new OsmXmlIterator(input, true);
+				return MapDataSetLoader.read(iterator, true, true, true);
+			} else {
+				throw new ClientProtocolException(
+						"Unexpected response status: " + status);
 			}
-
-		};
-
-		InMemoryMapDataSet data = httpclient.execute(post, handler);
+		});
 
 		System.out.println(String.format("%d, %d, %d", data.getNodes().size(),
 				data.getWays().size(), data.getRelations().size()));

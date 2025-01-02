@@ -55,4 +55,19 @@ public class OverpassQueries
 			+ ");" //
 			+ "out;";
 
+	public static String Q_RHEINBAHN = "(" //
+			+ "(" //
+			+ "  relation" //
+			+ "    [route=subway]" //
+			+ "    [network=\"VRR\"]" //
+			+ "    [operator~\"Rheinbahn\"];" //
+			+ "  relation" //
+			+ "    [route=tram]" //
+			+ "    [network=\"VRR\"]" //
+			+ "    [operator~\"Rheinbahn\"];" //
+			+ ");" //
+			+ ">;" //
+			+ ");" //
+			+ "out;";
+
 }

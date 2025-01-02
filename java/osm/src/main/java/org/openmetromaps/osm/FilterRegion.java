@@ -22,11 +22,11 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 
 import org.apache.commons.io.FileUtils;
+import org.locationtech.jts.geom.Geometry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.Files;
-import com.vividsolutions.jts.geom.Geometry;
 
 import de.topobyte.melon.io.StreamUtil;
 import de.topobyte.osm4j.core.access.OsmIteratorInput;

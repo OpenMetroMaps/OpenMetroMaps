@@ -1,5 +1,5 @@
 dependencies {
-    api 'de.topobyte:swing-utils:0.0.11'
+    api 'de.topobyte:swing-utils:0.0.13'
     api 'de.topobyte:awt-utils:0.0.3'
     api 'de.topobyte:system-utils:0.0.1'
     api 'de.topobyte:melon-resources:0.0.1'

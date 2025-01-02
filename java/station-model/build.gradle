@@ -2,6 +2,6 @@ dependencies {
     api project(':openmetromaps-maps-model')
     api project(':openmetromaps-raw-station-model')
 
-    api 'de.topobyte:collections-utils:0.0.4'
+    api 'de.topobyte:collections-utils:0.0.5'
     api 'org.slf4j:slf4j-api:1.6.1'
 }

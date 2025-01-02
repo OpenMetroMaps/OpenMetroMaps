@@ -5,10 +5,10 @@ dependencies {
     api project(':openmetromaps-ui-resources')
     api project(':openmetromaps-swing-misc')
 
-    api 'de.topobyte:swing-utils:0.0.11'
+    api 'de.topobyte:swing-utils:0.0.13'
     api 'de.topobyte:awt-utils:0.0.3'
-    api 'de.topobyte:collections-utils:0.0.4'
-    api 'de.topobyte:melon-io:0.0.1'
+    api 'de.topobyte:collections-utils:0.0.5'
+    api 'de.topobyte:melon-io:0.1.0'
     api 'de.topobyte:melon-resources:0.0.1'
 
     api 'com.google.guava:guava:19.0'

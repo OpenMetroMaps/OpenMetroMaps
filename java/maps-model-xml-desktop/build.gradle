@@ -3,5 +3,5 @@ dependencies {
     api project(':openmetromaps-xml-dom-abstraction-desktop')
     api project(':openmetromaps-maps-model-util')
 
-    api 'de.topobyte:xml4jah-dom:0.0.2'
+    api 'de.topobyte:xml4jah-dom:0.0.6'
 }

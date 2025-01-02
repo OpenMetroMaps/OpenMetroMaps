@@ -3,9 +3,9 @@ dependencies {
     api project(':openmetromaps-line-network-util')
     api project(':openmetromaps-heavy-util')
 
-    api 'de.topobyte:collections-utils:0.0.4'
-    api 'de.topobyte:webpaths-core:0.0.1'
-    api 'de.topobyte:webpaths-nio:0.0.1'
+    api 'de.topobyte:collections-utils:0.0.5'
+    api 'de.topobyte:webpaths-core:0.0.4'
+    api 'de.topobyte:webpaths-nio:0.0.4'
 
     testImplementation project(':openmetromaps-maps-model-xml-converter')
     testImplementation project(':openmetromaps-test-data')

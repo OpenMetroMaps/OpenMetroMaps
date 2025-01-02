@@ -2,7 +2,7 @@ dependencies {
     api project(':openmetromaps-misc-util')
 
     api 'org.openmetromaps.gtfs4j:gtfs4j-csv-util:0.0.1'
-    api 'de.topobyte:collections-utils:0.0.4'
+    api 'de.topobyte:collections-utils:0.0.5'
     api 'com.google.guava:guava:19.0'
     api 'commons-io:commons-io:2.6'
 

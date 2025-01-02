@@ -21,6 +21,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
 import de.topobyte.osm4j.utils.FileFormat;
+import de.topobyte.osm4j.utils.config.ConfigurationException;
 import de.topobyte.osm4j.utils.config.PbfConfig;
 import de.topobyte.osm4j.utils.config.PbfOptions;
 import de.topobyte.osm4j.utils.config.TboConfig;
@@ -84,6 +85,7 @@ public class OsmOptions
 	}
 
 	public static Output parseOutput(CommandLine line)
+			throws ConfigurationException
 	{
 		Output output = new Output();
 		String inputFormatName = line.getOptionValue(OPTION_INPUT_FORMAT);

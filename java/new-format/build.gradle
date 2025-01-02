@@ -3,7 +3,7 @@ dependencies {
     api project(':openmetromaps-maps-core')
     api project(':openmetromaps-maps-awt')
 
-    api 'de.topobyte:xml4jah-dom:0.0.2'
+    api 'de.topobyte:xml4jah-dom:0.0.6'
     api 'com.google.guava:guava:19.0'
 
     testImplementation project(':openmetromaps-maps-model-xml-converter')

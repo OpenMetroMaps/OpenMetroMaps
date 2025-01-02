@@ -58,7 +58,7 @@ public class TestImportOverpassBerlinSU
 		}
 
 		ModelData data = importer.execute(OverpassQueries.Q_BERLIN_SU,
-				new RouteTypeFilter("train", "subway"), prefixes, suffixes,
+				new RouteTypeFilter("subway", "light_rail"), prefixes, suffixes,
 				fixes);
 
 		System.out.println(String.format("Imported %d lines with %d stations",

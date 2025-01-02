@@ -60,6 +60,7 @@ import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.painting.core.ColorCode;
+import org.openmetromaps.maps.viewer.MapsViewerConstants;
 import org.openmetromaps.maps.viewer.actions.help.AboutAction;
 import org.openmetromaps.maps.viewer.actions.help.LicenseAction;
 import org.openmetromaps.mobidig.actions.file.ExitAction;
@@ -78,6 +79,7 @@ import bibliothek.gui.dock.common.DefaultSingleCDockable;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.jeography.viewer.config.TileConfigUrl;
 import de.topobyte.jeography.viewer.core.Viewer;
+import de.topobyte.jeography.viewer.util.ActionUtil;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
 import de.topobyte.melon.resources.Resources;
@@ -246,8 +248,8 @@ public class MapViewer
 		viewer.setDrawCrosshair(false);
 		viewer.setDrawBorder(false);
 		viewer.setDrawTileNumbers(false);
-		viewer.getMapWindow().zoom(15);
-		viewer.getMapWindow().setMaxZoom(19);
+		viewer.getMapWindow().zoom(MapsViewerConstants.DEFAULT_OSM_ZOOM);
+		viewer.getMapWindow().setMaxZoom(MapsViewerConstants.DEFAULT_MAX_ZOOM);
 		viewer.getMapWindow().setTileSize(256);
 
 		InputMap inputMap = viewer
@@ -266,6 +268,9 @@ public class MapViewer
 				new JeographyZoomAction(viewer, ZoomAction.Type.OUT));
 		actionMap.put("Ctrl+1",
 				new JeographyZoomAction(viewer, ZoomAction.Type.IDENTITY));
+
+		ActionUtil.setupMovementActions(viewer, inputMap, actionMap);
+		ActionUtil.setupZoomActions(viewer, inputMap, actionMap);
 
 		frameMap = new JFrame("Map");
 		frameMap.add(viewer);

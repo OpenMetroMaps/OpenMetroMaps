@@ -25,7 +25,10 @@
 * exporting to image files
 
 # MapViewer
+
+## Done
 * Map integration: add keyboard shortcuts
+* Map integration: open on usage, if not yet opened
 
 # File format
 

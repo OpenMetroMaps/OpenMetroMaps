@@ -19,6 +19,8 @@ package org.openmetromaps.maps.viewer.jeography;
 
 import java.awt.event.ActionEvent;
 
+import org.openmetromaps.maps.viewer.MapsViewerConstants;
+
 import de.topobyte.jeography.viewer.core.Viewer;
 import de.topobyte.swing.util.action.SimpleAction;
 import de.topobyte.viewports.scrolling.ZoomAction;
@@ -43,7 +45,7 @@ public class JeographyZoomAction extends SimpleAction
 	{
 		switch (type) {
 		case IDENTITY:
-			viewer.getMapWindow().zoom(13);
+			viewer.getMapWindow().zoom(MapsViewerConstants.DEFAULT_OSM_ZOOM);
 			break;
 		case IN:
 			viewer.getMapWindow().zoomIn();

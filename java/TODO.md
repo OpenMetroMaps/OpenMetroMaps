@@ -26,7 +26,6 @@
 
 # MapViewer
 * Map integration: add keyboard shortcuts
-* Map integration: open on usage, if not yet opened
 
 # File format
 

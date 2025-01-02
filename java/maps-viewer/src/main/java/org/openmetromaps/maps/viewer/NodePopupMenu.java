@@ -89,6 +89,10 @@ public class NodePopupMenu extends JPopupMenuWithTitle
 					String.format("open on map: %s @ %f,%f", station.getName(),
 							location.getLongitude(), location.getLatitude()));
 
+			if (!mapViewer.isShowMap()) {
+				mapViewer.setShowMap(true);
+			}
+
 			Viewer viewer = mapViewer.getMapViewer();
 			if (viewer == null) {
 				return;

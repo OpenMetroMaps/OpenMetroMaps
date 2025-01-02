@@ -246,6 +246,7 @@ public class MapViewer
 		viewer.setDrawCrosshair(false);
 		viewer.setDrawBorder(false);
 		viewer.setDrawTileNumbers(false);
+		viewer.getMapWindow().zoom(15);
 		viewer.getMapWindow().setMaxZoom(19);
 		viewer.getMapWindow().setTileSize(256);
 

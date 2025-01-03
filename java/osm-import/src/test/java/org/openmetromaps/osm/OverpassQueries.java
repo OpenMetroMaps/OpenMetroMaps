@@ -59,7 +59,7 @@ public class OverpassQueries
 			+ "(" //
 			+ "  relation" //
 			+ "    [route=subway]" //
-			+ "    [network=\"VRR\"]" //
+			+ "    [\"network:short\"=\"VRR\"]" //
 			+ "    [operator~\"Rheinbahn\"];" //
 			+ "  relation" //
 			+ "    [route=tram]" //

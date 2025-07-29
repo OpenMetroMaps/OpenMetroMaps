@@ -126,7 +126,7 @@ task depfiles {
 
 task depcoords {
     doLast {
-        project.configurations.compile.resolvedConfiguration.resolvedArtifacts.each {
+        project.configurations.gwtdeps.resolvedConfiguration.resolvedArtifacts.each {
             ComponentIdentifier ci = it.artifactId.componentIdentifier
             if (ci instanceof ModuleComponentIdentifier) {
                 ModuleComponentIdentifier mci = ci

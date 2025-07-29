@@ -61,7 +61,7 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 		Node mouseNode = mouseNode(e.getX(), e.getY());
 		if (mouseNode != null) {
 			ContextMenu menu = new ContextMenu(mouseNode);
-			menu.setPopupPosition(e.getX(), e.getY());
+			menu.setPopupPosition(e.getClientX(), e.getClientY());
 			menu.show();
 		}
 	}

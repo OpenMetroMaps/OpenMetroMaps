@@ -33,6 +33,15 @@ apply plugin: 'de.topobyte.dependency-unpack-gradle-plugin'
 
 task allDeps(type: DependencyReportTask) {}
 
+tasks.register('copyWebAppResources', Copy) {
+    from 'src/main/webapp'
+    into 'build/gwt/war'
+}
+
+tasks.named('gwtDevMode') {
+    dependsOn 'copyWebAppResources'
+}
+
 gwt {
     gwtVersion = '2.12.2'
 

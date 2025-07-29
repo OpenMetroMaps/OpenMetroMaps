@@ -25,3 +25,9 @@ You might need to install the `http-server` package using npm:
 
 When working with Eclipse, make sure to use GWT SDK version 2.8.1, otherwise
 there will be compile errors.
+
+It is also possible to run super dev mode using Gradle:
+
+    ./gradlew gwtDevMode
+
+Then visit `http://localhost:8888`.

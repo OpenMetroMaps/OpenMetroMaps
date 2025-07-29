@@ -23,6 +23,7 @@ import org.openmetromaps.maps.graph.Node;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.user.client.ui.Widget;
 
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
@@ -61,7 +62,12 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 		Node mouseNode = mouseNode(e.getX(), e.getY());
 		if (mouseNode != null) {
 			ContextMenu menu = new ContextMenu(mouseNode);
-			menu.setPopupPosition(e.getClientX(), e.getClientY());
+
+			Widget source = (Widget) e.getSource();
+			int x = source.getAbsoluteLeft() + e.getRelativeX(source.getElement());
+			int y = source.getAbsoluteTop() + e.getRelativeY(source.getElement());
+
+			menu.setPopupPosition(x, y);
 			menu.show();
 		}
 	}

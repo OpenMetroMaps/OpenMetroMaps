@@ -39,10 +39,12 @@ public class PanTouchProcessor<T extends HasSize & Renderable & Viewport & HasSc
 	private DragInfo dragInfo = null;
 
 	private T view;
+	private double devicePixelRatio;
 
 	public PanTouchProcessor(T view)
 	{
 		this.view = view;
+		devicePixelRatio = Util.getDevicePixelRatio();
 	}
 
 	@Override
@@ -85,8 +87,8 @@ public class PanTouchProcessor<T extends HasSize & Renderable & Viewport & HasSc
 		dragInfo.update(touch.getClientX(), touch.getClientY());
 		Coordinate delta = dragInfo.getDeltaToLast();
 
-		double dx = delta.getX() / view.getZoom();
-		double dy = delta.getY() / view.getZoom();
+		double dx = delta.getX() / view.getZoom() * devicePixelRatio;
+		double dy = delta.getY() / view.getZoom() * devicePixelRatio;
 		double nx = view.getPositionX() + dx;
 		double ny = view.getPositionY() + dy;
 

@@ -147,4 +147,8 @@ public class Util
 		return value.equals("true");
 	}
 
+	public static final native double getDevicePixelRatio() /*-{
+		return window.devicePixelRatio;
+	}-*/;
+
 }

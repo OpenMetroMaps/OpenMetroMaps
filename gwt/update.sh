@@ -3,12 +3,13 @@
 set -e
 
 DIR=$(dirname $0)
+OUT="build/gwt"
 
+rm -rf "$OUT"
 rm -rf test
 "$DIR/gradlew" gwtCompile
 mkdir test
 
-OUT="build/gwt"
 OUTPUT="demo simple scrollable_simple scrollable_advanced"
 for DIR in $OUTPUT; do
 	cp -a "$OUT/$DIR" test

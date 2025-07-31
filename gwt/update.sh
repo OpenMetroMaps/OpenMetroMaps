@@ -3,7 +3,7 @@
 set -e
 
 DIR=$(dirname $0)
-OUT="build/gwt"
+OUT="build/gwt/war"
 
 rm -rf "$OUT"
 rm -rf test

@@ -17,7 +17,9 @@
 
 package org.openmetromaps.maps.gwt;
 
-import com.google.gwt.dom.client.Touch;
+import org.openmetromaps.maps.gwt.touchevents.EventManager;
+import org.openmetromaps.maps.gwt.touchevents.EventManagerManaged;
+
 import com.google.gwt.event.dom.client.TouchCancelEvent;
 import com.google.gwt.event.dom.client.TouchEndEvent;
 import com.google.gwt.event.dom.client.TouchMoveEvent;
@@ -25,76 +27,46 @@ import com.google.gwt.event.dom.client.TouchStartEvent;
 
 import de.topobyte.viewports.HasSize;
 import de.topobyte.viewports.Renderable;
-import de.topobyte.viewports.geometry.Coordinate;
-import de.topobyte.viewports.scrolling.DragInfo;
 import de.topobyte.viewports.scrolling.HasMargin;
 import de.topobyte.viewports.scrolling.HasScene;
 import de.topobyte.viewports.scrolling.Viewport;
 
-public class PanTouchProcessor<T extends HasSize & Renderable & Viewport & HasScene & HasMargin>
+public class PanTouchProcessor<T extends HasSize & Renderable & Viewport & HasScene & HasMargin & EventManagerManaged>
 		extends BaseTouchProcessor
 {
 
-	private boolean pressed = false;
-	private DragInfo dragInfo = null;
-
-	private T view;
-	private double devicePixelRatio;
+	private EventManager<EventManagerManaged> eventManager;
 
 	public PanTouchProcessor(T view)
 	{
-		this.view = view;
-		devicePixelRatio = Util.getDevicePixelRatio();
+		eventManager = new EventManager<EventManagerManaged>(view);
 	}
 
 	@Override
 	public void onTouchStart(TouchStartEvent event)
 	{
 		super.onTouchStart(event);
-		Touch touch = event.getTouches().get(0);
-		pressed = true;
-		dragInfo = new DragInfo(touch.getClientX(), touch.getClientY());
+		eventManager.onTouchEvent(event);
 	}
 
 	@Override
 	public void onTouchEnd(TouchEndEvent event)
 	{
 		super.onTouchEnd(event);
-		pressed = false;
-		dragInfo = null;
+		eventManager.onTouchEvent(event);
 	}
 
 	@Override
 	public void onTouchCancel(TouchCancelEvent event)
 	{
 		super.onTouchCancel(event);
-		pressed = false;
-		dragInfo = null;
 	}
 
 	@Override
 	public void onTouchMove(TouchMoveEvent event)
 	{
 		super.onTouchMove(event);
-		if (pressed) {
-			onDragged(event);
-		}
-	}
-
-	private void onDragged(TouchMoveEvent e)
-	{
-		Touch touch = e.getTouches().get(0);
-		dragInfo.update(touch.getClientX(), touch.getClientY());
-		Coordinate delta = dragInfo.getDeltaToLast();
-
-		double dx = delta.getX() / view.getZoom() * devicePixelRatio;
-		double dy = delta.getY() / view.getZoom() * devicePixelRatio;
-		double nx = view.getPositionX() + dx;
-		double ny = view.getPositionY() + dy;
-
-		view.setPositionX(nx);
-		view.setPositionY(ny);
-		view.render();
+		eventManager.onTouchEvent(event);
 	}
 
 }

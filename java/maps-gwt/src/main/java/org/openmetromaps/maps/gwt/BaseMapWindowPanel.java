@@ -18,6 +18,8 @@
 package org.openmetromaps.maps.gwt;
 
 import org.openmetromaps.maps.LocationToPoint;
+import org.openmetromaps.maps.gwt.touchevents.EventManagerManaged;
+import org.openmetromaps.maps.gwt.touchevents.Vector2;
 
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lina.Matrix;
@@ -28,7 +30,7 @@ import de.topobyte.viewports.scrolling.TransformHelper;
 import de.topobyte.viewports.scrolling.ViewportUtil;
 
 public class BaseMapWindowPanel extends BaseScenePanel
-		implements LocationToPoint, Renderable
+		implements LocationToPoint, Renderable, EventManagerManaged
 {
 
 	// TODO: implement mouse processing
@@ -96,6 +98,82 @@ public class BaseMapWindowPanel extends BaseScenePanel
 	{
 		Matrix matrix = TransformHelper.createMatrix(scene, this);
 		transformer = new CoordinateTransformer(matrix);
+	}
+
+	@Override
+	public void move(Vector2 distance)
+	{
+		double x = getPositionX();
+		double y = getPositionY();
+		double nx = x
+				- distance.getX() * Util.getDevicePixelRatio() / getZoom();
+		double ny = y
+				- distance.getY() * Util.getDevicePixelRatio() / getZoom();
+		setPositionX(nx);
+		setPositionY(ny);
+		render();
+	}
+
+	private static final double ZOOM_FACTOR = 1.1;
+
+	@Override
+	public void zoomIn()
+	{
+		zoom(ZOOM_FACTOR);
+	}
+
+	@Override
+	public void zoomOut()
+	{
+		zoom(1 / ZOOM_FACTOR);
+	}
+
+	private void zoom(double zoomFactor)
+	{
+		double lowestZoom = 0.001;
+		double highestZoom = 100;
+		double targetZoom = Math.max(Math.min(zoom * zoomFactor, highestZoom),
+				lowestZoom);
+		setZoom(targetZoom);
+	}
+
+	@Override
+	public void zoom(float x, float y, float zoomFactor)
+	{
+		double currentZoom = getZoom();
+		setZoom(currentZoom * zoomFactor);
+		checkBounds();
+		render();
+	}
+
+	@Override
+	public void zoomIn(float x, float y)
+	{
+		zoom(ZOOM_FACTOR);
+	}
+
+	@Override
+	public void zoomOut(float x, float y)
+	{
+		zoom(1 / ZOOM_FACTOR);
+	}
+
+	@Override
+	public void longClick(float x, float y)
+	{
+		// nothing happens here
+	}
+
+	@Override
+	public boolean canZoomIn()
+	{
+		return true;
+	}
+
+	@Override
+	public boolean canZoomOut()
+	{
+		return true;
 	}
 
 }

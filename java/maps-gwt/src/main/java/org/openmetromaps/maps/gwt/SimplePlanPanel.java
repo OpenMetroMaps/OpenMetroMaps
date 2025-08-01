@@ -26,6 +26,7 @@ import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.gwt.input.BaseMouseProcessor;
 import org.openmetromaps.maps.model.BBox;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.ModelData;

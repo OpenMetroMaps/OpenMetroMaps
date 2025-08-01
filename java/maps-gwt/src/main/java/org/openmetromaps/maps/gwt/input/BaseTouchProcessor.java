@@ -15,58 +15,40 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.gwt;
+package org.openmetromaps.maps.gwt.input;
 
-import org.openmetromaps.maps.gwt.touchevents.EventManager;
-import org.openmetromaps.maps.gwt.touchevents.EventManagerManaged;
+import org.openmetromaps.maps.gwt.TouchProcessor;
 
 import com.google.gwt.event.dom.client.TouchCancelEvent;
 import com.google.gwt.event.dom.client.TouchEndEvent;
 import com.google.gwt.event.dom.client.TouchMoveEvent;
 import com.google.gwt.event.dom.client.TouchStartEvent;
 
-import de.topobyte.viewports.HasSize;
-import de.topobyte.viewports.Renderable;
-import de.topobyte.viewports.scrolling.HasMargin;
-import de.topobyte.viewports.scrolling.HasScene;
-import de.topobyte.viewports.scrolling.Viewport;
-
-public class PanTouchProcessor<T extends HasSize & Renderable & Viewport & HasScene & HasMargin & EventManagerManaged>
-		extends BaseTouchProcessor
+public class BaseTouchProcessor implements TouchProcessor
 {
-
-	private EventManager<EventManagerManaged> eventManager;
-
-	public PanTouchProcessor(T view)
-	{
-		eventManager = new EventManager<EventManagerManaged>(view);
-	}
 
 	@Override
 	public void onTouchStart(TouchStartEvent event)
 	{
-		super.onTouchStart(event);
-		eventManager.onTouchEvent(event);
+		event.preventDefault();
 	}
 
 	@Override
 	public void onTouchEnd(TouchEndEvent event)
 	{
-		super.onTouchEnd(event);
-		eventManager.onTouchEvent(event);
+		event.preventDefault();
 	}
 
 	@Override
 	public void onTouchCancel(TouchCancelEvent event)
 	{
-		super.onTouchCancel(event);
+		event.preventDefault();
 	}
 
 	@Override
 	public void onTouchMove(TouchMoveEvent event)
 	{
-		super.onTouchMove(event);
-		eventManager.onTouchEvent(event);
+		event.preventDefault();
 	}
 
 }

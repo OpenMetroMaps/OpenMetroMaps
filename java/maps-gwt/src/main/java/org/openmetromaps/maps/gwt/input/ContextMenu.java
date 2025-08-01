@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.gwt;
+package org.openmetromaps.maps.gwt.input;
 
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Coordinate;

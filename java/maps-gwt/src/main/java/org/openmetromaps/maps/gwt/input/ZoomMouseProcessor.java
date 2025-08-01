@@ -45,7 +45,7 @@ public class ZoomMouseProcessor<T extends HasSize & Renderable & Viewport & HasS
 	{
 		super.onMouseWheel(e);
 
-		boolean in = e.getDeltaY() < 0;
+		boolean in = e.getNativeDeltaY() < 0;
 
 		Coordinate point = new Coordinate(e.getX(), e.getY());
 		ViewportUtil.zoomFixed(view, point, in, zoomStep);

@@ -327,7 +327,7 @@ public class EventManager<T extends EventManagerManaged>
 		if (numDownNow == 1) {
 			Point current = point(event, 0);
 			if (lastSingle != null) {
-				Vector2 distance = new Vector2(current, lastSingle);
+				Vector2 distance = new Vector2(lastSingle, current);
 				lastSingle = current;
 				logger.info("touch-pinch single move: " + distance.length());
 				view.move(distance);
@@ -339,8 +339,7 @@ public class EventManager<T extends EventManagerManaged>
 			Point p2 = point(event, 1);
 			TwoPoints current = new TwoPoints(p1, p2);
 
-			Vector2 distance = new Vector2(current.getMidpoint(),
-					lastDouble.getMidpoint());
+			Vector2 distance = new Vector2(lastDouble.getMidpoint(), current.getMidpoint());
 
 			float currentPinch = current.distance();
 			float lastPinch = lastDouble.distance();

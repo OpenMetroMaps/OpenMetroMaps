@@ -20,6 +20,7 @@ package org.openmetromaps.maps.gwt.input;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.gwt.ScrollableAdvancedPlanPanel;
+import org.openmetromaps.maps.gwt.touchevents.Vector2;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
@@ -27,7 +28,6 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.topobyte.lightgeom.lina.Point;
-import de.topobyte.lightgeom.lina.Vector2;
 import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.scrolling.DragInfo;
 import de.topobyte.viewports.scrolling.ViewportUtil;
@@ -87,13 +87,10 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 		dragInfo.update(e.getX(), e.getY());
 		Coordinate delta = dragInfo.getDeltaToLast();
 
-		double dx = delta.getX() / panel.getZoom();
-		double dy = delta.getY() / panel.getZoom();
-		double nx = panel.getPositionX() + dx;
-		double ny = panel.getPositionY() + dy;
+		double dx = delta.getX();
+		double dy = delta.getY();
 
-		panel.setPositionX(nx);
-		panel.setPositionY(ny);
+		panel.move(new Vector2((float) dx, (float) dy));
 		panel.render();
 	}
 
@@ -132,8 +129,8 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 		// TODO: use an index to speed this up
 		for (Node node : lineNetwork.nodes) {
 			Point location = node.location;
-			Vector2 v1 = new Vector2(location);
-			Vector2 v2 = new Vector2(x, y);
+			de.topobyte.lightgeom.lina.Vector2 v1 = new de.topobyte.lightgeom.lina.Vector2(location);
+			de.topobyte.lightgeom.lina.Vector2 v2 = new de.topobyte.lightgeom.lina.Vector2(x, y);
 			double d = v2.sub(v1).length2();
 			if (d < bestDistance) {
 				bestDistance = d;

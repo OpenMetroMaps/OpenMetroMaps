@@ -106,9 +106,9 @@ public class BaseMapWindowPanel extends BaseScenePanel
 		double x = getPositionX();
 		double y = getPositionY();
 		double nx = x
-				- distance.getX() * Util.getDevicePixelRatio() / getZoom();
+				+ distance.getX() * Util.getDevicePixelRatio() / getZoom();
 		double ny = y
-				- distance.getY() * Util.getDevicePixelRatio() / getZoom();
+				+ distance.getY() * Util.getDevicePixelRatio() / getZoom();
 		setPositionX(nx);
 		setPositionY(ny);
 		render();

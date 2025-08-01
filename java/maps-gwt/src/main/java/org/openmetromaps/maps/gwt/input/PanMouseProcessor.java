@@ -17,6 +17,9 @@
 
 package org.openmetromaps.maps.gwt.input;
 
+import org.openmetromaps.maps.gwt.touchevents.EventManagerManaged;
+import org.openmetromaps.maps.gwt.touchevents.Vector2;
+
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseUpEvent;
@@ -29,7 +32,7 @@ import de.topobyte.viewports.scrolling.HasMargin;
 import de.topobyte.viewports.scrolling.HasScene;
 import de.topobyte.viewports.scrolling.Viewport;
 
-public class PanMouseProcessor<T extends HasSize & Renderable & Viewport & HasScene & HasMargin>
+public class PanMouseProcessor<T extends HasSize & Renderable & Viewport & HasScene & HasMargin & EventManagerManaged>
 		extends BaseMouseProcessor
 {
 
@@ -73,13 +76,10 @@ public class PanMouseProcessor<T extends HasSize & Renderable & Viewport & HasSc
 		dragInfo.update(e.getX(), e.getY());
 		Coordinate delta = dragInfo.getDeltaToLast();
 
-		double dx = delta.getX() / view.getZoom();
-		double dy = delta.getY() / view.getZoom();
-		double nx = view.getPositionX() + dx;
-		double ny = view.getPositionY() + dy;
+		double dx = delta.getX();
+		double dy = delta.getY();
 
-		view.setPositionX(nx);
-		view.setPositionY(ny);
+		view.move(new Vector2((float) dx, (float) dy));
 		view.render();
 	}
 

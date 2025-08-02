@@ -66,8 +66,10 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 			ContextMenu menu = new ContextMenu(mouseNode);
 
 			Widget source = (Widget) e.getSource();
-			int x = source.getAbsoluteLeft() + e.getRelativeX(source.getElement());
-			int y = source.getAbsoluteTop() + e.getRelativeY(source.getElement());
+			int x = source.getAbsoluteLeft()
+					+ e.getRelativeX(source.getElement());
+			int y = source.getAbsoluteTop()
+					+ e.getRelativeY(source.getElement());
 
 			menu.setPopupPosition(x, y);
 			menu.show();
@@ -132,8 +134,10 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 		// TODO: use an index to speed this up
 		for (Node node : lineNetwork.nodes) {
 			Point location = node.location;
-			de.topobyte.lightgeom.lina.Vector2 v1 = new de.topobyte.lightgeom.lina.Vector2(location);
-			de.topobyte.lightgeom.lina.Vector2 v2 = new de.topobyte.lightgeom.lina.Vector2(x, y);
+			de.topobyte.lightgeom.lina.Vector2 v1 = new de.topobyte.lightgeom.lina.Vector2(
+					location);
+			de.topobyte.lightgeom.lina.Vector2 v2 = new de.topobyte.lightgeom.lina.Vector2(
+					x, y);
 			double d = v2.sub(v1).length2();
 			if (d < bestDistance) {
 				bestDistance = d;

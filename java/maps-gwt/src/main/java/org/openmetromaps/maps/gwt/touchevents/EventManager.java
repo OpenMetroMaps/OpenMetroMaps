@@ -339,7 +339,8 @@ public class EventManager<T extends EventManagerManaged>
 			Point p2 = point(event, 1);
 			TwoPoints current = new TwoPoints(p1, p2);
 
-			Vector2 distance = new Vector2(lastDouble.getMidpoint(), current.getMidpoint());
+			Vector2 distance = new Vector2(lastDouble.getMidpoint(),
+					current.getMidpoint());
 
 			float currentPinch = current.distance();
 			float lastPinch = lastDouble.distance();

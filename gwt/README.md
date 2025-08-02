@@ -48,3 +48,10 @@ To enable logging, add this to any of the `*.gwt.xml` module descriptors:
 
     <set-property name="gwt.logging.enabled" value="TRUE" />
     <set-property name="gwt.logging.consoleHandler" value="ENABLED" />
+
+## Obfuscation
+
+To disable code obfuscation for better debugging, add this to the `gwt` section
+of the `build.gradle` file:
+
+    style = 'PRETTY'

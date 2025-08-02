@@ -20,6 +20,7 @@ package org.openmetromaps.maps.gwt.input;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.gwt.ScrollableAdvancedPlanPanel;
+import org.openmetromaps.maps.gwt.Util;
 import org.openmetromaps.maps.gwt.touchevents.Vector2;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -105,11 +106,11 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 		double sx = ViewportUtil.getViewX(panel, best.location.x);
 		double sy = ViewportUtil.getViewY(panel, best.location.y);
 
-		double dx = Math.abs(sx - x);
-		double dy = Math.abs(sy - y);
+		double dx = Math.abs(sx - x * Util.getDevicePixelRatio());
+		double dy = Math.abs(sy - y * Util.getDevicePixelRatio());
 		double d = Math.sqrt(dx * dx + dy * dy);
 
-		if (d < 8) {
+		if (d < 8 * Util.getDevicePixelRatio()) {
 			return best;
 		}
 
@@ -118,8 +119,10 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 
 	protected Node closestNode(int vx, int vy)
 	{
-		double x = ViewportUtil.getRealX(panel, vx);
-		double y = ViewportUtil.getRealY(panel, vy);
+		double x = ViewportUtil.getRealX(panel,
+				vx * Util.getDevicePixelRatio());
+		double y = ViewportUtil.getRealY(panel,
+				vy * Util.getDevicePixelRatio());
 
 		LineNetwork lineNetwork = panel.getPlanRenderer().getLineNetwork();
 

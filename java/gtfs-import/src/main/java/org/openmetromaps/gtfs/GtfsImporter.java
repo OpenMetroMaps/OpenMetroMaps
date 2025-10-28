@@ -294,6 +294,11 @@ public class GtfsImporter
 		List<String> stops = new ArrayList<>(stopIds.size());
 		for (String id : stopIds) {
 			Stop stop = stopIdToStop.get(id);
+			if (stop == null) {
+				System.out.println(
+						String.format("WARN: No stop found for id '%s'", id));
+				continue;
+			}
 			String name = stop.getName();
 			String fixed = nameChanger.applyNameFixes(name);
 			stops.add(fixed);
@@ -322,6 +327,9 @@ public class GtfsImporter
 				DraftStation station = idToStation.get(id);
 				if (station == null) {
 					Stop stop = stopIdToStop.get(id);
+					if (stop == null) {
+						continue;
+					}
 					String name = stop.getName();
 					String fixed = nameChanger.applyNameFixes(name);
 					double lat = Double.parseDouble(stop.getLat());

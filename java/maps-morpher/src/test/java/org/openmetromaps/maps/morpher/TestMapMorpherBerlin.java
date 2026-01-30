@@ -22,6 +22,8 @@ import java.nio.file.Path;
 import org.openmetromaps.desktop.DesktopUtil;
 import org.openmetromaps.maps.MapModel;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
 import de.topobyte.system.utils.SystemPaths;
 
 public class TestMapMorpherBerlin
@@ -29,6 +31,10 @@ public class TestMapMorpherBerlin
 
 	public static void main(String[] args) throws Exception
 	{
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
+
 		Path berlin = SystemPaths.HOME
 				.resolve("github/OpenMetroMapsData/berlin");
 

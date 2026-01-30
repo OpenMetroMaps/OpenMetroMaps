@@ -17,11 +17,18 @@
 
 package org.openmetromaps.uiselector;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
+
 public class TestUiSelector
 {
 
 	public static void main(String[] args) throws Exception
 	{
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
+
 		UiSelector uiSelector = new UiSelector();
 		uiSelector.show();
 	}

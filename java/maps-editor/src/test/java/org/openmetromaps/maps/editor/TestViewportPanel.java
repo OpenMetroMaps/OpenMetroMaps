@@ -24,11 +24,18 @@ import org.openmetromaps.maps.TestData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
+
 public class TestViewportPanel
 {
 
 	public static void main(String[] args) throws Exception
 	{
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
+
 		XmlModel xmlModel = TestData.berlinXml();
 
 		XmlModelConverter modelConverter = new XmlModelConverter();

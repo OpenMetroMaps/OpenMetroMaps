@@ -37,6 +37,8 @@ import org.openmetromaps.model.osm.filter.RouteFilter;
 import org.openmetromaps.model.osm.inspector.ModelInspector;
 
 import de.topobyte.osm4j.utils.OsmFile;
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
@@ -69,6 +71,10 @@ public class RunModelInspector
 			throws Exception
 	{
 		CommandLine line = arguments.getLine();
+
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
 
 		OsmOptions.Input input = null;
 		try {

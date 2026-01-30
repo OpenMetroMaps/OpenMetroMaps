@@ -25,6 +25,9 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.mobidig.MapViewer;
 import org.openmetromaps.mobidig.Util;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
+
 public class SimpleSchematic
 {
 
@@ -33,6 +36,10 @@ public class SimpleSchematic
 		MapModel model = Util.stuttgartSchematic();
 
 		Map<String, ColorCode> colorMap = new HashMap<>();
+
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap,
 				"Stuttgart S-Bahn", "schematisch");

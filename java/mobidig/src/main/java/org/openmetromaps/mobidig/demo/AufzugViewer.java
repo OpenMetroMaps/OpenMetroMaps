@@ -26,6 +26,9 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.mobidig.MapViewer;
 import org.openmetromaps.mobidig.Util;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
+
 public class AufzugViewer
 {
 
@@ -42,6 +45,10 @@ public class AufzugViewer
 		List<String> broken = Util.lines("aufzug-kaputt.txt");
 		for (String line : broken) {
 			colorMap.put(line, DemoOptions.RED);
+		}
+
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
 		}
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap,

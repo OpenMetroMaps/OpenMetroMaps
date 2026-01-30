@@ -25,6 +25,9 @@ import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.morpher.MapMorpher;
 import org.openmetromaps.mobidig.Util;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
+
 public class StuttgartMapMorpher
 {
 
@@ -32,6 +35,10 @@ public class StuttgartMapMorpher
 	{
 		MapModel geographic = Util.stuttgartGeographic();
 		MapModel schematic = Util.stuttgartSchematic();
+
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
 
 		MapMorpher mapMorpher = new MapMorpher(geographic, schematic, null,
 				DemoOptions.SCALE);

@@ -22,6 +22,8 @@ import javax.swing.JFrame;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
 import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.scrolling.PanMouseAdapter;
 import de.topobyte.viewports.scrolling.ScrollableView;
@@ -37,6 +39,10 @@ public class TestScrollableSimplePanel
 		MapModel model = modelConverter.convert(xmlModel);
 
 		ModelUtil.ensureView(model, CoordinateConversionType.WGS84);
+
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
 
 		ScrollableSimplePanel panel = new ScrollableSimplePanel(model.getData(),
 				model.getViews().get(0), 10, 15);

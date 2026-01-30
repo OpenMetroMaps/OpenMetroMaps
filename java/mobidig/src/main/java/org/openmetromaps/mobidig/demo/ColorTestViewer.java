@@ -25,6 +25,9 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.mobidig.MapViewer;
 import org.openmetromaps.mobidig.Util;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
+
 public class ColorTestViewer
 {
 
@@ -35,6 +38,10 @@ public class ColorTestViewer
 		Map<String, ColorCode> colorMap = new HashMap<>();
 		colorMap.put("Stuttgart Hauptbahnhof (tief)", DemoOptions.GREEN);
 		colorMap.put("Stuttgart Schwabstraße", DemoOptions.RED);
+
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap,
 				"Stuttgart S-Bahn", "Farbtest");

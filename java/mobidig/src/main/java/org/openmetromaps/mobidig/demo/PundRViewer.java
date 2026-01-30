@@ -26,6 +26,9 @@ import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.mobidig.MapViewer;
 import org.openmetromaps.mobidig.Util;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
+
 public class PundRViewer
 {
 
@@ -38,6 +41,10 @@ public class PundRViewer
 		List<String> lines = Util.lines("pundr.txt");
 		for (String line : lines) {
 			colorMap.put(line, DemoOptions.GREEN);
+		}
+
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
 		}
 
 		MapViewer mapViewer = new MapViewer(model, null, colorMap,

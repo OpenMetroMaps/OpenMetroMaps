@@ -23,6 +23,9 @@ import org.openmetromaps.maps.model.BBox;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
+
 public class TestSimplePanel
 {
 
@@ -34,6 +37,10 @@ public class TestSimplePanel
 		MapModel model = modelConverter.convert(xmlModel);
 
 		ModelUtil.ensureView(model, CoordinateConversionType.WGS84);
+
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
 
 		SimplePanel panel = new SimplePanel(model.getData(),
 				model.getViews().get(0));

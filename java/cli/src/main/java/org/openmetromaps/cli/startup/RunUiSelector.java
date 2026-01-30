@@ -20,6 +20,8 @@ package org.openmetromaps.cli.startup;
 import org.apache.commons.cli.Options;
 import org.openmetromaps.uiselector.UiSelector;
 
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
@@ -42,6 +44,10 @@ public class RunUiSelector
 	public static void main(String name, CommonsCliArguments arguments)
 			throws Exception
 	{
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
+
 		UiSelector uiSelector = new UiSelector();
 		uiSelector.show();
 	}

@@ -39,6 +39,8 @@ import org.slf4j.LoggerFactory;
 
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.melon.resources.Resources;
+import de.topobyte.shared.preferences.SharedPreferences;
+import de.topobyte.swing.util.SwingUtils;
 
 public class Start
 {
@@ -55,6 +57,10 @@ public class Start
 
 	public static void main(String[] args)
 	{
+		if (SharedPreferences.isUIScalePresent()) {
+			SwingUtils.setUiScale(SharedPreferences.getUIScale());
+		}
+
 		new Start().show();
 	}
 

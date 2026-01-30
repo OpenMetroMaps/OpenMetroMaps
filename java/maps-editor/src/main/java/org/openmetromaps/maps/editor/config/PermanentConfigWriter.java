@@ -29,8 +29,8 @@ import org.dom4j.io.XMLWriter;
 public class PermanentConfigWriter
 {
 
-	public static void write(PermanentConfiguration configuration, OutputStream out)
-			throws IOException
+	public static void write(PermanentConfiguration configuration,
+			OutputStream out) throws IOException
 	{
 		DocumentFactory documentFactory = DocumentFactory.getInstance();
 		Document document = documentFactory.createDocument();

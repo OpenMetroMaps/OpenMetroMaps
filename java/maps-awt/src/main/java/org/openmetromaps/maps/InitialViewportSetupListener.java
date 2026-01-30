@@ -28,7 +28,8 @@ public class InitialViewportSetupListener extends ComponentAdapter
 	private BaseMapWindowPanel panel;
 	private Coordinate start;
 
-	public InitialViewportSetupListener(BaseMapWindowPanel panel, Coordinate start)
+	public InitialViewportSetupListener(BaseMapWindowPanel panel,
+			Coordinate start)
 	{
 		this.panel = panel;
 		this.start = start;

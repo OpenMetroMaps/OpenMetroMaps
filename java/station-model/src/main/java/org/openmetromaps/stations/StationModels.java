@@ -76,7 +76,8 @@ public class StationModels
 		changes.add(change);
 		if (raw.isDeriveReverseFrom()) {
 			String reverseLine = raw.getReverseLine() != null
-					? raw.getReverseLine() : raw.getLine();
+					? raw.getReverseLine()
+					: raw.getLine();
 			String reverseTowards = raw.getReverseTowards() != null
 					? raw.getReverseTowards()
 					: reverse(lines, raw.getLine(), raw.getTowards());

@@ -57,6 +57,7 @@ subprojects {
             importOrderFile(
                 rootProject.file("../importorder.txt")
             )
+            removeUnusedImports()
         }
     }
 }

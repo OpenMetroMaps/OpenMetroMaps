@@ -21,8 +21,6 @@ import javax.swing.JFrame;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.TestData;
-import org.openmetromaps.maps.editor.MapEditor;
-import org.openmetromaps.maps.editor.StationPanel;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.xml.XmlModel;

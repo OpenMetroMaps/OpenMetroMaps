@@ -21,9 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
-import org.openmetromaps.maps.editor.config.PermanentConfigReader;
-import org.openmetromaps.maps.editor.config.PermanentConfigWriter;
-import org.openmetromaps.maps.editor.config.PermanentConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

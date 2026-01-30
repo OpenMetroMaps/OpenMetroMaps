@@ -20,8 +20,6 @@ package org.openmetromaps.maps.editor.config;
 import java.io.InputStream;
 import java.nio.file.Path;
 
-import org.openmetromaps.maps.editor.config.PermanentConfigReader;
-
 import de.topobyte.melon.io.StreamUtil;
 
 public class TestPermanentConfigReader

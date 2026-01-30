@@ -20,7 +20,6 @@ package org.openmetromaps.rawstations.xml;
 import java.io.InputStream;
 
 import org.openmetromaps.rawstations.RawStationModel;
-import org.openmetromaps.rawstations.xml.XmlStationReader;
 
 import de.topobyte.xml.domabstraction.desktopimpl.DesktopDocumentFactory;
 import de.topobyte.xml.domabstraction.iface.ParsingException;

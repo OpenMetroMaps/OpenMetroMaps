@@ -33,12 +33,6 @@ import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.model.Stop;
-import org.openmetromaps.stations.Change;
-import org.openmetromaps.stations.LineWithOrientation;
-import org.openmetromaps.stations.Location;
-import org.openmetromaps.stations.StationModel;
-import org.openmetromaps.stations.StationModels;
-import org.openmetromaps.stations.StationUtil;
 
 import com.google.common.base.Joiner;
 

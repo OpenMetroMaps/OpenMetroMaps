@@ -39,9 +39,6 @@ import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.misc.NameChanger;
 import org.openmetromaps.rawstations.RawStationModel;
 import org.openmetromaps.rawstations.xml.DesktopXmlStationReader;
-import org.openmetromaps.stations.StationModel;
-import org.openmetromaps.stations.StationModelToCsvExporter;
-import org.openmetromaps.stations.StationModels;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -21,9 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
-import org.openmetromaps.maps.editor.config.VolatileConfigReader;
-import org.openmetromaps.maps.editor.config.VolatileConfigWriter;
-import org.openmetromaps.maps.editor.config.VolatileConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

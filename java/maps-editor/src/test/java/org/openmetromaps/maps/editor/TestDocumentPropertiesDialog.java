@@ -22,8 +22,6 @@ import javax.swing.JDialog;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.TestData;
-import org.openmetromaps.maps.editor.DocumentPropertiesDialog;
-import org.openmetromaps.maps.editor.DocumentPropertiesPanel;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 

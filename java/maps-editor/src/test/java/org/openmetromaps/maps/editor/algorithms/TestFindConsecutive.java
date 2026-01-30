@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openmetromaps.maps.editor.algorithms.Util;
 
 public class TestFindConsecutive
 {

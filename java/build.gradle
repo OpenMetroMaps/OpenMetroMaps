@@ -1,3 +1,7 @@
+plugins {
+    id("com.diffplug.spotless") version "8.2.1" apply false
+}
+
 wrapper {
     gradleVersion = '8.3'
 }
@@ -10,6 +14,7 @@ allprojects {
 subprojects {
     apply plugin: 'java-library'
     apply plugin: 'eclipse'
+    apply plugin: 'com.diffplug.spotless'
 
     repositories {
         maven {
@@ -41,6 +46,17 @@ subprojects {
                     }
                 }
             }
+        }
+    }
+
+    spotless {
+        java {
+            eclipse('4.34').configFile(
+                rootProject.file("../formatter.xml")
+            )
+            importOrderFile(
+                rootProject.file("../importorder.txt")
+            )
         }
     }
 }

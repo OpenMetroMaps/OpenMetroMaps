@@ -35,9 +35,12 @@ public class ZoomMouseProcessor<T extends HasSize & Renderable & Viewport & HasS
 
 	private T view;
 
-	public ZoomMouseProcessor(T view)
+	private double devicePixelRatio;
+
+	public ZoomMouseProcessor(T view, double devicePixelRatio)
 	{
 		this.view = view;
+		this.devicePixelRatio = devicePixelRatio;
 	}
 
 	@Override
@@ -47,7 +50,8 @@ public class ZoomMouseProcessor<T extends HasSize & Renderable & Viewport & HasS
 
 		boolean in = e.getNativeDeltaY() < 0;
 
-		Coordinate point = new Coordinate(e.getX(), e.getY());
+		Coordinate point = new Coordinate(e.getX() * devicePixelRatio,
+				e.getY() * devicePixelRatio);
 		ViewportUtil.zoomFixed(view, point, in, zoomStep);
 
 		view.render();

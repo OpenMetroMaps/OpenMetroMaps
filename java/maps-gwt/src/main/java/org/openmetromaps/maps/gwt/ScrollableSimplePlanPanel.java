@@ -54,7 +54,8 @@ public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
 		float devicePixelRatio = (float) getDevicePixelRatio();
 
 		MouseProcessor panMouseHandler = new PanMouseProcessor<>(this);
-		MouseProcessor zoomMouseHandler = new ZoomMouseProcessor<>(this, devicePixelRatio);
+		MouseProcessor zoomMouseHandler = new ZoomMouseProcessor<>(this,
+				devicePixelRatio);
 		Util.addHandler(canvas, panMouseHandler);
 		Util.addHandler(canvas, zoomMouseHandler);
 

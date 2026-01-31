@@ -111,12 +111,24 @@ public class DemoEntryPoint implements EntryPoint
 
 		StyleUtil.marginTop(buttonOut, 0.5, Unit.EM);
 
+		Button buttonFit = new Button("F");
+		StyleUtil.setHeight(buttonFit, 3, Unit.EM);
+		StyleUtil.setWidth(buttonFit, 100, Unit.PCT);
+		StyleUtil.setProperty(buttonFit, "minWidth", 3, Unit.EM);
+		buttons.add(buttonFit);
+
+		StyleUtil.marginTop(buttonFit, 0.5, Unit.EM);
+
 		buttonIn.addClickHandler(e -> {
 			zoomIn();
 		});
 
 		buttonOut.addClickHandler(e -> {
 			zoomOut();
+		});
+
+		buttonFit.addClickHandler(e -> {
+			zoomFit();
 		});
 	}
 
@@ -128,6 +140,11 @@ public class DemoEntryPoint implements EntryPoint
 	protected void zoomOut()
 	{
 		panel.setZoom(panel.getZoom() / 1.1);
+	}
+
+	private void zoomFit()
+	{
+		panel.zoomFitScene();
 	}
 
 	protected void parseXml(String xml)

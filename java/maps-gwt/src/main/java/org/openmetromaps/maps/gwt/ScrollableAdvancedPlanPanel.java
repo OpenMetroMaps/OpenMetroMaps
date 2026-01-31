@@ -35,6 +35,8 @@ import org.openmetromaps.maps.painting.gwt.GwtPainter;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.canvas.dom.client.Context2d.TextAlign;
 import com.google.gwt.canvas.dom.client.CssColor;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 
 import de.topobyte.formatting.Formatting;
 
@@ -51,12 +53,12 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 
 	private PlanRenderer renderer;
 
+	private boolean viewportInitialized = false;
+
 	private boolean debugSize = false;
 
 	public ScrollableAdvancedPlanPanel()
 	{
-		// TODO: use start position
-
 		float devicePixelRatio = (float) getDevicePixelRatio();
 
 		MouseProcessor panMouseHandler = new ContextMouseProcessor(this);
@@ -78,6 +80,18 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 		setScene(mapView.getConfig().getScene());
 
 		initRenderer();
+
+		// Wait until the panel is attached and sized, then zoom to fit the
+		// scene
+		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+			@Override
+			public void execute()
+			{
+				zoomFitScene();
+				viewportInitialized = true;
+				render();
+			}
+		});
 	}
 
 	public boolean isDebugSize()
@@ -119,11 +133,11 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 
 	private void renderContent(Context2d c)
 	{
-		Painter painter = new GwtPainter(c);
-
-		if (renderer == null) {
+		if (!viewportInitialized || renderer == null) {
 			return;
 		}
+
+		Painter painter = new GwtPainter(c);
 		renderer.paint(painter);
 
 		if (debugSize) {

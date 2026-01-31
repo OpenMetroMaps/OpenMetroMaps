@@ -176,4 +176,37 @@ public class BaseMapWindowPanel extends BaseScenePanel
 		return true;
 	}
 
+	public void zoomFitScene()
+	{
+		if (scene == null) {
+			return;
+		}
+
+		double sceneWidth = scene.getWidth();
+		double sceneHeight = scene.getHeight();
+		int viewportWidth = getWidth();
+		int viewportHeight = getHeight();
+
+		if (sceneWidth <= 0 || sceneHeight <= 0 || viewportWidth <= 0
+				|| viewportHeight <= 0) {
+			return;
+		}
+
+		// Calculate zoom to fit entire scene in viewport
+		double zoomX = viewportWidth / sceneWidth;
+		double zoomY = viewportHeight / sceneHeight;
+		double fitZoom = Math.min(zoomX, zoomY);
+
+		setZoom(fitZoom);
+
+		// Center the scene in the viewport
+		double posX = (viewportWidth / fitZoom - sceneWidth) / 2;
+		double posY = (viewportHeight / fitZoom - sceneHeight) / 2;
+
+		setPositionX(posX);
+		setPositionY(posY);
+
+		render();
+	}
+
 }

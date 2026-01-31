@@ -5,7 +5,7 @@ buildscript {
         maven { url 'https://mvn.topobyte.de' }
     }
     dependencies {
-        classpath('org.docstr.gwt:org.docstr.gwt.gradle.plugin:2.2.3');
+        classpath('org.docstr.gwt:org.docstr.gwt.gradle.plugin:2.2.9');
         classpath('de.topobyte:gradle-dependency-info-plugin:0.0.3');
         classpath('de.topobyte:gradle-dependency-unpack-plugin:0.0.3');
     }

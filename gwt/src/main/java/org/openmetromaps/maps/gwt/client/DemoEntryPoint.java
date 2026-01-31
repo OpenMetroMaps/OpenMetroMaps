@@ -98,12 +98,14 @@ public class DemoEntryPoint implements EntryPoint
 		main.add(buttons);
 
 		Button buttonIn = new Button("+");
+		buttonIn.setTitle("Zoom in");
 		StyleUtil.setHeight(buttonIn, 3, Unit.EM);
 		StyleUtil.setWidth(buttonIn, 100, Unit.PCT);
 		StyleUtil.setProperty(buttonIn, "minWidth", 3, Unit.EM);
 		buttons.add(buttonIn);
 
 		Button buttonOut = new Button("-");
+		buttonOut.setTitle("Zoom out");
 		StyleUtil.setHeight(buttonOut, 3, Unit.EM);
 		StyleUtil.setWidth(buttonOut, 100, Unit.PCT);
 		StyleUtil.setProperty(buttonOut, "minWidth", 3, Unit.EM);
@@ -112,6 +114,7 @@ public class DemoEntryPoint implements EntryPoint
 		StyleUtil.marginTop(buttonOut, 0.5, Unit.EM);
 
 		Button buttonFit = new Button("F");
+		buttonFit.setTitle("Fit to screen");
 		StyleUtil.setHeight(buttonFit, 3, Unit.EM);
 		StyleUtil.setWidth(buttonFit, 100, Unit.PCT);
 		StyleUtil.setProperty(buttonFit, "minWidth", 3, Unit.EM);

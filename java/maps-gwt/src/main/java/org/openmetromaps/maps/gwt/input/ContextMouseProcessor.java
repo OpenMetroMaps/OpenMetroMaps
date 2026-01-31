@@ -26,6 +26,9 @@ import org.openmetromaps.maps.gwt.touchevents.Vector2;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.topobyte.lightgeom.lina.Point;
@@ -63,18 +66,57 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 
 		Node mouseNode = mouseNode(e.getX(), e.getY());
 		if (mouseNode != null) {
-			ContextMenu menu = new ContextMenu(mouseNode);
-			panel.setContextMenu(menu);
-
-			Widget source = (Widget) e.getSource();
-			int x = source.getAbsoluteLeft()
-					+ e.getRelativeX(source.getElement());
-			int y = source.getAbsoluteTop()
-					+ e.getRelativeY(source.getElement());
-
-			menu.setPopupPosition(x, y);
-			menu.show();
+			showContextMenu(mouseNode, e);
 		}
+	}
+
+	private void showContextMenu(Node mouseNode, MouseUpEvent e)
+	{
+		ContextMenu menu = new ContextMenu(mouseNode);
+		panel.setContextMenu(menu);
+
+		Widget source = (Widget) e.getSource();
+		int clickX = source.getAbsoluteLeft()
+				+ e.getRelativeX(source.getElement());
+		final int clickY = source.getAbsoluteTop()
+				+ e.getRelativeY(source.getElement());
+
+		PositionCallback positionCallback = new PopupPanel.PositionCallback() {
+
+			@Override
+			public void setPosition(int offsetWidth, int offsetHeight)
+			{
+				int x = clickX;
+				int y = clickY;
+
+				int windowWidth = Window.getClientWidth();
+				int windowHeight = Window.getClientHeight();
+				int scrollLeft = Window.getScrollLeft();
+				int scrollTop = Window.getScrollTop();
+
+				// Adjust horizontal position if menu would overflow right
+				if (x + offsetWidth > scrollLeft + windowWidth) {
+					x = clickX - offsetWidth;
+				}
+
+				// Adjust vertical position if menu would overflow bottom
+				if (y + offsetHeight > scrollTop + windowHeight) {
+					y = clickY - offsetHeight;
+				}
+
+				// Ensure menu doesn't go off the left or top edge
+				if (x < scrollLeft) {
+					x = scrollLeft;
+				}
+				if (y < scrollTop) {
+					y = scrollTop;
+				}
+
+				menu.setPopupPosition(x, y);
+			}
+		};
+		menu.setPopupPositionAndShow(positionCallback);
+
 	}
 
 	@Override

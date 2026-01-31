@@ -37,16 +37,28 @@ public class ZoomMouseProcessor<T extends HasSize & Renderable & Viewport & HasS
 
 	private double devicePixelRatio;
 
+	private Runnable onZoom;
+
 	public ZoomMouseProcessor(T view, double devicePixelRatio)
+	{
+		this(view, devicePixelRatio, null);
+	}
+
+	public ZoomMouseProcessor(T view, double devicePixelRatio, Runnable onZoom)
 	{
 		this.view = view;
 		this.devicePixelRatio = devicePixelRatio;
+		this.onZoom = onZoom;
 	}
 
 	@Override
 	public void onMouseWheel(MouseWheelEvent e)
 	{
 		super.onMouseWheel(e);
+
+		if (onZoom != null) {
+			onZoom.run();
+		}
 
 		boolean in = e.getNativeDeltaY() < 0;
 

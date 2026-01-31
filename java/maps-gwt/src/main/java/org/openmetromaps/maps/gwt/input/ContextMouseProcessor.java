@@ -64,6 +64,7 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 		Node mouseNode = mouseNode(e.getX(), e.getY());
 		if (mouseNode != null) {
 			ContextMenu menu = new ContextMenu(mouseNode);
+			panel.setContextMenu(menu);
 
 			Widget source = (Widget) e.getSource();
 			int x = source.getAbsoluteLeft()

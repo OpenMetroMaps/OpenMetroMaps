@@ -24,6 +24,7 @@ import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
 import org.openmetromaps.maps.graph.LineNetwork;
+import org.openmetromaps.maps.gwt.input.ContextMenu;
 import org.openmetromaps.maps.gwt.input.ContextMouseProcessor;
 import org.openmetromaps.maps.gwt.input.PanTouchProcessor;
 import org.openmetromaps.maps.gwt.input.ZoomMouseProcessor;
@@ -52,6 +53,7 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	private SegmentMode segmentMode = SegmentMode.CURVE;
 
 	private PlanRenderer renderer;
+	private ContextMenu contextMenu = null;
 
 	private boolean viewportInitialized = false;
 
@@ -62,8 +64,8 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 		float devicePixelRatio = (float) getDevicePixelRatio();
 
 		MouseProcessor panMouseHandler = new ContextMouseProcessor(this);
-		MouseProcessor zoomMouseHandler = new ZoomMouseProcessor<>(this,
-				devicePixelRatio);
+		MouseProcessor zoomMouseHandler = new ZoomMouseProcessor<ScrollableAdvancedPlanPanel>(
+				this, devicePixelRatio, this::hideContextMenu);
 		Util.addHandler(canvas, panMouseHandler);
 		Util.addHandler(canvas, zoomMouseHandler);
 
@@ -157,6 +159,26 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	public LineNetwork getLineNetwork()
 	{
 		return lineNetwork;
+	}
+
+	public void setContextMenu(ContextMenu menu)
+	{
+		hideContextMenu();
+		contextMenu = menu;
+		if (menu != null) {
+			menu.addCloseHandler(e -> {
+				if (contextMenu == menu) {
+					contextMenu = null;
+				}
+			});
+		}
+	}
+
+	public void hideContextMenu()
+	{
+		if (contextMenu != null) {
+			contextMenu.hide();
+		}
 	}
 
 }

@@ -20,12 +20,14 @@ package org.openmetromaps.maps.editor.actions.edit;
 import java.awt.event.ActionEvent;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
 
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
+import org.openmetromaps.maps.editor.history.NodePositionsCommand;
 import org.openmetromaps.maps.graph.LineConnectionResult;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
@@ -104,6 +106,7 @@ public class DistributeEvenlyAction extends MapEditorAction
 				.getNodesBetween(lineNetwork, line, idxNode1, idxNode2);
 
 		List<Node> between = nodesBetween.getNodes();
+		Map<Node, Point> before = NodePositionsCommand.capture(between);
 		int num = between.size();
 
 		Point c1 = nodesBetween.getStart().location;
@@ -128,6 +131,11 @@ public class DistributeEvenlyAction extends MapEditorAction
 			LineNetworkUtil.updateEdges(node);
 		}
 
+		Map<Node, Point> after = NodePositionsCommand.capture(between);
+		NodePositionsCommand command = NodePositionsCommand
+				.create("Distribute evenly", before, after);
+		mapEditor.getHistory().record(command);
+		mapEditor.triggerDataChanged();
 		mapEditor.getMap().repaint();
 	}
 

@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.openmetromaps.maps.DataChangeListener;
+import org.openmetromaps.maps.editor.history.StationPropertiesCommand;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
@@ -153,6 +154,10 @@ public class StationPanel extends JPanel
 			return;
 		}
 
+		String beforeName = node.station.getName();
+		Point beforeLocation = new Point(node.location.getX(),
+				node.location.getY());
+
 		String valName = inputName.getText();
 		String valX = inputX.getText();
 		String valY = inputY.getText();
@@ -168,6 +173,15 @@ public class StationPanel extends JPanel
 		} catch (NumberFormatException e) {
 			logger.warn("Error while parsing value. " + e.getMessage());
 		}
+
+		String afterName = node.station.getName();
+		Point afterLocation = new Point(node.location.getX(),
+				node.location.getY());
+		StationPropertiesCommand command = StationPropertiesCommand.create(
+				"Edit station properties", node, beforeName, beforeLocation,
+				afterName, afterLocation);
+		mapEditor.getHistory().record(command);
+		mapEditor.triggerDataChanged();
 	}
 
 }

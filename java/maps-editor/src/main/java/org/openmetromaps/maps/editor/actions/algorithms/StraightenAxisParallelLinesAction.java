@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
 import org.openmetromaps.maps.editor.algorithms.StraightenAxisParallelLinesOptimization;
+import org.openmetromaps.maps.editor.history.MapEditorSnapshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,9 +44,12 @@ public class StraightenAxisParallelLinesAction extends MapEditorAction
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
+		MapEditorSnapshot before = mapEditor.captureSnapshot();
 		StraightenAxisParallelLinesOptimization optimization = new StraightenAxisParallelLinesOptimization();
 		optimization.runOptimization(mapEditor, 2);
 
+		mapEditor.recordHistory("Straighten axis-parallel lines", before);
+		mapEditor.triggerDataChanged();
 		mapEditor.getMap().repaint();
 	}
 

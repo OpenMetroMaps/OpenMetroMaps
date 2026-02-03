@@ -20,11 +20,13 @@ package org.openmetromaps.maps.editor.actions.edit;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
+import org.openmetromaps.maps.editor.history.NodePositionsCommand;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
@@ -52,6 +54,7 @@ public class AlignHorizontallyAction extends MapEditorAction
 	public void actionPerformed(ActionEvent event)
 	{
 		Set<Node> nodes = mapEditor.getMapViewStatus().getSelectedNodes();
+		Map<Node, Point> before = NodePositionsCommand.capture(nodes);
 
 		List<Point> locations = new ArrayList<>();
 		for (Node node : nodes) {
@@ -67,6 +70,11 @@ public class AlignHorizontallyAction extends MapEditorAction
 			LineNetworkUtil.updateEdges(node);
 		}
 
+		Map<Node, Point> after = NodePositionsCommand.capture(nodes);
+		NodePositionsCommand command = NodePositionsCommand
+				.create("Align horizontally", before, after);
+		mapEditor.getHistory().record(command);
+		mapEditor.triggerDataChanged();
 		mapEditor.getMap().repaint();
 	}
 

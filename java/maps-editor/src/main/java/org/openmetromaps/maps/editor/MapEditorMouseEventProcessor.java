@@ -18,9 +18,12 @@
 package org.openmetromaps.maps.editor;
 
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.openmetromaps.maps.BaseMapWindowPanel;
 import org.openmetromaps.maps.BaseMouseEventProcessor;
+import org.openmetromaps.maps.editor.history.NodePositionsCommand;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.swing.Util;
@@ -47,6 +50,7 @@ public class MapEditorMouseEventProcessor
 
 	private boolean draggingNodes = false;
 	private java.awt.Point lastPoint = null;
+	private Map<Node, Point> dragStartPositions = null;
 
 	@Override
 	public void mousePressed(MouseEvent e)
@@ -70,6 +74,8 @@ public class MapEditorMouseEventProcessor
 			} else if (control && someSelected) {
 				draggingNodes = true;
 				lastPoint = e.getPoint();
+				dragStartPositions = NodePositionsCommand.capture(
+						mapEditor.getMapViewStatus().getSelectedNodes());
 			}
 		}
 
@@ -85,7 +91,16 @@ public class MapEditorMouseEventProcessor
 	{
 		super.mouseReleased(e);
 		if (e.getButton() == MouseEvent.BUTTON1) {
+			boolean wasDragging = draggingNodes;
 			draggingNodes = false;
+			if (wasDragging) {
+				Map<Node, Point> dragEndPositions = capturePositions(
+						dragStartPositions);
+				NodePositionsCommand command = NodePositionsCommand.create(
+						"Move stations", dragStartPositions, dragEndPositions);
+				mapEditor.getHistory().record(command);
+				dragStartPositions = null;
+			}
 		}
 	}
 
@@ -121,6 +136,19 @@ public class MapEditorMouseEventProcessor
 			mapEditor.triggerDataChanged();
 			c.repaint();
 		}
+	}
+
+	private static Map<Node, Point> capturePositions(Map<Node, Point> reference)
+	{
+		if (reference == null) {
+			return null;
+		}
+		Map<Node, Point> positions = new HashMap<>();
+		for (Node node : reference.keySet()) {
+			positions.put(node,
+					new Point(node.location.getX(), node.location.getY()));
+		}
+		return positions;
 	}
 
 	private void update(Node node, int dx, int dy)

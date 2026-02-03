@@ -62,9 +62,11 @@ import org.openmetromaps.maps.editor.actions.edit.AlignHorizontallyAction;
 import org.openmetromaps.maps.editor.actions.edit.AlignVerticallyAction;
 import org.openmetromaps.maps.editor.actions.edit.DistributeEvenlyAction;
 import org.openmetromaps.maps.editor.actions.edit.DocumentPropertiesAction;
+import org.openmetromaps.maps.editor.actions.edit.RedoAction;
 import org.openmetromaps.maps.editor.actions.edit.SelectAllAction;
 import org.openmetromaps.maps.editor.actions.edit.SelectLinesAction;
 import org.openmetromaps.maps.editor.actions.edit.SelectNodesInBetweenAction;
+import org.openmetromaps.maps.editor.actions.edit.UndoAction;
 import org.openmetromaps.maps.editor.actions.file.ExitAction;
 import org.openmetromaps.maps.editor.actions.file.NewAction;
 import org.openmetromaps.maps.editor.actions.file.OpenAction;
@@ -83,6 +85,9 @@ import org.openmetromaps.maps.editor.config.PermanentConfiguration;
 import org.openmetromaps.maps.editor.config.VolatileConfigReader;
 import org.openmetromaps.maps.editor.config.VolatileConfiguration;
 import org.openmetromaps.maps.editor.dockables.DockableHelper;
+import org.openmetromaps.maps.editor.history.Capture;
+import org.openmetromaps.maps.editor.history.MapEditorHistory;
+import org.openmetromaps.maps.editor.history.MapEditorSnapshot;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
@@ -164,6 +169,8 @@ public class MapEditor
 			changeSupport, "segment-mode", x -> setSegmentModeInternal(),
 			SegmentMode.CURVE);
 
+	private MapEditorHistory history = new MapEditorHistory();
+
 	public MapEditor(MapModel model, Path source)
 	{
 		this.source = source;
@@ -241,6 +248,7 @@ public class MapEditor
 	public void setModel(MapModel model)
 	{
 		init(model);
+		history.clear();
 		map.setData(model.getData(), view.getLineNetwork(), mapViewStatus);
 		map.setViewConfig(viewConfig, Constants.DEFAULT_ZOOM);
 		selectNone();
@@ -380,6 +388,31 @@ public class MapEditor
 		return statusBar;
 	}
 
+	public MapEditorHistory getHistory()
+	{
+		return history;
+	}
+
+	public MapEditorSnapshot captureSnapshot()
+	{
+		return MapEditorSnapshot.capture(this);
+	}
+
+	public Capture beginHistory(String name)
+	{
+		return history.begin(name, captureSnapshot());
+	}
+
+	public void endHistory(Capture capture)
+	{
+		history.end(capture, captureSnapshot());
+	}
+
+	public void recordHistory(String name, MapEditorSnapshot before)
+	{
+		history.record(name, before, captureSnapshot());
+	}
+
 	public void addDataChangeListener(DataChangeListener listener)
 	{
 		dataChangeListeners.add(listener);
@@ -390,7 +423,7 @@ public class MapEditor
 		dataChangeListeners.remove(listener);
 	}
 
-	void triggerDataChanged()
+	public void triggerDataChanged()
 	{
 		for (DataChangeListener listener : dataChangeListeners) {
 			listener.dataChanged();
@@ -488,6 +521,11 @@ public class MapEditor
 
 	private void setupMenuEdit(JMenu menuEdit)
 	{
+		JMenus.addItem(menuEdit, new UndoAction(this), KeyEvent.CTRL_DOWN_MASK,
+				KeyEvent.VK_Z);
+		JMenus.addItem(menuEdit, new RedoAction(this),
+				KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK,
+				KeyEvent.VK_Z);
 		JMenus.addItem(menuEdit, new DocumentPropertiesAction(this),
 				KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK,
 				KeyEvent.VK_P);

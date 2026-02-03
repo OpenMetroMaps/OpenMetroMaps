@@ -27,6 +27,7 @@ import javax.swing.SwingUtilities;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.editor.MapEditor;
+import org.openmetromaps.maps.editor.history.Capture;
 import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
@@ -50,6 +51,7 @@ public class HeavyComputationOptimization
 	private MapEditor mapEditor;
 	private int numSteps;
 	private int lengthPause;
+	private Capture historyCapture;
 
 	public void runOptimization(MapEditor mapEditor, int numSteps,
 			int lengthPause)
@@ -57,6 +59,7 @@ public class HeavyComputationOptimization
 		this.mapEditor = mapEditor;
 		this.numSteps = numSteps;
 		this.lengthPause = lengthPause;
+		this.historyCapture = mapEditor.beginHistory("Heavy computation");
 
 		// run the computation in a separate thread
 		Runnable r = new Runnable() {
@@ -89,6 +92,12 @@ public class HeavyComputationOptimization
 				mapEditor.getMap().repaint();
 			});
 		}
+
+		SwingUtilities.invokeLater(() -> {
+			mapEditor.endHistory(historyCapture);
+			mapEditor.triggerDataChanged();
+			mapEditor.getMap().repaint();
+		});
 	}
 
 	/*

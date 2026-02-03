@@ -26,6 +26,7 @@ import org.openmetromaps.maps.editor.DocumentPropertiesDialog;
 import org.openmetromaps.maps.editor.DocumentPropertiesPanel;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
+import org.openmetromaps.maps.editor.history.DocumentPropertiesCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,6 +77,10 @@ public class DocumentPropertiesAction extends MapEditorAction
 		Rectangle scene = view.getConfig().getScene();
 		Coordinate start = view.getConfig().getStartPosition();
 
+		Rectangle beforeScene = new Rectangle(scene.getX1(), scene.getY1(),
+				scene.getX2(), scene.getY2());
+		Coordinate beforeStart = new Coordinate(start.getX(), start.getY());
+
 		String valWidth = panel.getWidthValue();
 		String valHeight = panel.getHeightValue();
 		String valStartX = panel.getStartXValue();
@@ -92,8 +97,17 @@ public class DocumentPropertiesAction extends MapEditorAction
 		start.setX(startX);
 		start.setY(startY);
 
+		Rectangle afterScene = new Rectangle(scene.getX1(), scene.getY1(),
+				scene.getX2(), scene.getY2());
+		Coordinate afterStart = new Coordinate(start.getX(), start.getY());
+		DocumentPropertiesCommand command = DocumentPropertiesCommand.create(
+				"Document properties", view.getConfig(), beforeScene,
+				beforeStart, afterScene, afterStart);
+
 		dialog.dispose();
 
+		mapEditor.getHistory().record(command);
+		mapEditor.triggerDataChanged();
 		mapEditor.getMap().repaint();
 	}
 

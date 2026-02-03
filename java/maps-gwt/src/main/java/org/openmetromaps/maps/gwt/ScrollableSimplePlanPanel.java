@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
+import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.gwt.input.PanMouseProcessor;
 import org.openmetromaps.maps.gwt.input.PanTouchProcessor;
@@ -66,7 +67,10 @@ public class ScrollableSimplePlanPanel extends BaseMapWindowPanel
 	public void setModel(MapModel mapModel)
 	{
 		this.mapModel = mapModel;
-		mapView = mapModel.getViews().get(0);
+		MapView baseView = mapModel.getViews().get(0);
+		double scale = Util.getDevicePixelRatio();
+		mapView = scale == 1.0 ? baseView
+				: ModelUtil.getScaledInstance(baseView, scale);
 
 		setScene(mapView.getConfig().getScene());
 	}

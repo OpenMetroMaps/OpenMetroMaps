@@ -20,6 +20,7 @@ package org.openmetromaps.maps.gwt;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.MapViewStatus;
+import org.openmetromaps.maps.ModelUtil;
 import org.openmetromaps.maps.PlanRenderer;
 import org.openmetromaps.maps.PlanRenderer.SegmentMode;
 import org.openmetromaps.maps.PlanRenderer.StationMode;
@@ -76,7 +77,10 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 	public void setModel(MapModel mapModel)
 	{
 		this.mapModel = mapModel;
-		mapView = mapModel.getViews().get(0);
+		MapView baseView = mapModel.getViews().get(0);
+		double scale = Util.getDevicePixelRatio();
+		mapView = scale == 1.0 ? baseView
+				: ModelUtil.getScaledInstance(baseView, scale);
 		lineNetwork = mapView.getLineNetwork();
 
 		setScene(mapView.getConfig().getScene());

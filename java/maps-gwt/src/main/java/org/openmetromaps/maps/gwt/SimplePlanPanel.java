@@ -96,7 +96,10 @@ public class SimplePlanPanel extends SimplePanel implements RequiresResize
 	public void setModel(MapModel mapModel)
 	{
 		this.mapModel = mapModel;
-		mapView = mapModel.getViews().get(0);
+		MapView baseView = mapModel.getViews().get(0);
+		double scale = Util.getDevicePixelRatio();
+		mapView = scale == 1.0 ? baseView
+				: ModelUtil.getScaledInstance(baseView, scale);
 
 		DataConfig viewConfig = ModelUtil.dataConfig(mapModel.getData());
 		box = viewConfig.getBbox();

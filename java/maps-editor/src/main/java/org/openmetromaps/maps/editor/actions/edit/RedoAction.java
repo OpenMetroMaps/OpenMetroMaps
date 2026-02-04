@@ -21,8 +21,8 @@ import java.awt.event.ActionEvent;
 
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
-
-import de.topobyte.swing.util.EmptyIcon;
+import org.openmetromaps.maps.editor.icons.BvgIcon;
+import org.openmetromaps.maps.editor.icons.IconResources;
 
 public class RedoAction extends MapEditorAction
 {
@@ -32,7 +32,7 @@ public class RedoAction extends MapEditorAction
 	public RedoAction(MapEditor mapEditor)
 	{
 		super(mapEditor, "Redo", "Redo last undone action");
-		setIcon(new EmptyIcon(24));
+		setIcon(new BvgIcon(IconResources.REDO, 24));
 	}
 
 	@Override

@@ -23,6 +23,8 @@ import java.nio.file.Path;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.Storage;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
+import org.openmetromaps.maps.editor.icons.BvgIcon;
+import org.openmetromaps.maps.editor.icons.IconResources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +39,7 @@ public class SaveAction extends MapEditorAction
 	{
 		super(mapEditor, "Save", "Save the current file");
 		setIcon("res/images/24/document-save.png");
+		setIcon(new BvgIcon(IconResources.SAVE, 24));
 	}
 
 	@Override

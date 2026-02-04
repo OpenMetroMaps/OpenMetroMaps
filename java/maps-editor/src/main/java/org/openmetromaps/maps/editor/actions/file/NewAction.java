@@ -27,6 +27,8 @@ import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
+import org.openmetromaps.maps.editor.icons.BvgIcon;
+import org.openmetromaps.maps.editor.icons.IconResources;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.model.Line;
@@ -48,7 +50,7 @@ public class NewAction extends MapEditorAction
 	public NewAction(MapEditor mapEditor)
 	{
 		super(mapEditor, "New", "Create a new document");
-		setIcon("res/images/24/document-new.png");
+		setIcon(new BvgIcon(IconResources.NEW_FILE, 24));
 	}
 
 	@Override

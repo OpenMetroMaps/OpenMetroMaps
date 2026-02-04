@@ -10,6 +10,7 @@ dependencies {
     api 'de.topobyte:collections-utils:0.0.5'
     api 'de.topobyte:melon-io:0.1.0'
     api 'de.topobyte:melon-resources:0.0.1'
+    api 'de.topobyte:bvg-awt:0.1.0'
 
     api 'com.google.guava:guava:19.0'
 

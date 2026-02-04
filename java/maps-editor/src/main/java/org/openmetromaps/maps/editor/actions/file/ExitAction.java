@@ -21,6 +21,8 @@ import java.awt.event.ActionEvent;
 
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
+import org.openmetromaps.maps.editor.icons.BvgIcon;
+import org.openmetromaps.maps.editor.icons.IconResources;
 
 public class ExitAction extends MapEditorAction
 {
@@ -30,7 +32,7 @@ public class ExitAction extends MapEditorAction
 	public ExitAction(MapEditor mapEditor)
 	{
 		super(mapEditor, "Exit", "Quit the application");
-		setIcon("res/images/24/gtk-quit.png");
+		setIcon(new BvgIcon(IconResources.EXIT, 24));
 	}
 
 	@Override

@@ -21,6 +21,8 @@ import java.awt.event.ActionEvent;
 
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
+import org.openmetromaps.maps.editor.icons.BvgIcon;
+import org.openmetromaps.maps.editor.icons.IconResources;
 
 public class SettingsAction extends MapEditorAction
 {
@@ -30,7 +32,7 @@ public class SettingsAction extends MapEditorAction
 	public SettingsAction(MapEditor mapEditor)
 	{
 		super(mapEditor, "Settings", "Edit the application settings");
-		setIcon("res/images/24/preferences-desktop.png");
+		setIcon(new BvgIcon(IconResources.SETTINGS, 24));
 	}
 
 	@Override

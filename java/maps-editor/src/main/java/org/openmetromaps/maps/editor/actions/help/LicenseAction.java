@@ -22,6 +22,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
 import org.openmetromaps.maps.editor.about.AboutDialog;
+import org.openmetromaps.maps.editor.icons.BvgIcon;
+import org.openmetromaps.maps.editor.icons.IconResources;
 
 import de.topobyte.swing.util.action.SimpleAction;
 
@@ -36,7 +38,7 @@ public class LicenseAction extends SimpleAction
 	{
 		super("License", "Show license information about this software");
 		this.frame = frame;
-		setIcon("res/images/24/help-about.png");
+		setIcon(new BvgIcon(IconResources.LICENSE, 24));
 	}
 
 	@Override

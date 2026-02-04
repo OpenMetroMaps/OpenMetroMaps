@@ -31,6 +31,8 @@ import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
 import org.openmetromaps.maps.editor.config.ConfigurationHelper;
 import org.openmetromaps.maps.editor.config.VolatileConfiguration;
+import org.openmetromaps.maps.editor.icons.BvgIcon;
+import org.openmetromaps.maps.editor.icons.IconResources;
 import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
@@ -49,7 +51,7 @@ public class OpenAction extends MapEditorAction
 	public OpenAction(MapEditor mapEditor)
 	{
 		super(mapEditor, "Open", "Open a file");
-		setIcon("res/images/24/document-open.png");
+		setIcon(new BvgIcon(IconResources.OPEN, 24));
 	}
 
 	@Override

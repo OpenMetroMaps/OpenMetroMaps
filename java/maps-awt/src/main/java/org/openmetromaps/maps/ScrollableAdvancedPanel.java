@@ -47,6 +47,7 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 	private SegmentMode segmentMode;
 
 	private float scale;
+	private boolean antialiasing = true;
 
 	public ScrollableAdvancedPanel(ModelData data, MapView view,
 			MapViewStatus mapViewStatus, StationMode stationMode,
@@ -112,6 +113,16 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 		return renderer;
 	}
 
+	public boolean isAntialiasing()
+	{
+		return antialiasing;
+	}
+
+	public void setAntialiasing(boolean antialiasing)
+	{
+		this.antialiasing = antialiasing;
+	}
+
 	@Override
 	protected void paintComponent(Graphics graphics)
 	{
@@ -119,7 +130,8 @@ public class ScrollableAdvancedPanel extends BaseMapWindowPanel
 
 		Graphics2D g = (Graphics2D) graphics;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
+				antialiasing ? RenderingHints.VALUE_ANTIALIAS_ON
+						: RenderingHints.VALUE_ANTIALIAS_OFF);
 
 		Painter painter = new AwtPainter(g);
 

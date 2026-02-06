@@ -79,6 +79,7 @@ import org.openmetromaps.maps.editor.actions.view.DebugRanksAction;
 import org.openmetromaps.maps.editor.actions.view.DebugTangentsAction;
 import org.openmetromaps.maps.editor.actions.view.ShowLabelsAction;
 import org.openmetromaps.maps.editor.actions.view.ShowStationCentersAction;
+import org.openmetromaps.maps.editor.actions.view.ToggleAntialiasingAction;
 import org.openmetromaps.maps.editor.config.ConfigurationHelper;
 import org.openmetromaps.maps.editor.config.PermanentConfigReader;
 import org.openmetromaps.maps.editor.config.PermanentConfiguration;
@@ -146,6 +147,10 @@ public class MapEditor
 
 	private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
 			this);
+
+	private BooleanValueHolder antialiasing = new BooleanValueHolder(
+			changeSupport, "antialiasing", x -> setAntialiasingInternal(),
+			true);
 
 	private BooleanValueHolder showLabels = new BooleanValueHolder(
 			changeSupport, "show-labels", x -> setShowLabelsInternal(), true);
@@ -298,6 +303,22 @@ public class MapEditor
 		map.repaint();
 	}
 
+	public boolean isAntialiasing()
+	{
+		return antialiasing.getValue();
+	}
+
+	public void setAntialiasing(boolean antialiasing)
+	{
+		this.antialiasing.setValue(antialiasing);
+	}
+
+	public void setAntialiasingInternal()
+	{
+		map.setAntialiasing(antialiasing.getValue());
+		map.repaint();
+	}
+
 	public boolean isDebugTangents()
 	{
 		return debugTangents.getValue();
@@ -337,6 +358,7 @@ public class MapEditor
 
 	private void syncMapState()
 	{
+		map.setAntialiasing(antialiasing.getValue());
 		PlanRenderer planRenderer = map.getPlanRenderer();
 		planRenderer.setRenderLabels(showLabels.getValue());
 		planRenderer.setRenderStationCenters(showStationCenters.getValue());
@@ -554,6 +576,8 @@ public class MapEditor
 
 	private void setupMenuView(JMenu menuView)
 	{
+		JMenus.addCheckbox(menuView, new ToggleAntialiasingAction(this),
+				KeyEvent.VK_F6);
 		JMenus.addCheckbox(menuView, new ShowLabelsAction(this),
 				KeyEvent.VK_F2);
 		JMenus.addCheckbox(menuView, new ShowStationCentersAction(this),

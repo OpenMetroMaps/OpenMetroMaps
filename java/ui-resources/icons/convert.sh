@@ -40,6 +40,8 @@ convert "material-symbols" "description-outline.svg"
 convert "material-symbols" "info-outline.svg"
 convert "material-symbols" "gavel.svg"
 convert "material-symbols" "manufacturing.svg"
+convert "material-symbols" "blur-on.svg"
+convert "material-symbols" "blur-off.svg"
 
 convert "openmetromaps" "align-vertically.svg"
 convert "openmetromaps" "align-horizontally.svg"

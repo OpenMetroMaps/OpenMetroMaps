@@ -17,20 +17,36 @@
 
 package org.openmetromaps.maps.editor.actions.view;
 
+import javax.swing.Action;
+
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorBooleanAction;
 
-import de.topobyte.swing.util.EmptyIcon;
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 
 public class ShowLabelsAction extends MapEditorBooleanAction
 {
 
 	private static final long serialVersionUID = 1L;
 
+	private BvgIcon iconEnabled;
+	private BvgIcon iconDisabled;
+
 	public ShowLabelsAction(MapEditor mapEditor)
 	{
 		super(mapEditor, "Show labels", "Toggle map label visibility");
-		setIcon(new EmptyIcon(24));
+		iconEnabled = new BvgIcon(IconResources.LABELS_ON, 24);
+		iconDisabled = new BvgIcon(IconResources.LABELS_OFF, 24);
+	}
+
+	@Override
+	public Object getValue(String key)
+	{
+		if (key.equals(Action.SMALL_ICON)) {
+			return getState() ? iconEnabled : iconDisabled;
+		}
+		return super.getValue(key);
 	}
 
 	@Override
@@ -43,6 +59,8 @@ public class ShowLabelsAction extends MapEditorBooleanAction
 	public void toggleState()
 	{
 		mapEditor.setShowLabels(!mapEditor.isShowLabels());
+		firePropertyChange(Action.SMALL_ICON, null,
+				getValue(Action.SMALL_ICON));
 	}
 
 }

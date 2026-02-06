@@ -40,6 +40,9 @@ public class IconResources
 	public static final String ANTIALIASING_ON = "res/images/material-symbols/blur-on.bvg";
 	public static final String ANTIALIASING_OFF = "res/images/material-symbols/blur-off.bvg";
 
+	public static final String LABELS_ON = "res/images/material-symbols/font-download-outline.bvg";
+	public static final String LABELS_OFF = "res/images/material-symbols/font-download-off-outline.bvg";
+
 	public static final String ALIGN_HORIZONTALLY = "res/images/openmetromaps/align-horizontally.bvg";
 	public static final String ALIGN_VERTICALLY = "res/images/openmetromaps/align-vertically.bvg";
 

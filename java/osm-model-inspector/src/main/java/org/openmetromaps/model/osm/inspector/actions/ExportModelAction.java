@@ -38,6 +38,8 @@ import org.openmetromaps.model.osm.inspector.ModelInspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 import de.topobyte.swing.util.action.SimpleAction;
 
 public class ExportModelAction extends SimpleAction
@@ -54,7 +56,7 @@ public class ExportModelAction extends SimpleAction
 	{
 		super("Export Model", "Export the model to file");
 		this.modelInpector = modelInpector;
-		setIcon("res/images/24/document-save.png");
+		setIcon(new BvgIcon(IconResources.SAVE, 24));
 	}
 
 	@Override

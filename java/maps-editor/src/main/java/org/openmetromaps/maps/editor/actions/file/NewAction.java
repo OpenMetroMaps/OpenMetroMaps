@@ -27,8 +27,6 @@ import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.ViewConfig;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
-import org.openmetromaps.maps.editor.icons.BvgIcon;
-import org.openmetromaps.maps.editor.icons.IconResources;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.LineNetworkBuilder;
 import org.openmetromaps.maps.model.Line;
@@ -37,6 +35,8 @@ import org.openmetromaps.maps.model.Station;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.geometry.Rectangle;
 

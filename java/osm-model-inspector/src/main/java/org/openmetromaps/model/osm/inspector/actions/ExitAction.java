@@ -19,6 +19,8 @@ package org.openmetromaps.model.osm.inspector.actions;
 
 import java.awt.event.ActionEvent;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 import de.topobyte.swing.util.action.SimpleAction;
 
 public class ExitAction extends SimpleAction
@@ -29,7 +31,7 @@ public class ExitAction extends SimpleAction
 	public ExitAction()
 	{
 		super("Exit", "Quit the application");
-		setIcon("res/images/24/gtk-quit.png");
+		setIcon(new BvgIcon(IconResources.EXIT, 24));
 	}
 
 	@Override

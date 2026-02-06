@@ -24,6 +24,8 @@ import org.openmetromaps.model.osm.inspector.ModelInspector;
 import org.openmetromaps.model.osm.inspector.TextDialog;
 import org.openmetromaps.swing.Util;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 import de.topobyte.lineprinter.LineBufferPrinter;
 import de.topobyte.swing.util.action.SimpleAction;
 
@@ -39,7 +41,7 @@ public class AnalyzeStopsAction extends SimpleAction
 		super("Analyze Stops",
 				"Analyze the roles of public transport relations");
 		this.modelInpector = modelInpector;
-		setIcon("res/images/24/system-run.png");
+		setIcon(new BvgIcon(IconResources.PROCESS, 24));
 	}
 
 	@Override

@@ -31,14 +31,14 @@ import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
 import org.openmetromaps.maps.editor.config.ConfigurationHelper;
 import org.openmetromaps.maps.editor.config.VolatileConfiguration;
-import org.openmetromaps.maps.editor.icons.BvgIcon;
-import org.openmetromaps.maps.editor.icons.IconResources;
 import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class OpenAction extends MapEditorAction

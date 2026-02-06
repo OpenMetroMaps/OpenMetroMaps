@@ -27,11 +27,11 @@ import org.openmetromaps.maps.editor.DocumentPropertiesPanel;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
 import org.openmetromaps.maps.editor.history.DocumentPropertiesCommand;
-import org.openmetromaps.maps.editor.icons.BvgIcon;
-import org.openmetromaps.maps.editor.icons.IconResources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.geometry.Rectangle;
 

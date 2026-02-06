@@ -21,8 +21,9 @@ import java.awt.event.ActionEvent;
 
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
-import org.openmetromaps.maps.editor.icons.BvgIcon;
-import org.openmetromaps.maps.editor.icons.IconResources;
+
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 
 public class UndoAction extends MapEditorAction
 {

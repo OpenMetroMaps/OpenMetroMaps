@@ -1,4 +1,4 @@
-package org.openmetromaps.maps.editor.icons;
+package de.topobyte.bvg.icons;
 
 import java.awt.Component;
 import java.awt.Graphics;

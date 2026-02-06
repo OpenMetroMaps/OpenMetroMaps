@@ -1,4 +1,4 @@
-package org.openmetromaps.maps.editor.icons;
+package de.topobyte.bvg.icons;
 
 public class IconResources
 {
@@ -17,5 +17,7 @@ public class IconResources
 
 	public static final String ABOUT = "res/images/material-symbols/info-outline.bvg";
 	public static final String LICENSE = "res/images/material-symbols/gavel.bvg";
+
+	public static final String PROCESS = "res/images/material-symbols/manufacturing.bvg";
 
 }

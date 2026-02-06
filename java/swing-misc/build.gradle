@@ -3,4 +3,5 @@ dependencies {
     api 'de.topobyte:awt-utils:0.0.3'
     api 'de.topobyte:system-utils:0.0.1'
     api 'de.topobyte:melon-resources:0.0.1'
+    api 'de.topobyte:bvg-awt:0.1.0'
 }

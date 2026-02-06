@@ -32,8 +32,9 @@ import org.openmetromaps.maps.graph.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 import de.topobyte.lightgeom.lina.Point;
-import de.topobyte.swing.util.EmptyIcon;
 
 public class AlignHorizontallyAction extends MapEditorAction
 {
@@ -47,7 +48,7 @@ public class AlignHorizontallyAction extends MapEditorAction
 	{
 		super(mapEditor, "Align Horizontally",
 				"Align selected stations horizontally (same x coordinate)");
-		setIcon(new EmptyIcon(24));
+		setIcon(new BvgIcon(IconResources.ALIGN_HORIZONTALLY, 24));
 	}
 
 	@Override

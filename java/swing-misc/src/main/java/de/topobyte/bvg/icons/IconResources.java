@@ -20,4 +20,7 @@ public class IconResources
 
 	public static final String PROCESS = "res/images/material-symbols/manufacturing.bvg";
 
+	public static final String ALIGN_HORIZONTALLY = "res/images/openmetromaps/align-horizontally.bvg";
+	public static final String ALIGN_VERTICALLY = "res/images/openmetromaps/align-vertically.bvg";
+
 }

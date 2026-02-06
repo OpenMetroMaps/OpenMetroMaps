@@ -2,8 +2,7 @@
 set -eu
 
 BVG_TOOLS="$HOME/github/topobyte/bvg/scripts/"
-SRC_DIR="material-symbols"
-DEST_DIR="../src/main/resources/res/images/material-symbols"
+DEST_DIR="../src/main/resources/res/images"
 
 if [ ! -d "$BVG_TOOLS" ]; then
   echo "BVG tools not found at: $BVG_TOOLS" >&2
@@ -12,9 +11,10 @@ if [ ! -d "$BVG_TOOLS" ]; then
 fi
 
 convert() {
-  local name="$1"
-  local svg="${SRC_DIR}/${name}"
-  local bvg="${DEST_DIR}/${name%.svg}.bvg"
+  local dir="$1"
+  local name="$2"
+  local svg="${dir}/${name}"
+  local bvg="${DEST_DIR}/${dir}/${name%.svg}.bvg"
 
   if [ -f "$bvg" ]; then
     echo "Skipping (exists): $bvg"
@@ -25,17 +25,21 @@ convert() {
   $BVG_TOOLS/SvgToBvg --compress deflate "$svg" "$bvg"
 }
 
-mkdir -p "$DEST_DIR"
+mkdir -p "$DEST_DIR/material-symbols"
+mkdir -p "$DEST_DIR/openmetromaps"
 
-convert "undo.svg"
-convert "redo.svg"
-convert "note-add-outline.svg"
-convert "save-outline.svg"
-convert "save-as-outline.svg"
-convert "folder-open-outline.svg"
-convert "exit-to-app.svg"
-convert "settings-outline.svg"
-convert "description-outline.svg"
-convert "info-outline.svg"
-convert "gavel.svg"
-convert "manufacturing.svg"
+convert "material-symbols" "undo.svg"
+convert "material-symbols" "redo.svg"
+convert "material-symbols" "note-add-outline.svg"
+convert "material-symbols" "save-outline.svg"
+convert "material-symbols" "save-as-outline.svg"
+convert "material-symbols" "folder-open-outline.svg"
+convert "material-symbols" "exit-to-app.svg"
+convert "material-symbols" "settings-outline.svg"
+convert "material-symbols" "description-outline.svg"
+convert "material-symbols" "info-outline.svg"
+convert "material-symbols" "gavel.svg"
+convert "material-symbols" "manufacturing.svg"
+
+convert "openmetromaps" "align-vertically.svg"
+convert "openmetromaps" "align-horizontally.svg"

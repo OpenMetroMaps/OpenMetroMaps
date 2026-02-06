@@ -25,6 +25,9 @@ import org.openmetromaps.maps.editor.algorithms.HeavyComputationOptimization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
+
 public class HeavyComputationAction extends MapEditorAction
 {
 
@@ -37,7 +40,7 @@ public class HeavyComputationAction extends MapEditorAction
 	{
 		super(mapEditor, "Heavy computation demo",
 				"Run an algorithm that takes a while to finish and update view repeatedly");
-		setIcon("res/images/24/system-run.png");
+		setIcon(new BvgIcon(IconResources.PROCESS, 24));
 	}
 
 	@Override

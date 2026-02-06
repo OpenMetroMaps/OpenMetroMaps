@@ -26,6 +26,9 @@ import org.openmetromaps.maps.editor.history.MapEditorSnapshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
+
 public class StraightenAxisParallelLinesAction extends MapEditorAction
 {
 
@@ -38,7 +41,7 @@ public class StraightenAxisParallelLinesAction extends MapEditorAction
 	{
 		super(mapEditor, "Straighten Axis-parralel lines",
 				"Run an optimization that straightens portions of lines that are almost parallel to the axis anyways");
-		setIcon("res/images/24/system-run.png");
+		setIcon(new BvgIcon(IconResources.PROCESS, 24));
 	}
 
 	@Override

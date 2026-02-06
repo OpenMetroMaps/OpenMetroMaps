@@ -39,7 +39,6 @@ public class SaveAction extends MapEditorAction
 	public SaveAction(MapEditor mapEditor)
 	{
 		super(mapEditor, "Save", "Save the current file");
-		setIcon("res/images/24/document-save.png");
 		setIcon(new BvgIcon(IconResources.SAVE, 24));
 	}
 

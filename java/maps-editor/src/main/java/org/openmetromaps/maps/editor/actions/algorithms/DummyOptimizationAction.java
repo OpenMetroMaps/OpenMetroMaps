@@ -26,6 +26,9 @@ import org.openmetromaps.maps.editor.actions.MapEditorAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
+
 public class DummyOptimizationAction extends MapEditorAction
 {
 
@@ -38,7 +41,7 @@ public class DummyOptimizationAction extends MapEditorAction
 	{
 		super(mapEditor, "Dummy Optimization",
 				"Pretend to run an optimization algorithm");
-		setIcon("res/images/24/system-run.png");
+		setIcon(new BvgIcon(IconResources.PROCESS, 24));
 	}
 
 	@Override

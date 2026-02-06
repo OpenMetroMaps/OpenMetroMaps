@@ -22,6 +22,9 @@ import java.awt.event.ActionEvent;
 import org.openmetromaps.mobidig.MapViewer;
 import org.openmetromaps.mobidig.actions.MapViewerAction;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
+
 public class ExitAction extends MapViewerAction
 {
 
@@ -30,7 +33,7 @@ public class ExitAction extends MapViewerAction
 	public ExitAction(MapViewer mapViewer)
 	{
 		super(mapViewer, "Exit", "Quit the application");
-		setIcon("res/images/24/gtk-quit.png");
+		setIcon(new BvgIcon(IconResources.EXIT, 24));
 	}
 
 	@Override

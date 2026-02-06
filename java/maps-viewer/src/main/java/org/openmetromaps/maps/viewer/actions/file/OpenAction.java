@@ -35,6 +35,8 @@ import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class OpenAction extends MapViewerAction
@@ -47,7 +49,7 @@ public class OpenAction extends MapViewerAction
 	public OpenAction(MapViewer mapViewer)
 	{
 		super(mapViewer, "Open", "Open a file");
-		setIcon("res/images/24/document-open.png");
+		setIcon(new BvgIcon(IconResources.OPEN, 24));
 	}
 
 	@Override

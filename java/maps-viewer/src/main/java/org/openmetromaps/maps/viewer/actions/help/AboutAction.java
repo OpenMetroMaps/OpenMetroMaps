@@ -23,6 +23,8 @@ import javax.swing.JFrame;
 
 import org.openmetromaps.maps.viewer.about.AboutDialog;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
 import de.topobyte.swing.util.action.SimpleAction;
 
 public class AboutAction extends SimpleAction
@@ -36,7 +38,7 @@ public class AboutAction extends SimpleAction
 	{
 		super("About", "Show information about this software");
 		this.frame = frame;
-		setIcon("res/images/24/help-about.png");
+		setIcon(new BvgIcon(IconResources.ABOUT, 24));
 	}
 
 	@Override

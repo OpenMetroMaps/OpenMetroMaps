@@ -22,6 +22,9 @@ import java.awt.event.ActionEvent;
 import org.openmetromaps.maps.morpher.MapMorpher;
 import org.openmetromaps.maps.morpher.actions.MapMorpherAction;
 
+import de.topobyte.bvg.icons.BvgIcon;
+import de.topobyte.bvg.icons.IconResources;
+
 public class ExitAction extends MapMorpherAction
 {
 
@@ -30,7 +33,7 @@ public class ExitAction extends MapMorpherAction
 	public ExitAction(MapMorpher mapMorpher)
 	{
 		super(mapMorpher, "Exit", "Quit the application");
-		setIcon("res/images/24/gtk-quit.png");
+		setIcon(new BvgIcon(IconResources.EXIT, 24));
 	}
 
 	@Override

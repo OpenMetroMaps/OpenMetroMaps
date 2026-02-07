@@ -68,6 +68,8 @@ DockingFrames for dockable dialogs.
 One core component is the Map Editor that allows you to create new maps based on
 OpenStreetMap data or from scratch and lets you manipulate existing maps.
 
+![The map editor being used to work on the Berlin metro map](screenshots/map-editor.png)
+
 If you want to run the editor or start hacking on the desktop tools, please have
 a look at the relevant
 [README file](java/README.md).

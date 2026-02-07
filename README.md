@@ -80,7 +80,7 @@ any desktop software. Although it would also be nice to have a native Javascript
 implementation of a web viewer, we're eager to maximize code reuse and try to
 use the main Java source via transpilation to Javascript. In order to do that
 we use [GWT](gwt).
-Have a look at <https://demo.openmetromaps.org/> to see it in action.
+Have a look at <https://openmetromaps.org/demo> to see it in action.
 
 ## Data Sources
 

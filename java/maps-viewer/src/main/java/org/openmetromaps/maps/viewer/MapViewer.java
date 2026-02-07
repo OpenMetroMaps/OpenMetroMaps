@@ -121,6 +121,10 @@ public class MapViewer
 	private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
 			this);
 
+	private BooleanValueHolder antialiasing = new BooleanValueHolder(
+			changeSupport, "antialiasing", x -> setAntialiasingInternal(),
+			true);
+
 	private BooleanValueHolder showLabels = new BooleanValueHolder(
 			changeSupport, "show-labels", x -> setShowLabelsInternal(), true);
 
@@ -198,6 +202,22 @@ public class MapViewer
 	{
 		map.getPlanRenderer()
 				.setRenderStationCenters(showStationCenters.getValue());
+		map.repaint();
+	}
+
+	public boolean isAntialiasing()
+	{
+		return antialiasing.getValue();
+	}
+
+	public void setAntialiasing(boolean antialiasing)
+	{
+		this.antialiasing.setValue(antialiasing);
+	}
+
+	public void setAntialiasingInternal()
+	{
+		map.setAntialiasing(antialiasing.getValue());
 		map.repaint();
 	}
 
@@ -434,9 +454,12 @@ public class MapViewer
 
 	private void setupMenuView(JMenu menuView)
 	{
+		ToggleAction toggleAntialiasing = ActionHelper
+				.createToggleAntialiasingAction(antialiasing);
 		ToggleAction toggleShowLabels = ActionHelper
 				.createShowLabelsAction(showLabels);
 
+		JMenus.addCheckbox(menuView, toggleAntialiasing, KeyEvent.VK_F6);
 		JMenus.addCheckbox(menuView, toggleShowLabels, KeyEvent.VK_F2);
 		JMenus.addCheckbox(menuView, new ShowStationCentersAction(this),
 				KeyEvent.VK_F3);

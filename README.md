@@ -84,6 +84,8 @@ use the main Java source via transpilation to Javascript. In order to do that
 we use [GWT](gwt).
 Have a look at <https://openmetromaps.org/demo> to see it in action.
 
+![The web view showing the Berlin metro map](screenshots/web-view.png)
+
 ## Data Sources
 
 We currently support data imports from the following sources:

@@ -131,13 +131,34 @@ ext.allLibraries = [
         project(':openmetromaps-markdown-view'),
 ]
 
-ext.librariesJava8 = [
+ext.modulesJava17 = [
+        project(':openmetromaps-cli'),
+
+        project(':openmetromaps-maps-viewer'),
+        project(':openmetromaps-maps-editor'),
+        project(':openmetromaps-maps-morpher'),
+        project(':openmetromaps-osm-model-inspector'),
+        project(':openmetromaps-mobidig'),
+        project(':openmetromaps-ui-selector'),
+        project(':openmetromaps-release-jar-cli'),
+        project(':openmetromaps-release-jar-ui-selector'),
+
+        project(':openmetromaps-maps-batik'),
+
         project(':openmetromaps-swing-misc'),
         project(':openmetromaps-heavy-util'),
         project(':openmetromaps-maps-awt'),
 
         project(':openmetromaps-markdown-view'),
+        project(':openmetromaps-new-format'),
 ]
+
+configure(modulesJava17) {
+    java {
+        sourceCompatibility = 17
+        targetCompatibility = 17
+    }
+}
 
 task checkUploadArtifactList {
     doLast {

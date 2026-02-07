@@ -38,6 +38,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.xml.parsers.ParserConfigurationException;
@@ -130,6 +131,7 @@ public class MapEditor
 	private ViewConfig viewConfig;
 
 	private JFrame frame;
+	private JToolBar toolbar;
 
 	private CControl control;
 	private CGrid grid;
@@ -526,12 +528,13 @@ public class MapEditor
 
 	private void setupMenuFile(JMenu menuFile)
 	{
+		SaveAction save = new SaveAction(this);
+
 		JMenus.addItem(menuFile, new NewAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_N);
 		JMenus.addItem(menuFile, new OpenAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_O);
-		JMenus.addItem(menuFile, new SaveAction(this), KeyEvent.CTRL_DOWN_MASK,
-				KeyEvent.VK_S);
+		JMenus.addItem(menuFile, save, KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_S);
 		JMenus.addItem(menuFile, new SaveAsAction(this),
 				KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK,
 				KeyEvent.VK_S);
@@ -539,13 +542,20 @@ public class MapEditor
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_P);
 		JMenus.addItem(menuFile, new ExitAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_Q);
+
+		toolbar.add(save);
 	}
 
 	private void setupMenuEdit(JMenu menuEdit)
 	{
-		JMenus.addItem(menuEdit, new UndoAction(this), KeyEvent.CTRL_DOWN_MASK,
-				KeyEvent.VK_Z);
-		JMenus.addItem(menuEdit, new RedoAction(this),
+		UndoAction undo = new UndoAction(this);
+		RedoAction redo = new RedoAction(this);
+		AlignHorizontallyAction alignHorizontally = new AlignHorizontallyAction(
+				this);
+		AlignVerticallyAction alignVertically = new AlignVerticallyAction(this);
+
+		JMenus.addItem(menuEdit, undo, KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_Z);
+		JMenus.addItem(menuEdit, redo,
 				KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK,
 				KeyEvent.VK_Z);
 		JMenus.addItem(menuEdit, new DocumentPropertiesAction(this),
@@ -557,10 +567,10 @@ public class MapEditor
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_L);
 		JMenus.addItem(menuEdit, new SelectNodesInBetweenAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_B);
-		JMenus.addItem(menuEdit, new AlignHorizontallyAction(this),
-				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_H);
-		JMenus.addItem(menuEdit, new AlignVerticallyAction(this),
-				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_V);
+		JMenus.addItem(menuEdit, alignHorizontally, KeyEvent.CTRL_DOWN_MASK,
+				KeyEvent.VK_H);
+		JMenus.addItem(menuEdit, alignVertically, KeyEvent.CTRL_DOWN_MASK,
+				KeyEvent.VK_V);
 		JMenus.addItem(menuEdit, new DistributeEvenlyAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_D);
 
@@ -572,14 +582,22 @@ public class MapEditor
 		JMenus.addItem(menuAlgorithms,
 				new StraightenAxisParallelLinesAction(this));
 		JMenus.addItem(menuAlgorithms, new HeavyComputationAction(this));
+
+		toolbar.addSeparator();
+		toolbar.add(undo);
+		toolbar.add(redo);
+		toolbar.add(alignHorizontally);
+		toolbar.add(alignVertically);
 	}
 
 	private void setupMenuView(JMenu menuView)
 	{
-		JMenus.addCheckbox(menuView, new ToggleAntialiasingAction(this),
-				KeyEvent.VK_F6);
-		JMenus.addCheckbox(menuView, new ShowLabelsAction(this),
-				KeyEvent.VK_F2);
+		ToggleAntialiasingAction toggleAntialiasing = new ToggleAntialiasingAction(
+				this);
+		ShowLabelsAction toggleShowLabels = new ShowLabelsAction(this);
+
+		JMenus.addCheckbox(menuView, toggleAntialiasing, KeyEvent.VK_F6);
+		JMenus.addCheckbox(menuView, toggleShowLabels, KeyEvent.VK_F2);
 		JMenus.addCheckbox(menuView, new ShowStationCentersAction(this),
 				KeyEvent.VK_F3);
 		JMenu stationMode = submenu("Station mode");
@@ -595,6 +613,10 @@ public class MapEditor
 				x -> setStationMode(x), new DefaultAppearance<>());
 		EnumActions.add(segmentMode, SegmentMode.class, this.segmentMode,
 				x -> setSegmentMode(x), new DefaultAppearance<>());
+
+		toolbar.addSeparator();
+		toolbar.add(toggleAntialiasing);
+		toolbar.add(toggleShowLabels);
 	}
 
 	private void setupMenuHelp(JMenu menuHelp)
@@ -637,6 +659,9 @@ public class MapEditor
 		JPanel panel = new JPanel(new GridBagLayout());
 		frame.setContentPane(panel);
 
+		toolbar = new JToolBar();
+		toolbar.setFloatable(false);
+
 		map = new ScrollableAdvancedPanel(model.getData(), view, mapViewStatus,
 				PlanRenderer.StationMode.CONVEX, PlanRenderer.SegmentMode.CURVE,
 				10, 15, 1);
@@ -655,10 +680,11 @@ public class MapEditor
 		control.setTheme(permanentConfig.getDockingFramesTheme());
 
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
-		c.weight(1, 1).fill(GridBagConstraints.BOTH);
+		c.gridPos(0, 0).weight(1, 0).fill(GridBagConstraints.HORIZONTAL);
+		panel.add(toolbar, c.getConstraints());
+		c.gridPos(0, 1).weight(1, 1).fill(GridBagConstraints.BOTH);
 		panel.add(control.getContentArea(), c.getConstraints());
-		c.weight(1, 0).fill(GridBagConstraints.HORIZONTAL);
-		c.gridPos(0, 1);
+		c.gridPos(0, 2).weight(1, 0).fill(GridBagConstraints.HORIZONTAL);
 		panel.add(statusBar, c.getConstraints());
 
 		grid = new CGrid(control);

@@ -24,12 +24,40 @@ the namespaces for data and code projects separated. Also see the
 
 A major goal of this project is to develop a file format for storing schematic
 maps for public transport networks.
-There's no formal specification of the file format yet and features of the
+There's no complete formal specification of the file format yet and features of the
 format are still under construction.
-See an [example file](example-data/example.xml)
-or the [Berlin testing file](java/test-data/src/main/resources/berlin.omm)
-to get an idea of how it's going to look.
-See the [specification draft](spec-map-format.md).
+To get an overview take a look at a small [example file](example-data/example.xml)
+that illustrates the basic concepts:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<omm-file version="1.0.0">
+  <stations>
+    <station lat="52.521515" lon="13.412305" name="Alexanderplatz"/>
+    <station lat="52.520387" lon="13.386885" name="Friedrichstraße"/>
+    <station lat="52.522648" lon="13.402209" name="Hackescher Markt"/>
+  </stations>
+  <lines>
+    <line circular="false" color="#006CB3" name="S3">
+      <stop station="Alexanderplatz"/>
+      <stop station="Hackescher Markt"/>
+      <stop station="Friedrichstraße"/>
+    </line>
+  </lines>
+  <view name="Berlin" scene-height="904.137943" scene-width="1000.000000" start-x="386.178629" start-y="478.710910">
+    <edges line="S3"/>
+    <edges line="S45">
+      <interval from="Adlershof" to="Flughafen Berlin-Schönefeld"/>
+    </edges>
+    <station name="Alexanderplatz" x="424.775181" y="461.793637"/>
+    <station name="Friedrichstraße" x="392.200080" y="459.965281"/>
+    <station name="Hackescher Markt" x="408.133553" y="459.451927"/>
+  </view>
+</omm-file>
+```
+
+To see a full file, have a look at the [Berlin testing file](java/test-data/src/main/resources/berlin.omm).
+You can also check out the [specification draft](spec-map-format.md).
 
 ## Desktop Tools
 

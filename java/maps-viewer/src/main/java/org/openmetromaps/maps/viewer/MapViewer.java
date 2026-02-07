@@ -305,6 +305,7 @@ public class MapViewer
 
 	private void syncMapState()
 	{
+		map.setAntialiasing(antialiasing.getValue());
 		PlanRenderer planRenderer = map.getPlanRenderer();
 		planRenderer.setRenderLabels(showLabels.getValue());
 		planRenderer.setRenderStationCenters(showStationCenters.getValue());

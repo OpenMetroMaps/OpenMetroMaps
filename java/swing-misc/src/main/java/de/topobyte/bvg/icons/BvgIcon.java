@@ -25,15 +25,19 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.swing.Icon;
+import javax.swing.UIManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.topobyte.bvg.BvgAwtPainter;
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 import de.topobyte.bvg.BvgIO;
 import de.topobyte.bvg.BvgImage;
+import de.topobyte.bvg.Color;
 import de.topobyte.melon.resources.Resources;
 
+// TODO: port back to bvg
 public class BvgIcon implements Icon
 {
 
@@ -61,12 +65,26 @@ public class BvgIcon implements Icon
 		if (image == null) {
 			return;
 		}
+
+		Color tint = isDarkTheme() ? new Color(0xCCFFFFFF, true)
+				: new Color(0xFF000000, true);
+
 		float sx = (float) (width / image.getWidth());
 		float sy = (float) (height / image.getHeight());
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		BvgAwtPainter.draw(g2d, image, x, y, sx, sy);
+		BvgAwtPainter.draw(g2d, image, x, y, sx, sy, color -> {
+			if (color.getColorCode() == 0xFF000000) {
+				return tint;
+			}
+			return color;
+		});
+	}
+
+	private static boolean isDarkTheme()
+	{
+		return UIManager.getLookAndFeel() instanceof FlatDarculaLaf;
 	}
 
 	@Override

@@ -17,6 +17,7 @@
 
 package de.topobyte.swing.util.action.enums;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.function.Consumer;
 
@@ -56,6 +57,16 @@ public class BooleanValueHolder
 	public boolean getValue()
 	{
 		return value;
+	}
+
+	public PropertyChangeSupport getChangeSupport()
+	{
+		return changeSupport;
+	}
+
+	public void addPropertyChangeListener(PropertyChangeListener listener)
+	{
+		changeSupport.addPropertyChangeListener(propertyName, listener);
 	}
 
 }

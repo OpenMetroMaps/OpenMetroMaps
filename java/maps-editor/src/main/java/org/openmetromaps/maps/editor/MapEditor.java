@@ -104,6 +104,7 @@ import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
 import de.topobyte.melon.io.StreamUtil;
 import de.topobyte.melon.resources.Resources;
+import de.topobyte.swing.util.ActionStateButton;
 import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.JMenus;
 import de.topobyte.swing.util.action.enums.BooleanValueHolder;
@@ -593,8 +594,8 @@ public class MapEditor
 	private void setupMenuView(JMenu menuView)
 	{
 		ToggleAntialiasingAction toggleAntialiasing = new ToggleAntialiasingAction(
-				this);
-		ShowLabelsAction toggleShowLabels = new ShowLabelsAction(this);
+				antialiasing);
+		ShowLabelsAction toggleShowLabels = new ShowLabelsAction(showLabels);
 
 		JMenus.addCheckbox(menuView, toggleAntialiasing, KeyEvent.VK_F6);
 		JMenus.addCheckbox(menuView, toggleShowLabels, KeyEvent.VK_F2);
@@ -615,8 +616,8 @@ public class MapEditor
 				x -> setSegmentMode(x), new DefaultAppearance<>());
 
 		toolbar.addSeparator();
-		toolbar.add(toggleAntialiasing);
-		toolbar.add(toggleShowLabels);
+		toolbar.add(new ActionStateButton(toggleAntialiasing));
+		toolbar.add(new ActionStateButton(toggleShowLabels));
 	}
 
 	private void setupMenuHelp(JMenu menuHelp)

@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2026 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,23 +15,42 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.actions.view;
+package de.topobyte.swing.util;
 
-import de.topobyte.bvg.icons.BvgIcon;
-import de.topobyte.bvg.icons.IconResources;
-import de.topobyte.swing.util.ToggleAction;
-import de.topobyte.swing.util.action.enums.BooleanValueHolder;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class ShowLabelsAction extends ToggleAction
+import javax.swing.Action;
+import javax.swing.JButton;
+
+public class ActionStateButton extends JButton implements PropertyChangeListener
 {
 
 	private static final long serialVersionUID = 1L;
 
-	public ShowLabelsAction(BooleanValueHolder valueHolder)
+	public ActionStateButton(Action action)
 	{
-		super("Show labels", "Toggle map label visibility", valueHolder,
-				new BvgIcon(IconResources.LABELS_OFF, 24),
-				new BvgIcon(IconResources.LABELS_ON, 24));
+		super(action);
+		setText(null);
+		action.addPropertyChangeListener(this);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt)
+	{
+		if (Action.SELECTED_KEY.equals(evt.getPropertyName())) {
+			repaint();
+		}
+	}
+
+	@Override
+	public void removeNotify()
+	{
+		Action action = getAction();
+		if (action != null) {
+			action.removePropertyChangeListener(this);
+		}
+		super.removeNotify();
 	}
 
 }

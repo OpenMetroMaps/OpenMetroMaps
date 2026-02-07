@@ -15,23 +15,44 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.actions.view;
+package de.topobyte.swing.util;
 
-import de.topobyte.bvg.icons.BvgIcon;
-import de.topobyte.bvg.icons.IconResources;
-import de.topobyte.swing.util.ToggleAction;
+import javax.swing.Action;
+import javax.swing.Icon;
+
+import de.topobyte.swing.util.action.SimpleBooleanAction;
 import de.topobyte.swing.util.action.enums.BooleanValueHolder;
 
-public class ToggleAntialiasingAction extends ToggleAction
+public class ToggleAction extends SimpleBooleanAction
 {
 
 	private static final long serialVersionUID = 1L;
 
-	public ToggleAntialiasingAction(BooleanValueHolder valueHolder)
+	private BooleanValueHolder valueHolder;
+
+	public ToggleAction(String name, String description,
+			BooleanValueHolder valueHolder, Icon uncheckedIcon,
+			Icon checkedIcon)
 	{
-		super("Antialiasing", "Toggle antialiasing on the map", valueHolder,
-				new BvgIcon(IconResources.ANTIALIASING_OFF, 24),
-				new BvgIcon(IconResources.ANTIALIASING_ON, 24));
+		super(name, description);
+		this.valueHolder = valueHolder;
+		setIcon(new ToggleIcon(uncheckedIcon, checkedIcon, () -> getState()));
+		valueHolder.addPropertyChangeListener(evt -> {
+			firePropertyChange(Action.SELECTED_KEY, null, getState());
+			firePropertyChange(Action.SMALL_ICON, null, null);
+		});
+	}
+
+	@Override
+	public boolean getState()
+	{
+		return valueHolder.getValue();
+	}
+
+	@Override
+	public void toggleState()
+	{
+		valueHolder.setValue(!valueHolder.getValue());
 	}
 
 }

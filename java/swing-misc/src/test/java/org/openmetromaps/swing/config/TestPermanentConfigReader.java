@@ -15,39 +15,23 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.config;
+package org.openmetromaps.swing.config;
 
-public class PermanentConfiguration
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class TestPermanentConfigReader
 {
 
-	private String lookAndFeel = null;
-	private String dockingFramesTheme = null;
-
-	public static PermanentConfiguration createDefaultConfiguration()
+	public static void main(String[] args) throws Exception
 	{
-		PermanentConfiguration configuration = new PermanentConfiguration();
-
-		return configuration;
-	}
-
-	public String getLookAndFeel()
-	{
-		return lookAndFeel;
-	}
-
-	public void setLookAndFeel(String lookAndFeel)
-	{
-		this.lookAndFeel = lookAndFeel;
-	}
-
-	public String getDockingFramesTheme()
-	{
-		return dockingFramesTheme;
-	}
-
-	public void setDockingFramesTheme(String dockingFramesTheme)
-	{
-		this.dockingFramesTheme = dockingFramesTheme;
+		Path path = TestPaths.PATH_PERMANENT;
+		try (InputStream input = Files.newInputStream(path)) {
+			Configuration configuration = ConfigurationReader.read(input);
+			System.out.println(configuration.getTheme());
+			System.out.println(configuration.getDockingFramesTheme());
+		}
 	}
 
 }

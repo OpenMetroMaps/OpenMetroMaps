@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2026 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,22 +15,38 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.config;
+package org.openmetromaps.swing.config;
 
-import java.io.InputStream;
 import java.nio.file.Path;
 
-import de.topobyte.melon.io.StreamUtil;
-
-public class TestVolatileConfigReader
+public class VolatileConfiguration
 {
 
-	public static void main(String[] args) throws Exception
+	private Path lastUsedDirectory;
+
+	public VolatileConfiguration()
 	{
-		Path path = TestPaths.PATH_VOLATILE;
-		InputStream input = StreamUtil.bufferedInputStream(path);
-		VolatileConfigReader.read(input);
-		input.close();
+		// no-op
+	}
+
+	public VolatileConfiguration(VolatileConfiguration other)
+	{
+		this.lastUsedDirectory = other.lastUsedDirectory;
+	}
+
+	public static VolatileConfiguration createDefaultConfiguration()
+	{
+		return new VolatileConfiguration();
+	}
+
+	public Path getLastUsedDirectory()
+	{
+		return lastUsedDirectory;
+	}
+
+	public void setLastUsedDirectory(Path lastUsedDirectory)
+	{
+		this.lastUsedDirectory = lastUsedDirectory;
 	}
 
 }

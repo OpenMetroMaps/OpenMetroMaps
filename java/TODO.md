@@ -11,7 +11,6 @@
 * ability to inspect a station's outgoing edges
 * ability to mark more edges as 'parallel' in order to improve the rendering
   of multi-line edges that split into separate lines.
-* settings editor
 * selection of multiple stations by clicking and dragging with the left
   mouse button (draw a rectangle)
 
@@ -23,6 +22,7 @@
   for a location
 * exporting to image files
 * undo/redo functionality
+* settings editor
 
 # MapViewer
 

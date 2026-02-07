@@ -20,14 +20,11 @@ package org.openmetromaps.maps.editor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeSupport;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +36,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.Constants;
 import org.openmetromaps.maps.CoordinateConversionType;
@@ -76,21 +73,19 @@ import org.openmetromaps.maps.editor.actions.file.SaveAsAction;
 import org.openmetromaps.maps.editor.actions.file.SettingsAction;
 import org.openmetromaps.maps.editor.actions.help.AboutAction;
 import org.openmetromaps.maps.editor.actions.help.LicenseAction;
-import org.openmetromaps.maps.editor.config.ConfigurationHelper;
-import org.openmetromaps.maps.editor.config.PermanentConfigReader;
-import org.openmetromaps.maps.editor.config.PermanentConfiguration;
-import org.openmetromaps.maps.editor.config.VolatileConfigReader;
-import org.openmetromaps.maps.editor.config.VolatileConfiguration;
 import org.openmetromaps.maps.editor.dockables.DockableHelper;
 import org.openmetromaps.maps.editor.history.Capture;
 import org.openmetromaps.maps.editor.history.MapEditorHistory;
 import org.openmetromaps.maps.editor.history.MapEditorSnapshot;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.swing.Theming;
 import org.openmetromaps.swing.actions.ActionHelper;
+import org.openmetromaps.swing.config.Configuration;
+import org.openmetromaps.swing.config.ConfigurationStorage;
+import org.openmetromaps.swing.config.VolatileConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
 
 import bibliothek.gui.dock.common.CControl;
 import bibliothek.gui.dock.common.CGrid;
@@ -98,7 +93,6 @@ import bibliothek.gui.dock.common.DefaultSingleCDockable;
 import de.topobyte.awt.util.GridBagConstraintsEditor;
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.lightgeom.lina.Vector2;
-import de.topobyte.melon.io.StreamUtil;
 import de.topobyte.melon.resources.Resources;
 import de.topobyte.swing.util.ActionStateButton;
 import de.topobyte.swing.util.EmptyIcon;
@@ -117,8 +111,8 @@ public class MapEditor
 
 	final static Logger logger = LoggerFactory.getLogger(MapEditor.class);
 
-	private PermanentConfiguration permanentConfig;
-	private VolatileConfiguration volatileConfig;
+	private Configuration configuration;
+	private VolatileConfiguration volatileConfiguration;
 
 	private MapModel model;
 	private MapView view;
@@ -179,51 +173,9 @@ public class MapEditor
 	public MapEditor(MapModel model, Path source)
 	{
 		this.source = source;
-		Path pathPermanentConfig = ConfigurationHelper
-				.getUserConfigurationFilePath();
-		Path pathVolatileConfig = ConfigurationHelper.getUserVolatileFilePath();
-
-		if (Files.exists(pathPermanentConfig)) {
-			InputStream input;
-			try {
-				input = StreamUtil.bufferedInputStream(pathPermanentConfig);
-				permanentConfig = PermanentConfigReader.read(input);
-				input.close();
-			} catch (IOException | ParserConfigurationException
-					| SAXException e) {
-				logger.warn("Error while reading permanent configuration", e);
-			}
-		}
-
-		if (Files.exists(pathVolatileConfig)) {
-			InputStream input;
-			try {
-				input = StreamUtil.bufferedInputStream(pathVolatileConfig);
-				volatileConfig = VolatileConfigReader.read(input);
-				input.close();
-			} catch (IOException | ParserConfigurationException
-					| SAXException e) {
-				logger.warn("Error while reading permanent configuration", e);
-			}
-		}
-
-		if (permanentConfig == null) {
-			permanentConfig = new PermanentConfiguration();
-		}
-		if (volatileConfig == null) {
-			volatileConfig = new VolatileConfiguration();
-		}
-
-		String lookAndFeel = permanentConfig.getLookAndFeel();
-		if (lookAndFeel != null) {
-			try {
-				UIManager.setLookAndFeel(lookAndFeel);
-			} catch (Exception e) {
-				logger.error("error while setting look and feel '" + lookAndFeel
-						+ "': " + e.getClass().getSimpleName() + ", message: "
-						+ e.getMessage());
-			}
-		}
+		configuration = ConfigurationStorage.loadConfiguration();
+		volatileConfiguration = ConfigurationStorage
+				.loadVolatileConfiguration();
 
 		init(model);
 
@@ -240,14 +192,26 @@ public class MapEditor
 		return source;
 	}
 
-	public PermanentConfiguration getPermanentConfig()
+	public Configuration getConfiguration()
 	{
-		return permanentConfig;
+		return configuration;
 	}
 
-	public VolatileConfiguration getVolatileConfig()
+	public VolatileConfiguration getVolatileConfiguration()
 	{
-		return volatileConfig;
+		return volatileConfiguration;
+	}
+
+	public void applyConfiguration(Configuration configuration)
+	{
+		this.configuration = configuration;
+		Theming.applyTheme(configuration.getTheme());
+		if (frame != null) {
+			SwingUtilities.updateComponentTreeUI(frame);
+		}
+		if (control != null) {
+			control.setTheme(configuration.getDockingFramesTheme());
+		}
 	}
 
 	public void setModel(MapModel model)
@@ -395,7 +359,7 @@ public class MapEditor
 		return mapViewStatus;
 	}
 
-	public Window getFrame()
+	public JFrame getFrame()
 	{
 		return frame;
 	}
@@ -679,7 +643,7 @@ public class MapEditor
 		statusBar = new StatusBar();
 
 		control = new CControl(frame);
-		control.setTheme(permanentConfig.getDockingFramesTheme());
+		control.setTheme(configuration.getDockingFramesTheme());
 
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
 		c.gridPos(0, 0).weight(1, 0).fill(GridBagConstraints.HORIZONTAL);

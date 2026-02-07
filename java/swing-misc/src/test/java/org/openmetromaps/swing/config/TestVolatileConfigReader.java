@@ -15,22 +15,21 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.config;
+package org.openmetromaps.swing.config;
 
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
-import de.topobyte.melon.io.StreamUtil;
-
-public class TestPermanentConfigReader
+public class TestVolatileConfigReader
 {
 
 	public static void main(String[] args) throws Exception
 	{
-		Path path = TestPaths.PATH_PERMANENT;
-		InputStream input = StreamUtil.bufferedInputStream(path);
-		PermanentConfigReader.read(input);
-		input.close();
+		Path path = TestPaths.PATH_VOLATILE;
+		try (InputStream input = Files.newInputStream(path)) {
+			VolatileConfigurationReader.read(input);
+		}
 	}
 
 }

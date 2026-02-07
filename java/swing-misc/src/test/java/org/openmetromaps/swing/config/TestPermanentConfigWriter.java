@@ -15,40 +15,38 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.config;
+package org.openmetromaps.swing.config;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.topobyte.melon.io.StreamUtil;
-
-public class TestVolatileConfigWriter
+public class TestPermanentConfigWriter
 {
 
 	final static Logger logger = LoggerFactory
-			.getLogger(TestVolatileConfigWriter.class);
+			.getLogger(TestPermanentConfigWriter.class);
 
 	public static void main(String[] args) throws IOException
 	{
-		VolatileConfiguration configuration = VolatileConfiguration
+		Configuration configuration = Configuration
 				.createDefaultConfiguration();
 
-		Path path = TestPaths.PATH_VOLATILE;
-		InputStream input = StreamUtil.bufferedInputStream(path);
-
-		try {
-			configuration = VolatileConfigReader.read(input);
-		} catch (Exception e) {
-			logger.debug("exception while reading config: " + e.getMessage());
+		Path path = TestPaths.PATH_PERMANENT;
+		try (InputStream input = Files.newInputStream(path)) {
+			try {
+				configuration = ConfigurationReader.read(input);
+			} catch (Exception e) {
+				logger.debug(
+						"exception while reading config: " + e.getMessage());
+			}
 		}
 
-		input.close();
-
-		VolatileConfigWriter.write(configuration, System.out);
+		ConfigurationWriter.write(configuration, System.out);
 	}
 
 }

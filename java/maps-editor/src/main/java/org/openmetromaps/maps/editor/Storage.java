@@ -30,9 +30,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.MapView;
-import org.openmetromaps.maps.editor.config.ConfigurationHelper;
-import org.openmetromaps.maps.editor.config.VolatileConfiguration;
 import org.openmetromaps.maps.xml.XmlModelWriter;
+import org.openmetromaps.swing.config.ConfigurationStorage;
+import org.openmetromaps.swing.config.VolatileConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +58,7 @@ public class Storage
 
 	public static void saveAs(MapEditor mapEditor, String title)
 	{
-		VolatileConfiguration config = mapEditor.getVolatileConfig();
+		VolatileConfiguration config = mapEditor.getVolatileConfiguration();
 		Path lastUsed = config.getLastUsedDirectory();
 
 		// TODO: if file exists, ask user if we should overwrite it
@@ -80,7 +80,7 @@ public class Storage
 			Path newLastUsed = file.toPath().getParent();
 			config.setLastUsedDirectory(newLastUsed);
 			try {
-				ConfigurationHelper.store(config);
+				ConfigurationStorage.store(config);
 			} catch (IOException e) {
 				logger.warn("Unable to store volatile configuration", e);
 			}

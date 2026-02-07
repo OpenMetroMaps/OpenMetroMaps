@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2026 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,30 +15,32 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.config;
+package org.openmetromaps.swing.config.edit;
 
-import java.nio.file.Path;
+import java.awt.BorderLayout;
 
-public class VolatileConfiguration
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.openmetromaps.swing.config.Configuration;
+
+import de.topobyte.swing.util.BorderHelper;
+
+public class EditorOptionsPane extends JPanel
 {
 
-	private Path lastUsedDirectory;
+	private static final long serialVersionUID = 1L;
 
-	public static VolatileConfiguration createDefaultConfiguration()
+	public EditorOptionsPane(Configuration configuration)
 	{
-		VolatileConfiguration configuration = new VolatileConfiguration();
-
-		return configuration;
+		super(new BorderLayout());
+		BorderHelper.addEmptyBorder(this, 10, 10, 10, 10);
+		add(new JLabel("No editor-specific options yet."), BorderLayout.NORTH);
 	}
 
-	public Path getLastUsedDirectory()
+	public void setValues(Configuration configuration)
 	{
-		return lastUsedDirectory;
-	}
-
-	public void setLastUsedDirectory(Path lastUsedDirectory)
-	{
-		this.lastUsedDirectory = lastUsedDirectory;
+		// no editor-specific options yet
 	}
 
 }

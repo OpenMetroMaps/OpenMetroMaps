@@ -38,10 +38,20 @@ public class Theming
 
 	public static void setup()
 	{
-		setupLookAndFeel();
+		setupLookAndFeel(Theme.FLATLAF_LIGHT);
 	}
 
-	public static void setupLookAndFeel()
+	public static void setup(Theme theme)
+	{
+		setupLookAndFeel(theme);
+	}
+
+	public static void applyTheme(Theme theme)
+	{
+		setupLookAndFeel(theme);
+	}
+
+	public static void setupLookAndFeel(Theme theme)
 	{
 		LookAndFeelInfo[] lafs = UIManager.getInstalledLookAndFeels();
 		for (LookAndFeelInfo info : lafs) {
@@ -56,7 +66,9 @@ public class Theming
 		// CDE/Motif: com.sun.java.swing.plaf.motif.MotifLookAndFeel
 		// GTK+: com.sun.java.swing.plaf.gtk.GTKLookAndFeel
 
-		Theme theme = Theme.FLATLAF_LIGHT;
+		if (theme == null) {
+			theme = Theme.FLATLAF_LIGHT;
+		}
 		switch (theme) {
 		default:
 		case DEFAULT:

@@ -18,6 +18,9 @@
 package org.openmetromaps.cli.startup;
 
 import org.apache.commons.cli.Options;
+import org.openmetromaps.swing.Theming;
+import org.openmetromaps.swing.config.Configuration;
+import org.openmetromaps.swing.config.ConfigurationStorage;
 import org.openmetromaps.uiselector.UiSelector;
 
 import de.topobyte.shared.preferences.SharedPreferences;
@@ -47,6 +50,9 @@ public class RunUiSelector
 		if (SharedPreferences.isUIScalePresent()) {
 			SwingUtils.setUiScale(SharedPreferences.getUIScale());
 		}
+
+		Configuration configuration = ConfigurationStorage.loadConfiguration();
+		Theming.setup(configuration.getTheme());
 
 		UiSelector uiSelector = new UiSelector();
 		uiSelector.show();

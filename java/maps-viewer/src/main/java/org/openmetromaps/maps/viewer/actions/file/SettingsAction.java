@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2026 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.actions.file;
+package org.openmetromaps.maps.viewer.actions.file;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -27,8 +27,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
-import org.openmetromaps.maps.editor.MapEditor;
-import org.openmetromaps.maps.editor.actions.MapEditorAction;
+import org.openmetromaps.maps.viewer.MapViewer;
+import org.openmetromaps.maps.viewer.actions.MapViewerAction;
 import org.openmetromaps.swing.config.Configuration;
 import org.openmetromaps.swing.config.ConfigurationStorage;
 import org.openmetromaps.swing.config.edit.ConfigurationEditor;
@@ -36,7 +36,7 @@ import org.openmetromaps.swing.config.edit.ConfigurationEditor;
 import de.topobyte.bvg.icons.BvgIcon;
 import de.topobyte.bvg.icons.IconResources;
 
-public class SettingsAction extends MapEditorAction
+public class SettingsAction extends MapViewerAction
 {
 
 	private static final long serialVersionUID = 1L;
@@ -44,9 +44,9 @@ public class SettingsAction extends MapEditorAction
 	private JDialog dialog;
 	private ConfigurationEditor configurationEditor;
 
-	public SettingsAction(MapEditor mapEditor)
+	public SettingsAction(MapViewer mapViewer)
 	{
-		super(mapEditor, "Settings", "Edit the application settings");
+		super(mapViewer, "Settings", "Edit the application settings");
 		setIcon(new BvgIcon(IconResources.SETTINGS, 24));
 	}
 
@@ -54,7 +54,7 @@ public class SettingsAction extends MapEditorAction
 	public void actionPerformed(ActionEvent e)
 	{
 		Configuration configuration = new Configuration(
-				mapEditor.getConfiguration());
+				mapViewer.getConfiguration());
 		showDialog(configuration);
 	}
 
@@ -78,7 +78,7 @@ public class SettingsAction extends MapEditorAction
 
 		};
 
-		JFrame frame = mapEditor.getFrame();
+		JFrame frame = mapViewer.getFrame();
 		dialog = new JDialog(frame, "OpenMetroMaps Settings");
 		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		dialog.setContentPane(configurationEditor);
@@ -102,7 +102,7 @@ public class SettingsAction extends MapEditorAction
 		Configuration configuration = configurationEditor.getConfiguration();
 		try {
 			ConfigurationStorage.store(configuration);
-			mapEditor.applyConfiguration(configuration);
+			mapViewer.applyConfiguration(configuration);
 			dialog.dispose();
 		} catch (IOException e) {
 			showError("Unable to store configuration: " + e.getMessage());

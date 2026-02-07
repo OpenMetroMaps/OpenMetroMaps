@@ -31,6 +31,8 @@ import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.swing.Theming;
+import org.openmetromaps.swing.config.Configuration;
+import org.openmetromaps.swing.config.ConfigurationStorage;
 
 import de.topobyte.shared.preferences.SharedPreferences;
 import de.topobyte.swing.util.SwingUtils;
@@ -79,7 +81,8 @@ public class RunMapMorpher
 			SwingUtils.setUiScale(SharedPreferences.getUIScale());
 		}
 
-		Theming.setup();
+		Configuration configuration = ConfigurationStorage.loadConfiguration();
+		Theming.setup(configuration.getTheme());
 
 		MapMorpher mapMorpher = new MapMorpher(model1, model2, pathInput1, 1);
 		mapMorpher.show();

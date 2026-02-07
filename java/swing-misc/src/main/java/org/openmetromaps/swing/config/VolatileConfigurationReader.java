@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2026 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,72 +15,60 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.config;
+package org.openmetromaps.swing.config;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.Attributes;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
-public class VolatileConfigReader
+public class VolatileConfigurationReader
 {
 
 	final static Logger logger = LoggerFactory
-			.getLogger(VolatileConfigReader.class);
+			.getLogger(VolatileConfigurationReader.class);
 
 	public static VolatileConfiguration read(InputStream input)
-			throws ParserConfigurationException, SAXException,
-			FileNotFoundException, IOException
+			throws ParserConfigurationException, SAXException, IOException
 	{
-		SAXParser sax = SAXParserFactory.newInstance().newSAXParser();
-		VolatileConfigHandler configHandler = new VolatileConfigHandler();
-		sax.parse(input, configHandler);
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(input);
 
-		return configHandler.configuration;
-	}
-
-}
-
-class VolatileConfigHandler extends DefaultHandler
-{
-
-	final static Logger logger = LoggerFactory
-			.getLogger(VolatileConfigHandler.class);
-
-	VolatileConfiguration configuration = new VolatileConfiguration();
-
-	@Override
-	public void startElement(String uri, String localName, String qName,
-			Attributes attributes)
-	{
-		if (qName.equals("option")) {
-			String name = attributes.getValue("name");
-			String value = attributes.getValue("value");
+		VolatileConfiguration configuration = new VolatileConfiguration();
+		NodeList options = document.getElementsByTagName("option");
+		for (int i = 0; i < options.getLength(); i++) {
+			Element option = (Element) options.item(i);
+			String name = option.getAttribute("name");
+			String value = option.getAttribute("value");
 			if (name == null || value == null) {
-				return;
+				continue;
 			}
-			parseOption(name, value);
+			parseOption(configuration, name, value);
 		}
+
+		return configuration;
 	}
 
-	private void parseOption(String name, String value)
+	private static void parseOption(VolatileConfiguration configuration,
+			String name, String value)
 	{
 		if (name.equals("last-used-directory")) {
 			Path path = Paths.get(value);
 			configuration.setLastUsedDirectory(path);
 		} else {
-			logger.debug(String.format("unhandled option: %s:%s", name, value));
+			logger.debug("unhandled option: {}:{}", name, value);
 		}
 	}
 

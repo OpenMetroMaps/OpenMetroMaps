@@ -5,4 +5,11 @@ dependencies {
     api 'de.topobyte:melon-resources:0.0.1'
     api 'de.topobyte:bvg-awt:0.1.0'
     api 'com.formdev:flatlaf:3.6'
+    api 'org.dockingframes:docking-frames-core:1.1.1'
+    api 'org.dockingframes:docking-frames-common:1.1.1'
+
+    testImplementation 'junit:junit:4.12'
+
+    testRuntimeOnly 'org.slf4j:slf4j-log4j12:1.6.1'
+    testRuntimeOnly 'log4j:log4j:1.2.16'
 }

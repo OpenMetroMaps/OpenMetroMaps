@@ -20,7 +20,6 @@ package org.openmetromaps.maps.morpher;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -37,6 +36,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
@@ -57,9 +57,14 @@ import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.morpher.actions.file.ExitAction;
 import org.openmetromaps.maps.morpher.actions.file.Open1Action;
 import org.openmetromaps.maps.morpher.actions.file.Open2Action;
+import org.openmetromaps.maps.morpher.actions.file.SettingsAction;
 import org.openmetromaps.maps.morpher.actions.help.AboutAction;
 import org.openmetromaps.maps.morpher.actions.help.LicenseAction;
+import org.openmetromaps.swing.Theming;
 import org.openmetromaps.swing.actions.ActionHelper;
+import org.openmetromaps.swing.config.Configuration;
+import org.openmetromaps.swing.config.ConfigurationStorage;
+import org.openmetromaps.swing.config.VolatileConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,6 +84,9 @@ public class MapMorpher
 {
 
 	final static Logger logger = LoggerFactory.getLogger(MapMorpher.class);
+
+	private Configuration configuration;
+	private VolatileConfiguration volatileConfiguration;
 
 	private MapModel model1;
 	private MapModel model2;
@@ -126,6 +134,9 @@ public class MapMorpher
 	{
 		this.source = source;
 		this.scale = scale;
+		configuration = ConfigurationStorage.loadConfiguration();
+		volatileConfiguration = ConfigurationStorage
+				.loadVolatileConfiguration();
 
 		slider = new JSlider(sliderMin, sliderMax, sliderCurrent);
 		slider.addChangeListener(e -> {
@@ -184,6 +195,25 @@ public class MapMorpher
 	public Path getSource()
 	{
 		return source;
+	}
+
+	public Configuration getConfiguration()
+	{
+		return configuration;
+	}
+
+	public VolatileConfiguration getVolatileConfiguration()
+	{
+		return volatileConfiguration;
+	}
+
+	public void applyConfiguration(Configuration configuration)
+	{
+		this.configuration = configuration;
+		Theming.applyTheme(configuration.getTheme());
+		if (frame != null) {
+			SwingUtilities.updateComponentTreeUI(frame);
+		}
 	}
 
 	public void setModel1(MapModel model1)
@@ -280,7 +310,7 @@ public class MapMorpher
 		return mapViewStatus;
 	}
 
-	public Window getFrame()
+	public JFrame getFrame()
 	{
 		return frame;
 	}
@@ -377,6 +407,8 @@ public class MapMorpher
 				KeyEvent.VK_O);
 		JMenus.addItem(menuFile, new Open2Action(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_P);
+		JMenus.addItem(menuFile, new SettingsAction(this),
+				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_P);
 		JMenus.addItem(menuFile, new ExitAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_Q);
 	}

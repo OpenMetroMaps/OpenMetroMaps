@@ -29,11 +29,11 @@ import javax.swing.JFileChooser;
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorAction;
-import org.openmetromaps.maps.editor.config.ConfigurationHelper;
-import org.openmetromaps.maps.editor.config.VolatileConfiguration;
 import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
+import org.openmetromaps.swing.config.ConfigurationStorage;
+import org.openmetromaps.swing.config.VolatileConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,7 +57,7 @@ public class OpenAction extends MapEditorAction
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		VolatileConfiguration config = mapEditor.getVolatileConfig();
+		VolatileConfiguration config = mapEditor.getVolatileConfiguration();
 		Path lastUsed = config.getLastUsedDirectory();
 
 		Window frame = mapEditor.getFrame();
@@ -87,7 +87,7 @@ public class OpenAction extends MapEditorAction
 			Path newLastUsed = file.toPath().getParent();
 			config.setLastUsedDirectory(newLastUsed);
 			try {
-				ConfigurationHelper.store(config);
+				ConfigurationStorage.store(config);
 			} catch (IOException e) {
 				logger.warn("Unable to store volatile configuration", e);
 			}

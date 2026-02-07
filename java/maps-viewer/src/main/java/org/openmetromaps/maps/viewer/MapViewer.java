@@ -20,7 +20,6 @@ package org.openmetromaps.maps.viewer;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Window;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -41,6 +40,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
@@ -61,10 +61,15 @@ import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.viewer.actions.file.ExitAction;
 import org.openmetromaps.maps.viewer.actions.file.OpenAction;
+import org.openmetromaps.maps.viewer.actions.file.SettingsAction;
 import org.openmetromaps.maps.viewer.actions.help.AboutAction;
 import org.openmetromaps.maps.viewer.actions.help.LicenseAction;
 import org.openmetromaps.maps.viewer.jeography.JeographyZoomAction;
+import org.openmetromaps.swing.Theming;
 import org.openmetromaps.swing.actions.ActionHelper;
+import org.openmetromaps.swing.config.Configuration;
+import org.openmetromaps.swing.config.ConfigurationStorage;
+import org.openmetromaps.swing.config.VolatileConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,6 +99,9 @@ public class MapViewer
 {
 
 	final static Logger logger = LoggerFactory.getLogger(MapViewer.class);
+
+	private Configuration configuration;
+	private VolatileConfiguration volatileConfiguration;
 
 	private MapModel model;
 	private MapView view;
@@ -144,6 +152,9 @@ public class MapViewer
 	public MapViewer(MapModel model, Path source)
 	{
 		this.source = source;
+		configuration = ConfigurationStorage.loadConfiguration();
+		volatileConfiguration = ConfigurationStorage
+				.loadVolatileConfiguration();
 
 		init(model);
 
@@ -158,6 +169,31 @@ public class MapViewer
 	public Path getSource()
 	{
 		return source;
+	}
+
+	public Configuration getConfiguration()
+	{
+		return configuration;
+	}
+
+	public VolatileConfiguration getVolatileConfiguration()
+	{
+		return volatileConfiguration;
+	}
+
+	public void applyConfiguration(Configuration configuration)
+	{
+		this.configuration = configuration;
+		Theming.applyTheme(configuration.getTheme());
+		if (frame != null) {
+			SwingUtilities.updateComponentTreeUI(frame);
+		}
+		if (frameMap != null) {
+			SwingUtilities.updateComponentTreeUI(frameMap);
+		}
+		if (control != null) {
+			control.setTheme(configuration.getDockingFramesTheme());
+		}
 	}
 
 	public void setModel(MapModel model)
@@ -330,7 +366,7 @@ public class MapViewer
 		return mapViewStatus;
 	}
 
-	public Window getFrame()
+	public JFrame getFrame()
 	{
 		return frame;
 	}
@@ -439,6 +475,8 @@ public class MapViewer
 	{
 		JMenus.addItem(menuFile, new OpenAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_O);
+		JMenus.addItem(menuFile, new SettingsAction(this),
+				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_P);
 		JMenus.addItem(menuFile, new ExitAction(this), KeyEvent.CTRL_DOWN_MASK,
 				KeyEvent.VK_Q);
 	}
@@ -523,6 +561,7 @@ public class MapViewer
 		statusBar = new StatusBar();
 
 		control = new CControl(frame);
+		control.setTheme(configuration.getDockingFramesTheme());
 
 		GridBagConstraintsEditor c = new GridBagConstraintsEditor();
 		c.weight(1, 1).fill(GridBagConstraints.BOTH);

@@ -30,6 +30,8 @@ import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.swing.Theming;
+import org.openmetromaps.swing.config.Configuration;
+import org.openmetromaps.swing.config.ConfigurationStorage;
 
 import de.topobyte.shared.preferences.SharedPreferences;
 import de.topobyte.swing.util.SwingUtils;
@@ -67,7 +69,8 @@ public class RunMapEditor
 			SwingUtils.setUiScale(SharedPreferences.getUIScale());
 		}
 
-		Theming.setup();
+		Configuration configuration = ConfigurationStorage.loadConfiguration();
+		Theming.setup(configuration.getTheme());
 
 		String argInput = line.getOptionValue(OPTION_INPUT);
 		Path pathInput = Paths.get(argInput);

@@ -5,6 +5,26 @@ on:
   pull_request:
 
 jobs:
+  check-formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+      - name: Check source with spotless (Java)
+        run: |
+          cd java
+          ./gradlew spotlessCheck
+      - name: Check source with spotless (GWT)
+        run: |
+          cd gwt
+          ./gradlew spotlessCheck
+
   test:
     runs-on: ubuntu-latest
     steps:

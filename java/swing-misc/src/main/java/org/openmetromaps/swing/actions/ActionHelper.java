@@ -64,4 +64,11 @@ public class ActionHelper
 				valueHolder);
 	}
 
+	public static ToggleAction createShowMapAction(
+			BooleanValueHolder valueHolder)
+	{
+		return new ToggleAction("Show Map", "Toggle visibility of map window",
+				valueHolder);
+	}
+
 }

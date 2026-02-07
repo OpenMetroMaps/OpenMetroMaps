@@ -63,7 +63,6 @@ import org.openmetromaps.maps.viewer.actions.file.ExitAction;
 import org.openmetromaps.maps.viewer.actions.file.OpenAction;
 import org.openmetromaps.maps.viewer.actions.help.AboutAction;
 import org.openmetromaps.maps.viewer.actions.help.LicenseAction;
-import org.openmetromaps.maps.viewer.actions.view.ShowMapAction;
 import org.openmetromaps.maps.viewer.jeography.JeographyZoomAction;
 import org.openmetromaps.swing.actions.ActionHelper;
 import org.slf4j.Logger;
@@ -141,8 +140,6 @@ public class MapViewer
 	private EnumValueHolder<SegmentMode> segmentMode = new EnumValueHolder<>(
 			changeSupport, "segment-mode", x -> setSegmentModeInternal(),
 			SegmentMode.CURVE);
-
-	private ShowMapAction showMapAction;
 
 	public MapViewer(MapModel model, Path source)
 	{
@@ -232,12 +229,6 @@ public class MapViewer
 
 	public void setShowMapInternal(boolean visible)
 	{
-		// TODO: this is kind of sub-optimal, but works. Ideally, the
-		// ValueHolder would support any number of additional listeners and the
-		// action could subscribe to change events as a listener instead of
-		// being called from here manually
-		showMapAction.notifyChanged();
-
 		if (!visible) {
 			if (frameMap != null) {
 				frameMap.setVisible(false);
@@ -464,8 +455,8 @@ public class MapViewer
 		JMenus.addCheckbox(menuView,
 				ActionHelper.createShowStationCentersAction(showStationCenters),
 				KeyEvent.VK_F3);
-		showMapAction = new ShowMapAction(this);
-		JMenus.addCheckbox(menuView, showMapAction, KeyEvent.VK_F4);
+		JMenus.addCheckbox(menuView, ActionHelper.createShowMapAction(showMap),
+				KeyEvent.VK_F4);
 		JMenu stationMode = submenu("Station mode");
 		JMenu segmentMode = submenu("Segment mode");
 		menuView.add(stationMode);

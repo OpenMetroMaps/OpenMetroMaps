@@ -20,7 +20,7 @@ package org.openmetromaps.maps.editor.actions.view;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorBooleanAction;
 
-import de.topobyte.swing.util.EmptyIcon;
+import de.topobyte.bvg.icons.CheckboxToggleIcon;
 
 public class DebugRanksAction extends MapEditorBooleanAction
 {
@@ -30,7 +30,7 @@ public class DebugRanksAction extends MapEditorBooleanAction
 	public DebugRanksAction(MapEditor mapEditor)
 	{
 		super(mapEditor, "Debug ranks", "Toggle station rank visibility");
-		setIcon(new EmptyIcon(24));
+		setIcon(CheckboxToggleIcon.icon(this::getState));
 	}
 
 	@Override

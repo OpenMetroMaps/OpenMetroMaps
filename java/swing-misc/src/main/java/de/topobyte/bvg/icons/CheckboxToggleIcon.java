@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2026 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,17 +15,23 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.swing.util.action.enums;
+package de.topobyte.bvg.icons;
 
 import java.util.function.BooleanSupplier;
 
-import javax.swing.Icon;
+import de.topobyte.swing.util.ToggleIcon;
 
-public interface EnumAppearance<T extends Enum<T>>
+public class CheckboxToggleIcon
 {
 
-	public String getName(T value);
+	private static BvgIcon iconEnabled = new BvgIcon(IconResources.CHECKBOX_ON,
+			24);
+	private static BvgIcon iconDisabled = new BvgIcon(
+			IconResources.CHECKBOX_OFF, 24);
 
-	public Icon getIcon(T value, BooleanSupplier isChecked);
+	public static ToggleIcon icon(BooleanSupplier isChecked)
+	{
+		return new ToggleIcon(iconDisabled, iconEnabled, isChecked);
+	}
 
 }

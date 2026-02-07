@@ -44,7 +44,8 @@ public class EnumAction<T extends Enum<T>> extends SimpleAction
 		this.valueHolder = valueHolder;
 		this.value = value;
 		setName(appearance.getName(value));
-		setIcon(appearance.getIcon(value));
+		setIcon(appearance.getIcon(value,
+				() -> valueHolder.getValue().equals(value)));
 
 		valueHolder.getChangeSupport().addPropertyChangeListener(
 				valueHolder.getPropertyName(), new PropertyChangeListener() {

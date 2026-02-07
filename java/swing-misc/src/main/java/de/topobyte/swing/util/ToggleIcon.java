@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2026 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,27 +15,43 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.swing.util.action.enums;
+package de.topobyte.swing.util;
 
+import java.awt.Component;
+import java.awt.Graphics;
 import java.util.function.BooleanSupplier;
 
 import javax.swing.Icon;
 
-import de.topobyte.bvg.icons.CheckboxToggleIcon;
-
-public class DefaultAppearance<T extends Enum<T>> implements EnumAppearance<T>
+public class ToggleIcon implements Icon
 {
+	private final Icon unchecked;
+	private final Icon checked;
+	private final BooleanSupplier isChecked;
 
-	@Override
-	public String getName(T value)
+	public ToggleIcon(Icon unchecked, Icon checked, BooleanSupplier isChecked)
 	{
-		return value.toString();
+		this.unchecked = unchecked;
+		this.checked = checked;
+		this.isChecked = isChecked;
 	}
 
 	@Override
-	public Icon getIcon(T value, BooleanSupplier isChecked)
+	public int getIconWidth()
 	{
-		return CheckboxToggleIcon.icon(isChecked);
+		return Math.max(unchecked.getIconWidth(), checked.getIconWidth());
+	}
+
+	@Override
+	public int getIconHeight()
+	{
+		return Math.max(unchecked.getIconHeight(), checked.getIconHeight());
+	}
+
+	@Override
+	public void paintIcon(Component c, Graphics g, int x, int y)
+	{
+		(isChecked.getAsBoolean() ? checked : unchecked).paintIcon(c, g, x, y);
 	}
 
 }

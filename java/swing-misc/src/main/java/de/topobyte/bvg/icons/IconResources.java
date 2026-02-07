@@ -46,4 +46,7 @@ public class IconResources
 	public static final String ALIGN_HORIZONTALLY = "res/images/openmetromaps/align-horizontally.bvg";
 	public static final String ALIGN_VERTICALLY = "res/images/openmetromaps/align-vertically.bvg";
 
+	public static final String CHECKBOX_ON = "res/images/material-symbols/check-box-outline.bvg";
+	public static final String CHECKBOX_OFF = "res/images/material-symbols/check-box-outline-blank.bvg";
+
 }

@@ -44,6 +44,8 @@ convert "material-symbols" "blur-on.svg"
 convert "material-symbols" "blur-off.svg"
 convert "material-symbols" "font-download-outline.svg"
 convert "material-symbols" "font-download-off-outline.svg"
+convert "material-symbols" "check-box-outline-blank.svg"
+convert "material-symbols" "check-box-outline.svg"
 
 convert "openmetromaps" "align-vertically.svg"
 convert "openmetromaps" "align-horizontally.svg"

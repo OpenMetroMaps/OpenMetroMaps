@@ -20,7 +20,7 @@ package org.openmetromaps.maps.editor.actions.view;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.editor.actions.MapEditorBooleanAction;
 
-import de.topobyte.swing.util.EmptyIcon;
+import de.topobyte.bvg.icons.CheckboxToggleIcon;
 
 public class DebugTangentsAction extends MapEditorBooleanAction
 {
@@ -30,7 +30,7 @@ public class DebugTangentsAction extends MapEditorBooleanAction
 	public DebugTangentsAction(MapEditor mapEditor)
 	{
 		super(mapEditor, "Debug tangents", "Toggle edge tangent visibility");
-		setIcon(new EmptyIcon(24));
+		setIcon(CheckboxToggleIcon.icon(this::getState));
 	}
 
 	@Override

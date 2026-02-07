@@ -17,11 +17,12 @@
 
 package org.openmetromaps.swing.config;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 
+import org.junit.Assert;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,22 +32,44 @@ public class TestVolatileConfigWriter
 	final static Logger logger = LoggerFactory
 			.getLogger(TestVolatileConfigWriter.class);
 
-	public static void main(String[] args) throws IOException
+	@Test
+	public void defaultConfigHasNoLastUsedDirectory() throws Exception
 	{
 		VolatileConfiguration configuration = VolatileConfiguration
 				.createDefaultConfiguration();
 
-		Path path = TestPaths.PATH_VOLATILE;
-		try (InputStream input = Files.newInputStream(path)) {
-			try {
-				configuration = VolatileConfigurationReader.read(input);
-			} catch (Exception e) {
-				logger.debug(
-						"exception while reading config: " + e.getMessage());
-			}
-		}
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		VolatileConfigurationWriter.write(configuration, output);
 
-		VolatileConfigurationWriter.write(configuration, System.out);
+		String actual = output.toString(StandardCharsets.UTF_8);
+		System.out.println(actual);
+		String expected = """
+				<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+				<configuration/>
+				""";
+		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
+	public void validLastUsedDirectory() throws Exception
+	{
+		VolatileConfiguration configuration = VolatileConfiguration
+				.createDefaultConfiguration();
+
+		configuration.setLastUsedDirectory(Paths.get("/tmp/foo/"));
+
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		VolatileConfigurationWriter.write(configuration, output);
+
+		String actual = output.toString(StandardCharsets.UTF_8);
+		System.out.println(actual);
+		String expected = """
+				<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+				<configuration>
+				  <option name="last-used-directory" value="/tmp/foo"/>
+				</configuration>
+				""";
+		Assert.assertEquals(expected, actual);
 	}
 
 }

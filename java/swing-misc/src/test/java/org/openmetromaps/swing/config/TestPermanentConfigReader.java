@@ -17,20 +17,46 @@
 
 package org.openmetromaps.swing.config;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.openmetromaps.swing.Theme;
 
 public class TestPermanentConfigReader
 {
 
-	public static void main(String[] args) throws Exception
+	@Test
+	public void darkThemeAndFlat() throws Exception
 	{
-		Path path = TestPaths.PATH_PERMANENT;
-		try (InputStream input = Files.newInputStream(path)) {
-			Configuration configuration = ConfigurationReader.read(input);
-			System.out.println(configuration.getTheme());
-			System.out.println(configuration.getDockingFramesTheme());
+		String configContent = """
+				<configuration>
+				  <option name="theme" value="FLATLAF_DARK"/>
+				  <option name="docking-frames-theme" value="flat"/>
+				</configuration>""";
+		try (InputStream input = new ByteArrayInputStream(
+				configContent.getBytes(StandardCharsets.UTF_8));) {
+			Configuration config = ConfigurationReader.read(input);
+			Assert.assertEquals(Theme.FLATLAF_DARK, config.getTheme());
+			Assert.assertEquals("flat", config.getDockingFramesTheme());
+		}
+	}
+
+	@Test
+	public void invalidThemeValueIsLookAndFeelClassName() throws Exception
+	{
+		String configContent = """
+				<configuration>
+				  <option name="theme" value="javax.swing.plaf.metal.MetalLookAndFeel"/>
+				  <option name="docking-frames-theme" value="basic"/>
+				</configuration>""";
+		try (InputStream input = new ByteArrayInputStream(
+				configContent.getBytes(StandardCharsets.UTF_8));) {
+			Configuration config = ConfigurationReader.read(input);
+			Assert.assertEquals(Theme.FLATLAF_LIGHT, config.getTheme());
+			Assert.assertEquals("basic", config.getDockingFramesTheme());
 		}
 	}
 

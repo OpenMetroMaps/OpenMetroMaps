@@ -17,36 +17,54 @@
 
 package org.openmetromaps.swing.config;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.Assert;
+import org.junit.Test;
+import org.openmetromaps.swing.Theme;
 
 public class TestPermanentConfigWriter
 {
 
-	final static Logger logger = LoggerFactory
-			.getLogger(TestPermanentConfigWriter.class);
-
-	public static void main(String[] args) throws IOException
+	@Test
+	public void writesDefaultConfiguration() throws Exception
 	{
-		Configuration configuration = Configuration
-				.createDefaultConfiguration();
+		Configuration config = Configuration.createDefaultConfiguration();
 
-		Path path = TestPaths.PATH_PERMANENT;
-		try (InputStream input = Files.newInputStream(path)) {
-			try {
-				configuration = ConfigurationReader.read(input);
-			} catch (Exception e) {
-				logger.debug(
-						"exception while reading config: " + e.getMessage());
-			}
-		}
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		ConfigurationWriter.write(config, output);
 
-		ConfigurationWriter.write(configuration, System.out);
+		String actual = output.toString(StandardCharsets.UTF_8);
+		String expected = """
+				<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+				<configuration>
+				  <option name="theme" value="FLATLAF_LIGHT"/>
+				  <option name="docking-frames-theme" value="basic"/>
+				</configuration>
+				""";
+		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
+	public void writesConfigurationDarkTheme() throws Exception
+	{
+		Configuration config = Configuration.createDefaultConfiguration();
+
+		config.setTheme(Theme.FLATLAF_DARK);
+
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		ConfigurationWriter.write(config, output);
+
+		String actual = output.toString(StandardCharsets.UTF_8);
+		String expected = """
+				<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+				<configuration>
+				  <option name="theme" value="FLATLAF_DARK"/>
+				  <option name="docking-frames-theme" value="basic"/>
+				</configuration>
+				""";
+		Assert.assertEquals(expected, actual);
 	}
 
 }

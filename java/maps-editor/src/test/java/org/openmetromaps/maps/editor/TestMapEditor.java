@@ -21,6 +21,7 @@ import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.TestData;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
+import org.openmetromaps.swing.Theming;
 
 import de.topobyte.shared.preferences.SharedPreferences;
 import de.topobyte.swing.util.SwingUtils;
@@ -33,6 +34,8 @@ public class TestMapEditor
 		if (SharedPreferences.isUIScalePresent()) {
 			SwingUtils.setUiScale(SharedPreferences.getUIScale());
 		}
+
+		Theming.setup();
 
 		XmlModel xmlModel = TestData.berlinXml();
 

@@ -39,12 +39,12 @@ public class ConfigurationStorage
 
 	public static Path getUserConfigurationFilePath()
 	{
-		return OPENMETROMAPS_DIR.resolve("openmetromaps-config.xml");
+		return OPENMETROMAPS_DIR.resolve("config.xml");
 	}
 
 	public static Path getUserVolatileFilePath()
 	{
-		return OPENMETROMAPS_DIR.resolve("openmetromaps-volatile.xml");
+		return OPENMETROMAPS_DIR.resolve("volatile.xml");
 	}
 
 	public static Configuration loadConfiguration()

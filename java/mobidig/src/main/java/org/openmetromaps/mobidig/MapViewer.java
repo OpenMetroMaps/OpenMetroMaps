@@ -65,11 +65,11 @@ import org.openmetromaps.maps.viewer.actions.help.AboutAction;
 import org.openmetromaps.maps.viewer.actions.help.LicenseAction;
 import org.openmetromaps.mobidig.actions.file.ExitAction;
 import org.openmetromaps.mobidig.actions.file.OpenAction;
-import org.openmetromaps.mobidig.actions.view.ShowLabelsAction;
 import org.openmetromaps.mobidig.actions.view.ShowMapAction;
 import org.openmetromaps.mobidig.actions.view.ShowStationCentersAction;
 import org.openmetromaps.mobidig.demo.DemoOptions;
 import org.openmetromaps.mobidig.jeography.JeographyZoomAction;
+import org.openmetromaps.swing.actions.ActionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,6 +85,7 @@ import de.topobyte.lightgeom.lina.Vector2;
 import de.topobyte.melon.resources.Resources;
 import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.JMenus;
+import de.topobyte.swing.util.ToggleAction;
 import de.topobyte.swing.util.action.enums.BooleanValueHolder;
 import de.topobyte.swing.util.action.enums.DefaultAppearance;
 import de.topobyte.swing.util.action.enums.EnumActions;
@@ -434,8 +435,11 @@ public class MapViewer
 
 	private void setupMenuView(JMenu menuView)
 	{
-		JMenus.addCheckbox(menuView, new ShowLabelsAction(this),
-				KeyEvent.VK_F2);
+		ToggleAction toggleShowLabels = ActionHelper
+				.createShowLabelsAction(showLabels);
+
+		JMenus.addCheckbox(menuView, toggleShowLabels, KeyEvent.VK_F2);
+
 		JMenus.addCheckbox(menuView, new ShowStationCentersAction(this),
 				KeyEvent.VK_F3);
 		showMapAction = new ShowMapAction(this);

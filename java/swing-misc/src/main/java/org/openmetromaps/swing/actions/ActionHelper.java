@@ -1,4 +1,4 @@
-// Copyright 2017 Sebastian Kuerten
+// Copyright 2026 Sebastian Kuerten
 //
 // This file is part of OpenMetroMaps.
 //
@@ -15,23 +15,32 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with OpenMetroMaps. If not, see <http://www.gnu.org/licenses/>.
 
-package org.openmetromaps.maps.editor.actions.view;
+package org.openmetromaps.swing.actions;
 
 import de.topobyte.bvg.icons.BvgIcon;
 import de.topobyte.bvg.icons.IconResources;
 import de.topobyte.swing.util.ToggleAction;
 import de.topobyte.swing.util.action.enums.BooleanValueHolder;
 
-public class ShowLabelsAction extends ToggleAction
+public class ActionHelper
 {
 
-	private static final long serialVersionUID = 1L;
-
-	public ShowLabelsAction(BooleanValueHolder valueHolder)
+	public static ToggleAction createShowLabelsAction(
+			BooleanValueHolder valueHolder)
 	{
-		super("Show labels", "Toggle map label visibility", valueHolder,
+		return new ToggleAction("Show labels", "Toggle map label visibility",
+				valueHolder, //
 				new BvgIcon(IconResources.LABELS_OFF, 24),
 				new BvgIcon(IconResources.LABELS_ON, 24));
+	}
+
+	public static ToggleAction createToggleAntialiasingAction(
+			BooleanValueHolder valueHolder)
+	{
+		return new ToggleAction("Antialiasing",
+				"Toggle antialiasing on the map", valueHolder,
+				new BvgIcon(IconResources.ANTIALIASING_OFF, 24),
+				new BvgIcon(IconResources.ANTIALIASING_ON, 24));
 	}
 
 }

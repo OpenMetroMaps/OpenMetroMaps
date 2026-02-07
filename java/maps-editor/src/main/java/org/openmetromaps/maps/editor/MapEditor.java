@@ -78,9 +78,7 @@ import org.openmetromaps.maps.editor.actions.help.AboutAction;
 import org.openmetromaps.maps.editor.actions.help.LicenseAction;
 import org.openmetromaps.maps.editor.actions.view.DebugRanksAction;
 import org.openmetromaps.maps.editor.actions.view.DebugTangentsAction;
-import org.openmetromaps.maps.editor.actions.view.ShowLabelsAction;
 import org.openmetromaps.maps.editor.actions.view.ShowStationCentersAction;
-import org.openmetromaps.maps.editor.actions.view.ToggleAntialiasingAction;
 import org.openmetromaps.maps.editor.config.ConfigurationHelper;
 import org.openmetromaps.maps.editor.config.PermanentConfigReader;
 import org.openmetromaps.maps.editor.config.PermanentConfiguration;
@@ -92,6 +90,7 @@ import org.openmetromaps.maps.editor.history.MapEditorHistory;
 import org.openmetromaps.maps.editor.history.MapEditorSnapshot;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.swing.actions.ActionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -107,6 +106,7 @@ import de.topobyte.melon.resources.Resources;
 import de.topobyte.swing.util.ActionStateButton;
 import de.topobyte.swing.util.EmptyIcon;
 import de.topobyte.swing.util.JMenus;
+import de.topobyte.swing.util.ToggleAction;
 import de.topobyte.swing.util.action.enums.BooleanValueHolder;
 import de.topobyte.swing.util.action.enums.DefaultAppearance;
 import de.topobyte.swing.util.action.enums.EnumActions;
@@ -593,9 +593,10 @@ public class MapEditor
 
 	private void setupMenuView(JMenu menuView)
 	{
-		ToggleAntialiasingAction toggleAntialiasing = new ToggleAntialiasingAction(
-				antialiasing);
-		ShowLabelsAction toggleShowLabels = new ShowLabelsAction(showLabels);
+		ToggleAction toggleAntialiasing = ActionHelper
+				.createToggleAntialiasingAction(antialiasing);
+		ToggleAction toggleShowLabels = ActionHelper
+				.createShowLabelsAction(showLabels);
 
 		JMenus.addCheckbox(menuView, toggleAntialiasing, KeyEvent.VK_F6);
 		JMenus.addCheckbox(menuView, toggleShowLabels, KeyEvent.VK_F2);

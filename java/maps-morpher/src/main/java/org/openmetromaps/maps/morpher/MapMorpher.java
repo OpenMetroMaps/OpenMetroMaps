@@ -59,7 +59,6 @@ import org.openmetromaps.maps.morpher.actions.file.Open1Action;
 import org.openmetromaps.maps.morpher.actions.file.Open2Action;
 import org.openmetromaps.maps.morpher.actions.help.AboutAction;
 import org.openmetromaps.maps.morpher.actions.help.LicenseAction;
-import org.openmetromaps.maps.morpher.actions.view.ShowStationCentersAction;
 import org.openmetromaps.swing.actions.ActionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -389,7 +388,8 @@ public class MapMorpher
 
 		JMenus.addCheckbox(menuView, toggleShowLabels, KeyEvent.VK_F2);
 
-		JMenus.addCheckbox(menuView, new ShowStationCentersAction(this),
+		JMenus.addCheckbox(menuView,
+				ActionHelper.createShowStationCentersAction(showStationCenters),
 				KeyEvent.VK_F3);
 		JMenu stationMode = submenu("Station mode");
 		JMenu segmentMode = submenu("Segment mode");

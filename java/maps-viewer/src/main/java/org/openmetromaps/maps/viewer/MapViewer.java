@@ -64,7 +64,6 @@ import org.openmetromaps.maps.viewer.actions.file.OpenAction;
 import org.openmetromaps.maps.viewer.actions.help.AboutAction;
 import org.openmetromaps.maps.viewer.actions.help.LicenseAction;
 import org.openmetromaps.maps.viewer.actions.view.ShowMapAction;
-import org.openmetromaps.maps.viewer.actions.view.ShowStationCentersAction;
 import org.openmetromaps.maps.viewer.jeography.JeographyZoomAction;
 import org.openmetromaps.swing.actions.ActionHelper;
 import org.slf4j.Logger;
@@ -462,7 +461,8 @@ public class MapViewer
 
 		JMenus.addCheckbox(menuView, toggleAntialiasing, KeyEvent.VK_F6);
 		JMenus.addCheckbox(menuView, toggleShowLabels, KeyEvent.VK_F2);
-		JMenus.addCheckbox(menuView, new ShowStationCentersAction(this),
+		JMenus.addCheckbox(menuView,
+				ActionHelper.createShowStationCentersAction(showStationCenters),
 				KeyEvent.VK_F3);
 		showMapAction = new ShowMapAction(this);
 		JMenus.addCheckbox(menuView, showMapAction, KeyEvent.VK_F4);

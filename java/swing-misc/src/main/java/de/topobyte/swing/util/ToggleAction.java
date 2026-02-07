@@ -20,6 +20,7 @@ package de.topobyte.swing.util;
 import javax.swing.Action;
 import javax.swing.Icon;
 
+import de.topobyte.bvg.icons.CheckboxToggleIcon;
 import de.topobyte.swing.util.action.SimpleBooleanAction;
 import de.topobyte.swing.util.action.enums.BooleanValueHolder;
 
@@ -29,6 +30,18 @@ public class ToggleAction extends SimpleBooleanAction
 	private static final long serialVersionUID = 1L;
 
 	private BooleanValueHolder valueHolder;
+
+	public ToggleAction(String name, String description,
+			BooleanValueHolder valueHolder)
+	{
+		super(name, description);
+		this.valueHolder = valueHolder;
+		setIcon(CheckboxToggleIcon.icon(this::getState));
+		valueHolder.addPropertyChangeListener(evt -> {
+			firePropertyChange(Action.SELECTED_KEY, null, getState());
+			firePropertyChange(Action.SMALL_ICON, null, null);
+		});
+	}
 
 	public ToggleAction(String name, String description,
 			BooleanValueHolder valueHolder, Icon uncheckedIcon,

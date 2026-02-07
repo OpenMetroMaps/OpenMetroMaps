@@ -43,4 +43,25 @@ public class ActionHelper
 				new BvgIcon(IconResources.ANTIALIASING_ON, 24));
 	}
 
+	public static ToggleAction createShowStationCentersAction(
+			BooleanValueHolder valueHolder)
+	{
+		return new ToggleAction("Show Station Centers",
+				"Toggle visibility of station centers", valueHolder);
+	}
+
+	public static ToggleAction createDebugTangentsAction(
+			BooleanValueHolder valueHolder)
+	{
+		return new ToggleAction("Debug tangents",
+				"Toggle edge tangent visibility", valueHolder);
+	}
+
+	public static ToggleAction createDebugRanksAction(
+			BooleanValueHolder valueHolder)
+	{
+		return new ToggleAction("Debug ranks", "Toggle station rank visibility",
+				valueHolder);
+	}
+
 }

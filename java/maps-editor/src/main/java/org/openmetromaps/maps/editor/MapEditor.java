@@ -76,9 +76,6 @@ import org.openmetromaps.maps.editor.actions.file.SaveAsAction;
 import org.openmetromaps.maps.editor.actions.file.SettingsAction;
 import org.openmetromaps.maps.editor.actions.help.AboutAction;
 import org.openmetromaps.maps.editor.actions.help.LicenseAction;
-import org.openmetromaps.maps.editor.actions.view.DebugRanksAction;
-import org.openmetromaps.maps.editor.actions.view.DebugTangentsAction;
-import org.openmetromaps.maps.editor.actions.view.ShowStationCentersAction;
 import org.openmetromaps.maps.editor.config.ConfigurationHelper;
 import org.openmetromaps.maps.editor.config.PermanentConfigReader;
 import org.openmetromaps.maps.editor.config.PermanentConfiguration;
@@ -600,15 +597,18 @@ public class MapEditor
 
 		JMenus.addCheckbox(menuView, toggleAntialiasing, KeyEvent.VK_F6);
 		JMenus.addCheckbox(menuView, toggleShowLabels, KeyEvent.VK_F2);
-		JMenus.addCheckbox(menuView, new ShowStationCentersAction(this),
+		JMenus.addCheckbox(menuView,
+				ActionHelper.createShowStationCentersAction(showStationCenters),
 				KeyEvent.VK_F3);
 		JMenu stationMode = submenu("Station mode");
 		JMenu segmentMode = submenu("Segment mode");
 		menuView.add(stationMode);
 		menuView.add(segmentMode);
-		JMenus.addCheckbox(menuView, new DebugTangentsAction(this),
+		JMenus.addCheckbox(menuView,
+				ActionHelper.createDebugTangentsAction(debugTangents),
 				KeyEvent.VK_F4);
-		JMenus.addCheckbox(menuView, new DebugRanksAction(this),
+		JMenus.addCheckbox(menuView,
+				ActionHelper.createDebugRanksAction(debugRanks),
 				KeyEvent.VK_F5);
 
 		EnumActions.add(stationMode, StationMode.class, this.stationMode,

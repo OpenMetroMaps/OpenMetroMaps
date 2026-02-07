@@ -14,7 +14,6 @@
 * settings editor
 * selection of multiple stations by clicking and dragging with the left
   mouse button (draw a rectangle)
-* undo/redo functionality
 
 ## Done
 * bulk station dragging
@@ -23,6 +22,7 @@
 * Save action should store to current file instead of asking
   for a location
 * exporting to image files
+* undo/redo functionality
 
 # MapViewer
 

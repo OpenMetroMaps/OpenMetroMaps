@@ -19,16 +19,25 @@ package org.openmetromaps.maps.xml;
 
 import java.io.InputStream;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class TestReadXmlModel
 {
 
-	public static void main(String[] args) throws ParsingException
+	@Test
+	public void test() throws ParsingException
 	{
 		InputStream input = TestReadXmlModel.class.getClassLoader()
 				.getResourceAsStream("berlin-schematic.omm");
 		XmlModel model = DesktopXmlModelReader.read(input);
+
+		Assert.assertEquals(1, model.getXmlViews().size());
+		Assert.assertEquals(25, model.getLines().size());
+		Assert.assertEquals(313, model.getStations().size());
+
 		for (XmlLine line : model.getLines()) {
 			System.out.println(String.format("line %s, %d stops, color: %s",
 					line.getName(), line.getStops().size(), line.getColor()));

@@ -22,6 +22,9 @@ import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.Test;
+import org.openmetromaps.maps.CoordinateConversion;
+import org.openmetromaps.maps.CoordinateConversionType;
 import org.openmetromaps.maps.MapModel;
 
 import de.topobyte.xml.domabstraction.iface.ParsingException;
@@ -29,11 +32,12 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class TestConvert
 {
 
-	public static void main(String[] args)
+	@Test
+	public void test()
 			throws ParserConfigurationException, ParsingException, IOException
 	{
 		InputStream input = TestConvert.class.getClassLoader()
-				.getResourceAsStream("berlin.xml");
+				.getResourceAsStream("berlin-schematic.omm");
 
 		XmlModel xmlModel = DesktopXmlModelReader.read(input);
 		input.close();
@@ -41,8 +45,8 @@ public class TestConvert
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);
 
-		// TODO: this is not available anymore
-		// CoordinateConversion.convertViews(model);
+		CoordinateConversion.convertViews(model,
+				CoordinateConversionType.IDENTITY);
 
 		XmlModelWriter writer = new XmlModelWriter();
 

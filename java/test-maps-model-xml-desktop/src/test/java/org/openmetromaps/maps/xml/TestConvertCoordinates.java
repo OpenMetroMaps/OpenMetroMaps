@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
 import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.Wgs84CoordinateConverter;
 import org.openmetromaps.maps.model.Coordinate;
@@ -33,7 +34,8 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class TestConvertCoordinates
 {
 
-	public static void main(String[] args) throws ParsingException
+	@Test
+	public void test() throws ParsingException
 	{
 		InputStream input = TestConvertCoordinates.class.getClassLoader()
 				.getResourceAsStream("berlin-schematic.omm");
@@ -42,8 +44,7 @@ public class TestConvertCoordinates
 		convert(model.getStations(), 1000, 50);
 	}
 
-	private static void convert(List<XmlStation> stations, double size,
-			double margin)
+	private void convert(List<XmlStation> stations, double size, double margin)
 	{
 		List<de.topobyte.adt.geo.Coordinate> coordinates = new ArrayList<>();
 		for (XmlStation station : stations) {

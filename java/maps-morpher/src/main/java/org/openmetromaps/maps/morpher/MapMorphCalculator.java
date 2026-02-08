@@ -39,11 +39,11 @@ import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.geometry.Rectangle;
 
-public class MapMorhCalculator
+public class MapMorphCalculator
 {
 
 	final static Logger logger = LoggerFactory
-			.getLogger(MapMorhCalculator.class);
+			.getLogger(MapMorphCalculator.class);
 
 	private MapModel model1;
 	private MapModel model2;
@@ -55,7 +55,7 @@ public class MapMorhCalculator
 
 	private Map<String, Station> nameToStation2;
 
-	public MapMorhCalculator(MapModel model1, MapModel model2)
+	public MapMorphCalculator(MapModel model1, MapModel model2)
 	{
 		this.model1 = model1;
 		this.model2 = model2;

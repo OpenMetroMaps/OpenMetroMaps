@@ -38,7 +38,7 @@ public class MapMorphing
 	public static MapModel deriveModel(MapModel model1, MapModel model2,
 			double relative)
 	{
-		MapMorhCalculator calculator = new MapMorhCalculator(model1, model2);
+		MapMorphCalculator calculator = new MapMorphCalculator(model1, model2);
 		MapModel model = calculator.deriveModel(relative);
 		return model;
 	}

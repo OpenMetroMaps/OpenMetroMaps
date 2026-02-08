@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 
 import org.openmetromaps.maps.MapModel;
 
@@ -30,8 +29,8 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class TestConvert
 {
 
-	public static void main(String[] args) throws ParserConfigurationException,
-			ParsingException, IOException, TransformerException
+	public static void main(String[] args)
+			throws ParserConfigurationException, ParsingException, IOException
 	{
 		InputStream input = TestConvert.class.getClassLoader()
 				.getResourceAsStream("berlin.xml");

@@ -17,12 +17,9 @@
 
 package org.openmetromaps.maps.xml;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.Points;
 import org.openmetromaps.maps.Wgs84CoordinateConverter;
@@ -36,8 +33,7 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class TestConvertCoordinates
 {
 
-	public static void main(String[] args)
-			throws ParserConfigurationException, IOException, ParsingException
+	public static void main(String[] args) throws ParsingException
 	{
 		InputStream input = TestConvertCoordinates.class.getClassLoader()
 				.getResourceAsStream("berlin-schematic.omm");

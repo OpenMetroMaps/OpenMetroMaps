@@ -17,18 +17,14 @@
 
 package org.openmetromaps.maps.xml;
 
-import java.io.IOException;
 import java.io.InputStream;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class TestReadXmlModel
 {
 
-	public static void main(String[] args)
-			throws ParserConfigurationException, IOException, ParsingException
+	public static void main(String[] args) throws ParsingException
 	{
 		InputStream input = TestReadXmlModel.class.getClassLoader()
 				.getResourceAsStream("berlin-schematic.omm");

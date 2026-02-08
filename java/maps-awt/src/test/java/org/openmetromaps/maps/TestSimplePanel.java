@@ -31,7 +31,7 @@ public class TestSimplePanel
 
 	public static void main(String[] args) throws Exception
 	{
-		XmlModel xmlModel = TestData.berlinXml();
+		XmlModel xmlModel = TestData.berlinSchematicXml();
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);

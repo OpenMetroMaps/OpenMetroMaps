@@ -34,7 +34,7 @@ public class TestPrintNewFormat
 	public static void main(String[] args)
 			throws IOException, ParsingException, ParserConfigurationException
 	{
-		XmlModel xmlModel = TestData.berlinXml();
+		XmlModel xmlModel = TestData.berlinSchematicXml();
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);

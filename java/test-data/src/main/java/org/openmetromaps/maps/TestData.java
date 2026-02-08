@@ -30,7 +30,15 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class TestData
 {
 
-	public static XmlModel berlinXml() throws ParsingException
+	public static XmlModel berlinGeographicXml() throws ParsingException
+	{
+		InputStream input = TestData.class.getClassLoader()
+				.getResourceAsStream("berlin-geographic.omm");
+		XmlModel model = DesktopXmlModelReader.read(input);
+		return model;
+	}
+
+	public static XmlModel berlinSchematicXml() throws ParsingException
 	{
 		InputStream input = TestData.class.getClassLoader()
 				.getResourceAsStream("berlin-schematic.omm");

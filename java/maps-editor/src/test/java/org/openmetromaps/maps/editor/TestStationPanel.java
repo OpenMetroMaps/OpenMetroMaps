@@ -38,7 +38,7 @@ public class TestStationPanel
 			SwingUtils.setUiScale(SharedPreferences.getUIScale());
 		}
 
-		XmlModel xmlModel = TestData.berlinXml();
+		XmlModel xmlModel = TestData.berlinSchematicXml();
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);

@@ -38,7 +38,7 @@ public class TestMapViewerWithScaleDown
 
 		double scale = 0.7;
 
-		XmlModel xmlModel = TestData.berlinXml();
+		XmlModel xmlModel = TestData.berlinSchematicXml();
 
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel model = modelConverter.convert(xmlModel);

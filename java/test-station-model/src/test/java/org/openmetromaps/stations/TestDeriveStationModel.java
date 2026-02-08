@@ -37,7 +37,7 @@ public class TestDeriveStationModel
 	public static void main(String[] args)
 			throws ParserConfigurationException, IOException, ParsingException
 	{
-		XmlModel xmlModel = TestData.berlinXml();
+		XmlModel xmlModel = TestData.berlinSchematicXml();
 		XmlModelConverter modelConverter = new XmlModelConverter();
 		MapModel mapModel = modelConverter.convert(xmlModel);
 

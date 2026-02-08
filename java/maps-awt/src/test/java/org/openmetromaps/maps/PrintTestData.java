@@ -28,7 +28,7 @@ public class PrintTestData
 
 	public static void main(String[] args) throws ParsingException
 	{
-		XmlModel model = TestData.berlinXml();
+		XmlModel model = TestData.berlinSchematicXml();
 		for (XmlStation station : model.getStations()) {
 			System.out.println(String.format("%s: %.6f,%.6f", station.getName(),
 					station.getLocation().getLongitude(),

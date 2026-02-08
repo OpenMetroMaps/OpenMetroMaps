@@ -39,7 +39,7 @@ public class TestNodesInBetween
 	@Test
 	public void test() throws ParsingException
 	{
-		XmlModel xmlModel = TestData.berlinXml();
+		XmlModel xmlModel = TestData.berlinSchematicXml();
 		MapModel model = new XmlModelConverter().convert(xmlModel);
 
 		Map<String, Station> nameToStation = new HashMap<>();

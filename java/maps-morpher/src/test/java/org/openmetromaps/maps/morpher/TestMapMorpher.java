@@ -37,12 +37,13 @@ public class TestMapMorpher
 
 		Theming.setup();
 
-		XmlModel xmlModel = TestData.berlinXml();
+		XmlModel xmlModel1 = TestData.berlinGeographicXml();
+		XmlModel xmlModel2 = TestData.berlinSchematicXml();
 
-		XmlModelConverter modelConverter = new XmlModelConverter();
-		MapModel model = modelConverter.convert(xmlModel);
+		MapModel model1 = new XmlModelConverter().convert(xmlModel1);
+		MapModel model2 = new XmlModelConverter().convert(xmlModel2);
 
-		MapMorpher mapMorpher = new MapMorpher(model, model, null, 1);
+		MapMorpher mapMorpher = new MapMorpher(model1, model2, null, 1);
 		mapMorpher.show();
 	}
 

@@ -37,3 +37,9 @@ task copyDeps(type: Copy) {
 task createRuntime(dependsOn: [copyJars, copyDeps]) {
     description 'Setup the execution environment for the main scripts'
 }
+
+eclipse.jdt.file {
+    withProperties { properties ->
+        properties['org.eclipse.jdt.core.compiler.ignoreUnnamedModuleForSplitPackage'] = 'enabled'
+    }
+}

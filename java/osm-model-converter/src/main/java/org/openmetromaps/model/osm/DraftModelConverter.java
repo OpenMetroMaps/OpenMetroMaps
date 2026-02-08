@@ -76,7 +76,7 @@ public class DraftModelConverter
 					Coordinate location = new Coordinate(node.getLongitude(),
 							node.getLatitude());
 					station = new Station(0, stopName, location,
-							new ArrayList<Stop>());
+							new ArrayList<>());
 					stationsList.add(station);
 					nameToStation.put(stopName, station);
 				}

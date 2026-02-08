@@ -80,7 +80,7 @@ public class DraftModelConverter
 					Coordinate location = new Coordinate(draftStation.getLon(),
 							draftStation.getLat());
 					station = new Station(0, stopName, location,
-							new ArrayList<Stop>());
+							new ArrayList<>());
 					stationsList.add(station);
 					nameToStation.put(stopName, station);
 				}

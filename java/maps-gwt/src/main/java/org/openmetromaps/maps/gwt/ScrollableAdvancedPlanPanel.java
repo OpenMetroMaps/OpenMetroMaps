@@ -65,8 +65,8 @@ public class ScrollableAdvancedPlanPanel extends BaseMapWindowPanel
 		float devicePixelRatio = (float) getDevicePixelRatio();
 
 		MouseProcessor panMouseHandler = new ContextMouseProcessor(this);
-		MouseProcessor zoomMouseHandler = new ZoomMouseProcessor<ScrollableAdvancedPlanPanel>(
-				this, devicePixelRatio, this::hideContextMenu);
+		MouseProcessor zoomMouseHandler = new ZoomMouseProcessor<>(this,
+				devicePixelRatio, this::hideContextMenu);
 		Util.addHandler(canvas, panMouseHandler);
 		Util.addHandler(canvas, zoomMouseHandler);
 

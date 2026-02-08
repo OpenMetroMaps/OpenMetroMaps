@@ -61,7 +61,7 @@ public class XmlModelConverter
 
 		for (XmlStation xmlStation : xmlStations) {
 			Station station = new Station(0, xmlStation.getName(),
-					xmlStation.getLocation(), new ArrayList<Stop>());
+					xmlStation.getLocation(), new ArrayList<>());
 			stationsList.add(station);
 			nameToStation.put(station.getName(), station);
 		}

@@ -39,7 +39,7 @@ public class PanTouchProcessor<T extends HasSize & Renderable & Viewport & HasSc
 
 	public PanTouchProcessor(T view)
 	{
-		eventManager = new EventManager<EventManagerManaged>(view);
+		eventManager = new EventManager<>(view);
 	}
 
 	@Override

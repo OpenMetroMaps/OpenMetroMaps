@@ -16,4 +16,4 @@ for DIR in $OUTPUT; do
 	cp -a "$WAR/$DIR" test
 done
 
-cp src/main/webapp/berlin.xml src/main/webapp/*.html test
+cp src/main/webapp/berlin.omm src/main/webapp/*.html test

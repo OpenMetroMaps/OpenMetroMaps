@@ -32,6 +32,8 @@ import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.ModelData;
 import org.openmetromaps.maps.model.Station;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.viewports.geometry.Coordinate;
@@ -39,6 +41,9 @@ import de.topobyte.viewports.geometry.Rectangle;
 
 public class MapMorhCalculator
 {
+
+	final static Logger logger = LoggerFactory
+			.getLogger(MapMorhCalculator.class);
 
 	private MapModel model1;
 	private MapModel model2;
@@ -72,7 +77,7 @@ public class MapMorhCalculator
 
 		Rectangle scene1 = view1.getConfig().getScene();
 		Rectangle scene2 = view2.getConfig().getScene();
-		System.out.println(String.format("%.1f x %.1f vs. %.1f x %.1f",
+		logger.info(String.format("%.1f x %.1f vs. %.1f x %.1f",
 				scene1.getWidth(), scene1.getHeight(), scene2.getWidth(),
 				scene2.getHeight()));
 
@@ -85,8 +90,8 @@ public class MapMorhCalculator
 		double offX2 = (width - scene2.getWidth()) / 2;
 		double offY2 = (height - scene2.getHeight()) / 2;
 
-		System.out.println(String.format("offsets: %.1f,%.1f and %.1f,%.1f",
-				offX1, offY1, offX2, offY2));
+		logger.info(String.format("offsets: %.1f,%.1f and %.1f,%.1f", offX1,
+				offY1, offX2, offY2));
 
 		ViewConfig config = new ViewConfig(new Rectangle(0, 0, width, height),
 				new Coordinate(width / 2, height / 2));
@@ -101,18 +106,22 @@ public class MapMorhCalculator
 		double f2 = relative;
 
 		for (Node node : network.getNodes()) {
-			String stationName = node.station.getName();
-			Station station2 = nameToStation2.get(stationName);
+			try {
+				String stationName = node.station.getName();
+				Station station2 = nameToStation2.get(stationName);
 
-			Node node1 = network1.getStationToNode().get(node.station);
-			Node node2 = network2.getStationToNode().get(station2);
+				Node node1 = network1.getStationToNode().get(node.station);
+				Node node2 = network2.getStationToNode().get(station2);
 
-			Point loc1 = node1.location;
-			Point loc2 = node2.location;
+				Point loc1 = node1.location;
+				Point loc2 = node2.location;
 
-			double x = f1 * (offX1 + loc1.x) + f2 * (offX2 + loc2.x);
-			double y = f1 * (offY1 + loc1.y) + f2 * (offY2 + loc2.y);
-			node.location = new Point(x, y);
+				double x = f1 * (offX1 + loc1.x) + f2 * (offX2 + loc2.x);
+				double y = f1 * (offY1 + loc1.y) + f2 * (offY2 + loc2.y);
+				node.location = new Point(x, y);
+			} catch (NullPointerException e) {
+				logger.error("Error with node '{}'", node.station.getName());
+			}
 		}
 
 		LineNetworkUtil.calculateAllNeighborLocations(network);

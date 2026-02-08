@@ -159,11 +159,16 @@ public class MapMorpher
 		map.repaint();
 	}
 
-	private void updateModel()
+	private boolean updateModel()
 	{
 		double relative = sliderCurrent / (double) (sliderMax - sliderMin);
 		System.out.println(String.format("adjust slider to %.2f", relative));
+		boolean match = MapMorphing.doModelsMatch(model1, model2);
+		if (!match) {
+			return false;
+		}
 		deriveModel(relative);
+		return true;
 	}
 
 	private void deriveModel(double relative)
@@ -219,7 +224,10 @@ public class MapMorpher
 	public void setModel1(MapModel model1)
 	{
 		init(model1, model2);
-		updateModel();
+		boolean updated = updateModel();
+		if (!updated) {
+			return;
+		}
 		map.setViewConfig(viewConfig, Constants.DEFAULT_ZOOM);
 		syncMapState();
 	}
@@ -227,7 +235,10 @@ public class MapMorpher
 	public void setModel2(MapModel model2)
 	{
 		init(model1, model2);
-		updateModel();
+		boolean updated = updateModel();
+		if (!updated) {
+			return;
+		}
 		map.setViewConfig(viewConfig, Constants.DEFAULT_ZOOM);
 		syncMapState();
 	}

@@ -33,7 +33,7 @@ public class TestData
 	public static XmlModel berlinXml() throws ParsingException
 	{
 		InputStream input = TestData.class.getClassLoader()
-				.getResourceAsStream("berlin.omm");
+				.getResourceAsStream("berlin-schematic.omm");
 		XmlModel model = DesktopXmlModelReader.read(input);
 		return model;
 	}

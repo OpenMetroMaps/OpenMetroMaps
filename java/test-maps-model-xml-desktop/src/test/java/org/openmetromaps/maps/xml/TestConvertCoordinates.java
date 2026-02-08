@@ -40,7 +40,7 @@ public class TestConvertCoordinates
 			throws ParserConfigurationException, IOException, ParsingException
 	{
 		InputStream input = TestConvertCoordinates.class.getClassLoader()
-				.getResourceAsStream("berlin.omm");
+				.getResourceAsStream("berlin-schematic.omm");
 		XmlModel model = DesktopXmlModelReader.read(input);
 
 		convert(model.getStations(), 1000, 50);

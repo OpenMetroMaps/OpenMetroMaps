@@ -31,7 +31,7 @@ public class TestReadXmlModel
 			throws ParserConfigurationException, IOException, ParsingException
 	{
 		InputStream input = TestReadXmlModel.class.getClassLoader()
-				.getResourceAsStream("berlin.omm");
+				.getResourceAsStream("berlin-schematic.omm");
 		XmlModel model = DesktopXmlModelReader.read(input);
 		for (XmlLine line : model.getLines()) {
 			System.out.println(String.format("line %s, %d stops, color: %s",

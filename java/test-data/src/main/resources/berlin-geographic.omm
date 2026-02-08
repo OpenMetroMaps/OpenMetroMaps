@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <omm-file version="1.0.0">
   <stations>
     <station lat="52.499964" lon="13.307309" name="Adenauerplatz"/>
@@ -68,7 +68,6 @@
     <station lat="52.514873" lon="13.474635" name="Frankfurter Allee"/>
     <station lat="52.515805" lon="13.453992" name="Frankfurter Tor"/>
     <station lat="52.564527" lon="13.363845" name="Franz-Neumann-Platz"/>
-    <station lat="52.514608" lon="13.389177" name="Französische Straße"/>
     <station lat="52.526238" lon="13.760435" name="Fredersdorf"/>
     <station lat="52.451012" lon="13.281676" name="Freie Universität (Thielplatz)"/>
     <station lat="52.470744" lon="13.341519" name="Friedenau"/>
@@ -171,6 +170,7 @@
     <station lat="52.526369" lon="13.304778" name="Mierendorffplatz"/>
     <station lat="52.511767" lon="13.385178" name="Mohrenstraße"/>
     <station lat="52.503681" lon="13.410694" name="Moritzplatz"/>
+    <station lat="52.517263" lon="13.398884" name="Museumsinsel"/>
     <station lat="52.512337" lon="13.410179" name="Märkisches Museum"/>
     <station lat="52.498896" lon="13.382957" name="Möckernbrücke"/>
     <station lat="52.654829" lon="13.386043" name="Mühlenbeck-Mönchmühle"/>
@@ -228,6 +228,7 @@
     <station lat="52.536999" lon="13.262625" name="Rohrdamm"/>
     <station lat="52.527658" lon="13.410500" name="Rosa-Luxemburg-Platz"/>
     <station lat="52.529740" lon="13.401267" name="Rosenthaler Platz"/>
+    <station lat="52.518843" lon="13.408083" name="Rotes Rathaus"/>
     <station lat="52.416604" lon="13.494587" name="Rudow"/>
     <station lat="52.525631" lon="13.241321" name="Ruhleben"/>
     <station lat="52.501240" lon="13.478474" name="Rummelsburg"/>
@@ -280,6 +281,7 @@
     <station lat="52.526355" lon="13.341434" name="Turmstraße"/>
     <station lat="52.502812" lon="13.326697" name="Uhlandstraße"/>
     <station lat="52.453263" lon="13.384332" name="Ullsteinstraße"/>
+    <station lat="52.514608" lon="13.389177" name="Unter den Linden"/>
     <station lat="52.496215" lon="13.343377" name="Viktoria-Luise-Platz"/>
     <station lat="52.559408" lon="13.413272" name="Vinetastraße"/>
     <station lat="52.542095" lon="13.393039" name="Voltastraße"/>
@@ -770,6 +772,15 @@
       <stop station="Ruhleben"/>
     </line>
     <line circular="false" color="#16A696" name="U3">
+      <stop station="Warschauer Straße"/>
+      <stop station="Schlesisches Tor"/>
+      <stop station="Görlitzer Bahnhof"/>
+      <stop station="Kottbusser Tor"/>
+      <stop station="Prinzenstraße"/>
+      <stop station="Hallesches Tor"/>
+      <stop station="Möckernbrücke"/>
+      <stop station="Gleisdreieck"/>
+      <stop station="Kurfürstenstraße"/>
       <stop station="Nollendorfplatz"/>
       <stop station="Wittenbergplatz"/>
       <stop station="Augsburger Straße"/>
@@ -794,6 +805,12 @@
       <stop station="Innsbrucker Platz"/>
     </line>
     <line circular="false" color="#835A43" name="U5">
+      <stop station="Hauptbahnhof"/>
+      <stop station="Bundestag"/>
+      <stop station="Brandenburger Tor"/>
+      <stop station="Unter den Linden"/>
+      <stop station="Museumsinsel"/>
+      <stop station="Rotes Rathaus"/>
       <stop station="Alexanderplatz"/>
       <stop station="Schillingstraße"/>
       <stop station="Strausberger Platz"/>
@@ -814,11 +831,6 @@
       <stop station="Louis-Lewin-Straße"/>
       <stop station="Hönow"/>
     </line>
-    <line circular="false" color="#835A43" name="U55">
-      <stop station="Hauptbahnhof"/>
-      <stop station="Bundestag"/>
-      <stop station="Brandenburger Tor"/>
-    </line>
     <line circular="false" color="#8172AD" name="U6">
       <stop station="Alt-Tegel"/>
       <stop station="Borsigwerke"/>
@@ -836,7 +848,7 @@
       <stop station="Naturkundemuseum"/>
       <stop station="Oranienburger Tor"/>
       <stop station="Friedrichstraße"/>
-      <stop station="Französische Straße"/>
+      <stop station="Unter den Linden"/>
       <stop station="Stadtmitte"/>
       <stop station="Kochstraße"/>
       <stop station="Hallesches Tor"/>
@@ -939,7 +951,7 @@
       <stop station="Rathaus Steglitz"/>
     </line>
   </lines>
-  <view name="Berlin" scene-height="904.137943" scene-width="1000.000000" start-x="386.178629" start-y="478.710910">
+  <view name="Berlin" scene-height="904.137943" scene-width="1000.000000" start-x="386.563728" start-y="479.538749">
     <edges line="S1"/>
     <edges line="S2"/>
     <edges line="S25">
@@ -971,320 +983,321 @@
     <edges line="U3"/>
     <edges line="U4"/>
     <edges line="U5"/>
-    <edges line="U55"/>
     <edges line="U6"/>
     <edges line="U7"/>
     <edges line="U8"/>
     <edges line="U9"/>
     <station name="Adenauerplatz" x="306.971244" y="497.337772"/>
     <station name="Adlershof" x="557.257810" y="611.564773"/>
-    <station name="Afrikanische Straße" x="334.874878" y="387.480046"/>
+    <station name="Afrikanische Straße" x="335.803395" y="390.885004"/>
     <station name="Ahrensfelde" x="583.275529" y="371.903311"/>
-    <station name="Alexanderplatz" x="424.775181" y="461.793637"/>
+    <station name="Alexanderplatz" x="419.287519" y="459.458960"/>
     <station name="Alt Mariendorf" x="392.898607" y="603.194830"/>
     <station name="Alt-Reinickendorf" x="353.465535" y="360.428614"/>
     <station name="Alt-Tegel" x="281.656330" y="339.536027"/>
-    <station name="Alt-Tempelhof" x="393.680572" y="561.942517"/>
+    <station name="Alt-Tempelhof" x="390.765586" y="558.014835"/>
     <station name="Altglienicke" x="575.677311" y="660.320539"/>
     <station name="Altstadt Spandau" x="198.203228" y="428.654999"/>
-    <station name="Amrumer Straße" x="352.409722" y="406.406891"/>
-    <station name="Anhalter Bahnhof" x="381.344566" y="489.099556"/>
-    <station name="Attilastraße" x="371.982381" y="590.692624"/>
-    <station name="Augsburger Straße" x="339.048924" y="498.812053"/>
+    <station name="Amrumer Straße" x="353.014113" y="422.703097"/>
+    <station name="Anhalter Bahnhof" x="386.306995" y="491.229486"/>
+    <station name="Attilastraße" x="364.174497" y="588.640904"/>
+    <station name="Augsburger Straße" x="338.188870" y="496.508367"/>
     <station name="Babelsberg" x="77.443655" y="687.908761"/>
     <station name="Baumschulenweg" x="501.930844" y="554.115047"/>
-    <station name="Bayerischer Platz" x="344.337618" y="519.129314"/>
-    <station name="Bellevue" x="351.423440" y="460.823208"/>
+    <station name="Bayerischer Platz" x="342.926658" y="516.775287"/>
+    <station name="Bellevue" x="350.387952" y="462.132933"/>
     <station name="Bergfelde" x="320.874389" y="197.719426"/>
     <station name="Berliner Straße" x="332.289366" y="519.524572"/>
     <station name="Bernau" x="611.328925" y="188.131266"/>
     <station name="Bernau-Friedenstal" x="582.828386" y="200.612399"/>
-    <station name="Bernauer Straße" x="406.962210" y="430.621277"/>
-    <station name="Betriebsbahnhof Rummelsburg" x="521.042454" y="513.936306"/>
+    <station name="Bernauer Straße" x="402.621288" y="431.474253"/>
+    <station name="Betriebsbahnhof Rummelsburg" x="510.567760" y="508.010299"/>
     <station name="Betriebsbahnhof Schöneweide" x="538.616876" y="590.685604"/>
-    <station name="Beusselstraße" x="318.174417" y="422.827979"/>
-    <station name="Biesdorf" x="572.955944" y="466.304569"/>
-    <station name="Biesdorf-Süd" x="565.588786" y="499.885678"/>
-    <station name="Birkenstein" x="671.300613" y="468.704081"/>
-    <station name="Birkenstraße" x="347.194839" y="439.757306"/>
+    <station name="Beusselstraße" x="330.236574" y="436.903182"/>
+    <station name="Biesdorf" x="573.072544" y="474.279801"/>
+    <station name="Biesdorf-Süd" x="562.779702" y="498.007265"/>
+    <station name="Birkenstein" x="670.717615" y="469.799218"/>
+    <station name="Birkenstraße" x="343.303199" y="440.369267"/>
     <station name="Birkenwerder" x="287.099063" y="165.464242"/>
-    <station name="Bismarckstraße" x="306.309087" y="475.545356"/>
+    <station name="Bismarckstraße" x="304.718414" y="476.976111"/>
     <station name="Blankenburg" x="452.500172" y="336.595434"/>
     <station name="Blankenfelde (Kr Teltow-Fläming)" x="422.630393" y="780.221636"/>
     <station name="Blaschkoallee" x="458.690639" y="581.444535"/>
-    <station name="Blissestraße" x="322.349532" y="518.574192"/>
-    <station name="Boddinstraße" x="430.815887" y="532.338641"/>
+    <station name="Blissestraße" x="322.360229" y="521.095047"/>
+    <station name="Boddinstraße" x="433.216338" y="532.075179"/>
     <station name="Borgsdorf" x="273.802449" y="117.263628"/>
-    <station name="Bornholmer Straße" x="408.075788" y="397.221168"/>
+    <station name="Bornholmer Straße" x="403.820444" y="400.995170"/>
     <station name="Borsigwerke" x="289.208550" y="353.568328"/>
-    <station name="Botanischer Garten" x="315.123576" y="595.573358"/>
+    <station name="Botanischer Garten" x="306.980871" y="588.553148"/>
     <station name="Brandenburger Tor" x="386.563728" y="468.283952"/>
-    <station name="Breitenbachplatz" x="300.083319" y="552.529440"/>
+    <station name="Breitenbachplatz" x="308.649634" y="555.300280"/>
     <station name="Britz-Süd" x="457.646593" y="606.383236"/>
     <station name="Buch" x="504.216835" y="258.149424"/>
     <station name="Buckower Chaussee" x="387.809951" y="654.684572"/>
-    <station name="Bundesplatz" x="330.445170" y="544.154859"/>
-    <station name="Bundestag" x="377.294608" y="464.762866"/>
+    <station name="Bundesplatz" x="330.142439" y="536.360713"/>
+    <station name="Bundestag" x="377.297817" y="461.786605"/>
     <station name="Bülowstraße" x="366.635922" y="501.474122"/>
-    <station name="Charlottenburg" x="302.592881" y="486.523175"/>
+    <station name="Charlottenburg" x="303.968541" y="488.400110"/>
     <station name="Cottbusser Platz" x="616.340561" y="437.736745"/>
-    <station name="Dahlem Dorf" x="286.445465" y="572.848384"/>
-    <station name="Deutsche Oper" x="313.558577" y="475.900410"/>
-    <station name="Eberswalder Straße" x="423.661603" y="427.003498"/>
+    <station name="Dahlem Dorf" x="288.010464" y="572.327002"/>
+    <station name="Deutsche Oper" x="310.735587" y="476.406624"/>
+    <station name="Eberswalder Straße" x="419.142037" y="424.381073"/>
     <station name="Eichborndamm" x="316.814803" y="360.675059"/>
     <station name="Eichwalde" x="636.463055" y="723.042500"/>
-    <station name="Eisenacher Straße" x="352.965976" y="519.129314"/>
-    <station name="Elsterwerdaer Platz" x="582.721414" y="487.893975"/>
+    <station name="Eisenacher Straße" x="352.826912" y="515.636896"/>
+    <station name="Elsterwerdaer Platz" x="577.990044" y="488.252488"/>
     <station name="Erkner" x="781.511680" y="621.163648"/>
     <station name="Ernst-Reuter-Platz" x="322.814860" y="476.580634"/>
     <station name="Fehrbelliner Platz" x="314.559834" y="514.352673"/>
-    <station name="Feuerbachstraße" x="341.352030" y="570.383638"/>
+    <station name="Feuerbachstraße" x="334.331461" y="560.811815"/>
     <station name="Flughafen Berlin-Schönefeld" x="527.066044" y="688.715081"/>
     <station name="Frankfurter Allee" x="485.963140" y="471.135158"/>
-    <station name="Frankfurter Tor" x="463.184531" y="462.628689"/>
+    <station name="Frankfurter Tor" x="463.880919" y="469.496870"/>
     <station name="Franz-Neumann-Platz" x="367.448909" y="383.803931"/>
-    <station name="Französische Straße" x="392.771311" y="471.050784"/>
     <station name="Fredersdorf" x="791.688992" y="451.155163"/>
-    <station name="Freie Universität (Thielplatz)" x="278.929615" y="583.145396"/>
-    <station name="Friedenau" x="348.364042" y="560.255236"/>
-    <station name="Friedrich-Wilhelm-Platz" x="330.445170" y="551.684823"/>
+    <station name="Freie Universität (Thielplatz)" x="279.551122" y="583.308634"/>
+    <station name="Friedenau" x="343.566350" y="548.666253"/>
+    <station name="Friedrich-Wilhelm-Platz" x="329.897473" y="546.585319"/>
     <station name="Friedrichsfelde" x="526.792196" y="486.377307"/>
-    <station name="Friedrichsfelde Ost" x="529.094233" y="463.734460"/>
+    <station name="Friedrichsfelde Ost" x="534.448179" y="472.474591"/>
     <station name="Friedrichshagen" x="645.460467" y="572.167251"/>
-    <station name="Friedrichstraße" x="392.200080" y="459.965281"/>
+    <station name="Friedrichstraße" x="392.095248" y="461.442034"/>
     <station name="Frohnau" x="288.810614" y="264.406609"/>
     <station name="Gehrenseestraße" x="539.556090" y="397.993578"/>
-    <station name="Gesundbrunnen" x="394.512814" y="408.920854"/>
-    <station name="Gleisdreieck" x="373.943176" y="495.332775"/>
+    <station name="Gesundbrunnen" x="394.986700" y="410.915782"/>
+    <station name="Gleisdreieck" x="378.427441" y="498.193527"/>
     <station name="Gneisenaustraße" x="401.286278" y="512.416635"/>
-    <station name="Greifswalder Straße" x="457.617711" y="423.383790"/>
+    <station name="Greifswalder Straße" x="448.083300" y="426.723847"/>
     <station name="Grenzallee" x="454.061963" y="562.532443"/>
     <station name="Griebnitzsee" x="114.276240" y="682.550025"/>
     <station name="Grunewald" x="257.875394" y="517.572853"/>
     <station name="Grünau" x="592.447304" y="650.779135"/>
     <station name="Grünbergallee" x="557.851504" y="674.040493"/>
-    <station name="Görlitzer Bahnhof" x="439.255974" y="497.409818"/>
+    <station name="Görlitzer Bahnhof" x="436.090674" y="498.564292"/>
     <station name="Güntzelstraße" x="332.188813" y="511.179794"/>
-    <station name="Hackescher Markt" x="408.133553" y="459.451927"/>
-    <station name="Halemweg" x="280.600517" y="429.507997"/>
-    <station name="Halensee" x="284.088872" y="508.110446"/>
-    <station name="Hallesches Tor" x="393.290125" y="496.241269"/>
-    <station name="Hansaplatz" x="346.416083" y="477.023568"/>
-    <station name="Haselhorst" x="227.160536" y="428.394701"/>
-    <station name="Hauptbahnhof" x="370.098604" y="458.595744"/>
-    <station name="Hausvogteiplatz" x="401.340834" y="478.710910"/>
-    <station name="Heerstraße" x="253.601865" y="486.843031"/>
+    <station name="Hackescher Markt" x="408.487630" y="457.467044"/>
+    <station name="Halemweg" x="284.177659" y="432.810857"/>
+    <station name="Halensee" x="289.093020" y="504.331132"/>
+    <station name="Hallesches Tor" x="396.670438" y="500.119378"/>
+    <station name="Hansaplatz" x="343.999586" y="465.244541"/>
+    <station name="Haselhorst" x="227.401223" y="429.254737"/>
+    <station name="Hauptbahnhof" x="373.800904" y="452.916915"/>
+    <station name="Hausvogteiplatz" x="401.377205" y="473.857944"/>
+    <station name="Heerstraße" x="256.312534" y="483.521390"/>
     <station name="Hegermühle" x="905.212981" y="411.927299"/>
-    <station name="Heidelberger Platz" x="310.103382" y="535.551046"/>
+    <station name="Heidelberger Platz" x="311.864141" y="532.335128"/>
     <station name="Heiligensee" x="223.457167" y="277.957404"/>
-    <station name="Heinrich-Heine-Straße" x="428.218608" y="482.347359"/>
+    <station name="Heinrich-Heine-Straße" x="423.202693" y="478.869096"/>
     <station name="Hellersdorf" x="627.294489" y="432.733475"/>
     <station name="Hennigsdorf (bei Berlin)" x="198.648231" y="255.290338"/>
-    <station name="Hermannplatz" x="429.777189" y="520.132388"/>
-    <station name="Hermannstraße" x="431.854585" y="553.892046"/>
+    <station name="Hermannplatz" x="432.143409" y="521.233823"/>
+    <station name="Hermannstraße" x="439.283787" y="554.260788"/>
     <station name="Hermsdorf" x="307.334948" y="290.804580"/>
     <station name="Hirschgarten" x="623.789018" y="571.219273"/>
     <station name="Hohen Neuendorf (b Berlin)" x="285.295516" y="200.346039"/>
     <station name="Hohenschönhausen" x="526.512999" y="380.805190"/>
-    <station name="Hohenzollerndamm" x="295.653611" y="522.800750"/>
-    <station name="Hohenzollernplatz" x="321.793278" y="509.387745"/>
+    <station name="Hohenzollerndamm" x="299.347352" y="517.181098"/>
+    <station name="Hohenzollernplatz" x="325.467765" y="507.701073"/>
     <station name="Holzhauser Straße" x="295.019267" y="364.207936"/>
     <station name="Hoppegarten (Mark)" x="699.127228" y="465.297280"/>
-    <station name="Humboldthain" x="396.106696" y="427.003498"/>
+    <station name="Humboldthain" x="384.244576" y="418.115739"/>
     <station name="Hönow" x="655.600339" y="429.752463"/>
-    <station name="Innsbrucker Platz" x="341.611972" y="547.010291"/>
-    <station name="Jakob-Kaiser-Platz" x="291.454961" y="432.012415"/>
-    <station name="Jannowitzbrücke" x="433.681666" y="475.153387"/>
+    <station name="Innsbrucker Platz" x="344.338687" y="535.087372"/>
+    <station name="Jakob-Kaiser-Platz" x="291.963078" y="433.482667"/>
+    <station name="Jannowitzbrücke" x="426.600122" y="471.571092"/>
     <station name="Johannisthaler Chaussee" x="463.228390" y="621.439087"/>
-    <station name="Julius-Leber-Brücke" x="361.872461" y="530.819332"/>
-    <station name="Jungfernheide" x="297.021782" y="437.022766"/>
-    <station name="Kaiserdamm" x="281.519406" y="471.274024"/>
-    <station name="Kaiserin-Augusta-Straße" x="393.420630" y="570.383638"/>
+    <station name="Julius-Leber-Brücke" x="364.496483" y="521.103830"/>
+    <station name="Jungfernheide" x="299.431860" y="443.759584"/>
+    <station name="Kaiserdamm" x="280.988825" y="479.538749"/>
+    <station name="Kaiserin-Augusta-Straße" x="389.648799" y="567.952170"/>
     <station name="Karl-Bonhoeffer-Nervenklinik" x="332.585679" y="359.096038"/>
     <station name="Karl-Marx-Straße" x="448.199900" y="539.190089"/>
     <station name="Karlshorst" x="542.180112" y="531.499072"/>
     <station name="Karow" x="480.448735" y="294.545030"/>
-    <station name="Kaulsdorf" x="615.103965" y="467.848000"/>
-    <station name="Kaulsdorf-Nord" x="604.309425" y="456.025378"/>
+    <station name="Kaulsdorf" x="609.566027" y="475.998841"/>
+    <station name="Kaulsdorf-Nord" x="608.231017" y="460.167457"/>
     <station name="Kienberg (Gärten der Welt)" x="609.994984" y="447.095243"/>
-    <station name="Kleistpark" x="362.150588" y="519.686189"/>
-    <station name="Klosterstraße" x="420.947724" y="471.959562"/>
-    <station name="Kochstraße" x="393.420630" y="486.372034"/>
+    <station name="Kleistpark" x="363.199983" y="514.141854"/>
+    <station name="Klosterstraße" x="419.411607" y="466.986636"/>
+    <station name="Kochstraße" x="395.947308" y="485.867643"/>
     <station name="Konstanzer Straße" x="308.923482" y="506.873536"/>
-    <station name="Kottbusser Tor" x="428.867928" y="497.539851"/>
+    <station name="Kottbusser Tor" x="425.758253" y="499.054543"/>
     <station name="Krumme Lanke" x="236.285244" y="596.800074"/>
-    <station name="Kurfürstendamm" x="332.508659" y="494.359252"/>
-    <station name="Kurfürstenstraße" x="366.282915" y="495.202739"/>
-    <station name="Kurt-Schumacher-Platz" x="325.132942" y="382.748050"/>
+    <station name="Kurfürstendamm" x="332.831714" y="490.542361"/>
+    <station name="Kurfürstenstraße" x="365.651780" y="497.448476"/>
+    <station name="Kurt-Schumacher-Platz" x="328.195549" y="386.095145"/>
     <station name="Köllnische Heide" x="479.449617" y="550.478463"/>
     <station name="Königs Wusterhausen" x="653.698377" y="854.137943"/>
     <station name="Köpenick" x="600.077614" y="569.979862"/>
-    <station name="Landsberger Allee" x="472.091016" y="438.971245"/>
-    <station name="Lankwitz" x="347.653748" y="607.141274"/>
+    <station name="Landsberger Allee" x="464.738834" y="445.479304"/>
+    <station name="Lankwitz" x="344.269156" y="604.688150"/>
     <station name="Lehnitz" x="260.253381" y="72.600306"/>
-    <station name="Leinestraße" x="430.945323" y="542.855304"/>
-    <station name="Leopoldplatz" x="358.532796" y="402.232017"/>
-    <station name="Lichtenberg" x="515.902451" y="480.526519"/>
+    <station name="Leinestraße" x="436.522841" y="544.713309"/>
+    <station name="Leopoldplatz" x="362.427645" y="415.718173"/>
+    <station name="Lichtenberg" x="511.180709" y="478.753093"/>
     <station name="Lichtenrade" x="402.167727" y="694.551887"/>
-    <station name="Lichterfelde Ost" x="335.660053" y="622.218031"/>
+    <station name="Lichterfelde Ost" x="329.658926" y="619.896967"/>
     <station name="Lichterfelde Süd" x="308.192863" y="655.321137"/>
-    <station name="Lichterfelde West" x="297.204704" y="608.037926"/>
+    <station name="Lichterfelde West" x="292.027261" y="596.989608"/>
     <station name="Lindauer Allee" x="340.256638" y="364.639193"/>
     <station name="Lipschitzallee" x="472.785264" y="629.350963"/>
     <station name="Louis-Lewin-Straße" x="639.889367" y="428.716556"/>
     <station name="Magdalenenstraße" x="499.234081" y="475.371343"/>
     <station name="Mahlow" x="414.391413" y="741.242753"/>
-    <station name="Mahlsdorf" x="634.121439" y="467.675728"/>
+    <station name="Mahlsdorf" x="630.148501" y="476.181641"/>
     <station name="Marienfelde" x="378.963370" y="630.152631"/>
     <station name="Marzahn" x="557.396873" y="420.397140"/>
-    <station name="Mehringdamm" x="393.550066" y="507.927722"/>
+    <station name="Mehringdamm" x="394.173713" y="507.142355"/>
     <station name="Mehrower Allee" x="570.346898" y="395.971924"/>
-    <station name="Mendelssohn-Bartholdy-Park" x="379.007229" y="487.930881"/>
-    <station name="Messe Nord/ICC" x="279.634560" y="475.385405"/>
-    <station name="Messe Süd (Eichkamp)" x="266.961592" y="486.287676"/>
+    <station name="Mendelssohn-Bartholdy-Park" x="379.272519" y="490.753244"/>
+    <station name="Messe Nord/ICC" x="281.496942" y="483.686597"/>
+    <station name="Messe Süd (Eichkamp)" x="267.668677" y="499.731049"/>
     <station name="Mexikoplatz" x="227.860133" y="608.429221"/>
-    <station name="Mierendorffplatz" x="304.340803" y="449.171824"/>
-    <station name="Mohrenstraße" x="388.486014" y="478.192408"/>
-    <station name="Moritzplatz" x="428.349114" y="490.658347"/>
-    <station name="Märkisches Museum" x="416.273049" y="476.244917"/>
-    <station name="Möckernbrücke" x="388.096636" y="495.851163"/>
+    <station name="Mierendorffplatz" x="304.263783" y="450.924831"/>
+    <station name="Mohrenstraße" x="390.269237" y="476.594696"/>
+    <station name="Moritzplatz" x="417.564201" y="490.805965"/>
+    <station name="Museumsinsel" x="405.283051" y="470.382591"/>
+    <station name="Märkisches Museum" x="417.013295" y="475.592813"/>
+    <station name="Möckernbrücke" x="387.893389" y="499.214445"/>
     <station name="Mühlenbeck-Mönchmühle" x="391.194544" y="224.727456"/>
-    <station name="Naturkundemuseum" x="381.355263" y="444.536803"/>
-    <station name="Nauener Platz" x="368.609555" y="397.961907"/>
+    <station name="Naturkundemuseum" x="387.624890" y="443.040385"/>
+    <station name="Nauener Platz" x="371.060282" y="406.920597"/>
     <station name="Neu-Westend" x="255.643959" y="468.744511"/>
     <station name="Neuenhagen" x="727.630975" y="460.772225"/>
     <station name="Neukölln" x="452.163211" y="551.207198"/>
     <station name="Nikolassee" x="185.604071" y="616.407345"/>
-    <station name="Nollendorfplatz" x="357.972263" y="494.682590"/>
-    <station name="Nordbahnhof" x="398.055725" y="440.362233"/>
-    <station name="Nöldnerplatz" x="502.880755" y="492.689825"/>
+    <station name="Nollendorfplatz" x="357.776505" y="497.689213"/>
+    <station name="Nordbahnhof" x="392.496393" y="439.845232"/>
+    <station name="Nöldnerplatz" x="497.569597" y="490.403530"/>
     <station name="Oberspree" x="553.484909" y="580.838956"/>
     <station name="Olympia-Stadion" x="246.325632" y="467.605413"/>
-    <station name="Olympiastadion" x="236.067021" y="478.772427"/>
+    <station name="Olympiastadion" x="238.152975" y="477.448922"/>
     <station name="Onkel Toms Hütte" x="249.083369" y="585.293798"/>
     <station name="Oranienburg" x="244.779887" y="50.000000"/>
     <station name="Oranienburger Straße" x="398.786344" y="452.554722"/>
-    <station name="Oranienburger Tor" x="386.087703" y="452.331427"/>
-    <station name="Osdorfer Straße" x="321.611426" y="641.750454"/>
+    <station name="Oranienburger Tor" x="392.596946" y="452.268131"/>
+    <station name="Osdorfer Straße" x="314.463559" y="639.554509"/>
     <station name="Oskar-Helene-Heim" x="266.132560" y="584.461826"/>
-    <station name="Osloer Straße" x="377.721426" y="392.366597"/>
-    <station name="Ostbahnhof" x="445.649688" y="485.730561"/>
-    <station name="Ostkreuz" x="486.564322" y="492.828653"/>
+    <station name="Osloer Straße" x="377.511761" y="396.842878"/>
+    <station name="Ostbahnhof" x="443.729542" y="478.526359"/>
+    <station name="Ostkreuz" x="480.187724" y="491.654762"/>
     <station name="Otisstraße" x="302.291220" y="372.367965"/>
     <station name="Pankow" x="416.535131" y="381.391221"/>
     <station name="Pankow-Heinersdorf" x="437.587212" y="360.154003"/>
-    <station name="Pankstraße" x="385.394524" y="399.399379"/>
+    <station name="Pankstraße" x="386.422525" y="405.460395"/>
     <station name="Paracelsus-Bad" x="351.928348" y="366.851768"/>
-    <station name="Paradestraße" x="394.199386" y="536.362469"/>
+    <station name="Paradestraße" x="391.437370" y="535.721411"/>
     <station name="Parchimer Allee" x="459.114248" y="594.248342"/>
-    <station name="Paulsternstraße" x="243.025547" y="428.672587"/>
+    <station name="Paulsternstraße" x="243.330417" y="430.385608"/>
     <station name="Petershagen-Nord" x="822.493706" y="446.567736"/>
-    <station name="Pichelsberg" x="221.315589" y="460.403036"/>
-    <station name="Platz der Luftbrücke" x="393.810008" y="522.210521"/>
-    <station name="Plänterwald" x="486.760081" y="537.108901"/>
-    <station name="Podbielskiallee" x="293.124793" y="562.827403"/>
+    <station name="Pichelsberg" x="221.752034" y="479.463171"/>
+    <station name="Platz der Luftbrücke" x="391.097199" y="521.785413"/>
+    <station name="Plänterwald" x="484.598178" y="535.078590"/>
+    <station name="Podbielskiallee" x="294.867367" y="560.265771"/>
     <station name="Poelchaustraße" x="551.073761" y="434.514993"/>
     <station name="Potsdam Hbf" x="50.000000" y="687.172548"/>
-    <station name="Potsdamer Platz" x="384.071281" y="478.582603"/>
-    <station name="Prenzlauer Allee" x="440.918319" y="415.033895"/>
-    <station name="Priesterweg" x="369.241759" y="571.845993"/>
-    <station name="Prinzenstraße" x="412.637073" y="496.889684"/>
+    <station name="Potsdamer Platz" x="381.480421" y="480.628459"/>
+    <station name="Prenzlauer Allee" x="433.645295" y="418.349687"/>
+    <station name="Priesterweg" x="359.327598" y="567.680052"/>
+    <station name="Prinzenstraße" x="412.426338" y="500.100049"/>
     <station name="Rahnsdorf" x="716.358270" y="582.237924"/>
     <station name="Raoul-Wallenberg-Straße" x="563.951045" y="408.162627"/>
     <station name="Rathaus Neukölln" x="442.537874" y="529.335122"/>
     <station name="Rathaus Reinickendorf" x="326.943978" y="341.870812"/>
-    <station name="Rathaus Schöneberg" x="344.059491" y="529.428216"/>
+    <station name="Rathaus Schöneberg" x="343.996377" y="526.661717"/>
     <station name="Rathaus Spandau" x="192.037364" y="435.035547"/>
-    <station name="Rathaus Steglitz" x="329.925286" y="583.626334"/>
-    <station name="Rehberge" x="342.945913" y="392.767784"/>
-    <station name="Reinickendorfer Straße" x="370.778946" y="424.497158"/>
+    <station name="Rathaus Steglitz" x="322.268233" y="574.435329"/>
+    <station name="Rehberge" x="342.991911" y="397.604735"/>
+    <station name="Reinickendorfer Straße" x="374.150702" y="426.695706"/>
     <station name="Residenzstraße" x="363.914556" y="372.577411"/>
-    <station name="Richard-Wagner-Platz" x="306.505916" y="463.933111"/>
-    <station name="Rohrdamm" x="256.385275" y="428.950471"/>
-    <station name="Rosa-Luxemburg-Platz" x="425.610632" y="450.661091"/>
-    <station name="Rosenthaler Platz" x="410.301875" y="440.919676"/>
+    <station name="Richard-Wagner-Platz" x="306.256671" y="467.645844"/>
+    <station name="Rohrdamm" x="259.171894" y="432.232251"/>
+    <station name="Rosa-Luxemburg-Platz" x="417.356675" y="448.658399"/>
+    <station name="Rosenthaler Platz" x="407.479955" y="444.997505"/>
+    <station name="Rotes Rathaus" x="411.413462" y="466.754788"/>
     <station name="Rudow" x="507.306185" y="643.679748"/>
     <station name="Ruhleben" x="236.382589" y="452.222417"/>
-    <station name="Rummelsburg" x="504.079910" y="501.771074"/>
+    <station name="Rummelsburg" x="490.069793" y="495.095546"/>
     <station name="Röntgental" x="527.344172" y="235.668720"/>
-    <station name="Rüdesheimer Platz" x="304.258435" y="544.736139"/>
-    <station name="Samariterstraße" x="472.091016" y="470.421487"/>
-    <station name="Savignyplatz" x="319.726580" y="486.523175"/>
+    <station name="Rüdesheimer Platz" x="314.641133" y="544.416523"/>
+    <station name="Samariterstraße" x="475.278781" y="471.414648"/>
+    <station name="Savignyplatz" x="319.459150" y="488.194493"/>
     <station name="Scharnweberstraße" x="312.680337" y="379.802064"/>
     <station name="Schichauweg" x="394.581276" y="674.769818"/>
-    <station name="Schillingstraße" x="437.578654" y="460.680807"/>
+    <station name="Schillingstraße" x="428.377996" y="460.568292"/>
     <station name="Schlachtensee" x="208.711083" y="602.470094"/>
-    <station name="Schlesisches Tor" x="450.812155" y="497.409818"/>
-    <station name="Schloßstraße" x="330.185228" y="569.863995"/>
+    <station name="Schlesisches Tor" x="450.589653" y="495.747485"/>
+    <station name="Schloßstraße" x="325.997276" y="564.930723"/>
     <station name="Schulzendorf" x="241.476593" y="298.537228"/>
-    <station name="Schwartzkopffstraße" x="376.067640" y="436.187437"/>
-    <station name="Schöneberg" x="355.376054" y="549.607483"/>
+    <station name="Schwartzkopffstraße" x="381.884775" y="435.482236"/>
+    <station name="Schöneberg" x="354.496744" y="533.657693"/>
     <station name="Schöneweide" x="523.359466" y="576.292576"/>
     <station name="Schönfließ" x="342.472027" y="207.509233"/>
-    <station name="Schönhauser Allee" x="424.218926" y="410.859488"/>
+    <station name="Schönhauser Allee" x="422.134043" y="410.625518"/>
     <station name="Schönholz" x="386.178629" y="371.915631"/>
-    <station name="Schönleinstraße" x="428.738492" y="509.874414"/>
-    <station name="Seestraße" x="352.409722" y="396.107406"/>
-    <station name="Senefelderplatz" x="424.497054" y="438.413788"/>
-    <station name="Siemensdamm" x="268.631425" y="428.950471"/>
-    <station name="Sonnenallee" x="471.812889" y="540.839194"/>
-    <station name="Sophie-Charlotte-Platz" x="294.197722" y="473.330621"/>
+    <station name="Schönleinstraße" x="429.771841" y="509.470321"/>
+    <station name="Seestraße" x="356.211505" y="410.006284"/>
+    <station name="Senefelderplatz" x="419.692943" y="440.312995"/>
+    <station name="Siemensdamm" x="270.006014" y="432.564642"/>
+    <station name="Sonnenallee" x="465.623492" y="544.801116"/>
+    <station name="Sophie-Charlotte-Platz" x="294.676957" y="478.155497"/>
     <station name="Spandau" x="189.421900" y="436.152265"/>
     <station name="Spichernstraße" x="332.016588" y="504.346946"/>
     <station name="Spindlersfeld" x="578.842611" y="590.504830"/>
     <station name="Spittelmarkt" x="410.280480" y="477.390919"/>
-    <station name="Springpfuhl" x="542.458239" y="448.315527"/>
-    <station name="Stadtmitte" x="393.160689" y="477.153635"/>
-    <station name="Storkower Straße" x="480.163120" y="453.166581"/>
+    <station name="Springpfuhl" x="552.186269" y="449.685247"/>
+    <station name="Stadtmitte" x="395.797547" y="477.622930"/>
+    <station name="Storkower Straße" x="475.575093" y="455.515515"/>
     <station name="Strausberg" x="869.979628" y="440.735034"/>
     <station name="Strausberg Nord" x="950.000000" y="338.395020"/>
     <station name="Strausberg Stadt" x="928.099631" y="362.489926"/>
-    <station name="Strausberger Platz" x="448.990422" y="460.403036"/>
-    <station name="Stresow" x="202.946364" y="437.858086"/>
-    <station name="Sundgauer Straße" x="276.393310" y="616.263475"/>
-    <station name="Südende" x="357.591443" y="591.034865"/>
-    <station name="Südkreuz" x="371.982381" y="551.628632"/>
+    <station name="Strausberger Platz" x="439.882830" y="465.471315"/>
+    <station name="Stresow" x="202.137656" y="441.121902"/>
+    <station name="Sundgauer Straße" x="271.393440" y="608.960888"/>
+    <station name="Südende" x="356.666136" y="588.112608"/>
+    <station name="Südkreuz" x="368.943307" y="539.644958"/>
     <station name="Südstern" x="414.326160" y="516.077849"/>
     <station name="Tegel" x="288.199805" y="342.286348"/>
     <station name="Teltow Stadt" x="273.928676" y="678.374265"/>
-    <station name="Tempelhof" x="393.810008" y="553.242353"/>
-    <station name="Theodor-Heuss-Platz" x="268.841090" y="470.075197"/>
-    <station name="Tiergarten" x="343.884057" y="474.357141"/>
-    <station name="Tierpark" x="546.227931" y="499.715234"/>
-    <station name="Treptower Park" x="482.389207" y="520.799927"/>
-    <station name="Turmstraße" x="347.454781" y="450.406142"/>
-    <station name="Uhlandstraße" x="323.953042" y="494.034156"/>
-    <station name="Ullsteinstraße" x="393.160689" y="579.861244"/>
+    <station name="Tempelhof" x="389.543967" y="548.574939"/>
+    <station name="Theodor-Heuss-Platz" x="269.856253" y="479.818208"/>
+    <station name="Tiergarten" x="338.015575" y="472.446467"/>
+    <station name="Tierpark" x="537.660547" y="501.307197"/>
+    <station name="Treptower Park" x="472.226871" y="508.138557"/>
+    <station name="Turmstraße" x="343.475424" y="450.949446"/>
+    <station name="Uhlandstraße" x="327.710967" y="492.333090"/>
+    <station name="Ullsteinstraße" x="389.364254" y="579.357463"/>
+    <station name="Unter den Linden" x="394.318167" y="470.228002"/>
     <station name="Viktoria-Luise-Platz" x="345.553889" y="503.925253"/>
-    <station name="Vinetastraße" x="421.991770" y="395.273394"/>
-    <station name="Voltastraße" x="403.065222" y="420.601178"/>
+    <station name="Vinetastraße" x="420.321938" y="392.811773"/>
+    <station name="Voltastraße" x="398.678302" y="423.269462"/>
     <station name="Waidmannslust" x="321.802905" y="310.302967"/>
-    <station name="Walther-Schreiber-Platz" x="330.185228" y="562.851984"/>
+    <station name="Walther-Schreiber-Platz" x="329.382938" y="558.181638"/>
     <station name="Wannsee" x="169.987235" y="635.786879"/>
-    <station name="Warschauer Straße" x="465.411688" y="493.245133"/>
+    <station name="Warschauer Straße" x="460.113367" y="486.960779"/>
     <station name="Wartenberg" x="517.809761" y="369.812329"/>
-    <station name="Wedding" x="364.933998" y="411.137437"/>
-    <station name="Weinmeisterstraße" x="414.755117" y="452.609227"/>
-    <station name="Westend" x="282.889717" y="458.080623"/>
-    <station name="Westhafen" x="347.121028" y="413.086570"/>
-    <station name="Westkreuz" x="280.320250" y="487.379049"/>
-    <station name="Westphalweg" x="393.031252" y="591.677220"/>
+    <station name="Wedding" x="370.042979" y="421.623123"/>
+    <station name="Weinmeisterstraße" x="411.400477" y="452.419338"/>
+    <station name="Westend" x="282.354857" y="464.866584"/>
+    <station name="Westhafen" x="345.620212" y="433.067623"/>
+    <station name="Westkreuz" x="282.008268" y="495.766815"/>
+    <station name="Westphalweg" x="390.768796" y="591.657914"/>
     <station name="Wildau" x="656.187615" y="814.310755"/>
     <station name="Wilhelmshagen" x="750.930537" y="605.249673"/>
     <station name="Wilhelmsruh" x="365.689220" y="353.577131"/>
-    <station name="Wilmersdorfer Straße" x="306.191418" y="482.238391"/>
+    <station name="Wilmersdorfer Straße" x="306.295181" y="485.500332"/>
     <station name="Wittenau" x="335.970271" y="327.175980"/>
     <station name="Wittenbergplatz" x="345.151674" y="494.118506"/>
     <station name="Wollankstraße" x="397.762622" y="382.526313"/>
-    <station name="Wuhletal" x="595.914266" y="468.018514"/>
+    <station name="Wuhletal" x="593.421819" y="475.111202"/>
     <station name="Wuhlheide" x="571.110678" y="552.417059"/>
     <station name="Wutzkyallee" x="485.800542" y="631.882242"/>
-    <station name="Yorckstraße" x="375.510316" y="517.460422"/>
-    <station name="Yorckstraße (Großgörschenstraße)" x="370.827083" y="510.784493"/>
+    <station name="Yorckstraße" x="375.960668" y="511.199120"/>
+    <station name="Yorckstraße (Großgörschenstraße)" x="371.673232" y="510.932072"/>
     <station name="Zehlendorf" x="254.572100" y="618.426748"/>
     <station name="Zepernick (bei Bernau)" x="549.626430" y="215.952163"/>
     <station name="Zeuthen" x="649.524331" y="762.911396"/>
-    <station name="Zitadelle" x="211.295525" y="427.837167"/>
+    <station name="Zitadelle" x="210.853731" y="430.999402"/>
     <station name="Zoologischer Garten" x="333.648980" y="485.412458"/>
     <station name="Zwickauer Damm" x="495.751074" y="631.766468"/>
   </view>

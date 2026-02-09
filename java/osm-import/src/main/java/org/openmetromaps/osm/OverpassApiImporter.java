@@ -29,10 +29,7 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.openmetromaps.maps.model.ModelData;
-import org.openmetromaps.model.osm.DraftModel;
-import org.openmetromaps.model.osm.DraftModelConverter;
 import org.openmetromaps.model.osm.Fix;
-import org.openmetromaps.model.osm.ModelBuilder;
 import org.openmetromaps.model.osm.filter.RouteFilter;
 
 import de.topobyte.osm4j.core.access.OsmIterator;
@@ -71,14 +68,8 @@ public class OverpassApiImporter
 		System.out.println(String.format("%d, %d, %d", data.getNodes().size(),
 				data.getWays().size(), data.getRelations().size()));
 
-		ModelBuilder modelBuilder = new ModelBuilder(data, routeFilter,
-				prefixes, suffixes, fixes);
-		modelBuilder.run(true, true);
-
-		DraftModel draftModel = modelBuilder.getModel();
-		ModelData model = new DraftModelConverter().convert(draftModel);
-
-		return model;
+		return OsmImporter.execute(data, routeFilter, prefixes, suffixes,
+				fixes);
 	}
 
 }

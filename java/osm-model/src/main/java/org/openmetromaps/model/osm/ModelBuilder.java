@@ -17,7 +17,6 @@
 
 package org.openmetromaps.model.osm;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,7 +68,6 @@ public class ModelBuilder
 	}
 
 	public void run(boolean applyFixes, boolean removeReverse)
-			throws IOException
 	{
 		List<DraftLine> lines = model.getLines();
 

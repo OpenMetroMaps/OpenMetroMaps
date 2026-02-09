@@ -19,6 +19,7 @@ package org.openmetromaps.ci;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,6 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.openmetromaps.imports.config.ImportConfig;
 import org.openmetromaps.imports.config.Processing;
 import org.openmetromaps.imports.config.osm.OsmSource;
@@ -40,101 +43,69 @@ import org.openmetromaps.maps.model.Stop;
 import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
+import org.openmetromaps.maps.xml.XmlModelWriter;
 import org.openmetromaps.model.osm.Fix;
 import org.openmetromaps.model.osm.filter.RouteFilter;
-import org.openmetromaps.osm.OverpassApiImporter;
+import org.openmetromaps.osm.OsmImporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.topobyte.osm4j.core.dataset.InMemoryMapDataSet;
+import de.topobyte.system.utils.SystemPaths;
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
-public class CiMain
+public class CiTools
 {
 
-	final static Logger logger = LoggerFactory.getLogger(CiMain.class);
+	final static Logger logger = LoggerFactory.getLogger(CiTools.class);
 
-	public static void main(String[] args)
+	static Path determineProjetRoot()
 	{
-		try {
-			processAndCompare(
-					"java/import-config/src/test/resources/berlin.xml",
-					"java/test-data/src/main/resources/berlin-geographic.omm");
-		} catch (Exception e) {
-			logger.error("Error while processing", e);
-			System.exit(1);
+		Path cwd = SystemPaths.CWD;
+		if (cwd.endsWith(Paths.get("java/ci"))) {
+			return cwd.getParent().getParent();
 		}
+		return cwd;
 	}
 
-	private static void processAndCompare(String configPath,
-			String referenceOmmPath) throws IOException, ParsingException
-	{
-		System.out.println("Running CI Check");
-		System.out.println("Config: " + configPath);
-		System.out.println("Reference: " + referenceOmmPath);
-
-		ModelData osmData = loadOsmData(configPath);
-		ModelData referenceData = loadReferenceData(referenceOmmPath);
-
-		System.out.println("Stats OSM: " + osmData.stations.size()
-				+ " stations, " + osmData.lines.size() + " lines");
-		System.out.println("Stats Ref: " + referenceData.stations.size()
-				+ " stations, " + referenceData.lines.size() + " lines");
-
-		List<String> diffs = compare(osmData, referenceData);
-
-		if (diffs.isEmpty()) {
-			System.out.println("SUCCESS: No differences found.");
-			System.exit(0);
-		} else {
-			System.out.println("FAILURE: Differences found:");
-			for (String diff : diffs) {
-				System.out.println(diff);
-			}
-			System.exit(1);
-		}
-	}
-
-	private static ModelData loadOsmData(String configPath)
+	static ImportConfig loadConfig(Path pathConfig)
 			throws IOException, ParsingException
 	{
-		Path pathConfig = Paths.get(configPath);
 		try (InputStream isConfig = Files.newInputStream(pathConfig)) {
-			ImportConfig config = DesktopImportConfigReader.read(isConfig);
-
-			if (!(config.getSource() instanceof OsmSource)) {
-				throw new IllegalArgumentException(
-						"Config is not an OSM configuration");
-			}
-
-			OsmSource source = (OsmSource) config.getSource();
-			Processing processing = config.getProcessing();
-
-			RouteFilter routeFilter = new OsmSourceRouteFilter(source);
-			List<Fix> fixes = new ArrayList<>();
-
-			String query = OverpassQueryBuilder.build(source);
-			System.out
-					.println("Downloading and importing from Overpass API...");
-
-			OverpassApiImporter overpassApiImporter = new OverpassApiImporter();
-			return overpassApiImporter.execute(query, routeFilter,
-					processing.getPrefixes(), processing.getSuffixes(), fixes);
+			return DesktopImportConfigReader.read(isConfig);
 		}
 	}
 
-	private static ModelData loadReferenceData(String referenceOmmPath)
+	static ModelData loadOsmData(ImportConfig config, InMemoryMapDataSet data)
+	{
+		if (!(config.getSource() instanceof OsmSource)) {
+			throw new IllegalArgumentException(
+					"Config is not an OSM configuration");
+		}
+
+		OsmSource source = (OsmSource) config.getSource();
+		Processing processing = config.getProcessing();
+
+		RouteFilter routeFilter = new OsmSourceRouteFilter(source);
+		List<Fix> fixes = new ArrayList<>();
+
+		System.out.println("Importing from OSM data set...");
+
+		return OsmImporter.execute(data, routeFilter, processing.getPrefixes(),
+				processing.getSuffixes(), fixes);
+	}
+
+	static ModelData loadReferenceData(Path pathReferenceOmm)
 			throws IOException, ParsingException
 	{
-		Path pathRef = Paths.get(referenceOmmPath);
 		System.out.println("Loading reference OMM file...");
-		try (InputStream is = Files.newInputStream(pathRef)) {
+		try (InputStream is = Files.newInputStream(pathReferenceOmm)) {
 			XmlModel xmlModel = DesktopXmlModelReader.read(is);
 			return new XmlModelConverter().convert(xmlModel).getData();
 		}
 	}
 
-	private static List<String> compare(ModelData osmData,
-			ModelData referenceData)
+	static List<String> compare(ModelData osmData, ModelData referenceData)
 	{
 		List<String> diffs = new ArrayList<>();
 		List<String> missingLines = new ArrayList<>();
@@ -241,4 +212,29 @@ public class CiMain
 		}
 		return names;
 	}
+
+	static void compareAndExit(ModelData osmData, ModelData referenceData)
+	{
+		List<String> diffs = CiTools.compare(osmData, referenceData);
+
+		if (diffs.isEmpty()) {
+			System.out.println("SUCCESS: No differences found.");
+			System.exit(0);
+		} else {
+			System.out.println("FAILURE: Differences found:");
+			for (String diff : diffs) {
+				System.out.println(diff);
+			}
+			System.exit(1);
+		}
+	}
+
+	public static void save(ModelData data, Path pathOutput)
+			throws IOException, ParserConfigurationException
+	{
+		try (OutputStream os = Files.newOutputStream(pathOutput)) {
+			new XmlModelWriter().write(os, data, new ArrayList<>());
+		}
+	}
+
 }

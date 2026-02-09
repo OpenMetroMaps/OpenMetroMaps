@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,7 +44,7 @@ import org.openmetromaps.model.osm.filter.RouteFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.slimjars.dist.gnu.trove.iterator.TLongObjectIterator;
+import com.slimjars.dist.gnu.trove.map.TLongObjectMap;
 
 import de.topobyte.osm4j.core.access.OsmOutputStream;
 import de.topobyte.osm4j.core.dataset.InMemoryMapDataSet;
@@ -238,23 +239,25 @@ public class CompareWithCurrentGeofabrikData
 			OsmOutputStream osmOutput = OsmIoUtils.setupOsmOutput(os,
 					new OsmOutputConfig(FileFormat.PBF));
 
-			TLongObjectIterator<OsmNode> nodes = data.getNodes().iterator();
-			while (nodes.hasNext()) {
-				nodes.advance();
-				osmOutput.write(nodes.value());
+			TLongObjectMap<OsmNode> nodes = data.getNodes();
+			long[] ids = nodes.keys();
+			Arrays.sort(ids);
+			for (long id : ids) {
+				osmOutput.write(nodes.get(id));
 			}
 
-			TLongObjectIterator<OsmWay> ways = data.getWays().iterator();
-			while (ways.hasNext()) {
-				ways.advance();
-				osmOutput.write(ways.value());
+			TLongObjectMap<OsmWay> ways = data.getWays();
+			ids = ways.keys();
+			Arrays.sort(ids);
+			for (long id : ids) {
+				osmOutput.write(ways.get(id));
 			}
 
-			TLongObjectIterator<OsmRelation> relations = data.getRelations()
-					.iterator();
-			while (relations.hasNext()) {
-				relations.advance();
-				osmOutput.write(relations.value());
+			TLongObjectMap<OsmRelation> relations = data.getRelations();
+			ids = relations.keys();
+			Arrays.sort(ids);
+			for (long id : ids) {
+				osmOutput.write(relations.get(id));
 			}
 
 			osmOutput.complete();

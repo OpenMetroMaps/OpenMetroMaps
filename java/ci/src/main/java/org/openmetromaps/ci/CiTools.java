@@ -172,7 +172,14 @@ public class CiTools
 			return diffs;
 		}
 
-		// report simple diff of lists for now
+		// Accept reversed lines as the same, does not really matter
+		ArrayList<String> osmReversed = new ArrayList<>(osmStations);
+		Collections.reverse(osmReversed);
+		if (osmReversed.equals(refStations)) {
+			return diffs;
+		}
+
+		// Report simple diff of lists for now
 		if (osmStations.size() != refStations.size()) {
 			diffs.add(String.format("  Station count mismatch: OSM=%d, Ref=%d",
 					osmStations.size(), refStations.size()));

@@ -1,0 +1,27 @@
+dependencies {
+    implementation project(':openmetromaps-osm-import')
+    implementation project(':openmetromaps-import-config')
+    implementation project(':openmetromaps-maps-model')
+    implementation project(':openmetromaps-maps-model-xml')
+    implementation project(':openmetromaps-maps-model-xml-desktop')
+    implementation project(':openmetromaps-maps-model-xml-converter')
+    implementation project(':openmetromaps-desktop-util')
+    implementation project(':openmetromaps-osm-model')
+    implementation project(':openmetromaps-osm-model-converter')
+
+    // External dependencies for CLI args and logging if needed
+    implementation 'de.topobyte:osm4j-core:1.3.0'
+    implementation 'de.topobyte:osm4j-xml:1.3.0'
+    implementation 'de.topobyte:melon-io:0.1.0'
+    implementation 'commons-cli:commons-cli:1.4'
+    implementation 'de.topobyte:commons-cli-helper:0.0.1'
+
+    runtimeOnly 'org.slf4j:slf4j-log4j12:1.6.1'
+    runtimeOnly 'log4j:log4j:1.2.16'
+}
+
+task run(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'org.openmetromaps.ci.CiMain'
+    workingDir = rootProject.projectDir.parentFile
+}

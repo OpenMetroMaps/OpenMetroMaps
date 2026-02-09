@@ -1,0 +1,24 @@
+name: Daily Data Verification
+
+on:
+  schedule:
+    # Run at 09:10 every day
+    - cron: '10 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Run CI Verification
+      working-directory: java
+      run: ./gradlew :openmetromaps-ci:run

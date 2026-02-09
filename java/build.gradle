@@ -151,6 +151,7 @@ ext.modulesJava17 = [
 
         project(':openmetromaps-markdown-view'),
         project(':openmetromaps-new-format'),
+        project(':openmetromaps-ci'),
 ]
 
 configure(modulesJava17) {

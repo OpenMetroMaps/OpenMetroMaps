@@ -3,7 +3,8 @@ name: Daily Data Verification
 on:
   schedule:
     # Run at 09:10 every day
-    - cron: '10 9 * * *'
+    # for now in order to test, run every hour
+    - cron: '10 * * * *'
   workflow_dispatch:
 
 jobs:

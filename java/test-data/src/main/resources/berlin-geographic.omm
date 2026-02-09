@@ -53,7 +53,7 @@
     <station lat="52.497610" lon="13.363085" name="Bülowstraße"/>
     <station lat="52.505050" lon="13.304502" name="Charlottenburg"/>
     <station lat="52.533869" lon="13.596515" name="Cottbusser Platz"/>
-    <station lat="52.457268" lon="13.289584" name="Dahlem Dorf"/>
+    <station lat="52.457268" lon="13.289584" name="Dahlem-Dorf"/>
     <station lat="52.511874" lon="13.310828" name="Deutsche Oper"/>
     <station lat="52.541463" lon="13.412169" name="Eberswalder Straße"/>
     <station lat="52.577668" lon="13.316511" name="Eichborndamm"/>
@@ -108,7 +108,7 @@
     <station lat="52.467558" lon="13.430998" name="Hermannstraße"/>
     <station lat="52.617342" lon="13.307649" name="Hermsdorf"/>
     <station lat="52.457899" lon="13.603478" name="Hirschgarten"/>
-    <station lat="52.668653" lon="13.287046" name="Hohen Neuendorf (b Berlin)"/>
+    <station lat="52.668653" lon="13.287046" name="Hohen Neuendorf"/>
     <station lat="52.566231" lon="13.512542" name="Hohenschönhausen"/>
     <station lat="52.488670" lon="13.300182" name="Hohenzollerndamm"/>
     <station lat="52.494066" lon="13.324600" name="Hohenzollernplatz"/>
@@ -164,11 +164,11 @@
     <station lat="52.494384" lon="13.388828" name="Mehringdamm"/>
     <station lat="52.557612" lon="13.553519" name="Mehrower Allee"/>
     <station lat="52.503711" lon="13.374898" name="Mendelssohn-Bartholdy-Park"/>
-    <station lat="52.507732" lon="13.283495" name="Messe Nord/ICC"/>
+    <station lat="52.507732" lon="13.283495" name="Messe Nord/ZOB"/>
     <station lat="52.498602" lon="13.270568" name="Messe Süd (Eichkamp)"/>
     <station lat="52.436698" lon="13.233354" name="Mexikoplatz"/>
     <station lat="52.526369" lon="13.304778" name="Mierendorffplatz"/>
-    <station lat="52.511767" lon="13.385178" name="Mohrenstraße"/>
+    <station lat="52.511767" lon="13.385178" name="Anton-Wilhelm-Amo-Straße"/>
     <station lat="52.503681" lon="13.410694" name="Moritzplatz"/>
     <station lat="52.517263" lon="13.398884" name="Museumsinsel"/>
     <station lat="52.512337" lon="13.410179" name="Märkisches Museum"/>
@@ -203,7 +203,7 @@
     <station lat="52.478115" lon="13.386270" name="Paradestraße"/>
     <station lat="52.444779" lon="13.449536" name="Parchimer Allee"/>
     <station lat="52.538049" lon="13.247816" name="Paulsternstraße"/>
-    <station lat="52.528847" lon="13.789232" name="Petershagen-Nord"/>
+    <station lat="52.528847" lon="13.789232" name="Petershagen Nord"/>
     <station lat="52.510135" lon="13.227644" name="Pichelsberg"/>
     <station lat="52.486049" lon="13.385952" name="Platz der Luftbrücke"/>
     <station lat="52.478481" lon="13.473359" name="Plänterwald"/>
@@ -321,7 +321,7 @@
       <stop station="Lehnitz"/>
       <stop station="Borgsdorf"/>
       <stop station="Birkenwerder"/>
-      <stop station="Hohen Neuendorf (b Berlin)"/>
+      <stop station="Hohen Neuendorf"/>
       <stop station="Frohnau"/>
       <stop station="Hermsdorf"/>
       <stop station="Waidmannslust"/>
@@ -491,7 +491,7 @@
       <stop station="Hohenzollerndamm"/>
       <stop station="Halensee"/>
       <stop station="Westkreuz"/>
-      <stop station="Messe Nord/ICC"/>
+      <stop station="Messe Nord/ZOB"/>
       <stop station="Westend"/>
       <stop station="Jungfernheide"/>
       <stop station="Beusselstraße"/>
@@ -505,7 +505,7 @@
       <stop station="Beusselstraße"/>
       <stop station="Jungfernheide"/>
       <stop station="Westend"/>
-      <stop station="Messe Nord/ICC"/>
+      <stop station="Messe Nord/ZOB"/>
       <stop station="Westkreuz"/>
       <stop station="Halensee"/>
       <stop station="Hohenzollerndamm"/>
@@ -543,7 +543,7 @@
     </line>
     <line circular="false" color="#C48946" name="S46">
       <stop station="Westend"/>
-      <stop station="Messe Nord/ICC"/>
+      <stop station="Messe Nord/ZOB"/>
       <stop station="Westkreuz"/>
       <stop station="Halensee"/>
       <stop station="Hohenzollerndamm"/>
@@ -580,7 +580,7 @@
       <stop station="Strausberg Stadt"/>
       <stop station="Hegermühle"/>
       <stop station="Strausberg"/>
-      <stop station="Petershagen-Nord"/>
+      <stop station="Petershagen Nord"/>
       <stop station="Fredersdorf"/>
       <stop station="Neuenhagen"/>
       <stop station="Hoppegarten (Mark)"/>
@@ -652,7 +652,7 @@
     </line>
     <line circular="false" color="#5BB343" name="S8">
       <stop station="Birkenwerder"/>
-      <stop station="Hohen Neuendorf (b Berlin)"/>
+      <stop station="Hohen Neuendorf"/>
       <stop station="Bergfelde"/>
       <stop station="Schönfließ"/>
       <stop station="Mühlenbeck-Mönchmühle"/>
@@ -753,7 +753,7 @@
       <stop station="Spittelmarkt"/>
       <stop station="Hausvogteiplatz"/>
       <stop station="Stadtmitte"/>
-      <stop station="Mohrenstraße"/>
+      <stop station="Anton-Wilhelm-Amo-Straße"/>
       <stop station="Potsdamer Platz"/>
       <stop station="Mendelssohn-Bartholdy-Park"/>
       <stop station="Gleisdreieck"/>
@@ -791,7 +791,7 @@
       <stop station="Rüdesheimer Platz"/>
       <stop station="Breitenbachplatz"/>
       <stop station="Podbielskiallee"/>
-      <stop station="Dahlem Dorf"/>
+      <stop station="Dahlem-Dorf"/>
       <stop station="Freie Universität (Thielplatz)"/>
       <stop station="Oskar-Helene-Heim"/>
       <stop station="Onkel Toms Hütte"/>
@@ -1039,7 +1039,7 @@
     <station name="Bülowstraße" x="366.635922" y="501.474122"/>
     <station name="Charlottenburg" x="303.968541" y="488.400110"/>
     <station name="Cottbusser Platz" x="616.340561" y="437.736745"/>
-    <station name="Dahlem Dorf" x="288.010464" y="572.327002"/>
+    <station name="Dahlem-Dorf" x="288.010464" y="572.327002"/>
     <station name="Deutsche Oper" x="310.735587" y="476.406624"/>
     <station name="Eberswalder Straße" x="419.142037" y="424.381073"/>
     <station name="Eichborndamm" x="316.814803" y="360.675059"/>
@@ -1094,7 +1094,7 @@
     <station name="Hermannstraße" x="439.283787" y="554.260788"/>
     <station name="Hermsdorf" x="307.334948" y="290.804580"/>
     <station name="Hirschgarten" x="623.789018" y="571.219273"/>
-    <station name="Hohen Neuendorf (b Berlin)" x="285.295516" y="200.346039"/>
+    <station name="Hohen Neuendorf" x="285.295516" y="200.346039"/>
     <station name="Hohenschönhausen" x="526.512999" y="380.805190"/>
     <station name="Hohenzollerndamm" x="299.347352" y="517.181098"/>
     <station name="Hohenzollernplatz" x="325.467765" y="507.701073"/>
@@ -1150,11 +1150,11 @@
     <station name="Mehringdamm" x="394.173713" y="507.142355"/>
     <station name="Mehrower Allee" x="570.346898" y="395.971924"/>
     <station name="Mendelssohn-Bartholdy-Park" x="379.272519" y="490.753244"/>
-    <station name="Messe Nord/ICC" x="281.496942" y="483.686597"/>
+    <station name="Messe Nord/ZOB" x="281.496942" y="483.686597"/>
     <station name="Messe Süd (Eichkamp)" x="267.668677" y="499.731049"/>
     <station name="Mexikoplatz" x="227.860133" y="608.429221"/>
     <station name="Mierendorffplatz" x="304.263783" y="450.924831"/>
-    <station name="Mohrenstraße" x="390.269237" y="476.594696"/>
+    <station name="Anton-Wilhelm-Amo-Straße" x="390.269237" y="476.594696"/>
     <station name="Moritzplatz" x="417.564201" y="490.805965"/>
     <station name="Museumsinsel" x="405.283051" y="470.382591"/>
     <station name="Märkisches Museum" x="417.013295" y="475.592813"/>
@@ -1189,7 +1189,7 @@
     <station name="Paradestraße" x="391.437370" y="535.721411"/>
     <station name="Parchimer Allee" x="459.114248" y="594.248342"/>
     <station name="Paulsternstraße" x="243.330417" y="430.385608"/>
-    <station name="Petershagen-Nord" x="822.493706" y="446.567736"/>
+    <station name="Petershagen Nord" x="822.493706" y="446.567736"/>
     <station name="Pichelsberg" x="221.752034" y="479.463171"/>
     <station name="Platz der Luftbrücke" x="391.097199" y="521.785413"/>
     <station name="Plänterwald" x="484.598178" y="535.078590"/>

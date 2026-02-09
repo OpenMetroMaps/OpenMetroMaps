@@ -103,7 +103,7 @@
     <station lat="52.624633" lon="13.229238" name="Heiligensee"/>
     <station lat="52.510473" lon="13.415965" name="Heinrich-Heine-Straße"/>
     <station lat="52.536714" lon="13.606755" name="Hellersdorf"/>
-    <station lat="52.637494" lon="13.206046" name="Hennigsdorf (bei Berlin)"/>
+    <station lat="52.637494" lon="13.206046" name="Hennigsdorf"/>
     <station lat="52.486363" lon="13.424323" name="Hermannplatz"/>
     <station lat="52.467558" lon="13.430998" name="Hermannstraße"/>
     <station lat="52.617342" lon="13.307649" name="Hermsdorf"/>
@@ -384,7 +384,7 @@
       <stop station="Blankenfelde (Kr Teltow-Fläming)"/>
     </line>
     <line circular="false" color="#00844A" name="S25">
-      <stop station="Hennigsdorf (bei Berlin)"/>
+      <stop station="Hennigsdorf"/>
       <stop station="Heiligensee"/>
       <stop station="Schulzendorf"/>
       <stop station="Tegel"/>
@@ -955,7 +955,7 @@
     <edges line="S1"/>
     <edges line="S2"/>
     <edges line="S25">
-      <interval from="Hennigsdorf (bei Berlin)" to="Bornholmer Straße"/>
+      <interval from="Hennigsdorf" to="Bornholmer Straße"/>
       <interval from="Priesterweg" to="Teltow Stadt"/>
     </edges>
     <edges line="S26">
@@ -1089,7 +1089,7 @@
     <station name="Heiligensee" x="243.934198" y="167.599791"/>
     <station name="Heinrich-Heine-Straße" x="501.958637" y="419.677113"/>
     <station name="Hellersdorf" x="761.143682" y="360.472911"/>
-    <station name="Hennigsdorf (bei Berlin)" x="223.917840" y="153.214530"/>
+    <station name="Hennigsdorf" x="223.917840" y="153.214530"/>
     <station name="Hermannplatz" x="502.430178" y="484.034038"/>
     <station name="Hermannstraße" x="502.430178" y="541.313476"/>
     <station name="Hermsdorf" x="337.764745" y="152.587614"/>

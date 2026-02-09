@@ -19,6 +19,7 @@ package org.openmetromaps.ci;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,6 +43,9 @@ import org.openmetromaps.model.osm.filter.RouteFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.slimjars.dist.gnu.trove.iterator.TLongObjectIterator;
+
+import de.topobyte.osm4j.core.access.OsmOutputStream;
 import de.topobyte.osm4j.core.dataset.InMemoryMapDataSet;
 import de.topobyte.osm4j.core.model.iface.EntityContainer;
 import de.topobyte.osm4j.core.model.iface.EntityType;
@@ -52,6 +56,8 @@ import de.topobyte.osm4j.core.model.iface.OsmRelationMember;
 import de.topobyte.osm4j.core.model.iface.OsmWay;
 import de.topobyte.osm4j.utils.FileFormat;
 import de.topobyte.osm4j.utils.OsmFileInput;
+import de.topobyte.osm4j.utils.OsmIoUtils;
+import de.topobyte.osm4j.utils.OsmOutputConfig;
 import de.topobyte.xml.domabstraction.iface.ParsingException;
 
 public class CompareWithCurrentGeofabrikData
@@ -71,7 +77,8 @@ public class CompareWithCurrentGeofabrikData
 							"java/test-data/src/main/resources/berlin-geographic.omm"),
 					"https://download.geofabrik.de/europe/germany/brandenburg-latest.osm.pbf",
 					projectRoot.resolve("brandenburg-latest.osm.pbf"),
-					projectRoot.resolve("berlin.geofabrik.omm"));
+					projectRoot.resolve("berlin.geofabrik.omm"),
+					projectRoot.resolve("berlin-filtered.osm.pbf"));
 		} catch (Exception e) {
 			logger.error("Error while processing", e);
 			System.exit(1);
@@ -79,7 +86,8 @@ public class CompareWithCurrentGeofabrikData
 	}
 
 	private static void processAndCompare(Path projectRoot, Path pathConfig,
-			Path pathReferenceOmm, String url, Path pathPbf, Path pathOutput)
+			Path pathReferenceOmm, String url, Path pathPbf, Path pathOutput,
+			Path pathOutputFilteredOsm)
 			throws IOException, ParsingException, ParserConfigurationException
 	{
 		System.out.println("Running CI Check");
@@ -88,7 +96,8 @@ public class CompareWithCurrentGeofabrikData
 
 		ImportConfig importConfig = CiTools.loadConfig(pathConfig);
 		Path pbfPath = ensurePbfExists(pathPbf, url);
-		ModelData osmData = loadOsmDataFromPbf(pbfPath, importConfig);
+		ModelData osmData = loadOsmDataFromPbf(pbfPath, importConfig,
+				pathOutputFilteredOsm);
 		ModelData referenceData = CiTools.loadReferenceData(pathReferenceOmm);
 
 		CiTools.save(osmData, pathOutput);
@@ -119,7 +128,7 @@ public class CompareWithCurrentGeofabrikData
 	}
 
 	private static ModelData loadOsmDataFromPbf(Path pathPbf,
-			ImportConfig config) throws IOException
+			ImportConfig config, Path pathOutputFilteredOsm) throws IOException
 	{
 		if (!(config.getSource() instanceof OsmSource)) {
 			throw new IllegalArgumentException(
@@ -138,6 +147,8 @@ public class CompareWithCurrentGeofabrikData
 				.println(String.format("Loaded %d nodes, %d ways, %d relations",
 						data.getNodes().size(), data.getWays().size(),
 						data.getRelations().size()));
+
+		saveOsmData(data, pathOutputFilteredOsm);
 
 		ModelBuilder modelBuilder = new ModelBuilder(data, routeFilter,
 				processing.getPrefixes(), processing.getSuffixes(), fixes);
@@ -218,6 +229,36 @@ public class CompareWithCurrentGeofabrikData
 		}
 
 		return data;
+	}
+
+	private static void saveOsmData(InMemoryMapDataSet data,
+			Path pathOutputFilteredOsm) throws IOException
+	{
+		try (OutputStream os = Files.newOutputStream(pathOutputFilteredOsm)) {
+			OsmOutputStream osmOutput = OsmIoUtils.setupOsmOutput(os,
+					new OsmOutputConfig(FileFormat.PBF));
+
+			TLongObjectIterator<OsmNode> nodes = data.getNodes().iterator();
+			while (nodes.hasNext()) {
+				nodes.advance();
+				osmOutput.write(nodes.value());
+			}
+
+			TLongObjectIterator<OsmWay> ways = data.getWays().iterator();
+			while (ways.hasNext()) {
+				ways.advance();
+				osmOutput.write(ways.value());
+			}
+
+			TLongObjectIterator<OsmRelation> relations = data.getRelations()
+					.iterator();
+			while (relations.hasNext()) {
+				relations.advance();
+				osmOutput.write(relations.value());
+			}
+
+			osmOutput.complete();
+		}
 	}
 
 }

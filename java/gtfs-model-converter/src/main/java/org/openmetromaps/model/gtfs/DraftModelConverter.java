@@ -72,7 +72,25 @@ public class DraftModelConverter
 			List<Stop> stops = new ArrayList<>();
 			line.setStops(stops);
 
-			for (DraftStation draftStation : draftLine.getStations()) {
+			List<DraftStation> draftStations = draftLine.getStations();
+			boolean circular = false;
+			if (draftStations.size() > 1) {
+				String first = draftStations.get(0).getName();
+				String last = draftStations.get(draftStations.size() - 1)
+						.getName();
+				if (first.equals(last)) {
+					circular = true;
+					line.setCircular(true);
+				}
+			}
+
+			int n = draftStations.size();
+			if (circular) {
+				n--;
+			}
+
+			for (int i = 0; i < n; i++) {
+				DraftStation draftStation = draftStations.get(i);
 				String stopName = draftStation.getName();
 
 				Station station = nameToStation.get(stopName);

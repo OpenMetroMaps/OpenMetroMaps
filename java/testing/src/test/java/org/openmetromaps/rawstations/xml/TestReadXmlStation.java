@@ -17,10 +17,7 @@
 
 package org.openmetromaps.rawstations.xml;
 
-import java.io.IOException;
 import java.io.InputStream;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.rawstations.Change;
 import org.openmetromaps.rawstations.RawStationModel;
@@ -30,8 +27,7 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class TestReadXmlStation
 {
 
-	public static void main(String[] args)
-			throws ParserConfigurationException, IOException, ParsingException
+	public static void main(String[] args) throws ParsingException
 	{
 		InputStream input = TestReadXmlStation.class.getClassLoader()
 				.getResourceAsStream("berlin-stations.xml");

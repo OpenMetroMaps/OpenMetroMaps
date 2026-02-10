@@ -17,10 +17,7 @@
 
 package org.openmetromaps.stations;
 
-import java.io.IOException;
 import java.io.InputStream;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.openmetromaps.maps.MapModel;
 import org.openmetromaps.maps.TestData;
@@ -34,8 +31,7 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class TestDeriveStationModel
 {
 
-	public static void main(String[] args)
-			throws ParserConfigurationException, IOException, ParsingException
+	public static void main(String[] args) throws ParsingException
 	{
 		XmlModel xmlModel = TestData.berlinSchematicXml();
 		XmlModelConverter modelConverter = new XmlModelConverter();

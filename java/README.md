@@ -12,8 +12,7 @@
 * [To-Do](#to-do)
 * [Hacking](#hacking)
     * [Gradle tasks](#gradle-tasks)
-    * [Writing an optimization
-      algorithm](#writing-an-optimization-algorithm)
+    * [Writing an optimization algorithm](#writing-an-optimization-algorithm)
 * [Publishing artifacts](#publishing-artifacts)
 
 ## Requirements

@@ -26,6 +26,7 @@ import org.openmetromaps.maps.BaseMouseEventProcessor;
 import org.openmetromaps.maps.editor.history.NodePositionsCommand;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.swing.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +51,7 @@ public class MapEditorMouseEventProcessor
 
 	private boolean draggingNodes = false;
 	private java.awt.Point lastPoint = null;
-	private Map<Node, Point> dragStartPositions = null;
+	private Map<Station, Point> dragStartPositions = null;
 
 	@Override
 	public void mousePressed(MouseEvent e)
@@ -94,7 +95,7 @@ public class MapEditorMouseEventProcessor
 			boolean wasDragging = draggingNodes;
 			draggingNodes = false;
 			if (wasDragging) {
-				Map<Node, Point> dragEndPositions = capturePositions(
+				Map<Station, Point> dragEndPositions = capturePositions(
 						dragStartPositions);
 				NodePositionsCommand command = NodePositionsCommand.create(
 						"Move stations", dragStartPositions, dragEndPositions);
@@ -138,15 +139,20 @@ public class MapEditorMouseEventProcessor
 		}
 	}
 
-	private static Map<Node, Point> capturePositions(Map<Node, Point> reference)
+	private Map<Station, Point> capturePositions(Map<Station, Point> reference)
 	{
 		if (reference == null) {
 			return null;
 		}
-		Map<Node, Point> positions = new HashMap<>();
-		for (Node node : reference.keySet()) {
-			positions.put(node,
-					new Point(node.location.getX(), node.location.getY()));
+		Map<Station, Point> positions = new HashMap<>();
+		Map<Station, Node> stationToNode = mapEditor.getView().getLineNetwork()
+				.getStationToNode();
+		for (Station station : reference.keySet()) {
+			Node node = stationToNode.get(station);
+			if (node != null) {
+				positions.put(station,
+						new Point(node.location.getX(), node.location.getY()));
+			}
 		}
 		return positions;
 	}

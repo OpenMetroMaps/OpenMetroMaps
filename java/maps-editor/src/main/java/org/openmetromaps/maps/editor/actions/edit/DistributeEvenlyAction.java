@@ -35,6 +35,7 @@ import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.graph.NodeConnectionResult;
 import org.openmetromaps.maps.graph.NodesInBetweenResult;
 import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.Station;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,7 +107,7 @@ public class DistributeEvenlyAction extends MapEditorAction
 				.getNodesBetween(lineNetwork, line, idxNode1, idxNode2);
 
 		List<Node> between = nodesBetween.getNodes();
-		Map<Node, Point> before = NodePositionsCommand.capture(between);
+		Map<Station, Point> before = NodePositionsCommand.capture(between);
 		int num = between.size();
 
 		Point c1 = nodesBetween.getStart().location;
@@ -131,7 +132,7 @@ public class DistributeEvenlyAction extends MapEditorAction
 			LineNetworkUtil.updateEdges(node);
 		}
 
-		Map<Node, Point> after = NodePositionsCommand.capture(between);
+		Map<Station, Point> after = NodePositionsCommand.capture(between);
 		NodePositionsCommand command = NodePositionsCommand
 				.create("Distribute evenly", before, after);
 		mapEditor.getHistory().record(command);

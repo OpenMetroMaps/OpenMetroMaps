@@ -20,6 +20,7 @@ package org.openmetromaps.maps.editor.history;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Station;
 
 import de.topobyte.lightgeom.lina.Point;
 
@@ -27,17 +28,17 @@ public class StationPropertiesCommand implements HistoryCommand
 {
 
 	private final String name;
-	private final Node node;
+	private final Station station;
 	private final String beforeName;
 	private final String afterName;
 	private final Point beforeLocation;
 	private final Point afterLocation;
 
-	public static StationPropertiesCommand create(String name, Node node,
+	public static StationPropertiesCommand create(String name, Station station,
 			String beforeName, Point beforeLocation, String afterName,
 			Point afterLocation)
 	{
-		if (node == null || beforeName == null || afterName == null
+		if (station == null || beforeName == null || afterName == null
 				|| beforeLocation == null || afterLocation == null) {
 			return null;
 		}
@@ -48,15 +49,16 @@ public class StationPropertiesCommand implements HistoryCommand
 						afterLocation.getY()) == 0) {
 			return null;
 		}
-		return new StationPropertiesCommand(name, node, beforeName,
+		return new StationPropertiesCommand(name, station, beforeName,
 				beforeLocation, afterName, afterLocation);
 	}
 
-	private StationPropertiesCommand(String name, Node node, String beforeName,
-			Point beforeLocation, String afterName, Point afterLocation)
+	private StationPropertiesCommand(String name, Station station,
+			String beforeName, Point beforeLocation, String afterName,
+			Point afterLocation)
 	{
 		this.name = name;
-		this.node = node;
+		this.station = station;
 		this.beforeName = beforeName;
 		this.beforeLocation = beforeLocation;
 		this.afterName = afterName;
@@ -83,9 +85,13 @@ public class StationPropertiesCommand implements HistoryCommand
 
 	private void apply(MapEditor mapEditor, String nameValue, Point location)
 	{
-		node.station.setName(nameValue);
-		node.location = new Point(location.getX(), location.getY());
-		LineNetworkUtil.updateEdges(node);
+		station.setName(nameValue);
+		Node node = mapEditor.getView().getLineNetwork().getStationToNode()
+				.get(station);
+		if (node != null) {
+			node.location = new Point(location.getX(), location.getY());
+			LineNetworkUtil.updateEdges(node);
+		}
 
 		mapEditor.triggerDataChanged();
 		mapEditor.getMap().repaint();

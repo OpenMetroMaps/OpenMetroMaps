@@ -207,8 +207,8 @@ public class StationPanel extends JPanel
 		Point afterLocation = new Point(node.location.getX(),
 				node.location.getY());
 		StationPropertiesCommand command = StationPropertiesCommand.create(
-				"Edit station properties", node, beforeName, beforeLocation,
-				afterName, afterLocation);
+				"Edit station properties", node.station, beforeName,
+				beforeLocation, afterName, afterLocation);
 		mapEditor.getHistory().record(command);
 		mapEditor.triggerDataChanged();
 	}

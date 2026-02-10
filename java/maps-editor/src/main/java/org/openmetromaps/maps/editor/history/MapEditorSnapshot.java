@@ -34,7 +34,7 @@ import de.topobyte.viewports.geometry.Rectangle;
 public class MapEditorSnapshot
 {
 
-	private final Map<Node, Point> nodeLocations;
+	private final Map<Station, Point> nodeLocations;
 	private final Map<Station, String> stationNames;
 
 	private final double sceneX1;
@@ -44,7 +44,7 @@ public class MapEditorSnapshot
 	private final double startX;
 	private final double startY;
 
-	private MapEditorSnapshot(Map<Node, Point> nodeLocations,
+	private MapEditorSnapshot(Map<Station, Point> nodeLocations,
 			Map<Station, String> stationNames, double sceneX1, double sceneY1,
 			double sceneX2, double sceneY2, double startX, double startY)
 	{
@@ -65,11 +65,11 @@ public class MapEditorSnapshot
 		Rectangle scene = config.getScene();
 		Coordinate start = config.getStartPosition();
 
-		Map<Node, Point> nodeLocations = new HashMap<>();
+		Map<Station, Point> nodeLocations = new HashMap<>();
 		Map<Station, String> stationNames = new HashMap<>();
 
 		for (Node node : view.getLineNetwork().nodes) {
-			nodeLocations.put(node,
+			nodeLocations.put(node.station,
 					new Point(node.location.getX(), node.location.getY()));
 			stationNames.put(node.station, node.station.getName());
 		}
@@ -97,14 +97,21 @@ public class MapEditorSnapshot
 			entry.getKey().setName(entry.getValue());
 		}
 
-		for (Map.Entry<Node, Point> entry : nodeLocations.entrySet()) {
-			Point location = entry.getValue();
-			entry.getKey().location = new Point(location.getX(),
-					location.getY());
+		Map<Station, Node> stationToNode = view.getLineNetwork()
+				.getStationToNode();
+		for (Map.Entry<Station, Point> entry : nodeLocations.entrySet()) {
+			Node node = stationToNode.get(entry.getKey());
+			if (node != null) {
+				Point location = entry.getValue();
+				node.location = new Point(location.getX(), location.getY());
+			}
 		}
 
-		for (Node node : nodeLocations.keySet()) {
-			LineNetworkUtil.updateEdges(node);
+		for (Station station : nodeLocations.keySet()) {
+			Node node = stationToNode.get(station);
+			if (node != null) {
+				LineNetworkUtil.updateEdges(node);
+			}
 		}
 
 		mapEditor.triggerDataChanged();
@@ -129,7 +136,7 @@ public class MapEditorSnapshot
 				|| stationNames.size() != other.stationNames.size()) {
 			return false;
 		}
-		for (Map.Entry<Node, Point> entry : nodeLocations.entrySet()) {
+		for (Map.Entry<Station, Point> entry : nodeLocations.entrySet()) {
 			Point otherPoint = other.nodeLocations.get(entry.getKey());
 			if (otherPoint == null) {
 				return false;

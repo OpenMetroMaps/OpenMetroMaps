@@ -23,6 +23,7 @@ import java.util.Map;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Station;
 
 import de.topobyte.lightgeom.lina.Point;
 
@@ -30,21 +31,21 @@ public class NodePositionsCommand implements HistoryCommand
 {
 
 	private final String name;
-	private final Map<Node, Point> before;
-	private final Map<Node, Point> after;
+	private final Map<Station, Point> before;
+	private final Map<Station, Point> after;
 
-	public static Map<Node, Point> capture(Iterable<Node> nodes)
+	public static Map<Station, Point> capture(Iterable<Node> nodes)
 	{
-		Map<Node, Point> positions = new HashMap<>();
+		Map<Station, Point> positions = new HashMap<>();
 		for (Node node : nodes) {
-			positions.put(node,
+			positions.put(node.station,
 					new Point(node.location.getX(), node.location.getY()));
 		}
 		return positions;
 	}
 
 	public static NodePositionsCommand create(String name,
-			Map<Node, Point> before, Map<Node, Point> after)
+			Map<Station, Point> before, Map<Station, Point> after)
 	{
 		if (before == null || after == null) {
 			return null;
@@ -55,8 +56,8 @@ public class NodePositionsCommand implements HistoryCommand
 		return new NodePositionsCommand(name, before, after);
 	}
 
-	private NodePositionsCommand(String name, Map<Node, Point> before,
-			Map<Node, Point> after)
+	private NodePositionsCommand(String name, Map<Station, Point> before,
+			Map<Station, Point> after)
 	{
 		this.name = name;
 		this.before = before;
@@ -82,16 +83,23 @@ public class NodePositionsCommand implements HistoryCommand
 	}
 
 	private static void applyPositions(MapEditor mapEditor,
-			Map<Node, Point> positions)
+			Map<Station, Point> positions)
 	{
-		for (Map.Entry<Node, Point> entry : positions.entrySet()) {
-			Point location = entry.getValue();
-			entry.getKey().location = new Point(location.getX(),
-					location.getY());
+		Map<Station, Node> stationToNode = mapEditor.getView().getLineNetwork()
+				.getStationToNode();
+		for (Map.Entry<Station, Point> entry : positions.entrySet()) {
+			Node node = stationToNode.get(entry.getKey());
+			if (node != null) {
+				Point location = entry.getValue();
+				node.location = new Point(location.getX(), location.getY());
+			}
 		}
 
-		for (Node node : positions.keySet()) {
-			LineNetworkUtil.updateEdges(node);
+		for (Station station : positions.keySet()) {
+			Node node = stationToNode.get(station);
+			if (node != null) {
+				LineNetworkUtil.updateEdges(node);
+			}
 		}
 
 		mapEditor.triggerDataChanged();
@@ -99,13 +107,13 @@ public class NodePositionsCommand implements HistoryCommand
 		mapEditor.updateStationPanel();
 	}
 
-	private static boolean positionsEqual(Map<Node, Point> a,
-			Map<Node, Point> b)
+	private static boolean positionsEqual(Map<Station, Point> a,
+			Map<Station, Point> b)
 	{
 		if (a.size() != b.size()) {
 			return false;
 		}
-		for (Map.Entry<Node, Point> entry : a.entrySet()) {
+		for (Map.Entry<Station, Point> entry : a.entrySet()) {
 			Point other = b.get(entry.getKey());
 			if (other == null) {
 				return false;

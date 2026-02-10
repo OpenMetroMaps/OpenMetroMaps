@@ -88,7 +88,9 @@ public class ModelBuilder
 
 			String name = rTags.get("name");
 			String ref = rTags.get("ref");
-			logger.info(Formatting.format("Name: '%s', Ref: '%s'", name, ref));
+			logger.info(
+					Formatting.format("Name: '%s', Ref: '%s', OSM relation %d",
+							name, ref, relation.getId()));
 
 			List<DraftStation> stations = new ArrayList<>();
 

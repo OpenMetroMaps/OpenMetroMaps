@@ -99,10 +99,6 @@ project(':swing-misc').name = 'openmetromaps-swing-misc'
 include 'markdown-view'
 project(':markdown-view').name = 'openmetromaps-markdown-view'
 
-// Platforms
-include 'win'
-project(':win').name = 'openmetromaps-win'
-
 // Release JARs
 include 'release-jar/ui-selector'
 include 'release-jar/cli'

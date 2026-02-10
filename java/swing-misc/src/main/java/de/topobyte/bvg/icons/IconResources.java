@@ -49,4 +49,9 @@ public class IconResources
 	public static final String CHECKBOX_ON = "res/images/material-symbols/check-box-outline.bvg";
 	public static final String CHECKBOX_OFF = "res/images/material-symbols/check-box-outline-blank.bvg";
 
+	public static final String ADD = "res/images/material-symbols/add-circle-outline.bvg";
+	public static final String DELETE = "res/images/material-symbols/delete-outline.bvg";
+	public static final String UP = "res/images/material-symbols/arrow-circle-up-outline.bvg";
+	public static final String DOWN = "res/images/material-symbols/arrow-circle-down-outline.bvg";
+
 }

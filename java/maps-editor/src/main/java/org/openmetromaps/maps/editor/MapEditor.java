@@ -60,6 +60,7 @@ import org.openmetromaps.maps.editor.actions.edit.AlignHorizontallyAction;
 import org.openmetromaps.maps.editor.actions.edit.AlignVerticallyAction;
 import org.openmetromaps.maps.editor.actions.edit.DistributeEvenlyAction;
 import org.openmetromaps.maps.editor.actions.edit.DocumentPropertiesAction;
+import org.openmetromaps.maps.editor.actions.edit.EditLineStationsAction;
 import org.openmetromaps.maps.editor.actions.edit.RedoAction;
 import org.openmetromaps.maps.editor.actions.edit.SelectAllAction;
 import org.openmetromaps.maps.editor.actions.edit.SelectLinesAction;
@@ -527,6 +528,7 @@ public class MapEditor
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_A);
 		JMenus.addItem(menuEdit, new SelectLinesAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_L);
+		JMenus.addItem(menuEdit, new EditLineStationsAction(this));
 		JMenus.addItem(menuEdit, new SelectNodesInBetweenAction(this),
 				KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_B);
 		JMenus.addItem(menuEdit, alignHorizontally, KeyEvent.CTRL_DOWN_MASK,

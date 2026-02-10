@@ -22,15 +22,22 @@ import java.awt.GridBagLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.openmetromaps.maps.DataChangeListener;
 import org.openmetromaps.maps.editor.history.StationPropertiesCommand;
+import org.openmetromaps.maps.editor.model.LineCellRenderer;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.maps.model.Stop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +56,9 @@ public class StationPanel extends JPanel
 	private JTextField inputName;
 	private JTextField inputX;
 	private JTextField inputY;
+
+	private DefaultListModel<Line> listModelLines;
+	private JList<Line> listLines;
 
 	private Node node;
 
@@ -114,10 +124,21 @@ public class StationPanel extends JPanel
 		ce.gridPos(1, 2);
 		add(inputY, c);
 
+		JLabel labelLines = new JLabel("lines:");
+		listModelLines = new DefaultListModel<>();
+		listLines = new JList<>(listModelLines);
+		listLines.setCellRenderer(new LineCellRenderer());
+		JScrollPane jspLines = new JScrollPane(listLines);
+
 		ce.gridPos(0, 3);
+		ce.weight(0, 0);
+		ce.gridWidth(1);
+		add(labelLines, c);
+
+		ce.gridPos(0, 4);
 		ce.weight(1, 1);
 		ce.gridWidth(2);
-		add(new JPanel(), c);
+		add(jspLines, c);
 	}
 
 	public void setNode(Node node)
@@ -134,6 +155,8 @@ public class StationPanel extends JPanel
 		inputX.setEnabled(nonNullNode);
 		inputY.setEnabled(nonNullNode);
 
+		listModelLines.clear();
+
 		if (!nonNullNode) {
 			inputName.setText("");
 			inputX.setText("");
@@ -146,6 +169,12 @@ public class StationPanel extends JPanel
 		String y = String.format("%.4f", node.location.y);
 		inputX.setText(x);
 		inputY.setText(y);
+
+		List<Stop> stops = node.station.getStops();
+		for (Stop stop : stops) {
+			Line line = stop.getLine();
+			listModelLines.addElement(line);
+		}
 	}
 
 	protected void validateValuesAndApply()

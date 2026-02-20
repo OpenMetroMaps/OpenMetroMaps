@@ -22,6 +22,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -32,7 +33,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.openmetromaps.maps.DataChangeListener;
+import org.openmetromaps.maps.Edges;
+import org.openmetromaps.maps.Interval;
+import org.openmetromaps.maps.MapView;
 import org.openmetromaps.maps.editor.history.StationPropertiesCommand;
+import org.openmetromaps.maps.editor.history.StationPropertiesCommand.IntervalChange;
 import org.openmetromaps.maps.editor.model.LineCellRenderer;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
@@ -191,7 +196,10 @@ public class StationPanel extends JPanel
 		String valX = inputX.getText();
 		String valY = inputY.getText();
 
-		node.station.setName(valName);
+		boolean nameChanged = !beforeName.equals(valName);
+		if (nameChanged) {
+			node.station.setName(valName);
+		}
 
 		try {
 			double parsedX = Double.parseDouble(valX);
@@ -203,14 +211,47 @@ public class StationPanel extends JPanel
 			logger.warn("Error while parsing value. " + e.getMessage());
 		}
 
-		String afterName = node.station.getName();
 		Point afterLocation = new Point(node.location.getX(),
 				node.location.getY());
+
+		List<IntervalChange> intervalChanges = !nameChanged ? new ArrayList<>()
+				: applyIntervalUpdates(beforeName, valName);
+
 		StationPropertiesCommand command = StationPropertiesCommand.create(
 				"Edit station properties", node.station, beforeName,
-				beforeLocation, afterName, afterLocation);
+				beforeLocation, valName, afterLocation, intervalChanges);
 		mapEditor.getHistory().record(command);
 		mapEditor.triggerDataChanged();
+	}
+
+	private List<IntervalChange> applyIntervalUpdates(String beforeName,
+			String valName)
+	{
+		List<IntervalChange> intervalChanges = new ArrayList<>();
+
+		MapView view = mapEditor.getView();
+		for (Edges edges : view.getEdges()) {
+			for (Interval interval : edges.getIntervals()) {
+				String oldFrom = interval.getFrom();
+				String oldTo = interval.getTo();
+				String newFrom = null;
+				String newTo = null;
+				if (beforeName.equals(oldFrom)) {
+					newFrom = valName;
+					interval.setFrom(newFrom);
+				}
+				if (beforeName.equals(oldTo)) {
+					newTo = valName;
+					interval.setTo(newTo);
+				}
+				if (newFrom != null || newTo != null) {
+					intervalChanges.add(new IntervalChange(interval, oldFrom,
+							oldTo, newFrom, newTo));
+				}
+			}
+		}
+
+		return intervalChanges;
 	}
 
 }

@@ -17,6 +17,9 @@
 
 package org.openmetromaps.maps.editor.history;
 
+import java.util.List;
+
+import org.openmetromaps.maps.Interval;
 import org.openmetromaps.maps.editor.MapEditor;
 import org.openmetromaps.maps.graph.LineNetworkUtil;
 import org.openmetromaps.maps.graph.Node;
@@ -27,16 +30,36 @@ import de.topobyte.lightgeom.lina.Point;
 public class StationPropertiesCommand implements HistoryCommand
 {
 
+	public static class IntervalChange
+	{
+		public final Interval interval;
+		public final String beforeFrom;
+		public final String beforeTo;
+		public final String afterFrom;
+		public final String afterTo;
+
+		public IntervalChange(Interval interval, String beforeFrom,
+				String beforeTo, String afterFrom, String afterTo)
+		{
+			this.interval = interval;
+			this.beforeFrom = beforeFrom;
+			this.beforeTo = beforeTo;
+			this.afterFrom = afterFrom;
+			this.afterTo = afterTo;
+		}
+	}
+
 	private final String name;
 	private final Station station;
 	private final String beforeName;
 	private final String afterName;
 	private final Point beforeLocation;
 	private final Point afterLocation;
+	private final List<IntervalChange> intervalChanges;
 
 	public static StationPropertiesCommand create(String name, Station station,
 			String beforeName, Point beforeLocation, String afterName,
-			Point afterLocation)
+			Point afterLocation, List<IntervalChange> intervalChanges)
 	{
 		if (station == null || beforeName == null || afterName == null
 				|| beforeLocation == null || afterLocation == null) {
@@ -46,16 +69,17 @@ public class StationPropertiesCommand implements HistoryCommand
 				&& Double.compare(beforeLocation.getX(),
 						afterLocation.getX()) == 0
 				&& Double.compare(beforeLocation.getY(),
-						afterLocation.getY()) == 0) {
+						afterLocation.getY()) == 0
+				&& intervalChanges.isEmpty()) {
 			return null;
 		}
 		return new StationPropertiesCommand(name, station, beforeName,
-				beforeLocation, afterName, afterLocation);
+				beforeLocation, afterName, afterLocation, intervalChanges);
 	}
 
 	private StationPropertiesCommand(String name, Station station,
 			String beforeName, Point beforeLocation, String afterName,
-			Point afterLocation)
+			Point afterLocation, List<IntervalChange> intervalChanges)
 	{
 		this.name = name;
 		this.station = station;
@@ -63,17 +87,34 @@ public class StationPropertiesCommand implements HistoryCommand
 		this.beforeLocation = beforeLocation;
 		this.afterName = afterName;
 		this.afterLocation = afterLocation;
+		this.intervalChanges = intervalChanges;
 	}
 
 	@Override
 	public void undo(MapEditor mapEditor)
 	{
+		for (IntervalChange ic : intervalChanges) {
+			if (ic.afterFrom != null) {
+				ic.interval.setFrom(ic.beforeFrom);
+			}
+			if (ic.afterTo != null) {
+				ic.interval.setTo(ic.beforeTo);
+			}
+		}
 		apply(mapEditor, beforeName, beforeLocation);
 	}
 
 	@Override
 	public void redo(MapEditor mapEditor)
 	{
+		for (IntervalChange ic : intervalChanges) {
+			if (ic.afterFrom != null) {
+				ic.interval.setFrom(ic.afterFrom);
+			}
+			if (ic.afterTo != null) {
+				ic.interval.setTo(ic.afterTo);
+			}
+		}
 		apply(mapEditor, afterName, afterLocation);
 	}
 

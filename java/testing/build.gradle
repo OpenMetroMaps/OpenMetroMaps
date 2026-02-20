@@ -2,6 +2,7 @@ dependencies {
     testImplementation project(':openmetromaps-maps-model-xml-converter')
     testImplementation project(':openmetromaps-maps-model-xml-desktop')
     testImplementation project(':openmetromaps-maps-core')
+    testImplementation project(':openmetromaps-heavy-util')
     testImplementation project(':openmetromaps-maps-model-xml-converter')
     testImplementation project(':openmetromaps-raw-station-model-xml-desktop')
     testImplementation project(':openmetromaps-station-model')

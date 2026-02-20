@@ -17,7 +17,6 @@
 
 package org.openmetromaps.heavyutil;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.openmetromaps.maps.MapModel;
@@ -41,7 +40,7 @@ import de.topobyte.xml.domabstraction.iface.ParsingException;
 public class TestShowChange
 {
 
-	public static void main(String[] args) throws IOException, ParsingException
+	public static void main(String[] args) throws ParsingException
 	{
 		XmlModel xmlModel = TestData.berlinSchematicXml();
 

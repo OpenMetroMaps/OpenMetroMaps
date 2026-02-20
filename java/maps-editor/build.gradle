@@ -1,9 +1,15 @@
 dependencies {
     api project(':openmetromaps-maps-awt')
+    api project(':openmetromaps-heavy-util')
+    api project(':openmetromaps-maps-model')
+    api project(':openmetromaps-osm-model')
+    api 'de.westnordost:osmapi:5.2'
+    api 'de.topobyte:osm4j-core:1.3.0'
     api project(':openmetromaps-maps-model-xml-desktop')
     api project(':openmetromaps-maps-model-xml-converter')
     api project(':openmetromaps-ui-resources')
     api project(':openmetromaps-swing-misc')
+    api project(':openmetromaps-heavy-util')
 
     api 'de.topobyte:swing-utils:0.0.13'
     api 'de.topobyte:awt-utils:0.0.3'

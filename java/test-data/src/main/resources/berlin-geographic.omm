@@ -14,6 +14,7 @@
     <station lat="52.539033" lon="13.205630" name="Altstadt Spandau"/>
     <station lat="52.542417" lon="13.350351" name="Amrumer Straße"/>
     <station lat="52.503440" lon="13.381474" name="Anhalter Bahnhof"/>
+    <station lat="52.511767" lon="13.385178" name="Anton-Wilhelm-Amo-Straße"/>
     <station lat="52.447974" lon="13.360784" name="Attilastraße"/>
     <station lat="52.500436" lon="13.336492" name="Augsburger Straße"/>
     <station lat="52.391379" lon="13.092741" name="Babelsberg"/>
@@ -168,7 +169,6 @@
     <station lat="52.498602" lon="13.270568" name="Messe Süd (Eichkamp)"/>
     <station lat="52.436698" lon="13.233354" name="Mexikoplatz"/>
     <station lat="52.526369" lon="13.304778" name="Mierendorffplatz"/>
-    <station lat="52.511767" lon="13.385178" name="Anton-Wilhelm-Amo-Straße"/>
     <station lat="52.503681" lon="13.410694" name="Moritzplatz"/>
     <station lat="52.517263" lon="13.398884" name="Museumsinsel"/>
     <station lat="52.512337" lon="13.410179" name="Märkisches Museum"/>
@@ -567,6 +567,8 @@
       <stop station="Königs Wusterhausen"/>
     </line>
     <line circular="false" color="#C48946" name="S47">
+      <stop station="Südkreuz"/>
+      <stop station="Tempelhof"/>
       <stop station="Hermannstraße"/>
       <stop station="Neukölln"/>
       <stop station="Köllnische Heide"/>
@@ -1000,6 +1002,7 @@
     <station name="Altstadt Spandau" x="198.203228" y="428.654999"/>
     <station name="Amrumer Straße" x="353.014113" y="422.703097"/>
     <station name="Anhalter Bahnhof" x="386.306995" y="491.229486"/>
+    <station name="Anton-Wilhelm-Amo-Straße" x="390.269237" y="476.594696"/>
     <station name="Attilastraße" x="364.174497" y="588.640904"/>
     <station name="Augsburger Straße" x="338.188870" y="496.508367"/>
     <station name="Babelsberg" x="77.443655" y="687.908761"/>
@@ -1154,7 +1157,6 @@
     <station name="Messe Süd (Eichkamp)" x="267.668677" y="499.731049"/>
     <station name="Mexikoplatz" x="227.860133" y="608.429221"/>
     <station name="Mierendorffplatz" x="304.263783" y="450.924831"/>
-    <station name="Anton-Wilhelm-Amo-Straße" x="390.269237" y="476.594696"/>
     <station name="Moritzplatz" x="417.564201" y="490.805965"/>
     <station name="Museumsinsel" x="405.283051" y="470.382591"/>
     <station name="Märkisches Museum" x="417.013295" y="475.592813"/>

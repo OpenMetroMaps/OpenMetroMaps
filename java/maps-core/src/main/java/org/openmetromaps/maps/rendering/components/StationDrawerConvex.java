@@ -116,10 +116,6 @@ public class StationDrawerConvex extends AbstractStationDrawer
 			nodeLines.addAll(edge.lines);
 		}
 
-		if (nodeLines.isEmpty()) {
-			return;
-		}
-
 		if (nodeLines.size() == 1) {
 			NetworkLine line = nodeLines.iterator().next();
 			int lineId = line.line.getId();
@@ -159,7 +155,7 @@ public class StationDrawerConvex extends AbstractStationDrawer
 			spis.add(spi);
 		}
 
-		// Simple stations with only one line
+		// Simple stations with none or only one line
 		if (spis.size() == 0) {
 			drawMultiPuntal(g, px, py, selected);
 			return;

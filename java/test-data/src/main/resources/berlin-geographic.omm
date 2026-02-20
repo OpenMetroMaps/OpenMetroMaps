@@ -682,7 +682,13 @@
       <stop station="Zeuthen"/>
     </line>
     <line circular="false" color="#65BD00" name="S85">
-      <stop station="Pankow"/>
+      <stop station="Frohnau"/>
+      <stop station="Hermsdorf"/>
+      <stop station="Waidmannslust"/>
+      <stop station="Wittenau"/>
+      <stop station="Wilhelmsruh"/>
+      <stop station="Schönholz"/>
+      <stop station="Wollankstraße"/>
       <stop station="Bornholmer Straße"/>
       <stop station="Schönhauser Allee"/>
       <stop station="Prenzlauer Allee"/>
@@ -697,7 +703,11 @@
       <stop station="Schöneweide"/>
       <stop station="Johannisthal"/>
       <stop station="Adlershof"/>
-      <stop station="Grünau"/>
+      <stop station="Altglienicke"/>
+      <stop station="Grünbergallee"/>
+      <stop station="Schönefeld"/>
+      <stop station="Waßmannsdorf"/>
+      <stop station="Flughafen BER"/>
     </line>
     <line circular="false" color="#973050" name="S9">
       <stop station="Spandau"/>
@@ -981,6 +991,10 @@
     <edges line="S7"/>
     <edges line="S75">
       <interval from="Springpfuhl" to="Wartenberg"/>
+    </edges>
+    <edges line="S85">
+      <interval from="Bornholmer Straße" to="Frohnau"/>
+      <interval from="Adlershof" to="Flughafen BER"/>
     </edges>
     <edges line="S8"/>
     <edges line="S9"/>

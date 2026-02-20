@@ -25,10 +25,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,6 +46,8 @@ import org.openmetromaps.maps.xml.DesktopXmlModelReader;
 import org.openmetromaps.maps.xml.XmlModel;
 import org.openmetromaps.maps.xml.XmlModelConverter;
 import org.openmetromaps.maps.xml.XmlModelWriter;
+import org.openmetromaps.model.osm.DraftLine;
+import org.openmetromaps.model.osm.DraftModel;
 import org.openmetromaps.model.osm.Fix;
 import org.openmetromaps.model.osm.filter.RouteFilter;
 import org.openmetromaps.osm.OsmImporter;
@@ -241,6 +245,19 @@ public class CiTools
 	{
 		try (OutputStream os = Files.newOutputStream(pathOutput)) {
 			new XmlModelWriter().write(os, data, new ArrayList<>());
+		}
+	}
+
+	public static void printInfoAboutDraftModel(DraftModel draftModel)
+	{
+		List<DraftLine> lines = new ArrayList<>(draftModel.getLines());
+		Collections.sort(lines, (a, b) -> {
+			return Objects.compare(a.getName(), b.getName(),
+					Comparator.naturalOrder());
+		});
+		for (DraftLine line : lines) {
+			System.out.println(String.format("%s: relation %s", line.getName(),
+					line.getSource().getId()));
 		}
 	}
 

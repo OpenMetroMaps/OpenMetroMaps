@@ -156,6 +156,8 @@ public class CompareWithCurrentGeofabrikData
 		modelBuilder.run(true, true);
 
 		DraftModel draftModel = modelBuilder.getModel();
+		CiTools.printInfoAboutDraftModel(draftModel);
+
 		ModelData model = new DraftModelConverter().convert(draftModel);
 
 		return model;

@@ -27,7 +27,6 @@
     <station lat="52.668502" lon="13.565187" name="Bernau-Friedenstal"/>
     <station lat="52.537430" lon="13.396725" name="Bernauer Straße"/>
     <station lat="52.493890" lon="13.497636" name="Betriebsbahnhof Rummelsburg"/>
-    <station lat="52.446809" lon="13.523857" name="Betriebsbahnhof Schöneweide"/>
     <station lat="52.534343" lon="13.329058" name="Beusselstraße"/>
     <station lat="52.513084" lon="13.556067" name="Biesdorf"/>
     <station lat="52.499583" lon="13.546445" name="Biesdorf-Süd"/>
@@ -65,7 +64,7 @@
     <station lat="52.511775" lon="13.322120" name="Ernst-Reuter-Platz"/>
     <station lat="52.490280" lon="13.314403" name="Fehrbelliner Platz"/>
     <station lat="52.463827" lon="13.332886" name="Feuerbachstraße"/>
-    <station lat="52.390919" lon="13.513059" name="Flughafen Berlin-Schönefeld"/>
+    <station lat="52.364692" lon="13.509596" name="Flughafen BER"/>
     <station lat="52.514873" lon="13.474635" name="Frankfurter Allee"/>
     <station lat="52.515805" lon="13.453992" name="Frankfurter Tor"/>
     <station lat="52.564527" lon="13.363845" name="Franz-Neumann-Platz"/>
@@ -120,6 +119,7 @@
     <station lat="52.478476" lon="13.342241" name="Innsbrucker Platz"/>
     <station lat="52.536288" lon="13.293279" name="Jakob-Kaiser-Platz"/>
     <station lat="52.514625" lon="13.419141" name="Jannowitzbrücke"/>
+    <station lat="52.446809" lon="13.523857" name="Johannisthal"/>
     <station lat="52.429283" lon="13.453382" name="Johannisthaler Chaussee"/>
     <station lat="52.486437" lon="13.361085" name="Julius-Leber-Brücke"/>
     <station lat="52.530444" lon="13.300261" name="Jungfernheide"/>
@@ -245,6 +245,7 @@
     <station lat="52.612953" lon="13.246083" name="Schulzendorf"/>
     <station lat="52.535151" lon="13.377340" name="Schwartzkopffstraße"/>
     <station lat="52.479290" lon="13.351737" name="Schöneberg"/>
+    <station lat="52.390919" lon="13.513059" name="Schönefeld"/>
     <station lat="52.455009" lon="13.509594" name="Schöneweide"/>
     <station lat="52.664592" lon="13.340496" name="Schönfließ"/>
     <station lat="52.549283" lon="13.414966" name="Schönhauser Allee"/>
@@ -290,6 +291,7 @@
     <station lat="52.421104" lon="13.179253" name="Wannsee"/>
     <station lat="52.505869" lon="13.450470" name="Warschauer Straße"/>
     <station lat="52.572477" lon="13.504406" name="Wartenberg"/>
+    <station lat="52.368440" lon="13.463545" name="Waßmannsdorf"/>
     <station lat="52.543031" lon="13.366270" name="Wedding"/>
     <station lat="52.525519" lon="13.404932" name="Weinmeisterstraße"/>
     <station lat="52.518439" lon="13.284297" name="Westend"/>
@@ -535,11 +537,11 @@
       <stop station="Köllnische Heide"/>
       <stop station="Baumschulenweg"/>
       <stop station="Schöneweide"/>
-      <stop station="Betriebsbahnhof Schöneweide"/>
+      <stop station="Johannisthal"/>
       <stop station="Adlershof"/>
       <stop station="Altglienicke"/>
       <stop station="Grünbergallee"/>
-      <stop station="Flughafen Berlin-Schönefeld"/>
+      <stop station="Schönefeld"/>
     </line>
     <line circular="false" color="#C48946" name="S46">
       <stop station="Westend"/>
@@ -558,7 +560,7 @@
       <stop station="Köllnische Heide"/>
       <stop station="Baumschulenweg"/>
       <stop station="Schöneweide"/>
-      <stop station="Betriebsbahnhof Schöneweide"/>
+      <stop station="Johannisthal"/>
       <stop station="Adlershof"/>
       <stop station="Grünau"/>
       <stop station="Eichwalde"/>
@@ -673,7 +675,7 @@
       <stop station="Plänterwald"/>
       <stop station="Baumschulenweg"/>
       <stop station="Schöneweide"/>
-      <stop station="Betriebsbahnhof Schöneweide"/>
+      <stop station="Johannisthal"/>
       <stop station="Adlershof"/>
       <stop station="Grünau"/>
       <stop station="Eichwalde"/>
@@ -693,7 +695,7 @@
       <stop station="Plänterwald"/>
       <stop station="Baumschulenweg"/>
       <stop station="Schöneweide"/>
-      <stop station="Betriebsbahnhof Schöneweide"/>
+      <stop station="Johannisthal"/>
       <stop station="Adlershof"/>
       <stop station="Grünau"/>
     </line>
@@ -721,11 +723,13 @@
       <stop station="Plänterwald"/>
       <stop station="Baumschulenweg"/>
       <stop station="Schöneweide"/>
-      <stop station="Betriebsbahnhof Schöneweide"/>
+      <stop station="Johannisthal"/>
       <stop station="Adlershof"/>
       <stop station="Altglienicke"/>
       <stop station="Grünbergallee"/>
-      <stop station="Flughafen Berlin-Schönefeld"/>
+      <stop station="Schönefeld"/>
+      <stop station="Waßmannsdorf"/>
+      <stop station="Flughafen BER"/>
     </line>
     <line circular="false" color="#53B147" name="U1">
       <stop station="Uhlandstraße"/>
@@ -967,7 +971,7 @@
     <edges line="S41"/>
     <edges line="S42"/>
     <edges line="S45">
-      <interval from="Adlershof" to="Flughafen Berlin-Schönefeld"/>
+      <interval from="Adlershof" to="Schönefeld"/>
     </edges>
     <edges line="S46"/>
     <edges line="S47">
@@ -1015,7 +1019,6 @@
     <station name="Bernau-Friedenstal" x="582.828386" y="200.612399"/>
     <station name="Bernauer Straße" x="402.621288" y="431.474253"/>
     <station name="Betriebsbahnhof Rummelsburg" x="510.567760" y="508.010299"/>
-    <station name="Betriebsbahnhof Schöneweide" x="538.616876" y="590.685604"/>
     <station name="Beusselstraße" x="330.236574" y="436.903182"/>
     <station name="Biesdorf" x="573.072544" y="474.279801"/>
     <station name="Biesdorf-Süd" x="562.779702" y="498.007265"/>
@@ -1053,7 +1056,7 @@
     <station name="Ernst-Reuter-Platz" x="322.814860" y="476.580634"/>
     <station name="Fehrbelliner Platz" x="314.559834" y="514.352673"/>
     <station name="Feuerbachstraße" x="334.331461" y="560.811815"/>
-    <station name="Flughafen Berlin-Schönefeld" x="527.066044" y="688.715081"/>
+    <station name="Flughafen BER" x="523.353897" y="734.684392"/>
     <station name="Frankfurter Allee" x="485.963140" y="471.135158"/>
     <station name="Frankfurter Tor" x="463.880919" y="469.496870"/>
     <station name="Franz-Neumann-Platz" x="367.448909" y="383.803931"/>
@@ -1108,6 +1111,7 @@
     <station name="Innsbrucker Platz" x="344.338687" y="535.087372"/>
     <station name="Jakob-Kaiser-Platz" x="291.963078" y="433.482667"/>
     <station name="Jannowitzbrücke" x="426.600122" y="471.571092"/>
+    <station name="Johannisthal" x="538.616900" y="590.685600"/>
     <station name="Johannisthaler Chaussee" x="463.228390" y="621.439087"/>
     <station name="Julius-Leber-Brücke" x="364.496483" y="521.103830"/>
     <station name="Jungfernheide" x="299.431860" y="443.759584"/>
@@ -1233,6 +1237,7 @@
     <station name="Schulzendorf" x="241.476593" y="298.537228"/>
     <station name="Schwartzkopffstraße" x="381.884775" y="435.482236"/>
     <station name="Schöneberg" x="354.496744" y="533.657693"/>
+    <station name="Schönefeld" x="527.066000" y="688.715100"/>
     <station name="Schöneweide" x="523.359466" y="576.292576"/>
     <station name="Schönfließ" x="342.472027" y="207.509233"/>
     <station name="Schönhauser Allee" x="422.134043" y="410.625518"/>
@@ -1278,6 +1283,7 @@
     <station name="Wannsee" x="169.987235" y="635.786879"/>
     <station name="Warschauer Straße" x="460.113367" y="486.960779"/>
     <station name="Wartenberg" x="517.809761" y="369.812329"/>
+    <station name="Waßmannsdorf" x="474.093067" y="728.118067"/>
     <station name="Wedding" x="370.042979" y="421.623123"/>
     <station name="Weinmeisterstraße" x="411.400477" y="452.419338"/>
     <station name="Westend" x="282.354857" y="464.866584"/>

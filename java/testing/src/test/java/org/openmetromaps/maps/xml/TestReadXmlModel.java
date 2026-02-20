@@ -36,7 +36,7 @@ public class TestReadXmlModel
 
 		Assert.assertEquals(1, model.getXmlViews().size());
 		Assert.assertEquals(25, model.getLines().size());
-		Assert.assertEquals(313, model.getStations().size());
+		Assert.assertEquals(315, model.getStations().size());
 
 		for (XmlLine line : model.getLines()) {
 			System.out.println(String.format("line %s, %d stops, color: %s",

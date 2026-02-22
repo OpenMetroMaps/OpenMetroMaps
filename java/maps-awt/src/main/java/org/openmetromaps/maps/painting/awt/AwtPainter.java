@@ -30,6 +30,7 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.QuadCurve2D;
+import java.awt.geom.RoundRectangle2D;
 
 import org.openmetromaps.maps.painting.core.AbstractPainter;
 import org.openmetromaps.maps.painting.core.ColorCode;
@@ -39,6 +40,7 @@ import org.openmetromaps.maps.painting.core.PaintType;
 import org.openmetromaps.maps.painting.core.geom.Circle;
 import org.openmetromaps.maps.painting.core.geom.LineSegment;
 import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.painting.core.geom.RoundRect;
 
 import de.topobyte.lightgeom.curves.spline.CubicSpline;
 import de.topobyte.lightgeom.curves.spline.QuadraticSpline;
@@ -96,6 +98,24 @@ public class AwtPainter extends AbstractPainter
 		Arc2D arc = new Arc2D.Double(x - radius, y - radius, radius * 2,
 				radius * 2, 0, 360, Arc2D.CHORD);
 		drawShape(arc);
+	}
+
+	@Override
+	public void draw(RoundRect roundRect)
+	{
+		RoundRectangle2D rr = new RoundRectangle2D.Double(roundRect.getX(),
+				roundRect.getY(), roundRect.getWidth(), roundRect.getHeight(),
+				roundRect.getArcWidth(), roundRect.getArcHeight());
+		drawShape(rr);
+	}
+
+	@Override
+	public void drawRoundRect(double x, double y, double width, double height,
+			double arcWidth, double arcHeight)
+	{
+		RoundRectangle2D rr = new RoundRectangle2D.Double(x, y, width, height,
+				arcWidth, arcHeight);
+		drawShape(rr);
 	}
 
 	@Override

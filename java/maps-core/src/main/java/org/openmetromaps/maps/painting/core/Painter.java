@@ -22,6 +22,7 @@ import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.painting.core.geom.Circle;
 import org.openmetromaps.maps.painting.core.geom.LineSegment;
+import org.openmetromaps.maps.painting.core.geom.RoundRect;
 import org.openmetromaps.maps.painting.core.geom.Path;
 
 import de.topobyte.lightgeom.curves.spline.CubicSpline;
@@ -43,6 +44,11 @@ public interface Painter
 	public void draw(Circle circle);
 
 	public void drawCircle(double x, double y, double radius);
+
+	public void draw(RoundRect roundRect);
+
+	public void drawRoundRect(double x, double y, double width, double height,
+			double arcWidth, double arcHeight);
 
 	public void draw(QuadraticSpline spline);
 

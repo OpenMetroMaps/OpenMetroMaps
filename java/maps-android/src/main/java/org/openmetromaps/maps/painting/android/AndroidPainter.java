@@ -22,10 +22,12 @@ import org.openmetromaps.maps.painting.core.IPaintInfo;
 import org.openmetromaps.maps.painting.core.geom.Circle;
 import org.openmetromaps.maps.painting.core.geom.LineSegment;
 import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.painting.core.geom.RoundRect;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.RectF;
 import de.topobyte.lightgeom.curves.spline.CubicSpline;
 import de.topobyte.lightgeom.curves.spline.QuadraticSpline;
 import de.topobyte.lightgeom.curves.spline.android.LightGeomAndroid;
@@ -66,6 +68,25 @@ public class AndroidPainter extends AbstractPainter
 	public void drawCircle(double x, double y, double radius)
 	{
 		c.drawCircle((float) x, (float) y, (float) radius, p);
+	}
+
+	@Override
+	public void draw(RoundRect roundRect)
+	{
+		RectF rect = new RectF((float) roundRect.getX(), (float) roundRect.getY(),
+				(float) (roundRect.getX() + roundRect.getWidth()),
+				(float) (roundRect.getY() + roundRect.getHeight()));
+		c.drawRoundRect(rect, (float) roundRect.getArcWidth(),
+				(float) roundRect.getArcHeight(), p);
+	}
+
+	@Override
+	public void drawRoundRect(double x, double y, double width, double height,
+			double arcWidth, double arcHeight)
+	{
+		RectF rect = new RectF((float) x, (float) y, (float) (x + width),
+				(float) (y + height));
+		c.drawRoundRect(rect, (float) arcWidth, (float) arcHeight, p);
 	}
 
 	@Override

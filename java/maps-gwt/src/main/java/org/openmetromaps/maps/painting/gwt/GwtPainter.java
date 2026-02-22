@@ -28,6 +28,7 @@ import org.openmetromaps.maps.painting.core.Painter;
 import org.openmetromaps.maps.painting.core.geom.Circle;
 import org.openmetromaps.maps.painting.core.geom.LineSegment;
 import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.painting.core.geom.RoundRect;
 
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.canvas.dom.client.Context2d.LineCap;
@@ -86,6 +87,33 @@ public class GwtPainter implements Painter
 	{
 		c.beginPath();
 		c.arc(x, y, radius, 0, 360);
+		fillOrStroke();
+	}
+
+	@Override
+	public void draw(RoundRect roundRect)
+	{
+		drawRoundRect(roundRect.getX(), roundRect.getY(), roundRect.getWidth(),
+				roundRect.getHeight(), roundRect.getArcWidth(),
+				roundRect.getArcHeight());
+	}
+
+	@Override
+	public void drawRoundRect(double x, double y, double width, double height,
+			double arcWidth, double arcHeight)
+	{
+		double r = Math.min(arcWidth, arcHeight) / 2;
+		c.beginPath();
+		c.moveTo(x + r, y);
+		c.lineTo(x + width - r, y);
+		c.arcTo(x + width, y, x + width, y + r, r);
+		c.lineTo(x + width, y + height - r);
+		c.arcTo(x + width, y + height, x + width - r, y + height, r);
+		c.lineTo(x + r, y + height);
+		c.arcTo(x, y + height, x, y + height - r, r);
+		c.lineTo(x, y + r);
+		c.arcTo(x, y, x + r, y, r);
+		c.closePath();
 		fillOrStroke();
 	}
 

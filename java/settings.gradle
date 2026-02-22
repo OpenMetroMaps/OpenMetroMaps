@@ -107,10 +107,6 @@ project(':release-jar/cli').name = 'openmetromaps-release-jar-cli'
 include 'mobidig'
 project(':mobidig').name = 'openmetromaps-mobidig'
 
-// New file format
-include 'new-format'
-project(':new-format').name = 'openmetromaps-new-format'
-
 // CI
 include 'ci'
 project(':ci').name = 'openmetromaps-ci'

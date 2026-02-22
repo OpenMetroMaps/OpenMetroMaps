@@ -9,7 +9,6 @@ dependencies {
     implementation project(':openmetromaps-maps-morpher')
     implementation project(':openmetromaps-maps-batik')
     implementation project(':openmetromaps-maps-model-xml-converter')
-    implementation project(':openmetromaps-new-format')
     implementation project(':openmetromaps-gtfs-import')
     implementation project(':openmetromaps-gtfs-model-converter')
     implementation project(':openmetromaps-graphml')

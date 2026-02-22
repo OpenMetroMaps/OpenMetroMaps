@@ -26,8 +26,6 @@ import org.openmetromaps.cli.maps.RunMapMorpher;
 import org.openmetromaps.cli.maps.RunMapViewer;
 import org.openmetromaps.cli.maps.RunSimpleMapViewer;
 import org.openmetromaps.cli.markdownview.RunCreateMarkdownView;
-import org.openmetromaps.cli.newformat.RunCreateNewFormat;
-import org.openmetromaps.cli.newformat.RunExportNewFormatToIpe;
 import org.openmetromaps.cli.osm.RunFilterRegion;
 import org.openmetromaps.cli.osm.RunFilterRelevantData;
 import org.openmetromaps.cli.osm.RunModelInspector;
@@ -90,7 +88,6 @@ public class OpenMetroMapsCli
 					RunCreateMarkdownView.class);
 			options.addCommand("util", OPTIONS_FACTORY_UTIL);
 			options.addCommand("export", OPTIONS_FACTORY_EXPORT);
-			options.addCommand("new-format", OPTIONS_FACTORY_NEW_FORMAT);
 			return options;
 		}
 
@@ -147,22 +144,6 @@ public class OpenMetroMapsCli
 					RunExportPng.class);
 			options.addCommand("svg", RunExportBatik.OPTIONS_FACTORY,
 					RunExportBatik.class);
-			return options;
-		}
-
-	};
-
-	public static ExeOptionsFactory OPTIONS_FACTORY_NEW_FORMAT = new ExeOptionsFactory() {
-
-		@Override
-		public ExeOptions createOptions()
-		{
-			DelegateExeOptions options = new DelegateExeOptions();
-			options.addCommand("create", RunCreateNewFormat.OPTIONS_FACTORY,
-					RunCreateNewFormat.class);
-			options.addCommand("export-ipe",
-					RunExportNewFormatToIpe.OPTIONS_FACTORY,
-					RunExportNewFormatToIpe.class);
 			return options;
 		}
 

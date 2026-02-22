@@ -27,6 +27,7 @@ import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.painting.core.Cap;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.Colors;
@@ -76,8 +77,8 @@ public abstract class AbstractStationDrawer implements StationDrawer
 	protected SegmentEndPointPool spiPool = new SegmentEndPointPool();
 
 	public AbstractStationDrawer(PaintFactory pf, LineNetwork data,
-			Map<NetworkLine, ColorCode> colors, float scale,
-			LocationToPoint ltp, float spreadFactor)
+			Map<Line, ColorCode> colors, float scale, LocationToPoint ltp,
+			float spreadFactor)
 	{
 		this.data = data;
 		this.scale = scale;
@@ -114,7 +115,7 @@ public abstract class AbstractStationDrawer implements StationDrawer
 		final int nLines = data.getLines().size();
 		for (int i = 0; i < nLines; i++) {
 			NetworkLine line = data.getLines().get(i);
-			IPaintInfo paint = pf.create(colors.get(line));
+			IPaintInfo paint = pf.create(colors.get(line.line));
 			paint.setStyle(PaintType.FILL);
 			lineToPaintForStations[line.line.getId()] = paint;
 		}

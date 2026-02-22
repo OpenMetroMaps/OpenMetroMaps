@@ -22,8 +22,8 @@ import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.painting.core.geom.Circle;
 import org.openmetromaps.maps.painting.core.geom.LineSegment;
-import org.openmetromaps.maps.painting.core.geom.RoundRect;
 import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.painting.core.geom.RoundRect;
 
 import de.topobyte.lightgeom.curves.spline.CubicSpline;
 import de.topobyte.lightgeom.curves.spline.QuadraticSpline;

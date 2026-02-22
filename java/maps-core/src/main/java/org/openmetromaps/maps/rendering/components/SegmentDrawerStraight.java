@@ -27,6 +27,7 @@ import org.openmetromaps.maps.SegmentPaintInfo;
 import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.NetworkLine;
+import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.IPaintInfo;
 import org.openmetromaps.maps.painting.core.PaintFactory;
@@ -38,8 +39,8 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 {
 
 	public SegmentDrawerStraight(PaintFactory pf, LineNetwork lineNetwork,
-			Map<NetworkLine, ColorCode> colors, float scale,
-			LocationToPoint ltp, float spreadFactor, float lineWidth)
+			Map<Line, ColorCode> colors, float scale, LocationToPoint ltp,
+			float spreadFactor, float lineWidth)
 	{
 		super(pf, lineNetwork, colors, scale, ltp, spreadFactor, lineWidth);
 	}
@@ -66,7 +67,7 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 	private void drawSingleLineEdgeStraight(Painter g, NetworkLine line,
 			Edge edge, double ax, double ay, double bx, double by)
 	{
-		IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+		IPaintInfo paint = linePaintInfos.get(line.line);
 
 		g.setPaintInfo(paint);
 
@@ -91,7 +92,7 @@ public class SegmentDrawerStraight extends AbstractSegmentDrawer
 			double lby = by + spi.sy - spi.ndx * i * spi.shift;
 
 			NetworkLine line = iter.next();
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+			IPaintInfo paint = linePaintInfos.get(line.line);
 			g.setPaintInfo(paint);
 
 			g.setRef(edge, line);

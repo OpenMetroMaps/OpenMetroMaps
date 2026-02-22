@@ -22,8 +22,8 @@ import java.util.Map;
 
 import org.openmetromaps.maps.LocationToPoint;
 import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Stop;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.IPaintInfo;
@@ -42,8 +42,8 @@ public class StationDrawerDot extends AbstractStationDrawer
 			.getLogger(StationDrawerDot.class);
 
 	public StationDrawerDot(PaintFactory pf, LineNetwork data,
-			Map<NetworkLine, ColorCode> colors, float scale,
-			LocationToPoint ltp, float spreadFactor)
+			Map<Line, ColorCode> colors, float scale, LocationToPoint ltp,
+			float spreadFactor)
 	{
 		super(pf, data, colors, scale, ltp, spreadFactor);
 	}

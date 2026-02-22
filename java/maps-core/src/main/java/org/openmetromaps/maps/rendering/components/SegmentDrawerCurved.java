@@ -28,6 +28,7 @@ import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.NeighborInfo;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.IPaintInfo;
 import org.openmetromaps.maps.painting.core.PaintFactory;
@@ -48,8 +49,8 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 	private boolean debugTangents = false;
 
 	public SegmentDrawerCurved(PaintFactory pf, LineNetwork lineNetwork,
-			Map<NetworkLine, ColorCode> colors, float scale,
-			LocationToPoint ltp, float spreadFactor, float lineWidth)
+			Map<Line, ColorCode> colors, float scale, LocationToPoint ltp,
+			float spreadFactor, float lineWidth)
 	{
 		super(pf, lineNetwork, colors, scale, ltp, spreadFactor, lineWidth);
 	}
@@ -102,7 +103,7 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 	private void drawSingleLineEdgeCurved(Painter g, NetworkLine line,
 			Edge edge, double ax, double ay, double bx, double by)
 	{
-		IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+		IPaintInfo paint = linePaintInfos.get(line.line);
 		g.setPaintInfo(paint);
 
 		NeighborInfo neighbors = line.getNeighbors(edge);
@@ -155,7 +156,7 @@ public class SegmentDrawerCurved extends AbstractSegmentDrawer
 			double lby = by + spiB.sy - spiB.ndx * i * spiB.shift;
 
 			NetworkLine line = lines.get(i);
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+			IPaintInfo paint = linePaintInfos.get(line.line);
 			g.setPaintInfo(paint);
 
 			Vector2 d02 = null, d31 = null;

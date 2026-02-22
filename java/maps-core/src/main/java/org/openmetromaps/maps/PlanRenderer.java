@@ -17,6 +17,7 @@
 
 package org.openmetromaps.maps;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +26,16 @@ import org.openmetromaps.maps.graph.Edge;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.Colors;
 import org.openmetromaps.maps.painting.core.IPaintInfo;
 import org.openmetromaps.maps.painting.core.PaintFactory;
+import org.openmetromaps.maps.painting.core.PaintType;
 import org.openmetromaps.maps.painting.core.Painter;
 import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.rendering.components.PaintInfoPerLine;
 import org.openmetromaps.maps.rendering.components.SegmentDrawer;
 import org.openmetromaps.maps.rendering.components.SegmentDrawerCurved;
 import org.openmetromaps.maps.rendering.components.SegmentDrawerStraight;
@@ -93,13 +97,16 @@ public class PlanRenderer implements ViewportListener
 
 	private LineNetwork lineNetwork;
 	private MapViewStatus mapViewStatus;
-	private Map<NetworkLine, ColorCode> colors = new HashMap<>();
+	private Map<Line, ColorCode> colors = new HashMap<>();
 
 	protected ViewportWithSignals viewport;
 	private LocationToPoint ltp;
 
 	private SegmentDrawer segmentDrawer;
 	private StationDrawer stationDrawer;
+
+	private IPaintInfo piBadgeText;
+	private PaintInfoPerLine linePaintInfosBadges;
 
 	public PlanRenderer(LineNetwork lineNetwork, MapViewStatus mapViewStatus,
 			StationMode stationMode, SegmentMode segmentMode,
@@ -116,12 +123,22 @@ public class PlanRenderer implements ViewportListener
 		this.scale = scale;
 		this.pf = pf;
 
+		List<Line> lines = new ArrayList<>();
 		for (NetworkLine line : lineNetwork.getLines()) {
-			colors.put(line, ModelUtil.getColor(line.line));
+			lines.add(line.line);
+			colors.put(line.line, ModelUtil.getColor(line.line));
 		}
 
 		setupSegmentDrawer();
 		setupStationDrawer();
+
+		piBadgeText = pf.create(Colors.WHITE, 1);
+		linePaintInfosBadges = new PaintInfoPerLine(pf, lines,
+				(paintFactory, line) -> {
+					IPaintInfo paint = paintFactory.create(colors.get(line));
+					paint.setStyle(PaintType.FILL);
+					return paint;
+				});
 
 		viewport.addViewportListener(this);
 		zoomChanged();
@@ -420,7 +437,62 @@ public class PlanRenderer implements ViewportListener
 				g.drawString(name, x, y);
 
 				tester.add(r, false);
+
+				if (node.isLastStopOfALine) {
+					renderBadges(g, p, node, fontSize);
+				}
 			}
+		}
+	}
+
+	private void renderBadges(Painter g, Point p, Node node, int fontSize)
+	{
+		int badgeFontSize = Math.round(fontSize * 0.75f);
+		float badgeHeight = badgeFontSize * 1.6f;
+		float badgePaddingH = badgeFontSize * 0.5f;
+		float badgePaddingBetween = 3 * scale;
+		// This makes the corners fully rounded
+		float badgeArc = badgeHeight / 2;
+
+		piBadgeText.setFontSize(badgeFontSize);
+		piBadgeText.setWidth(1 * scale);
+
+		// TODO: we should cache this so that we do not need to recompute this
+		// every time the plan gets rendered
+		List<Line> nodeLines = StationUtil.getLinesThatEndHere(node.station);
+
+		// Measure badge widths first so we can center the row
+		g.setPaintInfo(piBadgeText);
+		float totalBadgeWidth = 0;
+		int[] textWidths = new int[nodeLines.size()];
+		int idx = 0;
+		for (Line line : nodeLines) {
+			int tw = g.getStringWidth(line.getName());
+			textWidths[idx++] = tw;
+			totalBadgeWidth += tw + 2 * badgePaddingH;
+		}
+		totalBadgeWidth += (nodeLines.size() - 1) * badgePaddingBetween;
+
+		float badgeX = (float) p.x - totalBadgeWidth / 2;
+		float badgeY = (float) (p.y + fontSize * 0.5f + badgePaddingBetween);
+
+		// Draw one rounded-rect badge per line
+		idx = 0;
+		for (Line line : nodeLines) {
+			int tw = textWidths[idx++];
+			float bw = tw + 2 * badgePaddingH;
+
+			IPaintInfo piBadgeFill = linePaintInfosBadges.get(line);
+
+			g.setPaintInfo(piBadgeFill);
+			g.drawRoundRect(badgeX, badgeY, bw, badgeHeight, badgeArc,
+					badgeArc);
+
+			g.setPaintInfo(piBadgeText);
+			g.drawString(line.getName(), badgeX + badgePaddingH,
+					badgeY + badgeHeight * 0.72f);
+
+			badgeX += bw + badgePaddingBetween;
 		}
 	}
 

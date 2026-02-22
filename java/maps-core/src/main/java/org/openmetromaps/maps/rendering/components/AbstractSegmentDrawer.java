@@ -17,12 +17,14 @@
 
 package org.openmetromaps.maps.rendering.components;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.openmetromaps.maps.LocationToPoint;
 import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.NetworkLine;
+import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.IPaintInfo;
 import org.openmetromaps.maps.painting.core.PaintFactory;
@@ -39,11 +41,11 @@ public abstract class AbstractSegmentDrawer implements SegmentDrawer
 	protected float spreadFactor;
 	protected float lineWidth;
 
-	protected IPaintInfo[] lineToPaintForLines;
+	protected PaintInfoPerLine linePaintInfos;
 
 	public AbstractSegmentDrawer(PaintFactory pf, LineNetwork data,
-			Map<NetworkLine, ColorCode> colors, float scale,
-			LocationToPoint ltp, float spreadFactor, float lineWidth)
+			Map<Line, ColorCode> colors, float scale, LocationToPoint ltp,
+			float spreadFactor, float lineWidth)
 	{
 		this.data = data;
 		this.scale = scale;
@@ -52,13 +54,17 @@ public abstract class AbstractSegmentDrawer implements SegmentDrawer
 		this.spreadFactor = spreadFactor;
 		this.lineWidth = lineWidth;
 
-		List<NetworkLine> lines = data.getLines();
-		lineToPaintForLines = new IPaintInfo[lines.size()];
-		for (NetworkLine line : lines) {
-			IPaintInfo paint = pf.create(colors.get(line));
-			paint.setStyle(PaintType.STROKE);
-			lineToPaintForLines[line.line.getId()] = paint;
+		List<Line> lines = new ArrayList<>();
+		for (NetworkLine line : data.getLines()) {
+			lines.add(line.line);
 		}
+
+		linePaintInfos = new PaintInfoPerLine(pf, lines,
+				(paintFactory, line) -> {
+					IPaintInfo paint = paintFactory.create(colors.get(line));
+					paint.setStyle(PaintType.STROKE);
+					return paint;
+				});
 	}
 
 	@Override
@@ -70,7 +76,7 @@ public abstract class AbstractSegmentDrawer implements SegmentDrawer
 		final int nLines = lines.size();
 		for (int i = 0; i < nLines; i++) {
 			NetworkLine line = lines.get(i);
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+			IPaintInfo paint = linePaintInfos.get(line.line);
 			paint.setWidth(lineWidth);
 		}
 	}

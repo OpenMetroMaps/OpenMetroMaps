@@ -17,6 +17,7 @@
 
 package org.openmetromaps.maps;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -45,6 +46,26 @@ public class StationUtil
 			}
 		}
 		return false;
+	}
+
+	public static List<Line> getLinesThatEndHere(Station station)
+	{
+		List<Line> results = new ArrayList<>();
+		List<Stop> stops = station.getStops();
+		final int nStops = stops.size();
+		for (int i = 0; i < nStops; i++) {
+			Stop stop = stops.get(i);
+			Line line = stop.getLine();
+			if (line.isCircular()) {
+				continue;
+			}
+			List<Stop> lineStops = line.getStops();
+			if (stop == lineStops.get(0)
+					|| stop == lineStops.get(lineStops.size() - 1)) {
+				results.add(line);
+			}
+		}
+		return results;
 	}
 
 	public static Coordinate location(Stop stop)

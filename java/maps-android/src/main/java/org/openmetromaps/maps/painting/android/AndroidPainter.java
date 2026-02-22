@@ -73,7 +73,8 @@ public class AndroidPainter extends AbstractPainter
 	@Override
 	public void draw(RoundRect roundRect)
 	{
-		RectF rect = new RectF((float) roundRect.getX(), (float) roundRect.getY(),
+		RectF rect = new RectF((float) roundRect.getX(),
+				(float) roundRect.getY(),
 				(float) (roundRect.getX() + roundRect.getWidth()),
 				(float) (roundRect.getY() + roundRect.getHeight()));
 		c.drawRoundRect(rect, (float) roundRect.getArcWidth(),

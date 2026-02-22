@@ -17,6 +17,7 @@
 
 package org.openmetromaps.mobidig;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -37,6 +38,7 @@ import org.openmetromaps.maps.graph.LineNetwork;
 import org.openmetromaps.maps.graph.NeighborInfo;
 import org.openmetromaps.maps.graph.NetworkLine;
 import org.openmetromaps.maps.graph.Node;
+import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
 import org.openmetromaps.maps.painting.core.ColorCode;
 import org.openmetromaps.maps.painting.core.Colors;
@@ -46,6 +48,7 @@ import org.openmetromaps.maps.painting.core.PaintType;
 import org.openmetromaps.maps.painting.core.Painter;
 import org.openmetromaps.maps.painting.core.geom.LineSegment;
 import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.rendering.components.PaintInfoPerLine;
 import org.openmetromaps.maps.rendering.components.StationDrawer;
 import org.openmetromaps.maps.rendering.components.StationDrawerConvex;
 import org.openmetromaps.maps.rendering.components.StationDrawerDot;
@@ -100,12 +103,12 @@ public class CustomPlanRenderer implements ViewportListener
 
 	private LineNetwork lineNetwork;
 	private MapViewStatus mapViewStatus;
-	private Map<NetworkLine, ColorCode> colors = new HashMap<>();
+	private Map<Line, ColorCode> colors = new HashMap<>();
 
 	protected ViewportWithSignals viewport;
 	private LocationToPoint ltp;
 
-	private IPaintInfo[] lineToPaintForLines;
+	private PaintInfoPerLine linePaintInfos;
 
 	private StationDrawer stationDrawer;
 
@@ -126,17 +129,18 @@ public class CustomPlanRenderer implements ViewportListener
 		this.pf = pf;
 		this.colorMap = colorMap;
 
+		List<Line> lines = new ArrayList<>();
 		for (NetworkLine line : lineNetwork.getLines()) {
-			colors.put(line, ModelUtil.getColor(line.line));
+			lines.add(line.line);
+			colors.put(line.line, ModelUtil.getColor(line.line));
 		}
 
-		List<NetworkLine> lines = lineNetwork.getLines();
-		lineToPaintForLines = new IPaintInfo[lines.size()];
-		for (NetworkLine line : lines) {
-			IPaintInfo paint = pf.create(colors.get(line));
-			paint.setStyle(PaintType.STROKE);
-			lineToPaintForLines[line.line.getId()] = paint;
-		}
+		linePaintInfos = new PaintInfoPerLine(pf, lines,
+				(paintFactory, line) -> {
+					IPaintInfo paint = paintFactory.create(colors.get(line));
+					paint.setStyle(PaintType.STROKE);
+					return paint;
+				});
 
 		setupStationDrawer();
 
@@ -262,7 +266,7 @@ public class CustomPlanRenderer implements ViewportListener
 		final int nLines = lines.size();
 		for (int i = 0; i < nLines; i++) {
 			NetworkLine line = lines.get(i);
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+			IPaintInfo paint = linePaintInfos.get(line.line);
 			paint.setWidth(lineWidth);
 		}
 
@@ -480,7 +484,7 @@ public class CustomPlanRenderer implements ViewportListener
 	private void drawSingleLineEdgeStraight(Painter g, NetworkLine line,
 			Edge edge, double ax, double ay, double bx, double by)
 	{
-		IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+		IPaintInfo paint = linePaintInfos.get(line.line);
 
 		g.setPaintInfo(paint);
 
@@ -503,7 +507,7 @@ public class CustomPlanRenderer implements ViewportListener
 			double lby = by + spi.sy - spi.ndx * i * spi.shift;
 
 			NetworkLine line = iter.next();
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+			IPaintInfo paint = linePaintInfos.get(line.line);
 			g.setPaintInfo(paint);
 
 			g.drawLine(lax, lay, lbx, lby);
@@ -518,7 +522,7 @@ public class CustomPlanRenderer implements ViewportListener
 	private void drawSingleLineEdgeCurved(Painter g, NetworkLine line,
 			Edge edge, double ax, double ay, double bx, double by)
 	{
-		IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+		IPaintInfo paint = linePaintInfos.get(line.line);
 		g.setPaintInfo(paint);
 
 		NeighborInfo neighbors = line.getNeighbors(edge);
@@ -568,7 +572,7 @@ public class CustomPlanRenderer implements ViewportListener
 			double lby = by + spiB.sy - spiB.ndx * i * spiB.shift;
 
 			NetworkLine line = lines.get(i);
-			IPaintInfo paint = lineToPaintForLines[line.line.getId()];
+			IPaintInfo paint = linePaintInfos.get(line.line);
 			g.setPaintInfo(paint);
 
 			Vector2 d02 = null, d31 = null;

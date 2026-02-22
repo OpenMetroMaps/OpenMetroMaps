@@ -420,7 +420,7 @@ public class MapEditor
 
 	public void show()
 	{
-		frame = new JFrame("Map Editor");
+		frame = new JFrame("OpenMetroMaps Map Editor");
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		frame.setSize(1000, 800);
 

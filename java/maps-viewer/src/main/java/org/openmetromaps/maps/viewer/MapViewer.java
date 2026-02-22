@@ -405,7 +405,7 @@ public class MapViewer
 
 	public void show()
 	{
-		frame = new JFrame("Map Viewer");
+		frame = new JFrame("OpenMetroMaps Map Viewer");
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		frame.setSize(1000, 800);
 

@@ -35,6 +35,7 @@ import org.openmetromaps.maps.painting.core.PaintFactory;
 import org.openmetromaps.maps.painting.core.PaintType;
 import org.openmetromaps.maps.painting.core.Painter;
 import org.openmetromaps.maps.painting.core.geom.Path;
+import org.openmetromaps.maps.rendering.components.BadgeInfo;
 import org.openmetromaps.maps.rendering.components.PaintInfoPerLine;
 import org.openmetromaps.maps.rendering.components.SegmentDrawer;
 import org.openmetromaps.maps.rendering.components.SegmentDrawerCurved;
@@ -450,20 +451,20 @@ public class PlanRenderer implements ViewportListener
 				tester.add(r, false);
 
 				if (node.isLastStopOfALine) {
-					renderBadges(g, p, node, fontSize);
+					renderBadges(g, p, sw, node, fontSize);
 				}
 			}
 		}
 	}
 
-	private void renderBadges(Painter g, Point p, Node node, int fontSize)
+	private void renderBadges(Painter g, Point p, int widthLabel, Node node,
+			int fontSize)
 	{
-		int badgeFontSize = Math.round(fontSize * 0.75f);
+		int badgeFontSize = Math.round(fontSize * 0.65f);
 		float badgeHeight = badgeFontSize * 1.6f;
-		float badgePaddingH = badgeFontSize * 0.5f;
-		float badgePaddingBetween = 3 * scale;
-		// This makes the corners fully rounded
-		float badgeArc = badgeHeight / 2;
+		BadgeInfo badgeInfo = new BadgeInfo(badgeFontSize, badgeHeight,
+				badgeFontSize * 0.5f, 3 * scale,
+				/* This makes the corners fully rounded: */ badgeHeight / 2);
 
 		piBadgeText.setFontSize(badgeFontSize);
 		piBadgeText.setWidth(1 * scale);
@@ -473,38 +474,79 @@ public class PlanRenderer implements ViewportListener
 			return;
 		}
 
+		if (nodeLines.size() == 1) {
+			renderBadgeNextToLabel(g, p, nodeLines, badgeInfo, fontSize,
+					widthLabel);
+		} else {
+			renderBadgesBelowLabel(g, p, nodeLines, badgeInfo, fontSize);
+		}
+	}
+
+	private void renderBadgeNextToLabel(Painter g, Point p,
+			List<Line> nodeLines, BadgeInfo badgeInfo, int fontSize,
+			int widthLabel)
+	{
+		int[] textWidths = new int[nodeLines.size()];
+		measure(g, nodeLines, badgeInfo, textWidths);
+
+		float diff = badgeInfo.getHeight() - fontSize;
+
+		float badgeX = (float) p.x + widthLabel / 2 + badgeInfo.getPaddingH();
+		float badgeY = (float) (p.y - fontSize + diff);
+
+		renderBadges(g, nodeLines, textWidths, badgeInfo, badgeX, badgeY);
+	}
+
+	private void renderBadgesBelowLabel(Painter g, Point p,
+			List<Line> nodeLines, BadgeInfo badgeInfo, int fontSize)
+	{
 		// Measure badge widths first so we can center the row
+		int[] textWidths = new int[nodeLines.size()];
+		float totalBadgeWidth = measure(g, nodeLines, badgeInfo, textWidths);
+
+		float badgeX = (float) p.x - totalBadgeWidth / 2;
+		float badgeY = (float) (p.y + fontSize * 0.5f
+				+ badgeInfo.getPaddingBetween());
+
+		renderBadges(g, nodeLines, textWidths, badgeInfo, badgeX, badgeY);
+	}
+
+	private float measure(Painter g, List<Line> nodeLines, BadgeInfo badgeInfo,
+			int[] textWidths)
+	{
 		g.setPaintInfo(piBadgeText);
 		float totalBadgeWidth = 0;
-		int[] textWidths = new int[nodeLines.size()];
 		int idx = 0;
 		for (Line line : nodeLines) {
 			int tw = g.getStringWidth(line.getName());
 			textWidths[idx++] = tw;
-			totalBadgeWidth += tw + 2 * badgePaddingH;
+			totalBadgeWidth += tw + 2 * badgeInfo.getPaddingH();
 		}
-		totalBadgeWidth += (nodeLines.size() - 1) * badgePaddingBetween;
+		totalBadgeWidth += (nodeLines.size() - 1)
+				* badgeInfo.getPaddingBetween();
+		return totalBadgeWidth;
+	}
 
-		float badgeX = (float) p.x - totalBadgeWidth / 2;
-		float badgeY = (float) (p.y + fontSize * 0.5f + badgePaddingBetween);
-
+	private void renderBadges(Painter g, List<Line> nodeLines, int[] textWidths,
+			BadgeInfo badgeInfo, float badgeX, float badgeY)
+	{
 		// Draw one rounded-rect badge per line
-		idx = 0;
+		int idx = 0;
 		for (Line line : nodeLines) {
 			int tw = textWidths[idx++];
-			float bw = tw + 2 * badgePaddingH;
+			float bw = tw + 2 * badgeInfo.getPaddingH();
 
 			IPaintInfo piBadgeFill = linePaintInfosBadges.get(line);
 
 			g.setPaintInfo(piBadgeFill);
-			g.drawRoundRect(badgeX, badgeY, bw, badgeHeight, badgeArc,
-					badgeArc);
+			g.drawRoundRect(badgeX, badgeY, bw, badgeInfo.getHeight(),
+					badgeInfo.getArc(), badgeInfo.getArc());
 
 			g.setPaintInfo(piBadgeText);
-			g.drawString(line.getName(), badgeX + badgePaddingH,
-					badgeY + badgeHeight * 0.72f);
+			g.drawString(line.getName(), badgeX + badgeInfo.getPaddingH(),
+					badgeY + badgeInfo.getHeight() * 0.72f);
 
-			badgeX += bw + badgePaddingBetween;
+			badgeX += bw + badgeInfo.getPaddingBetween();
 		}
 	}
 

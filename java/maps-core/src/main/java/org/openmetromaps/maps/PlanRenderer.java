@@ -436,8 +436,8 @@ public class PlanRenderer implements ViewportListener
 			int sw = g.getStringWidth(name);
 
 			Rectangle r = new Rectangle((float) (p.x - sw / 2),
-					(float) (p.y - fontSize / 2), (float) (p.x + sw / 2),
-					(float) (p.y + fontSize / 2));
+					(float) (p.y - fontSize), (float) (p.x + sw / 2),
+					(float) (p.y));
 			if (tester.isFree(r)) {
 				float x = (float) (p.x - sw / 2);
 				float y = (float) p.y;
@@ -451,14 +451,14 @@ public class PlanRenderer implements ViewportListener
 				tester.add(r, false);
 
 				if (node.isLastStopOfALine) {
-					renderBadges(g, p, sw, node, fontSize);
+					renderBadges(g, tester, p, sw, node, fontSize);
 				}
 			}
 		}
 	}
 
-	private void renderBadges(Painter g, Point p, int widthLabel, Node node,
-			int fontSize)
+	private void renderBadges(Painter g, RectangleIntersectionTester tester,
+			Point p, int widthLabel, Node node, int fontSize)
 	{
 		int badgeFontSize = Math.round(fontSize * 0.65f);
 		float badgeHeight = badgeFontSize * 1.6f;
@@ -475,30 +475,38 @@ public class PlanRenderer implements ViewportListener
 		}
 
 		if (nodeLines.size() == 1) {
-			renderBadgeNextToLabel(g, p, nodeLines, badgeInfo, fontSize,
+			renderBadgeNextToLabel(g, tester, p, nodeLines, badgeInfo, fontSize,
 					widthLabel);
 		} else {
-			renderBadgesBelowLabel(g, p, nodeLines, badgeInfo, fontSize);
+			renderBadgesBelowLabel(g, tester, p, nodeLines, badgeInfo,
+					fontSize);
 		}
 	}
 
-	private void renderBadgeNextToLabel(Painter g, Point p,
-			List<Line> nodeLines, BadgeInfo badgeInfo, int fontSize,
-			int widthLabel)
+	private void renderBadgeNextToLabel(Painter g,
+			RectangleIntersectionTester tester, Point p, List<Line> nodeLines,
+			BadgeInfo badgeInfo, int fontSize, int widthLabel)
 	{
 		int[] textWidths = new int[nodeLines.size()];
-		measure(g, nodeLines, badgeInfo, textWidths);
+		float totalBadgeWidth = measure(g, nodeLines, badgeInfo, textWidths);
 
 		float diff = badgeInfo.getHeight() - fontSize;
 
 		float badgeX = (float) p.x + widthLabel / 2 + badgeInfo.getPaddingH();
 		float badgeY = (float) (p.y - fontSize + diff);
 
-		renderBadges(g, nodeLines, textWidths, badgeInfo, badgeX, badgeY);
+		Rectangle r = new Rectangle(badgeX, badgeY, badgeX + totalBadgeWidth,
+				badgeY + badgeInfo.getHeight());
+
+		if (tester.isFree(r)) {
+			renderBadges(g, nodeLines, textWidths, badgeInfo, badgeX, badgeY);
+			tester.add(r, false);
+		}
 	}
 
-	private void renderBadgesBelowLabel(Painter g, Point p,
-			List<Line> nodeLines, BadgeInfo badgeInfo, int fontSize)
+	private void renderBadgesBelowLabel(Painter g,
+			RectangleIntersectionTester tester, Point p, List<Line> nodeLines,
+			BadgeInfo badgeInfo, int fontSize)
 	{
 		// Measure badge widths first so we can center the row
 		int[] textWidths = new int[nodeLines.size()];
@@ -508,7 +516,13 @@ public class PlanRenderer implements ViewportListener
 		float badgeY = (float) (p.y + fontSize * 0.5f
 				+ badgeInfo.getPaddingBetween());
 
-		renderBadges(g, nodeLines, textWidths, badgeInfo, badgeX, badgeY);
+		Rectangle r = new Rectangle(badgeX, badgeY, badgeX + totalBadgeWidth,
+				badgeY + badgeInfo.getHeight());
+
+		if (tester.isFree(r)) {
+			renderBadges(g, nodeLines, textWidths, badgeInfo, badgeX, badgeY);
+			tester.add(r, false);
+		}
 	}
 
 	private float measure(Painter g, List<Line> nodeLines, BadgeInfo badgeInfo,

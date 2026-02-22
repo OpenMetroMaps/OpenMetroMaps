@@ -17,14 +17,24 @@
 
 package org.openmetromaps.maps.viewer;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.model.Coordinate;
+import org.openmetromaps.maps.model.Line;
 import org.openmetromaps.maps.model.Station;
+import org.openmetromaps.maps.model.Stop;
 import org.openmetromaps.swing.JPopupMenuWithTitle;
+import org.openmetromaps.swing.LineBadgeIcon;
 
 import de.topobyte.jeography.viewer.core.Viewer;
 
@@ -40,12 +50,42 @@ public class NodePopupMenu extends JPopupMenuWithTitle
 		super(node.station.getName());
 		this.mapViewer = mapViewer;
 
+		add(buildBadgesPanel(node.station));
+		addSeparator();
+
 		JMenuItem itemShowOnMap = new JMenuItem(new OpenOnMapAction(node));
 		JMenuItem itemProperties = new JMenuItem(
 				new ShowPropertiesAction(node));
 
 		add(itemShowOnMap);
 		add(itemProperties);
+	}
+
+	private JPanel buildBadgesPanel(Station station)
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 4, 2));
+		panel.setOpaque(false);
+		panel.setBorder(BorderFactory.createEmptyBorder(0, 4, 0, 4));
+		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		List<Stop> stops = station.getStops();
+		for (Stop stop : stops) {
+			Line line = stop.getLine();
+			Color color = null;
+			if (line.getColor() != null) {
+				try {
+					color = Color.decode(line.getColor());
+				} catch (NumberFormatException e) {
+					// ignore
+				}
+			}
+			JLabel badge = new JLabel(line.getName(),
+					new LineBadgeIcon(color, 12), JLabel.LEFT);
+			badge.setToolTipText(line.getName());
+			panel.add(badge);
+		}
+
+		return panel;
 	}
 
 	private class ShowPropertiesAction extends NodeAction

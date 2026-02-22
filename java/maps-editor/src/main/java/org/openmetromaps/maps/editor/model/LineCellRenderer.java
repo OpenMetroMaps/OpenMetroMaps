@@ -25,6 +25,7 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 import org.openmetromaps.maps.model.Line;
+import org.openmetromaps.swing.LineBadgeIcon;
 
 public class LineCellRenderer extends JLabel implements ListCellRenderer<Line>
 {

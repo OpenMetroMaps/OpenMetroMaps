@@ -108,6 +108,8 @@ public class PlanRenderer implements ViewportListener
 	private IPaintInfo piBadgeText;
 	private PaintInfoPerLine linePaintInfosBadges;
 
+	private Map<Station, List<Line>> linesEndingAtStation = new HashMap<>();
+
 	public PlanRenderer(LineNetwork lineNetwork, MapViewStatus mapViewStatus,
 			StationMode stationMode, SegmentMode segmentMode,
 			ViewportWithSignals viewport, LocationToPoint ltp, float scale,
@@ -127,6 +129,15 @@ public class PlanRenderer implements ViewportListener
 		for (NetworkLine line : lineNetwork.getLines()) {
 			lines.add(line.line);
 			colors.put(line.line, ModelUtil.getColor(line.line));
+		}
+
+		for (Node node : lineNetwork.getNodes()) {
+			Station station = node.station;
+			List<Line> nodeLines = StationUtil
+					.getLinesThatEndHere(node.station);
+			if (!nodeLines.isEmpty()) {
+				linesEndingAtStation.put(station, nodeLines);
+			}
 		}
 
 		setupSegmentDrawer();
@@ -457,9 +468,10 @@ public class PlanRenderer implements ViewportListener
 		piBadgeText.setFontSize(badgeFontSize);
 		piBadgeText.setWidth(1 * scale);
 
-		// TODO: we should cache this so that we do not need to recompute this
-		// every time the plan gets rendered
-		List<Line> nodeLines = StationUtil.getLinesThatEndHere(node.station);
+		List<Line> nodeLines = linesEndingAtStation.get(node.station);
+		if (nodeLines == null) {
+			return;
+		}
 
 		// Measure badge widths first so we can center the row
 		g.setPaintInfo(piBadgeText);

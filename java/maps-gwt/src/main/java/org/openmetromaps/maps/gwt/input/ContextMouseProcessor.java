@@ -17,24 +17,16 @@
 
 package org.openmetromaps.maps.gwt.input;
 
-import org.openmetromaps.maps.graph.LineNetwork;
-import org.openmetromaps.maps.graph.Node;
 import org.openmetromaps.maps.gwt.ScrollableAdvancedPlanPanel;
-import org.openmetromaps.maps.gwt.Util;
 import org.openmetromaps.maps.gwt.touchevents.Vector2;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.topobyte.lightgeom.lina.Point;
 import de.topobyte.viewports.geometry.Coordinate;
 import de.topobyte.viewports.scrolling.DragInfo;
-import de.topobyte.viewports.scrolling.ViewportUtil;
 
 public class ContextMouseProcessor extends BaseMouseProcessor
 {
@@ -64,59 +56,13 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 		pressed = false;
 		dragInfo = null;
 
-		Node mouseNode = mouseNode(e.getX(), e.getY());
-		if (mouseNode != null) {
-			showContextMenu(mouseNode, e);
-		}
-	}
-
-	private void showContextMenu(Node mouseNode, MouseUpEvent e)
-	{
-		ContextMenu menu = new ContextMenu(mouseNode);
-		panel.setContextMenu(menu);
-
 		Widget source = (Widget) e.getSource();
 		int clickX = source.getAbsoluteLeft()
 				+ e.getRelativeX(source.getElement());
-		final int clickY = source.getAbsoluteTop()
+		int clickY = source.getAbsoluteTop()
 				+ e.getRelativeY(source.getElement());
 
-		PositionCallback positionCallback = new PopupPanel.PositionCallback() {
-
-			@Override
-			public void setPosition(int offsetWidth, int offsetHeight)
-			{
-				int x = clickX;
-				int y = clickY;
-
-				int windowWidth = Window.getClientWidth();
-				int windowHeight = Window.getClientHeight();
-				int scrollLeft = Window.getScrollLeft();
-				int scrollTop = Window.getScrollTop();
-
-				// Adjust horizontal position if menu would overflow right
-				if (x + offsetWidth > scrollLeft + windowWidth) {
-					x = clickX - offsetWidth;
-				}
-
-				// Adjust vertical position if menu would overflow bottom
-				if (y + offsetHeight > scrollTop + windowHeight) {
-					y = clickY - offsetHeight;
-				}
-
-				// Ensure menu doesn't go off the left or top edge
-				if (x < scrollLeft) {
-					x = scrollLeft;
-				}
-				if (y < scrollTop) {
-					y = scrollTop;
-				}
-
-				menu.setPopupPosition(x, y);
-			}
-		};
-		menu.setPopupPositionAndShow(positionCallback);
-
+		panel.showContextMenu(e.getX(), e.getY(), 8, clickX, clickY);
 	}
 
 	@Override
@@ -138,57 +84,6 @@ public class ContextMouseProcessor extends BaseMouseProcessor
 
 		panel.move(new Vector2((float) dx, (float) dy));
 		panel.render();
-	}
-
-	protected Node mouseNode(int x, int y)
-	{
-		Node best = closestNode(x, y);
-
-		if (best == null) {
-			return null;
-		}
-
-		double sx = ViewportUtil.getViewX(panel, best.location.x);
-		double sy = ViewportUtil.getViewY(panel, best.location.y);
-
-		double dx = Math.abs(sx - x * Util.getDevicePixelRatio());
-		double dy = Math.abs(sy - y * Util.getDevicePixelRatio());
-		double d = Math.sqrt(dx * dx + dy * dy);
-
-		if (d < 8 * Util.getDevicePixelRatio()) {
-			return best;
-		}
-
-		return null;
-	}
-
-	protected Node closestNode(int vx, int vy)
-	{
-		double x = ViewportUtil.getRealX(panel,
-				vx * Util.getDevicePixelRatio());
-		double y = ViewportUtil.getRealY(panel,
-				vy * Util.getDevicePixelRatio());
-
-		LineNetwork lineNetwork = panel.getPlanRenderer().getLineNetwork();
-
-		double bestDistance = Double.MAX_VALUE;
-		Node best = null;
-
-		// TODO: use an index to speed this up
-		for (Node node : lineNetwork.nodes) {
-			Point location = node.location;
-			de.topobyte.lightgeom.lina.Vector2 v1 = new de.topobyte.lightgeom.lina.Vector2(
-					location);
-			de.topobyte.lightgeom.lina.Vector2 v2 = new de.topobyte.lightgeom.lina.Vector2(
-					x, y);
-			double d = v2.sub(v1).length2();
-			if (d < bestDistance) {
-				bestDistance = d;
-				best = node;
-			}
-		}
-
-		return best;
 	}
 
 }

@@ -1,5 +1,6 @@
 .mapControlButton {
 	-webkit-appearance: none;
+	-webkit-tap-highlight-color: transparent;
 	appearance: none;
 	background: #f8f8f8;
 	border: 1px solid #999;
@@ -11,16 +12,32 @@
 	transition: background-color 120ms ease, border-color 120ms ease;
 }
 
+.mapControlButton::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
 .mapControlButton:hover {
 	background: #eeeeee;
-	border-color: #777;
 }
 
 .mapControlButton:active {
 	background: #e0e0e0;
+	border-color: #999;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: none;
 }
 
 .mapControlButton:focus {
+	border-color: #999;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: none;
+	outline: none;
+}
+
+.mapControlButton:focus-visible {
 	outline: 2px solid #4d90fe;
 	outline-offset: 2px;
 }

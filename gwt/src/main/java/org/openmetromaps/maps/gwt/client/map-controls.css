@@ -1,0 +1,26 @@
+.mapControlButton {
+	-webkit-appearance: none;
+	appearance: none;
+	background: #f8f8f8;
+	border: 1px solid #999;
+	border-radius: 0.5em;
+	box-shadow: none;
+	color: #222;
+	cursor: pointer;
+	padding: 0;
+	transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.mapControlButton:hover {
+	background: #eeeeee;
+	border-color: #777;
+}
+
+.mapControlButton:active {
+	background: #e0e0e0;
+}
+
+.mapControlButton:focus {
+	outline: 2px solid #4d90fe;
+	outline-offset: 2px;
+}

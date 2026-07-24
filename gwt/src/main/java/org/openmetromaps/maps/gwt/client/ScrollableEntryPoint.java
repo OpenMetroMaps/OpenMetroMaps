@@ -93,15 +93,11 @@ public abstract class ScrollableEntryPoint implements EntryPoint
 		main.add(buttons);
 
 		Button buttonIn = new Button("+");
-		StyleUtil.setHeight(buttonIn, 3, Unit.EM);
-		StyleUtil.setWidth(buttonIn, 100, Unit.PCT);
-		StyleUtil.setProperty(buttonIn, "minWidth", 3, Unit.EM);
+		styleMapControlButton(buttonIn);
 		buttons.add(buttonIn);
 
 		Button buttonOut = new Button("-");
-		StyleUtil.setHeight(buttonOut, 3, Unit.EM);
-		StyleUtil.setWidth(buttonOut, 100, Unit.PCT);
-		StyleUtil.setProperty(buttonOut, "minWidth", 3, Unit.EM);
+		styleMapControlButton(buttonOut);
 		buttons.add(buttonOut);
 
 		StyleUtil.marginTop(buttonOut, 0.5, Unit.EM);
@@ -113,6 +109,17 @@ public abstract class ScrollableEntryPoint implements EntryPoint
 		buttonOut.addClickHandler(e -> {
 			zoomOut();
 		});
+	}
+
+	private void styleMapControlButton(Button button)
+	{
+		MapControlResources.Style style = MapControlResources.INSTANCE
+				.style();
+		style.ensureInjected();
+		button.addStyleName(style.mapControlButton());
+		StyleUtil.setHeight(button, 3, Unit.EM);
+		StyleUtil.setWidth(button, 100, Unit.PCT);
+		StyleUtil.setProperty(button, "minWidth", 3, Unit.EM);
 	}
 
 	protected void zoomIn()
